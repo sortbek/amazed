@@ -30,12 +30,14 @@ namespace Assets.Scripts
         public GameObject PrefabStraight;
         public GameObject PrefabCorner;
         public GameObject PrefabThreeWay;
+        public GameObject PrefabDeadEnd;
 
         private int _height;
         private int _width;
 
         private GridNode[,] _gridMap;
         private Dictionary<int, GridNode> _tempMap = new Dictionary<int, GridNode>();
+        private Heap<GridNode> _prioList;
         private DisjointSet _disjointSet;
 
         // Use this for initialization
@@ -48,8 +50,8 @@ namespace Assets.Scripts
 
             _gridMap = new GridNode[_width,_height];
 
-            var sw = new Stopwatch();
-            sw.Start();
+            _prioList = new Heap<GridNode>(_width * _height);
+
             GenerateMap();
         }
 
@@ -60,16 +62,20 @@ namespace Assets.Scripts
 
         private void GenerateMap()
         {
+            var sw = new Stopwatch();
+            sw.Start();
             // Fill the dictionary with keys and GridNodes. The keys will represent
             // the priority in the queue later.
             CreatePriorityList();
 
             // Break down walls to build the actual maze
-            BuildMaze();
+//            BuildMaze();
 
+            BuildHeapMaze();
             // Set the right configuration for each node
             ConfigurateNodes();
-
+            print("Map generated in: " + sw.ElapsedMilliseconds + " ms" );
+            sw.Stop();
             // Instantiate the map
             InstantiateMap();
 
@@ -91,25 +97,15 @@ namespace Assets.Scripts
             var config = 0;
 
             // Check if the current node is on the top edge
-            if (node.Y == 0)
+            if (node.Y == 0 || _gridMap[node.X, node.Y - 1].HasWallDown)
             {
-                config += 4;
-            }
-            else
-            {
-                // If we're not on the top edge, check if the node above us has a wall down.
-                config += (_gridMap[node.X, node.Y - 1].HasWallDown)? 4 : 0 ;
+                config += 1;
             }
 
             // Check if the current node is on the left edge
-            if (node.X == 0)
+            if (node.X == 0 || _gridMap[node.X - 1, node.Y].HasWallRight)
             {
                 config += 8;
-            }
-            else
-            {
-
-                config += (_gridMap[node.X -1, node.Y].HasWallRight)? 8 : 0 ;
             }
 
             if (node.HasWallRight)
@@ -119,7 +115,7 @@ namespace Assets.Scripts
 
             if (node.HasWallDown)
             {
-                config += 1;
+                config += 4;
             }
 
             return config;
@@ -130,6 +126,14 @@ namespace Assets.Scripts
             while (_tempMap.Count > 0)
             {
                 CheckCurrentNode(GetLowestFromDictionary());
+            }
+        }
+
+        private void BuildHeapMaze()
+        {
+            while (_prioList.Count > 0)
+            {
+                CheckCurrentNode(GetLowestFromHeap());
             }
         }
 
@@ -191,15 +195,23 @@ namespace Assets.Scripts
             {
                 for (var y = 0; y <_height; y++)
                 {
-                    var node = new GridNode {X = x, Y = y, NodeConfiguration = 0, HasWallRight = true, HasWallDown = true};
-                    _tempMap.Add(pseudoRandom.Next(),node);
+                    var key = pseudoRandom.Next();
+                    var node = new GridNode {X = x, Y = y, NodeConfiguration = 0, HasWallRight = true, HasWallDown = true, Key = key };
+                    _tempMap.Add(key,node);
+                    _prioList.Add(node);
                     _gridMap[x, y] = node;
                 }
             }
         }
 
+        private GridNode GetLowestFromHeap()
+        {
+            return _prioList.RemoveFirst();
+        }
+
         private GridNode GetLowestFromDictionary()
         {
+
             // TODO: Implement Heap method for this. This Part takes way to long
             var lowest = int.MaxValue;
             var key = -1;
@@ -213,6 +225,8 @@ namespace Assets.Scripts
             }
             _tempMap.Remove(key);
             return n;
+
+//            return _prioList.RemoveFirst();
         }
 
         public GridNode[,] GetMap()
@@ -231,55 +245,56 @@ namespace Assets.Scripts
                     var node = _gridMap[x, y];
                     switch (node.NodeConfiguration)
                     {
-//                        case 0:
-//                            Instantiate(PrefabCross, position, transform.rotation);
-//                            break;
+                        case 0:
+                            Instantiate(PrefabCross, position, transform.rotation);
+                            break;
                         case 1:
-                            Instantiate(PrefabThreeWay, position,transform.rotation ).transform.Rotate(Vector3.forward, -90);
+                            Instantiate(PrefabThreeWay, position, transform.rotation)
+                                .transform.Rotate(Vector3.forward, -180);
                             break;
                         case 2:
-                            Instantiate(PrefabThreeWay, position,transform.rotation );
+                            Instantiate(PrefabThreeWay, position, transform.rotation)
+                                .transform.Rotate(Vector3.forward, -90);
                             break;
                         case 3:
-                            Instantiate(PrefabCorner, position,transform.rotation ).transform.Rotate(Vector3.forward, -90);
+                            Instantiate(PrefabCorner, position, transform.rotation)
+                                .transform.Rotate(Vector3.forward, 180);
                             break;
                         case 4:
-                            Instantiate(PrefabThreeWay, position,transform.rotation ).transform.Rotate(Vector3.forward, 90);
+                            Instantiate(PrefabThreeWay, position, transform.rotation);
 
                             break;
                         case 5:
-                            Instantiate(PrefabStraight, position, transform.rotation).transform.Rotate(Vector3.forward, 90);
+                            Instantiate(PrefabStraight, position, transform.rotation);
                             break;
                         case 6:
-                            Instantiate(PrefabCorner, position, transform.rotation);
+                            Instantiate(PrefabCorner, position, transform.rotation)
+                                .transform.Rotate(Vector3.forward, -90);
                             break;
                         case 7:
-//                            Instantiate(PrefabCross, position, transform.rotation);
+                            Instantiate(PrefabDeadEnd, position, transform.rotation).transform.Rotate(Vector3.forward, 90);
                             break;
-//                        case 8:
-//                            Instantiate(PrefabThreeWay, position,transform.rotation ).transform.Rotate(Vector3.forward, 180);
-//                            break;
-//                        case 9:
-//                            Instantiate(PrefabCross, position, transform.rotation);
-//                            break;
-//                        case 10:
-//                            Instantiate(PrefabCross, position, transform.rotation);
-//                            break;
-//                        case 11:
-//                            Instantiate(PrefabCross, position, transform.rotation);
-//                            break;
-//                        case 12:
-//                            Instantiate(PrefabCross, position, transform.rotation);
-//                            break;
-//                        case 13:
-//                            Instantiate(PrefabCross, position, transform.rotation);
-//                            break;
-//                        case 14:
-//                            Instantiate(PrefabCross, position, transform.rotation);
-//                            break;
-//                        case 15:
-//                            Instantiate(PrefabCross, position, transform.rotation);
-//                            break;
+                        case 8:
+                            Instantiate(PrefabThreeWay, position,transform.rotation ).transform.Rotate(Vector3.forward, 90);
+                            break;
+                        case 9:
+                            Instantiate(PrefabCorner, position, transform.rotation).transform.Rotate(Vector3.forward, 90);
+                            break;
+                        case 10:
+                            Instantiate(PrefabStraight, position, transform.rotation).transform.Rotate(Vector3.forward, 90);
+                            break;
+                        case 11:
+                            Instantiate(PrefabDeadEnd, position, transform.rotation);
+                            break;
+                        case 12:
+                            Instantiate(PrefabCorner, position, transform.rotation);
+                            break;
+                        case 13:
+                            Instantiate(PrefabDeadEnd, position, transform.rotation).transform.Rotate(Vector3.forward, -90);
+                            break;
+                        case 14:
+                            Instantiate(PrefabDeadEnd, position, transform.rotation).transform.Rotate(Vector3.forward, -180);
+                            break;
                     }
                 }
             }
@@ -295,28 +310,6 @@ namespace Assets.Scripts
 
                     Handles.color = Color.red;
                     Handles.Label(new Vector3(x * 8, 0 ,-(y * 8)), "" + _gridMap[x,y].NodeConfiguration );
-//                    var node = _gridMap[x, y];
-//
-//                    switch (node.NodeConfiguration)
-//                    {
-//                        case 0:
-//
-//                            break;
-//                        case 1:
-//
-//                            break;
-//                    }
-//                    //Draw top gizmos
-//                    Gizmos.color = Color.white;
-//                    Gizmos.DrawCube(new Vector3(x * 2, -(y * 2), 0), Vector3.one );
-//
-//                    Gizmos.color = (node.HasWallRight)? Color.black : Color.white;
-//                    Gizmos.DrawCube(new Vector3(x * 2 + 1,  -(y * 2), 0), Vector3.one );
-//
-//                    //Draw bottom gizmos
-//                    Gizmos.color = (node.HasWallDown)? Color.black : Color.white;
-//                    Gizmos.DrawCube(new Vector3(x * 2,  -(y * 2 + 1), 0), Vector3.one / 2 );
-//                    Gizmos.DrawCube(new Vector3(x * 2 + 1,  -(y * 2 + 1), 0), Vector3.one  / 2 );
                 }
             }
         }
