@@ -11,10 +11,10 @@ namespace Assets.Scripts.HUD {
         void Start() {
             foreach (var text in GetComponentsInChildren<Text>()) {
                 switch (text.name) {
-                    case "health":
+                    case "Health":
                         health = text;
                         break;
-                    case "stamina":
+                    case "Stamina":
                         stamina = text;
                         break;
                 }
