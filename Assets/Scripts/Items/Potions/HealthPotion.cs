@@ -4,14 +4,15 @@ namespace Assets.Scripts.Items.Potions
 {
     class HealthPotion : Potion
     {
-        public HealthPotion()
+        public HealthPotion(Character.Character player) : base(player)
         {
             Texture = (Texture)Resources.Load("Sprites/potion_health", typeof(Texture));
         }
 
         public override void Use()
         {
-            // Increase health
+            if (Player.Health > 70) Player.Health = 100;
+            else Player.Health += 30;
             Amount -= 1;
         }
     }
