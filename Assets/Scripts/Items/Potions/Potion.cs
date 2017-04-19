@@ -5,13 +5,15 @@ namespace Assets.Scripts.Items.Potions {
         public int Amount;
         public Texture Texture;
         public Character.Character Player;
+        public bool Active;
 
-        public Potion(Character.Character player)
-        {
+        protected Potion(Character.Character player) {
             Amount = 5;
             Player = player;
         }
 
-        public abstract void Use();
+        public virtual void Use() {
+            Amount -= 1;
+        }
     }
 }

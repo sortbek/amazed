@@ -10,7 +10,8 @@ namespace Assets.Scripts.Items.Potions {
 
         public override void Use() {
             Player.DEF += 10;
-            Amount -= 1;
+
+            base.Use();
         }
     }
 }

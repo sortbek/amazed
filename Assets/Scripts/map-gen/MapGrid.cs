@@ -187,7 +187,6 @@ namespace Assets.Scripts
 
         private void CreatePriorityList()
         {
-
             if (UseRandomSeed)
             {
                 MapSeed = Guid.NewGuid().ToString().Replace("-", "");
