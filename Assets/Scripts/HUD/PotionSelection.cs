@@ -8,6 +8,7 @@ namespace Assets.Scripts.HUD {
 
         private RawImage _selectedPotionImage;
         private Text _amountLabel;
+        private Character.Character _player;
 
         private Potion _selectedPotion, _health, _healthRegeneration, _speed, _damage, _defense;
 
@@ -15,12 +16,13 @@ namespace Assets.Scripts.HUD {
         private void Start() {
             _selectedPotionImage = GetComponentInChildren<RawImage>();
             _amountLabel = GetComponentInChildren<Text>();
+            _player = FindObjectOfType<Character.Character>();
 
-            _health = new HealthPotion();
-            _healthRegeneration = new HealthRegenerationPotion();
-            _speed = new SpeedPotion();
-            _damage = new DamagePotion();
-            _defense = new DefensePotion();
+            _health = new HealthPotion(_player);
+            _healthRegeneration = new HealthRegenerationPotion(_player);
+            _speed = new SpeedPotion(_player);
+            _damage = new DamagePotion(_player);
+            _defense = new DefensePotion(_player);
 
             _selectedPotion = _health;
         }
