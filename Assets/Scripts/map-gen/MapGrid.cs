@@ -40,6 +40,8 @@ namespace Assets.Scripts
         private Heap<GridNode> _prioList;
         private DisjointSet _disjointSet;
 
+        private int _nodeSize = 12;
+
         // Use this for initialization
         void Start ()
         {
@@ -72,6 +74,7 @@ namespace Assets.Scripts
 //            BuildMaze();
 
             BuildHeapMaze();
+
             // Set the right configuration for each node
             ConfigurateNodes();
             print("Map generated in: " + sw.ElapsedMilliseconds + " ms" );
@@ -225,8 +228,6 @@ namespace Assets.Scripts
             }
             _tempMap.Remove(key);
             return n;
-
-//            return _prioList.RemoveFirst();
         }
 
         public GridNode[,] GetMap()
@@ -241,7 +242,7 @@ namespace Assets.Scripts
             {
                 for (var y = 0; y < _height; y++)
                 {
-                    var position = new Vector3(x * 8, 0,-(y * 8));
+                    var position = new Vector3(x * _nodeSize, 0,-(y * _nodeSize));
                     var node = _gridMap[x, y];
                     switch (node.NodeConfiguration)
                     {
@@ -249,70 +250,65 @@ namespace Assets.Scripts
                             Instantiate(PrefabCross, position, transform.rotation);
                             break;
                         case 1:
-                            Instantiate(PrefabThreeWay, position, transform.rotation)
-                                .transform.Rotate(Vector3.forward, -180);
+                            Instantiate(PrefabThreeWay, position, transform.rotation);
                             break;
                         case 2:
-                            Instantiate(PrefabThreeWay, position, transform.rotation)
-                                .transform.Rotate(Vector3.forward, -90);
+                            Instantiate(PrefabThreeWay, position, transform.rotation).transform.Rotate(Vector3.up, 90);
                             break;
                         case 3:
-                            Instantiate(PrefabCorner, position, transform.rotation)
-                                .transform.Rotate(Vector3.forward, 180);
+                            Instantiate(PrefabCorner, position, transform.rotation).transform.Rotate(Vector3.up, -90);
                             break;
                         case 4:
-                            Instantiate(PrefabThreeWay, position, transform.rotation);
-
+                            Instantiate(PrefabThreeWay, position, transform.rotation).transform.Rotate(Vector3.up, 180);
                             break;
                         case 5:
                             Instantiate(PrefabStraight, position, transform.rotation);
                             break;
                         case 6:
-                            Instantiate(PrefabCorner, position, transform.rotation)
-                                .transform.Rotate(Vector3.forward, -90);
-                            break;
-                        case 7:
-                            Instantiate(PrefabDeadEnd, position, transform.rotation).transform.Rotate(Vector3.forward, 90);
-                            break;
-                        case 8:
-                            Instantiate(PrefabThreeWay, position,transform.rotation ).transform.Rotate(Vector3.forward, 90);
-                            break;
-                        case 9:
-                            Instantiate(PrefabCorner, position, transform.rotation).transform.Rotate(Vector3.forward, 90);
-                            break;
-                        case 10:
-                            Instantiate(PrefabStraight, position, transform.rotation).transform.Rotate(Vector3.forward, 90);
-                            break;
-                        case 11:
-                            Instantiate(PrefabDeadEnd, position, transform.rotation);
-                            break;
-                        case 12:
                             Instantiate(PrefabCorner, position, transform.rotation);
                             break;
+                        case 7:
+                            Instantiate(PrefabDeadEnd, position, transform.rotation).transform.Rotate(Vector3.up, -90);
+                            break;
+                        case 8:
+                            Instantiate(PrefabThreeWay, position,transform.rotation ).transform.Rotate(Vector3.up, -90);
+                            break;
+                        case 9:
+                            Instantiate(PrefabCorner, position, transform.rotation).transform.Rotate(Vector3.up, 180);
+                            break;
+                        case 10:
+                            Instantiate(PrefabStraight, position, transform.rotation).transform.Rotate(Vector3.up, 90);
+                            break;
+                        case 11:
+                            Instantiate(PrefabDeadEnd, position, transform.rotation).transform.Rotate(Vector3.up, 180);
+                            break;
+                        case 12:
+                            Instantiate(PrefabCorner, position, transform.rotation).transform.Rotate(Vector3.up, 90);
+                            break;
                         case 13:
-                            Instantiate(PrefabDeadEnd, position, transform.rotation).transform.Rotate(Vector3.forward, -90);
+                            Instantiate(PrefabDeadEnd, position, transform.rotation).transform.Rotate(Vector3.up, 90);
                             break;
                         case 14:
-                            Instantiate(PrefabDeadEnd, position, transform.rotation).transform.Rotate(Vector3.forward, -180);
+                            Instantiate(PrefabDeadEnd, position, transform.rotation);
                             break;
                     }
                 }
             }
         }
 
-        void OnDrawGizmos()
-        {
-            var nodeSize = 2;
-            for (var x = 0; x < _width; x++)
-            {
-                for (var y = 0; y < _height; y++)
-                {
-
-                    Handles.color = Color.red;
-                    Handles.Label(new Vector3(x * 8, 0 ,-(y * 8)), "" + _gridMap[x,y].NodeConfiguration );
-                }
-            }
-        }
+//        void OnDrawGizmos()
+//        {
+//            var nodeSize = 2;
+//            for (var x = 0; x < _width; x++)
+//            {
+//                for (var y = 0; y < _height; y++)
+//                {
+//
+//                    Handles.color = Color.red;
+//                    Handles.Label(new Vector3(x * _nodeSize, 0 ,-(y * _nodeSize)), "" + _gridMap[x,y].NodeConfiguration );
+//                }
+//            }
+//        }
 
     }
 }
