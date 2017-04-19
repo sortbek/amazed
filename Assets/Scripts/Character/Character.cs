@@ -24,7 +24,7 @@ namespace Assets.Scripts.Character {
             _translation = new CharacterTranslation(this);
             _rotation = new CharacterRotation(this);
             Health = 100;
-            Speed = 10f;
+            Speed = 3f;
             JumpForce = 5f;
         }
 
