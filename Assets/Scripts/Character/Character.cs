@@ -23,7 +23,7 @@ namespace Assets.Scripts.Character {
         void Awake() {
             _translation = new CharacterTranslation(this);
             _rotation = new CharacterRotation(this);
-            Health = 100;
+            Health = 100f;
             Speed = 10f;
             JumpForce = 5f;
         }
