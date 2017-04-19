@@ -3,9 +3,8 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.HUD {
     public class StatsUpdater : MonoBehaviour {
-        private float i;
         private Text health;
-        private Text stamina;
+        private Text points;
 
         // Use this for initialization
         void Start() {
@@ -14,8 +13,8 @@ namespace Assets.Scripts.HUD {
                     case "Health":
                         health = text;
                         break;
-                    case "Stamina":
-                        stamina = text;
+                    case "Points":
+                        points = text;
                         break;
                 }
             }
@@ -23,13 +22,12 @@ namespace Assets.Scripts.HUD {
 
         // Update is called once per frame
         void Update() {
-            if (Input.GetAxis("Mouse ScrollWheel") != 0f) i += Input.GetAxis("Mouse ScrollWheel") > 0 ? 1 : -1;
             UpdateHUDInformation();
         }
 
         void UpdateHUDInformation() {
-            health.text = "Health: " + i;
-            stamina.text = "Stamina: " + i;
+            health.text = "Health: ";
+            points.text = "Points: ";
         }
     }
 }
