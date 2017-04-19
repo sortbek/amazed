@@ -16,17 +16,25 @@ namespace Assets.Scripts
     }
 
 
-    public class GridNode : MonoBehaviour
+    public class GridNode : IHeapItem<GridNode>
     {
         public int NodeConfiguration;
         public bool HasWallDown;
         public bool HasWallRight;
         public int X;
         public int Y;
+        public int Key;
 
         public void Configurate()
         {
 
         }
+
+        public int CompareTo(GridNode other)
+        {
+            return Key.CompareTo(other.Key);
+        }
+
+        public int HeapIndex { get; set; }
     }
 }
