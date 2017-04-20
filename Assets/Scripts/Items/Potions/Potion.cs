@@ -16,6 +16,9 @@ namespace Assets.Scripts.Items.Potions {
         }
 
         public virtual void Use() {
+            PotionRunnable pr = new PotionRunnable(Player, this);
+            pr.Start();
+
             Amount -= 1;
             Active = true;
         }
