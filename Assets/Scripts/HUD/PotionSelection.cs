@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Items.Potions;
+﻿using System.Diagnostics;
+using Assets.Scripts.Items.Potions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ namespace Assets.Scripts.HUD {
         private int _selectedPotionId;
 
         private RawImage _selectedPotionImage;
-        private Text _amountLabel;
+        private Text _amountLabel, _defenseLeftLabel, _damageLeftLabel, _speedLeftLabel, _regenLeftLabel;
         private Character.Character _player;
 
         private Potion _selectedPotion, _health, _healthRegeneration, _speed, _damage, _defense;
@@ -15,7 +16,27 @@ namespace Assets.Scripts.HUD {
         // Use this for initialization
         private void Start() {
             _selectedPotionImage = GetComponentInChildren<RawImage>();
-            _amountLabel = GetComponentInChildren<Text>();
+
+            foreach (var text in GetComponentsInChildren<Text>()) {
+                switch (text.name) {
+                    case "Potion_Amount":
+                        _amountLabel = text;
+                        break;
+                    case "DefenseLeft":
+                        _defenseLeftLabel = text;
+                        break;
+                    case "DamageLeft":
+                        _damageLeftLabel = text;
+                        break;
+                    case "SpeedLeft":
+                        _speedLeftLabel = text;
+                        break;
+                    case "RegenLeft":
+                        _regenLeftLabel = text;
+                        break;
+                }
+            }
+
             _player = FindObjectOfType<Character.Character>();
 
             _health = new HealthPotion(_player);
@@ -35,7 +56,7 @@ namespace Assets.Scripts.HUD {
             if (Input.GetKeyDown(KeyCode.Q)) _selectedPotionId -= 1;
             if (Input.GetKeyDown(KeyCode.E)) _selectedPotionId += 1;
 
-            if (Input.GetKeyDown(KeyCode.X) && _selectedPotion.Amount > 0) _selectedPotion.Use();
+            if (Input.GetKeyDown(KeyCode.X) && _selectedPotion.Amount > 0 && !_selectedPotion.Active) _selectedPotion.Use();
 
             // Check if another potions has been selected
             switch (_selectedPotionId) {
@@ -62,9 +83,27 @@ namespace Assets.Scripts.HUD {
                     break;
             }
 
-            // Change the view components of the selected potion indicator
+            CheckActivePotions();
+            UpdatePotionInformation();
+        }
+
+        private void UpdatePotionInformation() {
             _selectedPotionImage.texture = _selectedPotion.Texture;
             _amountLabel.text = _selectedPotion.Amount.ToString();
+
+            _defenseLeftLabel.text = _defense.TimeLeft.ToString();
+            _damageLeftLabel.text = _damage.TimeLeft.ToString();
+            _speedLeftLabel.text = _speed.TimeLeft.ToString();
+            _regenLeftLabel.text = _healthRegeneration.TimeLeft.ToString();
         }
+
+        private void CheckActivePotions()
+        {
+            _defenseLeftLabel.enabled = _defense.Active;
+            _damageLeftLabel.enabled = _damage.Active;
+            _speedLeftLabel.enabled = _speed.Active;
+            _regenLeftLabel.enabled = _healthRegeneration.Active;
+        }
+
     }
 }
