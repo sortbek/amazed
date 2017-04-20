@@ -6,7 +6,13 @@ using UnityEngine;
 
 namespace Assets.Scripts.Character {
 
-    public class Character : MonoBehaviour{
+    public class Character : MonoBehaviour {
+
+        [SerializeField]
+        public AudioClip AudioJumping, AudioLanding;
+        [SerializeField]
+        public AudioClip[] AudioWalking;
+
 
         public float DEF { get; set; }
         public float ATT { get; set; }
@@ -23,8 +29,8 @@ namespace Assets.Scripts.Character {
         void Awake() {
             _translation = new CharacterTranslation(this);
             _rotation = new CharacterRotation(this);
-            Health = 100;
-            Speed = 10f;
+            Health = 100f;
+            Speed = 3f;
             JumpForce = 5f;
         }
 
@@ -34,8 +40,18 @@ namespace Assets.Scripts.Character {
         }
 
         void OnCollisionEnter(Collision collision) {
-            if (collision.gameObject.name.Equals(ColliderTag))
+            if (collision.gameObject.name.Equals(ColliderTag) && _translation.Airborne) {
+                PlayAudio(AudioLanding);
                 _translation.Airborne = false;
+            }
+
+        }
+
+        public void PlayAudio(AudioClip clip) {
+            if (clip == null) return;
+            AudioSource src = GetComponent<AudioSource>();
+            src.clip = clip;
+            src.Play();
         }
     }
     
