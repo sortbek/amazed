@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Items.Potions
-{
-    class SpeedPotion : Potion
-    {
-        public SpeedPotion(Character.Character player) : base(player)
-        {
-            Texture = (Texture)Resources.Load("Sprites/potion_speed", typeof(Texture));
+namespace Assets.Scripts.Items.Potions {
+    class SpeedPotion : Potion {
+        public SpeedPotion(Character.Character player) : base(player) {
+            Texture = (Texture) Resources.Load("Sprites/potion_speed", typeof(Texture));
+            Boost = 10;
         }
 
-        public override void Use()
+        public override void Use() {
+            Player.Speed += Boost;
+            base.Use();
+        }
+
+        public override void RemoveEffect()
         {
-            Player.Speed += 2;
-            Amount -= 1;
+            Player.Speed -= Boost;
+            base.RemoveEffect();
         }
     }
 }

@@ -6,35 +6,36 @@ namespace Assets.Scripts.HUD
 {
     public class StatsUpdater : MonoBehaviour
     {
-        private Slider health;
-        private Text points;
-        private Character.Character player;
+        private Slider _health;
+        private Text _points;
+        private Character.Character _player;
 
         // Use this for initialization
         void Start()
         {
-            health = GetComponentInChildren<Slider>();
+            _health = GetComponentInChildren<Slider>();
 
             foreach (var text in GetComponentsInChildren<Text>())
                 if (text.name == "PointsAmount")
                 {
-                    points = text;
+                    _points = text;
                     break;
                 }
 
-            player = FindObjectOfType<Character.Character>();
+            _player = FindObjectOfType<Character.Character>();
+            _player.Health = 50.0f;
+
         }
 
         // Update is called once per frame
-        void Update()
-        {
-            if (player.Health > 0) player.Health -= 0.1f;
-            UpdateHUDInformation();
+        void Update() {
+            UpdateHudInformation();
         }
 
-        void UpdateHUDInformation()
+        void UpdateHudInformation()
         {
-            health.value = player.Health;
+            _health.value = _player.Health;
+            _points.text = Math.Round(_player.Health).ToString();
         }
     }
 }
