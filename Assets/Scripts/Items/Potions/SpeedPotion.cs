@@ -9,10 +9,6 @@ namespace Assets.Scripts.Items.Potions {
 
         public override void Use() {
             Player.Speed += Boost;
-
-            PotionRunnable pr = new PotionRunnable(Player, this, 4000);
-            pr.Start();
-
             base.Use();
         }
 
