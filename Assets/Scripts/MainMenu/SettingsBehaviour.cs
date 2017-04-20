@@ -5,30 +5,26 @@ using UnityEngine.UI;
 
 public class SettingsBehaviour : MonoBehaviour
 {
-    private float brightness;
-    public Slider volumeSlider;
-    public AudioSource volumeAudio;
+    private float Brightness;
+    public Slider VolumeSlider;
+    public AudioSource VolumeAudio;
 
     // Use this for initialization
-    void Start()
-    {
-        volumeSlider.value = volumeAudio.volume;
+    void Start() {
+        //VolumeSlider.value = VolumeAudio.volume;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         //RenderSettings.ambientLight = new Color(brightness, brightness, brightness, 1.0f);
     }
 
 
-    public void AdjustBrightness(float brightness)
-    {
-        this.brightness = brightness;
+    public void AdjustBrightness(float brightness) {
+      //  this.Brightness = brightness;
     }
 
-    public void AdjustVolume()
-    {
-        AudioListener.volume = volumeSlider.value;
+    public void AdjustVolume() {
+       // AudioListener.volume = VolumeSlider.value;
     }
 }
