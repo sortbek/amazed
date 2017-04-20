@@ -28,6 +28,7 @@ namespace Assets.Scripts.Character {
                 Cursor.lockState = CursorLockMode.None;
             else if (Input.GetKeyDown(KeyCode.Space) && !Airborne) {
                 Airborne = true;
+                _character.PlayAudio(_character.AudioJumping);
                 _character.GetComponent<Rigidbody>().velocity += _character.JumpForce * Vector3.up;
             }
         }
