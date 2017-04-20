@@ -236,7 +236,6 @@ namespace Assets.Scripts
 
         private void InstantiateMap()
         {
-            var t = GetComponent<Canvas>();
             for (var x = 0; x < _width; x++)
             {
                 for (var y = 0; y < _height; y++)
