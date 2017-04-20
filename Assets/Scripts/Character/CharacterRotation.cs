@@ -16,7 +16,7 @@ namespace Assets.Scripts.Character {
 
         public CharacterRotation(Character character) {
             _character = character;
-            Sensivity = 5f;
+            Sensivity = 1f;
             Smoothing = 2f;
         }
 
