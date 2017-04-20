@@ -58,7 +58,6 @@ namespace Assets.Scripts.HUD {
 
             if (Input.GetKeyDown(KeyCode.X) && _selectedPotion.Amount > 0 && !_selectedPotion.Active) _selectedPotion.Use();
 
-
             // Check if another potions has been selected
             switch (_selectedPotionId) {
                 case -1:
