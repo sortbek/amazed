@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace Assets.Scripts.Items.Potions {
     class DefensePotion : Potion {
@@ -6,12 +8,21 @@ namespace Assets.Scripts.Items.Potions {
 
         public DefensePotion(Character.Character player) : base(player) {
             Texture = (Texture) Resources.Load("Sprites/potion_defense", typeof(Texture));
+            Boost = 20;
         }
 
         public override void Use() {
-            Player.DEF += 10;
+            Player.DEF += Boost;
+
+            PotionRunnable pr = new PotionRunnable(Player, this, 4000);
+            pr.Start();
 
             base.Use();
+        }
+
+        public override void RemoveEffect() {
+            Player.DEF -= Boost;
+            base.RemoveEffect();
         }
     }
 }

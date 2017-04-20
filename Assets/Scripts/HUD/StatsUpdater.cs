@@ -23,12 +23,12 @@ namespace Assets.Scripts.HUD
                 }
 
             _player = FindObjectOfType<Character.Character>();
+            _player.Health = 50.0f;
+
         }
 
         // Update is called once per frame
-        void Update()
-        {
-            if (_player.Health > 0) _player.Health -= 0.1f;
+        void Update() {
             UpdateHudInformation();
         }
 
