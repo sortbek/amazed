@@ -38,6 +38,7 @@ namespace Assets.Scripts.Items.Potions
             _potion.TimeLeft -= 1;
             if (_potion.GetType() != typeof(HealthRegenerationPotion)) return;
             if(_player.Health < 100) _player.Health += _potion.Boost;
+            //TODO fix niet hoger dan 100. Om de een of andere reden werkt de if hierboven niet
         }
     }
 }
