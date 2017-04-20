@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-
 namespace Assets.Scripts
 {
     [Flags]
@@ -25,10 +23,20 @@ namespace Assets.Scripts
         public int Y;
         public int Key;
 
-        public void Configurate()
-        {
+        public List<GridNode> BakedList = new List<GridNode>();
+        public GameObject Prefab;
 
+        public int Rotation;
+
+        public void AddBakedNode(GridNode node)
+        {
+            BakedList.Add(node);
         }
+        public void SetActive(bool isActive)
+        {
+            Prefab.SetActive(isActive);
+        }
+
 
         public int CompareTo(GridNode other)
         {
