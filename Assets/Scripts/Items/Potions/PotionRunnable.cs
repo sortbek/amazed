@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Threading;
+﻿using System.Threading;
 using System.Timers;
 
 namespace Assets.Scripts.Items.Potions
@@ -11,7 +10,7 @@ namespace Assets.Scripts.Items.Potions
         private readonly Thread _thread;
         private System.Timers.Timer _timer;
 
-        public PotionRunnable(Character.Character character, Potion potion, int duration)
+        public PotionRunnable(Character.Character character, Potion potion)
         {
             _potion = potion;
             _character = character;
