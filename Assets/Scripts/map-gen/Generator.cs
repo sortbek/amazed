@@ -73,6 +73,7 @@ namespace Assets.Scripts
             // Instantiate the map
             InstantiateMap();
 
+
         }
 
         private void ConfigurateNodes()
