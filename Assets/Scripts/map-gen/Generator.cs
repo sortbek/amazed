@@ -94,7 +94,7 @@ namespace Assets.Scripts
             switch (node.NodeConfiguration)
             {
                 case 0:
-                    node.Prefab = PrefabCorner;
+                    node.Prefab = PrefabCross;
                     break;
                 case 1:
                     node.Prefab = PrefabThreeWay;
@@ -284,18 +284,18 @@ namespace Assets.Scripts
             }
         }
 
-//        void OnDrawGizmos()
-//        {
-//            var nodeSize = 2;
-//            for (var x = 0; x < _width; x++)
-//            {
-//                for (var y = 0; y < _height; y++)
-//                {
-//                    Handles.color = Color.red;
-//                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), ""+ _gridMap[x,y].NodeConfiguration  );
-//                }
-//            }
-//        }
+        void OnDrawGizmos()
+        {
+            var nodeSize = 2;
+            for (var x = 0; x < _width; x++)
+            {
+                for (var y = 0; y < _height; y++)
+                {
+                    Handles.color = Color.red;
+                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), ""+ _gridMap[x,y].NodeConfiguration  );
+                }
+            }
+        }
 
     }
 }
