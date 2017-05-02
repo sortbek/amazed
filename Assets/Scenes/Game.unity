@@ -203,14 +203,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c4767ff5c87304889ccbd196d5d565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapSize: 0
+  MapSize: 10
   MapSeed: 
   UseRandomSeed: 0
-  PrefabCross: {fileID: 0}
-  PrefabStraight: {fileID: 0}
-  PrefabCorner: {fileID: 0}
-  PrefabThreeWay: {fileID: 0}
-  PrefabDeadEnd: {fileID: 0}
+  PrefabCross: {fileID: 1069561775129186, guid: d1506635f6a8d2c47bd2a2c4f732e69d,
+    type: 2}
+  PrefabStraight: {fileID: 1454565863251730, guid: 2bba5c93de7b8fd4f8e83541221cc473,
+    type: 2}
+  PrefabCorner: {fileID: 1183762301793696, guid: 1eb6e14853112494b867074e1507f4c7,
+    type: 2}
+  PrefabThreeWay: {fileID: 1227695985632132, guid: 17c980c2e8dd8834b870ef5ed2a03f04,
+    type: 2}
+  PrefabDeadEnd: {fileID: 1344622350246812, guid: 0676b404a8c51e14ba02e461c62a778f,
+    type: 2}
   NodeSize: 12
 --- !u!1 &1716331700
 GameObject:
