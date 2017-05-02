@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Assets.Scripts;
+using Assets.Scripts.World;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,9 +11,9 @@ namespace Assets.Scripts
 {
     public class Generator : MonoBehaviour
     {
-        public int MapSize;
-        public string MapSeed;
-        public bool UseRandomSeed;
+//        public int MapSize;
+//        public string MapSeed;
+//        public bool UseRandomSeed;
 
 
         public GameObject PrefabCross;
@@ -36,8 +37,8 @@ namespace Assets.Scripts
         [ContextMenu("GenerateMap")]
         void Start ()
         {
-            _height = MapSize;
-            _width = MapSize;
+            _height = GameManager.Instance.Size;
+            _width = GameManager.Instance.Size;
 
             _disjointSet = new DisjointSet(_width, _height);
 
@@ -73,6 +74,7 @@ namespace Assets.Scripts
             // Instantiate the map
             InstantiateMap();
 
+
         }
 
         private void ConfigurateNodes()
@@ -82,18 +84,18 @@ namespace Assets.Scripts
                 for (var y = 0; y < _height; y++)
                 {
                     _gridMap[x, y].NodeConfiguration = NodeConfig(_gridMap[x, y]);
-                    setPrefab(_gridMap[x, y]);
+                    SetPrefab(_gridMap[x, y]);
                 }
             }
         }
 
-        private void setPrefab(GridNode node)
+        private void SetPrefab(GridNode node)
         {
 
             switch (node.NodeConfiguration)
             {
                 case 0:
-                    node.Prefab = PrefabCorner;
+                    node.Prefab = PrefabCross;
                     break;
                 case 1:
                     node.Prefab = PrefabThreeWay;
@@ -240,11 +242,11 @@ namespace Assets.Scripts
 
         private void CreatePriorityList()
         {
-            if (UseRandomSeed)
+            if (GameManager.Instance.RandomSeed)
             {
-                MapSeed = Guid.NewGuid().ToString().Replace("-", "");
+                GameManager.Instance.GameSeed = Guid.NewGuid().ToString().Replace("-", "");
             }
-            var pseudoRandom = new System.Random(MapSeed.GetHashCode());
+            var pseudoRandom = new System.Random(GameManager.Instance.GameSeed.GetHashCode());
 
             for (var x = 0; x < _width; x++)
             {
@@ -283,18 +285,18 @@ namespace Assets.Scripts
             }
         }
 
-//        void OnDrawGizmos()
-//        {
-//            var nodeSize = 2;
-//            for (var x = 0; x < _width; x++)
-//            {
-//                for (var y = 0; y < _height; y++)
-//                {
-//                    Handles.color = Color.red;
-//                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), ""+ _gridMap[x,y].NodeConfiguration  );
-//                }
-//            }
-//        }
+        void OnDrawGizmos()
+        {
+            var nodeSize = 2;
+            for (var x = 0; x < _width; x++)
+            {
+                for (var y = 0; y < _height; y++)
+                {
+                    Handles.color = Color.red;
+                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), ""+ _gridMap[x,y].NodeConfiguration  );
+                }
+            }
+        }
 
     }
 }
