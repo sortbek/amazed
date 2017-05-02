@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 841752958}
   - component: {fileID: 841752959}
   - component: {fileID: 841752961}
+  - component: {fileID: 841752957}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -168,6 +169,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &841752957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 841752956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e52c57af92a0eb449b952fcc4ab98af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameSeed: 
+  Size: 10
+  RandomSeed: 0
+  Debug: 0
 --- !u!4 &841752958
 Transform:
   m_ObjectHideFlags: 0
@@ -203,9 +219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c4767ff5c87304889ccbd196d5d565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapSize: 10
-  MapSeed: 
-  UseRandomSeed: 0
   PrefabCross: {fileID: 1069561775129186, guid: d1506635f6a8d2c47bd2a2c4f732e69d,
     type: 2}
   PrefabStraight: {fileID: 1454565863251730, guid: 2bba5c93de7b8fd4f8e83541221cc473,
