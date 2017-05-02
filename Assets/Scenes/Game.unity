@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 841752959}
   - component: {fileID: 841752957}
   - component: {fileID: 841752960}
+  - component: {fileID: 841752961}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -242,6 +243,26 @@ MonoBehaviour:
     type: 2}
   PrefabDeadEnd: {fileID: 1344622350246812, guid: 0676b404a8c51e14ba02e461c62a778f,
     type: 2}
+  NodeSize: 12
+--- !u!114 &841752961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 841752956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c4767ff5c87304889ccbd196d5d565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MapSize: 0
+  MapSeed: 
+  UseRandomSeed: 0
+  PrefabCross: {fileID: 0}
+  PrefabStraight: {fileID: 0}
+  PrefabCorner: {fileID: 0}
+  PrefabThreeWay: {fileID: 0}
+  PrefabDeadEnd: {fileID: 0}
   NodeSize: 12
 --- !u!1 &1716331700
 GameObject:
