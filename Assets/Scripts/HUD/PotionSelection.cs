@@ -8,7 +8,8 @@ namespace Assets.Scripts.HUD {
         private int _selectedPotionId;
 
         private RawImage _selectedPotionImage;
-        private Text _amountLabel, _defenseLeftLabel, _damageLeftLabel, _speedLeftLabel, _regenLeftLabel;
+        private Text _amountLabel, _regenLeftLabel, _damageLeftLabel, _defenseLeftLabel, _speedLeftLabel;
+        private RawImage _regenLeftImage, _damageLeftImage, _defenseLeftImage, _speedLeftImage;
         private Character.Character _player;
 
         private Potion _selectedPotion, _health, _healthRegeneration, _speed, _damage, _defense;
@@ -33,6 +34,25 @@ namespace Assets.Scripts.HUD {
                         break;
                     case "RegenLeft":
                         _regenLeftLabel = text;
+                        break;
+                }
+            }
+
+            foreach (var image in GetComponentsInChildren<RawImage>())
+            {
+                switch (image.name)
+                {
+                    case "RegenLeftImage":
+                        _regenLeftImage = image;
+                        break;
+                    case "DamageLeftImage":
+                        _damageLeftImage = image;
+                        break;
+                    case "DefenseLeftImage":
+                        _defenseLeftImage = image;
+                        break;
+                    case "SpeedLeftImage":
+                        _speedLeftImage = image;
                         break;
                 }
             }
@@ -99,10 +119,15 @@ namespace Assets.Scripts.HUD {
 
         private void CheckActivePotions()
         {
-            _defenseLeftLabel.enabled = _defense.Active;
-            _damageLeftLabel.enabled = _damage.Active;
-            _speedLeftLabel.enabled = _speed.Active;
+            _regenLeftImage.enabled = _healthRegeneration.Active;
+            _damageLeftImage.enabled = _damage.Active;
+            _defenseLeftImage.enabled = _defense.Active;
+            _speedLeftImage.enabled = _speed.Active;
+
             _regenLeftLabel.enabled = _healthRegeneration.Active;
+            _damageLeftLabel.enabled = _damage.Active;
+            _defenseLeftLabel.enabled = _defense.Active;
+            _speedLeftLabel.enabled = _speed.Active;
         }
 
     }
