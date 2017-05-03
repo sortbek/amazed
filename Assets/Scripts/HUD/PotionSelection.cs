@@ -16,8 +16,6 @@ namespace Assets.Scripts.HUD {
 
         // Use this for initialization
         private void Start() {
-            _selectedPotionImage = GetComponentInChildren<RawImage>();
-
             foreach (var text in GetComponentsInChildren<Text>()) {
                 switch (text.name) {
                     case "Potion_Amount":
@@ -42,6 +40,9 @@ namespace Assets.Scripts.HUD {
             {
                 switch (image.name)
                 {
+                    case "Selected_Potion":
+                        _selectedPotionImage = image;
+                        break;
                     case "RegenLeftImage":
                         _regenLeftImage = image;
                         break;
