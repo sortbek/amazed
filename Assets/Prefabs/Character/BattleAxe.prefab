@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4601543609789014}
   - component: {fileID: 114085970965437484}
   m_Layer: 0
-  m_Name: BattleAxe 1
+  m_Name: BattleAxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
