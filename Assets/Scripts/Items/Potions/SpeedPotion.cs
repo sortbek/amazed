@@ -4,7 +4,7 @@ namespace Assets.Scripts.Items.Potions {
     class SpeedPotion : Potion {
         public SpeedPotion(Character.Character player) : base(player) {
             Texture = (Texture) Resources.Load("Sprites/potion_speed", typeof(Texture));
-            Boost = 10;
+            Boost = 5;
         }
 
         public override void Use() {
