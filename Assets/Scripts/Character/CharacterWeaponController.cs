@@ -22,7 +22,7 @@ namespace Assets.Scripts.Character {
              KeyCode.Alpha9,
         };
 
-        private GameObject _currentWeapon;
+        public GameObject CurrentWeapon;
         private Dictionary<int, GameObject> _equipment;
 
         public CharacterWeaponController() {
@@ -31,6 +31,8 @@ namespace Assets.Scripts.Character {
 
         void Start() {
             Add(Weapons[0]);
+            Add(Weapons[1]);
+            Add(Weapons[2]);
         }
 
         void Update() {
@@ -51,12 +53,12 @@ namespace Assets.Scripts.Character {
         }
 
         public void Equip(GameObject obj) {
-            if (_currentWeapon != null) {
+            if (CurrentWeapon != null) {
                 
             }
-            GameObject weapon = Instantiate(obj, transform.position + transform.forward * 1.2f, obj.transform.rotation);
+            GameObject weapon = Instantiate(obj, transform.position + transform.forward + new Vector3(0.5f, 0, 0), obj.transform.rotation);
             weapon.transform.parent = transform;
-            _currentWeapon = obj;
+            CurrentWeapon = obj;
         }
 
 

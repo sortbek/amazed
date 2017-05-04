@@ -1,12 +1,11 @@
 ﻿using System;
+using Assets.Scripts.World;
 using System.Runtime.InteropServices;
 using Assets.Scripts.World;
-
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
 
 namespace Assets.Scripts
 {
@@ -364,7 +363,6 @@ namespace Assets.Scripts
             }
         }
 
-
         #if UNITY_EDITOR
         void OnDrawGizmos()
         {
@@ -379,6 +377,5 @@ namespace Assets.Scripts
             }
         }
         #endif
-
     }
 }

@@ -16,8 +16,6 @@ namespace Assets.Scripts.HUD {
 
         // Use this for initialization
         private void Start() {
-            _selectedPotionImage = GetComponentInChildren<RawImage>();
-
             foreach (var text in GetComponentsInChildren<Text>()) {
                 switch (text.name) {
                     case "Potion_Amount":
@@ -42,6 +40,9 @@ namespace Assets.Scripts.HUD {
             {
                 switch (image.name)
                 {
+                    case "Selected_Potion":
+                        _selectedPotionImage = image;
+                        break;
                     case "RegenLeftImage":
                         _regenLeftImage = image;
                         break;
@@ -72,7 +73,7 @@ namespace Assets.Scripts.HUD {
         private void Update() {
             // Input listeners
             if (Input.GetAxis("Mouse ScrollWheel") != 0f)
-                _selectedPotionId += Input.GetAxis("Mouse ScrollWheel") > 0 ? 1 : -1;
+                _selectedPotionId += Input.GetAxis("Mouse ScrollWheel") > 0 ? -1 : 1;
             if (Input.GetKeyDown(KeyCode.Q)) _selectedPotionId -= 1;
             if (Input.GetKeyDown(KeyCode.E)) _selectedPotionId += 1;
 
