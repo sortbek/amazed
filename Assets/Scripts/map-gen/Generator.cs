@@ -82,11 +82,13 @@ namespace Assets.Scripts
         {
             var amount = _height / 2;
 
-            for (var i = 0; i < amount; i++)
+            while (amount != 0)
             {
-                BreakWall();
+                if (BreakWall())
+                {
+                    amount--;
+                }
             }
-
         }
 
         private bool BreakWall()
@@ -100,13 +102,14 @@ namespace Assets.Scripts
             }
             if (_gridMap[x,y].HasWallDown && !_gridMap[x,y-1].IsPartOfRoom)
             {
+                print("Breakin Wall Down: " + x + " " + y);
                 _gridMap[x, y].HasWallDown = false;
                 return true;
             }
 
             if (_gridMap[x, y].HasWallRight && !_gridMap[x+1,y].IsPartOfRoom)
             {
-                print("REMOVED RIGHT WALL: " + x + " " + y);
+                print("Breakin Wall Right: " + x + " " + y);
                 _gridMap[x, y].HasWallRight = false;
                 return true;
             }
