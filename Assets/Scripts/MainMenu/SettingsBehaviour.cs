@@ -78,15 +78,23 @@ public class SettingsBehaviour : MonoBehaviour
     }
 
     public void LoadSettings() {
-        
-       gameSettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
+        try
+        {
+            gameSettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
+
+            musicVolumeSlider.value = gameSettings.musicVolume;
+            antialiasingDropdown.value = gameSettings.antialiasing;
+            vSyncDropdown.value = gameSettings.vSync;
+            textureQualityDropdown.value = gameSettings.textureQuality;
+            resolutionDropdown.value = gameSettings.resolutionIndex;
+            fullscreenToggle.isOn = gameSettings.fullscreen;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
        
-        musicVolumeSlider.value = gameSettings.musicVolume;
-        antialiasingDropdown.value = gameSettings.antialiasing;
-        vSyncDropdown.value = gameSettings.vSync;
-        textureQualityDropdown.value = gameSettings.textureQuality;
-        resolutionDropdown.value = gameSettings.resolutionIndex;
-        fullscreenToggle.isOn = gameSettings.fullscreen;
         Screen.fullScreen = gameSettings.fullscreen;
 
         resolutionDropdown.RefreshShownValue();
