@@ -33,6 +33,7 @@ namespace Assets.Scripts.Character {
             Add(Weapons[0]);
             Add(Weapons[1]);
             Add(Weapons[2]);
+            Add(Weapons[3]);
         }
 
         void Update() {
@@ -60,7 +61,5 @@ namespace Assets.Scripts.Character {
             weapon.transform.parent = transform;
             CurrentWeapon = obj;
         }
-
-
     }
 }
