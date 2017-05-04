@@ -73,7 +73,7 @@ namespace Assets.Scripts.HUD {
         private void Update() {
             // Input listeners
             if (Input.GetAxis("Mouse ScrollWheel") != 0f)
-                _selectedPotionId += Input.GetAxis("Mouse ScrollWheel") > 0 ? 1 : -1;
+                _selectedPotionId += Input.GetAxis("Mouse ScrollWheel") > 0 ? -1 : 1;
             if (Input.GetKeyDown(KeyCode.Q)) _selectedPotionId -= 1;
             if (Input.GetKeyDown(KeyCode.E)) _selectedPotionId += 1;
 
