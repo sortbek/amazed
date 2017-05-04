@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Assets.Scripts;
 using Assets.Scripts.World;
-using UnityEditor;
 using UnityEngine;
-
 
 namespace Assets.Scripts
 {
@@ -14,7 +9,6 @@ namespace Assets.Scripts
 //        public int MapSize;
 //        public string MapSeed;
 //        public bool UseRandomSeed;
-
 
         public GameObject PrefabCross;
         public GameObject PrefabStraight;
@@ -284,19 +278,5 @@ namespace Assets.Scripts
                 }
             }
         }
-
-        void OnDrawGizmos()
-        {
-            var nodeSize = 2;
-            for (var x = 0; x < _width; x++)
-            {
-                for (var y = 0; y < _height; y++)
-                {
-                    Handles.color = Color.red;
-                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), ""+ _gridMap[x,y].NodeConfiguration  );
-                }
-            }
-        }
-
     }
 }
