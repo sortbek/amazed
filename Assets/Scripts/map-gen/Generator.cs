@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Assets.Scripts;
 using Assets.Scripts.World;
-using UnityEditor;
+using System.Runtime.InteropServices;
+using Assets.Scripts.World;
 using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Assets.Scripts
 {
     public class Generator : MonoBehaviour
     {
-//        public int MapSize;
-//        public string MapSeed;
-//        public bool UseRandomSeed;
-
-
         public GameObject PrefabCross;
         public GameObject PrefabStraight;
         public GameObject PrefabCorner;
@@ -65,8 +60,14 @@ namespace Assets.Scripts
             // the priority in the queue later.
             CreatePriorityList();
 
+            // Creating predefined rooms
+            CreateRooms();
+
             // Break down walls to build the actual maze
             BuildHeapMaze();
+
+            // Remove walls to make the maze imperfect and generate loops
+            MakeMazeImperfect();
 
             // Set the right configuration for each node
             ConfigurateNodes();
@@ -75,6 +76,82 @@ namespace Assets.Scripts
             InstantiateMap();
 
 
+        }
+
+        private void MakeMazeImperfect()
+        {
+            var amount = _height / 2;
+
+            while (amount != 0)
+            {
+                if (BreakWall())
+                {
+                    amount--;
+                }
+            }
+        }
+
+        private bool BreakWall()
+        {
+            var x = GameManager.Instance.GetRandom(1 , _width -1);
+            var y = GameManager.Instance.GetRandom(1, _height -1);
+
+            if (_gridMap[x, y].IsPartOfRoom)
+            {
+                return false;
+            }
+            if (_gridMap[x,y].HasWallDown && !_gridMap[x,y-1].IsPartOfRoom)
+            {
+                print("Breakin Wall Down: " + x + " " + y);
+                _gridMap[x, y].HasWallDown = false;
+                return true;
+            }
+
+            if (_gridMap[x, y].HasWallRight && !_gridMap[x+1,y].IsPartOfRoom)
+            {
+                print("Breakin Wall Right: " + x + " " + y);
+                _gridMap[x, y].HasWallRight = false;
+                return true;
+            }
+
+            return false;
+        }
+
+        private void CreateRooms()
+        {
+            var maxSize = _height - 3;
+            CreateRoom(1, 1);
+            CreateRoom(1, maxSize);
+            CreateRoom(maxSize, maxSize);
+            CreateRoom(maxSize, 1);
+        }
+
+        private void CreateRoom(int startX, int startY)
+        {
+            var nodeX = startX;
+            var nodeY = startY;
+
+            var nodeBottomLeft = _gridMap[nodeX, nodeY];
+            var nodeBottomRight = _gridMap[nodeX + 1, nodeY];
+
+            var nodeTopLeft = _gridMap[nodeX, nodeY + 1];
+            var nodeTopRight = _gridMap[nodeX + 1, nodeY + 1];
+
+
+            _disjointSet.Union(GetNodeIndex(nodeBottomLeft), GetNodeIndex(nodeBottomRight));
+            _disjointSet.Union(GetNodeIndex(nodeBottomRight), GetNodeIndex(nodeTopRight));
+            _disjointSet.Union(GetNodeIndex(nodeTopRight), GetNodeIndex(nodeTopLeft));
+
+            nodeBottomLeft.IsPartOfRoom = true;
+            nodeBottomRight.IsPartOfRoom = true;
+            nodeTopLeft.IsPartOfRoom = true;
+            nodeTopRight.IsPartOfRoom = true;
+
+            nodeBottomLeft.HasWallRight = false;
+            nodeBottomLeft.HasWallDown = false;
+            nodeTopLeft.HasWallDown = false;
+            nodeTopLeft.HasWallRight = false;
+            nodeTopRight.HasWallDown = false;
         }
 
         private void ConfigurateNodes()
@@ -196,7 +273,7 @@ namespace Assets.Scripts
 
         private void CheckCurrentNode(GridNode node)
         {
-
+            if (_gridMap[node.X, node.Y].IsPartOfRoom) return;
             if (node.X < _width - 1)
             {
                 CheckNeighbour(node, _gridMap[node.X + 1, node.Y]);
@@ -215,6 +292,8 @@ namespace Assets.Scripts
 
         private void CheckNeighbour(GridNode nodeA, GridNode nodeB)
         {
+            if (_gridMap[nodeB.X, nodeB.Y].IsPartOfRoom) return;
+
             var a = GetNodeIndex(nodeA);
             var b = GetNodeIndex(nodeB);
             if (_disjointSet.Find(a) == _disjointSet.Find(b))
@@ -246,13 +325,12 @@ namespace Assets.Scripts
             {
                 GameManager.Instance.GameSeed = Guid.NewGuid().ToString().Replace("-", "");
             }
-            var pseudoRandom = new System.Random(GameManager.Instance.GameSeed.GetHashCode());
 
             for (var x = 0; x < _width; x++)
             {
                 for (var y = 0; y <_height; y++)
                 {
-                    var key = pseudoRandom.Next();
+                    var key = GameManager.Instance.GetRandom();
                     var node = new GridNode {X = x, Y = y, NodeConfiguration = 0, HasWallRight = true, HasWallDown = true, Key = key };
                     _prioList.Add(node);
                     _gridMap[x, y] = node;
@@ -285,6 +363,7 @@ namespace Assets.Scripts
             }
         }
 
+        #if UNITY_EDITOR
         void OnDrawGizmos()
         {
             var nodeSize = 2;
@@ -293,10 +372,10 @@ namespace Assets.Scripts
                 for (var y = 0; y < _height; y++)
                 {
                     Handles.color = Color.red;
-                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), ""+ _gridMap[x,y].NodeConfiguration  );
+                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), "("+ GetNodeIndex(_gridMap[x,y])+")"+ _gridMap[x,y].NodeConfiguration);
                 }
             }
         }
-
+        #endif
     }
 }
