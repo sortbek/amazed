@@ -5,7 +5,7 @@ namespace Assets.Scripts.Items.Potions {
         public HealthRegenerationPotion(Character.Character player) : base(player) {
             Texture = (Texture) Resources.Load("Sprites/potion_regen", typeof(Texture));
             Boost = 4;
-            TimeLeft = 10;
+            Duration = 10;
         }
     }
 }
