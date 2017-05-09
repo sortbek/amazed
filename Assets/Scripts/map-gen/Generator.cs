@@ -358,7 +358,7 @@ namespace Assets.Scripts
                     var node = _gridMap[x, y];
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
-                    node.SetActive(false);
+                    node.SetActive(true);
                 }
             }
         }
