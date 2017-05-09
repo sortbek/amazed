@@ -40,7 +40,6 @@ public class MapManager : MonoBehaviour
 	            UpdateCulling();
 	        }
 	    }
-
 	}
 
     private void CurrentLocation()
