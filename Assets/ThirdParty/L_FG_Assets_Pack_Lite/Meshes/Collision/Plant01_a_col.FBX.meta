@@ -10,8 +10,11 @@ ModelImporter:
     400000: //RootNode
     400002: default
     2300000: default
+    2300002: //RootNode
     3300000: default
+    3300002: //RootNode
     4300000: default
+    4300002: Plant01_a_col
   materials:
     importMaterials: 1
     materialName: 0
