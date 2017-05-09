@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 024deaf8a00d1b8429d70e6ba04e60dd
-timeCreated: 1492686525
+guid: df034086ff7dfb341b7d4c666f2bc11e
+timeCreated: 1493801214
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -10,11 +10,8 @@ ModelImporter:
     400000: default
     400002: //RootNode
     2300000: default
-    2300002: //RootNode
     3300000: default
-    3300002: //RootNode
     4300000: default
-    4300002: Plant02_a_col
   materials:
     importMaterials: 1
     materialName: 0
