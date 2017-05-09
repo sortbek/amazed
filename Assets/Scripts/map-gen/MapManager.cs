@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts;
+using Assets.Scripts.World;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
+	public GameObject ground;
 
     private GridNode[,] _map;
     private Generator _generator;
@@ -22,6 +22,7 @@ public class MapManager : MonoBehaviour
 	    _generator = gameObject.GetComponent<Generator>();
 	    _player = GameObject.FindWithTag("player");
 
+		SetGround();
 	}
 	
 	// Update is called once per frame
@@ -40,7 +41,13 @@ public class MapManager : MonoBehaviour
 	            UpdateCulling();
 	        }
 	    }
+	}
 
+	private void SetGround()
+	{
+		var size = GameManager.Instance.Size * _generator.NodeSize + 100;
+		ground.transform.position = new Vector3(size/2-50,0,size/2-50);
+		ground.transform.localScale = new Vector3(size,.1f,size);
 	}
 
     private void CurrentLocation()
