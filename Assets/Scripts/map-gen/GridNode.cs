@@ -17,11 +17,12 @@ namespace Assets.Scripts
     public class GridNode : IHeapItem<GridNode>
     {
         public int NodeConfiguration;
-        public bool HasWallDown;
-        public bool HasWallRight;
+        public bool HasWallDown = true;
+        public bool HasWallRight = true;
         public int X;
         public int Y;
         public int Key;
+        public bool IsPartOfRoom;
 
         public List<GridNode> BakedList = new List<GridNode>();
         public GameObject Prefab;
