@@ -345,7 +345,7 @@ MonoBehaviour:
     type: 2}
   PrefabDeadEnd: {fileID: 1344622350246812, guid: 0676b404a8c51e14ba02e461c62a778f,
     type: 2}
-  PrefabStartEnd: {fileID: 1324248185663784, guid: 081fb3458b6d8104a9c38014e2f9033b,
+  PrefabStartEnd: {fileID: 1033042858494762, guid: 013aeb030d384c8439cd80b4cc732477,
     type: 2}
   NodeSize: 12
 --- !u!1 &930479698
@@ -615,7 +615,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 31d4c7b78f32be249abc417ed7becb68, type: 2}
+  - {fileID: 2100000, guid: 1c7a02dd3065afd4b93c35213bc8a308, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
