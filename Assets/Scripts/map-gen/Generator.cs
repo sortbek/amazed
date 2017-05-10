@@ -53,7 +53,7 @@ namespace Assets.Scripts
             return _isGenerated;
         }
 
-        private void GenerateMap()
+        public void GenerateMap()
         {
             // Fill the dictionary with keys and GridNodes. The keys will represent
             // the priority in the queue later.

@@ -13,7 +13,6 @@ namespace Assets.Scripts
         Left = 8
     }
 
-
     public class GridNode : IHeapItem<GridNode>
     {
         public int NodeConfiguration;

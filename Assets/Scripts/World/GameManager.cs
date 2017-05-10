@@ -1,4 +1,9 @@
-﻿namespace Assets.Scripts.World
+﻿using System.Net.Mime;
+using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+
+namespace Assets.Scripts.World
 {
     public class GameManager : Singleton<GameManager>
     {
@@ -20,6 +25,10 @@
                 return _random.Next();
             }
             return max == 0 ? _random.Next(min) : _random.Next(min, max);
+        }
+
+        public void LoadNextLevel() {
+            SceneManager.LoadScene(2);
         }
 
     }

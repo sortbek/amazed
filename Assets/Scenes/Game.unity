@@ -146,7 +146,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 270708322}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: db01fb099702e26449d994eba63b5dc0, type: 2}
   m_CullingMode: 0
@@ -201,7 +201,7 @@ Prefab:
     - target: {fileID: 224640898981187324, guid: 6a655772c95a2d245a5f121b2697af03,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224640898981187324, guid: 6a655772c95a2d245a5f121b2697af03,
         type: 2}
@@ -345,7 +345,7 @@ MonoBehaviour:
     type: 2}
   PrefabDeadEnd: {fileID: 1344622350246812, guid: 0676b404a8c51e14ba02e461c62a778f,
     type: 2}
-  PrefabStartEnd: {fileID: 1033042858494762, guid: 013aeb030d384c8439cd80b4cc732477,
+  PrefabStartEnd: {fileID: 1501729378463848, guid: 013aeb030d384c8439cd80b4cc732477,
     type: 2}
   NodeSize: 12
 --- !u!1 &930479698
@@ -469,7 +469,7 @@ Transform:
   m_Children:
   - {fileID: 270708323}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &930479705
 MonoBehaviour:
