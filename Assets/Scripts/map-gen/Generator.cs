@@ -23,8 +23,7 @@ namespace Assets.Scripts
         private Heap<GridNode> _prioList;
         private DisjointSet _disjointSet;
         private bool _isGenerated;
-
-
+        
         public int NodeSize = 12;
 
         void Awake()
@@ -58,6 +57,8 @@ namespace Assets.Scripts
             _gridMap = chef.Bake(_gridMap);
 
             _isGenerated = true;
+
+            GameManager.Instance.Load();
         }
 
         public bool IsGenerated()
