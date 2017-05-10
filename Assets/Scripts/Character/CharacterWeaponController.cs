@@ -49,9 +49,11 @@ namespace Assets.Scripts.Character {
 
         private void Load() {
             foreach (GameObject obj in Weapons) {
-                WeaponStat stat = obj.GetComponent<WeaponStat>();
-                GameObject weaponObject = Instantiate(obj, new Vector3(_weaponPosition.position.x, _weaponPosition.position.y, _weaponPosition.position.z), _weaponPosition.localRotation, transform);
-                WeaponObject weapon = new WeaponObject() { Access = stat.Default, Object = weaponObject };
+                var stat = obj.GetComponent<WeaponStat>();
+                var position = new Vector3(_weaponPosition.position.x, _weaponPosition.position.y + obj.transform.position.y, _weaponPosition.position.z);
+                var weaponObject = Instantiate(obj, position, _weaponPosition.localRotation, transform);
+                var weapon = new WeaponObject() { Access = stat.Default, Object = weaponObject };
+                weaponObject.transform.Rotate(stat.OffsetRotation);
                 weaponObject.SetActive(false);
                 _equipment[stat.WeaponID] = weapon;
             }
