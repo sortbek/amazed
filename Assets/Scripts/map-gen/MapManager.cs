@@ -63,7 +63,7 @@ public class MapManager : MonoBehaviour
 
     private void UpdateCulling()
     {
-//        // Disable the previous enabled baked
+        // Disable the previous enabled baked
         if (_current != null)
         {
             foreach (var node in _current.BakedList)

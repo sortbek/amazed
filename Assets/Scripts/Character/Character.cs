@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.Character {
@@ -44,7 +45,12 @@ namespace Assets.Scripts.Character {
                 PlayAudio(AudioLanding);
                 _translation.Airborne = false;
             }
+        }
 
+        void OnTriggerEnter(Collider collision) {
+            if (collision.gameObject.tag == "startend") {
+                GameManager.Instance.LoadNextLevel();
+            }
         }
 
         public void PlayAudio(AudioClip clip) {
@@ -54,5 +60,5 @@ namespace Assets.Scripts.Character {
             src.Play();
         }
     }
-    
+
 }
