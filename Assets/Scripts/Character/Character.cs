@@ -24,11 +24,14 @@ namespace Assets.Scripts.Character {
 
         private CharacterTranslation _translation;
         private CharacterRotation _rotation;
+        private CharacterInteraction _interaction;
 
 
         void Awake() {
             _translation = new CharacterTranslation(this);
             _rotation = new CharacterRotation(this);
+            _interaction = new CharacterInteraction(this);
+
             Health = 100f;
             Speed = 3f;
             JumpForce = 5f;
@@ -37,6 +40,7 @@ namespace Assets.Scripts.Character {
         void Update() {
             _translation.Update();
             _rotation.Update();
+            _interaction.Update();
         }
 
         void OnCollisionEnter(Collision collision) {
