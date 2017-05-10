@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Assets.Scripts;
+using Assets.Scripts.Character;
 using UnityEngine.SceneManagement;
 
 public class LevelTransition : MonoBehaviour {
@@ -18,7 +19,5 @@ public class LevelTransition : MonoBehaviour {
     public void NextLevelClick()
     {
         SceneManager.LoadScene(1);
-        var generator = FindObjectOfType<Generator>();
-        generator.Init();
     }
 }
