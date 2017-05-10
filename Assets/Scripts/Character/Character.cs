@@ -44,7 +44,6 @@ namespace Assets.Scripts.Character {
                 PlayAudio(AudioLanding);
                 _translation.Airborne = false;
             }
-
         }
 
         public void PlayAudio(AudioClip clip) {
