@@ -27,16 +27,28 @@ namespace Assets.Scripts
 
         public int NodeSize = 12;
 
+        void Awake()
+        {
+            GetComponent<Generator>().enabled = true;
+        }
+
         // Use this for initialization
         [ContextMenu("GenerateMap")]
         void Start ()
         {
+            Init();
+        }
+
+        public void Init()
+        {
+            GameManager.Instance.Size = 10;
+            GameManager.Instance.RandomSeed = true;
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
 
             _disjointSet = new DisjointSet(_width, _height);
 
-            _gridMap = new GridNode[_width,_height];
+            _gridMap = new GridNode[_width, _height];
 
             _prioList = new Heap<GridNode>(_width * _height);
 
