@@ -1,16 +1,24 @@
-﻿using Assets.Scripts.Character;
+﻿using System;
+using Assets.Scripts.Character;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class CharacterInteraction : MonoBehaviour
 {
     private float _interactionRadius;
     private readonly Character _character;
-
+    private int _layerMask, _propLayer, _playerLayer;
 
     public CharacterInteraction(Character character)
     {
+        _propLayer = LayerMask.NameToLayer("Prop");
+        _playerLayer = LayerMask.NameToLayer("Player");
+        var PropLayerMask = 1 << _propLayer;
+        var PlayerLayerMask = 1 << _playerLayer;
+        _layerMask = PropLayerMask | PlayerLayerMask;
+
         _character = character;
-        _interactionRadius = 10.0f;
+        _interactionRadius = 2.0f;
     }
 
     // Use this for initialization
@@ -21,21 +29,24 @@ public class CharacterInteraction : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        Collider[] NearbyGameObjects = Physics.OverlapSphere(
+        Collider[] nearbyColliders = Physics.OverlapSphere(
             _character.transform.position,
-            _interactionRadius
-            );
+            _interactionRadius,
+            _layerMask
+        );
 
-        foreach (var go in NearbyGameObjects)
+        foreach (var c in nearbyColliders)
         {
-            print(go.ToString());
+            if (c.gameObject.layer == _propLayer)
+                if ((c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour) != null)
+                    (c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour).Interact(_character);
         }
 
         // Check if prop is nearby (withtin x distance)
         // https://docs.unity3d.com/ScriptReference/Physics.OverlapSphere.html
         // Check if gameobjects of layermask 'Props' are within the sphere
 
-        // If multiple prop are nearby sort by how close they are
+        // If multiple prop are nearby sort by where the camera is looking at most
 
         // Show on screen 'Search {propname}'
 
