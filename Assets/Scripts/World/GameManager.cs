@@ -44,8 +44,6 @@ namespace Assets.Scripts.World {
 
         public void Save() {
             SetGameObjects();
-            PlayerPrefs.SetFloat("h", Character.Health);
-            PlayerPrefs.SetInt("p", Character.Points);
             PlayerPrefs.SetInt("ha", PotionSelection.Health.Amount);
             PlayerPrefs.SetInt("hra", PotionSelection.HealthRegeneration.Amount);
             PlayerPrefs.SetInt("dama", PotionSelection.Damage.Amount);
@@ -59,13 +57,14 @@ namespace Assets.Scripts.World {
 
         public void Load() {
             SetGameObjects();
-            if (PlayerPrefs.HasKey("h")) Character.Health = PlayerPrefs.GetFloat("h");
-            if (PlayerPrefs.HasKey("p")) Character.Points = PlayerPrefs.GetInt("p");
             if (PlayerPrefs.HasKey("ha")) PotionSelection.Health.Amount = PlayerPrefs.GetInt("ha", PotionSelection.Health.Amount);
             if (PlayerPrefs.HasKey("hra")) PotionSelection.HealthRegeneration.Amount = PlayerPrefs.GetInt("hra", PotionSelection.HealthRegeneration.Amount);
             if (PlayerPrefs.HasKey("dama")) PotionSelection.Damage.Amount = PlayerPrefs.GetInt("dama", PotionSelection.Damage.Amount);
             if (PlayerPrefs.HasKey("defa")) PotionSelection.Defense.Amount = PlayerPrefs.GetInt("defa", PotionSelection.Defense.Amount);
             if (PlayerPrefs.HasKey("sa")) PotionSelection.Speed.Amount = PlayerPrefs.GetInt("sa", PotionSelection.Speed.Amount);
+
+            Character.transform.position = new Vector3(0, 1, -12);
+            Character.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
 
         void OnApplicationQuit() {
