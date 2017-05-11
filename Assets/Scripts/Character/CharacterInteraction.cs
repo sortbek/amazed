@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Character;
 using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-public class CharacterInteraction : MonoBehaviour
-{
+public class CharacterInteraction {
     private float _interactionRadius;
     private readonly Character _character;
     private int _layerMask, _propLayer, _playerLayer;
 
-    public CharacterInteraction(Character character)
-    {
+    public CharacterInteraction(Character character) {
         _propLayer = LayerMask.NameToLayer("Prop");
         _playerLayer = LayerMask.NameToLayer("Player");
         var PropLayerMask = 1 << _propLayer;
@@ -21,25 +22,33 @@ public class CharacterInteraction : MonoBehaviour
         _interactionRadius = 2.0f;
     }
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
     // Update is called once per frame
-    public void Update()
-    {
+    public void Update() {
         Collider[] nearbyColliders = Physics.OverlapSphere(
             _character.transform.position,
             _interactionRadius,
             _layerMask
         );
 
-        foreach (var c in nearbyColliders)
-        {
-            if (c.gameObject.layer == _propLayer)
-                if ((c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour) != null)
-                    (c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour).Interact(_character);
+        var Interactables = new List<InteractionBehaviour>();
+
+        foreach (var c in nearbyColliders) {
+            if (c.gameObject.layer != _propLayer) {
+                continue;
+            }
+
+            var interactable = (c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour);
+            if (interactable != null) {
+                Interactables.Add(interactable);
+            }
+        }
+
+        var closest = Interactables.FirstOrDefault();
+        if (closest != null) {
+            closest.Interact();
+        }
+        else {
+            GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>().text = "";
         }
 
         // Check if prop is nearby (withtin x distance)
