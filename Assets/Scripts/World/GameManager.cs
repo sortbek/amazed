@@ -18,6 +18,7 @@ namespace Assets.Scripts.World {
         public StatsUpdater StatsUpdater;
         public PotionSelection PotionSelection;
 
+        public int Level = 1;
 
         private System.Random _random;
 
@@ -49,7 +50,7 @@ namespace Assets.Scripts.World {
             PlayerPrefs.SetInt("dama", PotionSelection.Damage.Amount);
             PlayerPrefs.SetInt("defa", PotionSelection.Defense.Amount);
             PlayerPrefs.SetInt("sa", PotionSelection.Speed.Amount);
-
+            PlayerPrefs.SetFloat("sec", Time.timeSinceLevelLoad);
             TimeSpan timeSpan = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
             string timeText = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             PlayerPrefs.SetString("t", timeText);
@@ -64,7 +65,6 @@ namespace Assets.Scripts.World {
             if (PlayerPrefs.HasKey("sa")) PotionSelection.Speed.Amount = PlayerPrefs.GetInt("sa", PotionSelection.Speed.Amount);
 
             Character.transform.position = new Vector3(0, 1, -12);
-            Character.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
 
         void OnApplicationQuit() {

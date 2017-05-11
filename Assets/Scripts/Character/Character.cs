@@ -33,7 +33,7 @@ namespace Assets.Scripts.Character {
             }
 
             _translation = new CharacterTranslation(this);
-            _rotation = new CharacterRotation(this); 
+            _rotation = new CharacterRotation(this);
 
             Health = 50f;
             Speed = 3f;
