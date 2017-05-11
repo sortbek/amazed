@@ -7,15 +7,18 @@ namespace Assets.Scripts.Items.Potions {
         public Character.Character Player;
         public int Boost;
         public bool Active;
+        public int Duration;
         public int TimeLeft;
 
         protected Potion(Character.Character player) {
             Amount = 5;
             Player = player;
-            TimeLeft = 20;
+            Duration = 20;
         }
 
         public virtual void Use() {
+            TimeLeft = Duration;
+
             PotionRunnable pr = new PotionRunnable(Player, this);
             pr.Start();
 
@@ -24,7 +27,6 @@ namespace Assets.Scripts.Items.Potions {
         }
 
         public virtual void RemoveEffect() {
-            TimeLeft = 20;
             Active = false;
         }
     }
