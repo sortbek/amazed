@@ -53,6 +53,7 @@ namespace Assets.Scripts
             _gridMap = chef.Bake(_gridMap);
 
             _isGenerated = true;
+            GetComponent<MapManager>().Init();
         }
 
         public bool IsGenerated()
@@ -364,24 +365,23 @@ namespace Assets.Scripts
                     var node = _gridMap[x, y];
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
-                    node.SetActive(true);
                 }
             }
         }
 
-        #if UNITY_EDITOR
-        void OnDrawGizmos()
-        {
-            var nodeSize = 2;
-            for (var x = 0; x < _width; x++)
-            {
-                for (var y = 0; y < _height; y++)
-                {
-                    Handles.color = Color.red;
-                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), "("+ GetNodeIndex(_gridMap[x,y])+")"+ _gridMap[x,y].NodeConfiguration);
-                }
-            }
-        }
-        #endif
+//        #if UNITY_EDITOR
+//        void OnDrawGizmos()
+//        {
+//            var nodeSize = 2;
+//            for (var x = 0; x < _width; x++)
+//            {
+//                for (var y = 0; y < _height; y++)
+//                {
+//                    Handles.color = Color.red;
+//                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), "("+ GetNodeIndex(_gridMap[x,y])+")"+ _gridMap[x,y].NodeConfiguration);
+//                }
+//            }
+//        }
+//        #endif
     }
 }

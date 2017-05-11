@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.World
+﻿using UnityEngine;
+
+namespace Assets.Scripts.World
 {
     public class GameManager : Singleton<GameManager>
     {
@@ -6,6 +8,9 @@
         public int Size;
         public bool RandomSeed;
         public bool Debug;
+
+        // Game stuff
+        public Transform EndPoint;
 
         private System.Random _random;
 

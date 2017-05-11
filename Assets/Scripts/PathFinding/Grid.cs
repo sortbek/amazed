@@ -1,59 +1,75 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts;
 using Assets.Scripts.World;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    public bool displayGridGizmos;
-    public LayerMask unwalkableMask;
-    public Vector2 gridWorldSize;
-    public float nodeRadius;
-    Node[,] grid;
+    public bool DisplayGridGizmos;
+    public LayerMask UnwalkableMask;
+    public Vector2 GridWorldSize;
+    public float NodeRadius;
+    private Node[,] _grid;
 
-    float nodeDiameter;
-    int gridSizeX, gridSizeY;
+    private float _nodeDiameter;
+    private int _gridSizeX, gridSizeY;
 
-    void Start() {
-        gridWorldSize = new Vector2(GameManager.Instance.Size * 12, GameManager.Instance.Size * 12);
-        transform.position = new Vector3(gridWorldSize.x / 2 - 6,-2,gridWorldSize.x / 2 - 6);
-        nodeDiameter = nodeRadius*2;
-        gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
-        gridSizeY = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
+    void Start()
+    {
+        // Set al the necessary variables we need for our grid
+        GridWorldSize = new Vector2(GameManager.Instance.Size * 12 * 2, GameManager.Instance.Size * 12 * 2);
+//        transform.position = new Vector3(GridWorldSize.x / 2 - 6, -2, GridWorldSize.x / 2 - 6);
+        _nodeDiameter = NodeRadius * 2;
+        _gridSizeX = Mathf.RoundToInt(GridWorldSize.x / _nodeDiameter);
+        gridSizeY = Mathf.RoundToInt(GridWorldSize.y / _nodeDiameter);
+
+        // Create the actual grid
         CreateGrid();
+        
+        // Inform the MapManager our grid is completed and enable the dynamic culling
+        GetComponentInParent<MapManager>().EnableCulling();
     }
 
-    public int MaxSize {
-        get {
-            return gridSizeX * gridSizeY;
-        }
+    public int MaxSize
+    {
+        get { return _gridSizeX * gridSizeY; }
     }
 
-    void CreateGrid() {
-        grid = new Node[gridSizeX,gridSizeY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2;
+    private void CreateGrid()
+    {
+        _grid = new Node[_gridSizeX, gridSizeY];
+        var worldBottomLeft = transform.position - Vector3.right * GridWorldSize.x / 2 -
+                                  Vector3.forward * GridWorldSize.y / 2;
 
-        for (int x = 0; x < gridSizeX; x ++) {
-            for (int y = 0; y < gridSizeY; y ++) {
-                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask));
-                grid[x,y] = new Node(walkable,worldPoint, x,y);
+        for (var x = 0; x < _gridSizeX; x++)
+        {
+            for (var y = 0; y < gridSizeY; y++)
+            {
+                var worldPoint = worldBottomLeft + Vector3.right * (x * _nodeDiameter + NodeRadius) +
+                                     Vector3.forward * (y * _nodeDiameter + NodeRadius);
+                var walkable = !(Physics.CheckSphere(worldPoint, NodeRadius, UnwalkableMask));
+                _grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
     }
 
-    public List<Node> GetNeighbours(Node node) {
-        List<Node> neighbours = new List<Node>();
+    public List<Node> GetNeighbours(Node node)
+    {
+        var neighbours = new List<Node>();
 
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
+        for (var x = -1; x <= 1; x++)
+        {
+            for (var y = -1; y <= 1; y++)
+            {
                 if (x == 0 && y == 0)
                     continue;
 
-                int checkX = node.gridX + x;
-                int checkY = node.gridY + y;
+                var checkX = node.gridX + x;
+                var checkY = node.gridY + y;
 
-                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY) {
-                    neighbours.Add(grid[checkX,checkY]);
+                if (checkX >= 0 && checkX < _gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                {
+                    neighbours.Add(_grid[checkX, checkY]);
                 }
             }
         }
@@ -62,24 +78,26 @@ public class Grid : MonoBehaviour
     }
 
 
-    public Node NodeFromWorldPoint(Vector3 worldPosition) {
-        float percentX = (worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x;
-        float percentY = (worldPosition.z + gridWorldSize.y/2) / gridWorldSize.y;
+    public Node NodeFromWorldPoint(Vector3 worldPosition)
+    {
+        var percentX = (worldPosition.x + GridWorldSize.x / 2) / GridWorldSize.x;
+        var percentY = (worldPosition.z + GridWorldSize.y / 2) / GridWorldSize.y;
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 
-        int x = Mathf.RoundToInt((gridSizeX-1) * percentX);
-        int y = Mathf.RoundToInt((gridSizeY-1) * percentY);
-        return grid[x,y];
+        var x = Mathf.RoundToInt((_gridSizeX - 1) * percentX);
+        var y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+        return _grid[x, y];
     }
 
-    void OnDrawGizmos() {
-        Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
-        if (grid != null && displayGridGizmos) {
-            foreach (Node n in grid) {
-                Gizmos.color = (n.walkable)?Color.white:Color.red;
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter-.1f));
-            }
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector3(GridWorldSize.x, 1, GridWorldSize.y));
+        if (_grid == null || !DisplayGridGizmos) return;
+        foreach (var n in _grid)
+        {
+            Gizmos.color = (n.walkable) ? Color.white : Color.red;
+            Gizmos.DrawCube(n.worldPosition, Vector3.one * (_nodeDiameter - .1f));
         }
     }
 }
