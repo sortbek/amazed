@@ -11,6 +11,7 @@ public class CharacterInteraction {
     private readonly Character _character;
     private int _layerMask, _propLayer, _playerLayer;
 
+
     public CharacterInteraction(Character character) {
         _propLayer = LayerMask.NameToLayer("Prop");
         _playerLayer = LayerMask.NameToLayer("Player");
@@ -47,12 +48,9 @@ public class CharacterInteraction {
             }
         }
 
-        var closest = Interactables.FirstOrDefault();
+        var closest = GetClosestProp(Interactables);
         if (closest != null) {
-            closest.PossibleInteraction();
-            if (Input.GetKeyDown(KeyCode.E)) {
-                closest.Interact();
-            }
+            closest.PossibleInteraction(_character);
         }
         else {
             var interaction = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
@@ -74,5 +72,19 @@ public class CharacterInteraction {
         // Notify user what happened on screen:
         // '{itemname} found'
         // If inventory full also: 'Inventory is full, the {itemname} is dropped on the ground'
+    }
+
+    InteractionBehaviour GetClosestProp(List<InteractionBehaviour>props) {
+        InteractionBehaviour tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector3 currentPos = _character.transform.position;
+        foreach (InteractionBehaviour t in props) {
+            float dist = Vector3.Distance(t.transform.position, currentPos);
+            if (dist < minDist) {
+                tMin = t;
+                minDist = dist;
+            }
+        }
+        return tMin;
     }
 }

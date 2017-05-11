@@ -32,7 +32,7 @@ namespace Assets.Scripts.Character {
 
             _camera.transform.localRotation = Quaternion.AngleAxis(-_mouseLook.y, Vector3.right);
             _character.transform.localRotation = Quaternion.AngleAxis(_mouseLook.x, _character.transform.up);
-            
+
         }
     }
 }
