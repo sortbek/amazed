@@ -25,6 +25,11 @@ namespace Assets.Scripts {
 
         public int NodeSize = 12;
 
+        void Awake()
+        {
+            GameManager.Instance.Size = 10;
+            GameManager.Instance.GameSeed = "test";
+        }
         // Use this for initialization
         [ContextMenu("GenerateMap")]
         void Start() {
@@ -43,6 +48,7 @@ namespace Assets.Scripts {
             GridMap = chef.Bake(GridMap);
 
             _isGenerated = true;
+            GetComponent<MapManager>().Init();
         }
 
         public bool IsGenerated() {
@@ -89,6 +95,7 @@ namespace Assets.Scripts {
             if (GridMap[x, y].IsPartOfRoom) {
                 return false;
             }
+
             if (GridMap[x, y].HasWallDown && !GridMap[x, y - 1].IsPartOfRoom) {
                 print("Breakin Wall Down: " + x + " " + y);
                 GridMap[x, y].HasWallDown = false;
@@ -310,21 +317,24 @@ namespace Assets.Scripts {
                     var node = GridMap[x, y];
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
-                    node.SetActive(false);
                 }
             }
         }
 
-#if UNITY_EDITOR
-        void OnDrawGizmos() {
-            var nodeSize = 2;
-            for (var x = 0; x < _width; x++) {
-                for (var y = 0; y < _height; y++) {
-                    Handles.color = Color.red;
-                    Handles.Label(new Vector3(x * NodeSize, 0, (y * NodeSize)), "(" + GetNodeIndex(GridMap[x, y]) + ")" + GridMap[x, y].NodeConfiguration);
-                }
-            }
-        }
-#endif
+//        #if UNITY_EDITOR
+//        void OnDrawGizmos()
+//        {
+//            var nodeSize = 2;
+//            for (var x = 0; x < _width; x++)
+//            {
+//                for (var y = 0; y < _height; y++)
+//                {
+//                    Handles.color = Color.red;
+//                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), "("+ GetNodeIndex(_gridMap[x,y])+")"+ _gridMap[x,y].NodeConfiguration);
+//                }
+//            }
+//        }
+//        #endif
+
     }
 }
