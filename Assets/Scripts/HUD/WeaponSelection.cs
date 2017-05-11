@@ -20,10 +20,11 @@ public class WeaponSelection : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (_controller.CurrentWeapon == null) return;
         int currentWeaponID = _controller.CurrentWeapon.GetComponent<WeaponStat>().WeaponID;
         for (var index = 0; index < WeaponImages.Length; index++) {
             WeaponImages[index].color = Color.gray;
             if (index == currentWeaponID) WeaponImages[index].color = Color.white;
-        }
+        } 
     }
 }
