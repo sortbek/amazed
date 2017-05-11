@@ -6,7 +6,6 @@ using UnityEngine;
 public class CharacterAnimationController : MonoBehaviour {
 
     private Animator _animator;
-    private string _currentState;
     private Rigidbody _body;
 
     // Use this for initialization
@@ -18,5 +17,9 @@ public class CharacterAnimationController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         _animator.SetBool("inMotion", !_body.IsSleeping());
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            _animator.Play("characterAttacking");
+        else if(Input.GetKeyDown(KeyCode.Mouse1))
+            _animator.Play("characterBlocking");
     }
 }

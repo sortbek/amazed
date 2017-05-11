@@ -29,10 +29,9 @@ namespace Assets.Scripts.Character {
 
         void Start() {
             _equipment = new Dictionary<int, WeaponObject>();
-            _weaponPosition = transform.FindChild("WeaponPosition");
+            _weaponPosition = transform.FindDeepChild("WeaponPosition");
             Load();
             Add(1);
-            Add(2);
         }
 
         void Update() {
@@ -51,7 +50,7 @@ namespace Assets.Scripts.Character {
             foreach (GameObject obj in Weapons) {
                 var stat = obj.GetComponent<WeaponStat>();
                 var position = new Vector3(_weaponPosition.position.x, _weaponPosition.position.y + obj.transform.position.y, _weaponPosition.position.z);
-                var weaponObject = Instantiate(obj, position, _weaponPosition.localRotation, transform);
+                var weaponObject = Instantiate(obj, position, _weaponPosition.localRotation, _weaponPosition);
                 var weapon = new WeaponObject() { Access = stat.Default, Object = weaponObject };
                 weaponObject.transform.Rotate(stat.OffsetRotation);
                 weaponObject.SetActive(false);
@@ -60,10 +59,10 @@ namespace Assets.Scripts.Character {
         }
 
         public void Add(int slot) {
-            WeaponObject obj = _equipment[slot];
+            WeaponObject obj = _equipment[slot-1];
             if (!obj.Access)
                 obj.Access = true;
-            _equipment[slot] = obj;
+            _equipment[slot-1] = obj;
         }
 
         public void Equip(GameObject obj) {
