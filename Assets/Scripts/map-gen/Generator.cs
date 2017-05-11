@@ -29,10 +29,15 @@ namespace Assets.Scripts
 
         public int NodeSize = 12;
 
+        void Awake()
+        {
+            GameManager.Instance.Size = 10;
+            GameManager.Instance.GameSeed = "test";
+        }
         // Use this for initialization
-        [ContextMenu("GenerateMap")]
         void Start ()
         {
+
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
 
