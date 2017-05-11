@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using Assets.Scripts.PathFinding;
+using Assets.Scripts.Util;
 
 namespace Assets.Scripts.pathfinding
 {
@@ -12,18 +13,20 @@ namespace Assets.Scripts.pathfinding
         private PathRequestManager _requestManager;
         private Grid _grid;
 
-        void Awake() {
+        void Awake()
+        {
             _requestManager = GetComponent<PathRequestManager>();
             _grid = GetComponent<Grid>();
         }
 
 
-        public void StartFindPath(Vector3 startPos, Vector3 targetPos) {
+        public void StartFindPath(Vector3 startPos, Vector3 targetPos)
+        {
             StartCoroutine(FindPath(startPos,targetPos));
         }
 
-        private IEnumerator FindPath(Vector3 startPos, Vector3 targetPos) {
-
+        private IEnumerator FindPath(Vector3 startPos, Vector3 targetPos)
+        {
             var waypoints = new Vector3[0];
             var pathSuccess = false;
 
@@ -56,7 +59,10 @@ namespace Assets.Scripts.pathfinding
                         }
 
                         var newMovementCostToNeighbour = currentNode.GCost + GetDistance(currentNode, neighbour);
-                        if (newMovementCostToNeighbour >= neighbour.GCost && openSet.Contains(neighbour)) continue;
+                        if (newMovementCostToNeighbour >= neighbour.GCost && openSet.Contains(neighbour))
+                        {
+                            continue;
+                        }
                         neighbour.GCost = newMovementCostToNeighbour;
                         neighbour.HCost = GetDistance(neighbour, targetNode);
                         neighbour.Parent = currentNode;
@@ -67,18 +73,21 @@ namespace Assets.Scripts.pathfinding
                 }
             }
             yield return null;
-            if (pathSuccess) {
+            if (pathSuccess)
+            {
                 waypoints = RetracePath(startNode,targetNode);
             }
             _requestManager.FinishedProcessingPath(waypoints,pathSuccess);
 
         }
 
-        private Vector3[] RetracePath(Node startNode, Node endNode) {
+        private Vector3[] RetracePath(Node startNode, Node endNode)
+        {
             var path = new List<Node>();
             var currentNode = endNode;
 
-            while (currentNode != startNode) {
+            while (currentNode != startNode)
+            {
                 path.Add(currentNode);
                 currentNode = currentNode.Parent;
             }
@@ -88,13 +97,16 @@ namespace Assets.Scripts.pathfinding
 
         }
 
-        protected Vector3[] SimplifyPath(List<Node> path) {
+        protected Vector3[] SimplifyPath(List<Node> path)
+        {
             var waypoints = new List<Vector3>();
             var directionOld = Vector2.zero;
 
-            for (var i = 1; i < path.Count; i ++) {
+            for (var i = 1; i < path.Count; i ++)
+            {
                 var directionNew = new Vector2(path[i-1].GridX - path[i].GridX,path[i-1].GridY - path[i].GridY);
-                if (directionNew != directionOld) {
+                if (directionNew != directionOld)
+                {
                     waypoints.Add(path[i].WorldPosition);
                 }
                 directionOld = directionNew;
@@ -102,7 +114,8 @@ namespace Assets.Scripts.pathfinding
             return waypoints.ToArray();
         }
 
-        private static int GetDistance(Node nodeA, Node nodeB) {
+        private static int GetDistance(Node nodeA, Node nodeB)
+        {
             var dstX = Mathf.Abs(nodeA.GridX - nodeB.GridX);
             var dstY = Mathf.Abs(nodeA.GridY - nodeB.GridY);
 
