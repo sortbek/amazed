@@ -39,16 +39,24 @@ public class CharacterInteraction {
 
             var interactable = (c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour);
             if (interactable != null) {
+                if (interactable.HasBeenInteractedWith) {
+                    continue;
+                }
+
                 Interactables.Add(interactable);
             }
         }
 
         var closest = Interactables.FirstOrDefault();
         if (closest != null) {
-            closest.Interact();
+            closest.PossibleInteraction();
+            if (Input.GetKeyDown(KeyCode.E)) {
+                closest.Interact();
+            }
         }
         else {
-            GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>().text = "";
+            var interaction = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
+            interaction.text = "";
         }
 
         // Check if prop is nearby (withtin x distance)
