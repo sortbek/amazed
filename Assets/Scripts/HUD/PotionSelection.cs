@@ -12,7 +12,7 @@ namespace Assets.Scripts.HUD {
         private RawImage _regenLeftImage, _damageLeftImage, _defenseLeftImage, _speedLeftImage;
         private Character.Character _player;
 
-        private Potion _selectedPotion, _health, _healthRegeneration, _speed, _damage, _defense;
+        private Potion _selectedPotion, _health, _healthRegeneration, _speed, _damage, _defense, _guidance;
 
         // Use this for initialization
         private void Start() {
@@ -65,6 +65,7 @@ namespace Assets.Scripts.HUD {
             _speed = new SpeedPotion(_player);
             _damage = new DamagePotion(_player);
             _defense = new DefensePotion(_player);
+            _guidance = new GuidancePotion(_player);
 
             _selectedPotion = _health;
         }
@@ -82,7 +83,7 @@ namespace Assets.Scripts.HUD {
             // Check if another potions has been selected
             switch (_selectedPotionId) {
                 case -1:
-                    _selectedPotionId = 4;
+                    _selectedPotionId = 5;
                     break;
                 case 0:
                     _selectedPotion = _health;
@@ -100,6 +101,9 @@ namespace Assets.Scripts.HUD {
                     _selectedPotion = _speed;
                     break;
                 case 5:
+                    _selectedPotion = _guidance;
+                    break;
+                case 6:
                     _selectedPotionId = 0;
                     break;
             }
