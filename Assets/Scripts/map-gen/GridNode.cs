@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Util;
-using JetBrains.Annotations;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Assets.Scripts {
     [Flags]
