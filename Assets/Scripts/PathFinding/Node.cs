@@ -15,24 +15,29 @@ namespace Assets.Scripts.PathFinding
         public int HCost;
         public Node Parent;
 
-        public Node(bool walkable, Vector3 worldPos, int gridX, int gridY) {
+        public Node(bool walkable, Vector3 worldPos, int gridX, int gridY)
+        {
             Walkable = walkable;
             WorldPosition = worldPos;
             GridX = gridX;
             GridY = gridY;
         }
 
-        public int FCost {
-            get {
+        public int FCost
+        {
+            get
+            {
                 return GCost + HCost;
             }
         }
 
         public int HeapIndex { get; set; }
 
-        public int CompareTo(Node nodeToCompare) {
+        public int CompareTo(Node nodeToCompare)
+        {
             var compare = FCost.CompareTo(nodeToCompare.FCost);
-            if (compare == 0) {
+            if (compare == 0)
+            {
                 compare = HCost.CompareTo(nodeToCompare.HCost);
             }
             return -compare;
