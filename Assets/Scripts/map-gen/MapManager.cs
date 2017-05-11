@@ -33,9 +33,9 @@ namespace Assets.Scripts
 			}
 		}
 
-		public void Init()
+		public void Init(GridNode[,] map)
 		{
-			_map = _generator.GetMap();
+			_map = map;
 			_newCurrent = _map[0, 0];
 		}
 
@@ -59,6 +59,10 @@ namespace Assets.Scripts
 			var x = (int)Math.Round(_player.transform.position.x/_generator.NodeSize);
 			var y = (int)Math.Round(_player.transform.position.z/_generator.NodeSize);
 
+			if (x < 0 || y < 0 || x > GameManager.Instance.Size || y > GameManager.Instance.Size)
+			{
+				return;
+			}
 			if (_current == null || x != _current.X || y != _current.Y)
 			{
 				_newCurrent = _map[x, y];
