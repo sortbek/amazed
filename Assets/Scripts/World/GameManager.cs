@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿using System;
 using System.Net.Mime;
 using System.Net.NetworkInformation;
 using Assets.Scripts.HUD;
@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.World {
     public class GameManager : Singleton<GameManager> {
-
         public string GameSeed;
         public int Size;
         public bool RandomSeed;
@@ -54,6 +53,7 @@ namespace Assets.Scripts.World {
             PlayerPrefs.SetInt("defa", PotionSelection.Defense.Amount);
             PlayerPrefs.SetInt("sa", PotionSelection.Speed.Amount);
             PlayerPrefs.SetFloat("sec", Time.timeSinceLevelLoad);
+
             TimeSpan timeSpan = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
             string timeText = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             PlayerPrefs.SetString("t", timeText);

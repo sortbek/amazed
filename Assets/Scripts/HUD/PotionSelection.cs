@@ -46,10 +46,8 @@ namespace Assets.Scripts.HUD {
                 }
             }
 
-            foreach (var image in GetComponentsInChildren<RawImage>())
-            {
-                switch (image.name)
-                {
+            foreach (var image in GetComponentsInChildren<RawImage>()) {
+                switch (image.name) {
                     case "Selected_Potion":
                         _selectedPotionImage = image;
                         break;
@@ -67,10 +65,9 @@ namespace Assets.Scripts.HUD {
                         break;
                 }
             }
+
             SelectedPotion = Health;
-
             _player = FindObjectOfType<Character.Character>();
-
         }
 
         // Update is called once per frame

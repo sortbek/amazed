@@ -1,49 +1,47 @@
-﻿using UnityEngine;
-using System.Collections;
-using Assets.Scripts;
-using Assets.Scripts.Character;
-using Assets.Scripts.World;
-using UnityEngine.SceneManagement;
+﻿using Assets.Scripts.World;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelTransition : MonoBehaviour
-{
-    private Text  _summaryText, _timeAmount, _pointsAmount, _pointsTotalAmount;
-    private Character _character;
+namespace Assets.Scripts.LevelTransition {
+    public class LevelTransition : MonoBehaviour
+    {
+        private Text  _summaryText, _timeAmount, _pointsAmount, _pointsTotalAmount;
+        private Character.Character _character;
 
-    // Use this for initialization
-    void Start() {
-        _character = FindObjectOfType<Character>();
-        int levelPoints = 1000 - (int)PlayerPrefs.GetFloat("sec");
-        _character.Points += levelPoints;
+        // Use this for initialization
+        void Start() {
+            _character = FindObjectOfType<Character.Character>();
+            int levelPoints = 1000 - (int)PlayerPrefs.GetFloat("sec");
+            _character.Points += levelPoints;
 
-        _character.transform.position = new Vector3(10, 2, 10);
-        _character.transform.rotation = Quaternion.Euler(0, 0, 0);
+            _character.transform.position = new Vector3(10, 2, 10);
+            _character.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-        foreach (var text in GetComponentsInChildren<Text>())
-        {
-            switch (text.name)
+            foreach (var text in GetComponentsInChildren<Text>())
             {
-                case "SummaryText":
-                    _summaryText = text;
-                    break;
-                case "TimeAmount":
-                    _timeAmount = text;
-                    break;
-                case "PointsAmount":
-                    _pointsAmount = text;
-                    break;
-                case "PointsTotalAmount":
-                    _pointsTotalAmount = text;
-                    break;
+                switch (text.name)
+                {
+                    case "SummaryText":
+                        _summaryText = text;
+                        break;
+                    case "TimeAmount":
+                        _timeAmount = text;
+                        break;
+                    case "PointsAmount":
+                        _pointsAmount = text;
+                        break;
+                    case "PointsTotalAmount":
+                        _pointsTotalAmount = text;
+                        break;
+                }
             }
+
+            _summaryText.text = "Level " + GameManager.Instance.Level + " summary";
+            _timeAmount.text = PlayerPrefs.GetString("t");
+            _pointsAmount.text = levelPoints.ToString();
+            _pointsTotalAmount.text = "Total points: " + _character.Points;
+
+            GameManager.Instance.Level += 1;
         }
-
-        _summaryText.text = "Level " + GameManager.Instance.Level + " summary";
-        _timeAmount.text = PlayerPrefs.GetString("t");
-        _pointsAmount.text = levelPoints.ToString();
-        _pointsTotalAmount.text = "Total points: " + _character.Points;
-
-        GameManager.Instance.Level += 1;
     }
 }

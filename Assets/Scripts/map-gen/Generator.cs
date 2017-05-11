@@ -21,23 +21,28 @@ namespace Assets.Scripts {
         private Heap<GridNode> _prioList;
         private DisjointSet _disjointSet;
         private bool _isGenerated;
-
-
+        
         public int NodeSize = 12;
 
         void Awake() {
             GameManager.Instance.Size = 10;
             GameManager.Instance.GameSeed = "test";
+            GetComponent<Generator>().enabled = true;
         }
+
         // Use this for initialization
         [ContextMenu("GenerateMap")]
-        void Start() {
+        void Start ()
+        {
+            GameManager.Instance.Size = 10;
+            GameManager.Instance.RandomSeed = true;
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
 
             _disjointSet = new DisjointSet(_width, _height);
 
             GridMap = new GridNode[_width, _height];
+
 
             _prioList = new Heap<GridNode>(_width * _height);
 
@@ -54,7 +59,8 @@ namespace Assets.Scripts {
             return _isGenerated;
         }
 
-        private void GenerateMap() {
+        public void GenerateMap()
+        {
             // Fill the dictionary with keys and GridNodes. The keys will represent
             // the priority in the queue later.
             CreatePriorityList();
