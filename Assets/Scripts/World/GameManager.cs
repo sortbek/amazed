@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.World
+﻿using UnityEngine;
+
+namespace Assets.Scripts.World
 {
     public class GameManager : Singleton<GameManager>
     {
@@ -6,6 +8,9 @@
         public int Size;
         public bool RandomSeed;
         public bool Debug;
+
+        // Game stuff
+        public Transform EndPoint;
 
         private System.Random _random;
 
@@ -20,6 +25,11 @@
                 return _random.Next();
             }
             return max == 0 ? _random.Next(min) : _random.Next(min, max);
+        }
+
+        public Vector3 GetEndpoint()
+        {
+            return new Vector3((Size - 1) * 12, 0, Size * 12);
         }
 
     }
