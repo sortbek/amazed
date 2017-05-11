@@ -1,4 +1,5 @@
-﻿using System.Net.Mime;
+﻿using System;
+using System.Net.Mime;
 using System.Net.NetworkInformation;
 using Assets.Scripts.HUD;
 using Assets.Scripts.Items.Potions;
@@ -50,6 +51,10 @@ namespace Assets.Scripts.World {
             PlayerPrefs.SetInt("dama", PotionSelection.Damage.Amount);
             PlayerPrefs.SetInt("defa", PotionSelection.Defense.Amount);
             PlayerPrefs.SetInt("sa", PotionSelection.Speed.Amount);
+
+            TimeSpan timeSpan = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
+            string timeText = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            PlayerPrefs.SetString("t", timeText);
         }
 
         public void Load() {
