@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.pathfinding
@@ -45,7 +44,7 @@ namespace Assets.Scripts.pathfinding
             public readonly Vector3 PathEnd;
             public readonly Action<Vector3[], bool> Callback;
 
-            public PathRequest(Vector3 start, Vector3 end, [NotNull] Action<Vector3[], bool> _callback) {
+            public PathRequest(Vector3 start, Vector3 end, Action<Vector3[], bool> _callback) {
                 if (_callback == null) throw new ArgumentNullException("_callback");
                 PathStart = start;
                 PathEnd = end;
