@@ -202,12 +202,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c38beff851ad724db5ac64a6ecca227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayGridGizmos: 1
-  UnwalkableMask:
+  displayGridGizmos: 1
+  unwalkableMask:
     serializedVersion: 2
     m_Bits: 256
-  GridWorldSize: {x: 0, y: 0}
-  NodeRadius: 0.5
+  gridWorldSize: {x: 200, y: 200}
+  nodeRadius: 0.5
 --- !u!4 &473578490
 Transform:
   m_ObjectHideFlags: 0
@@ -300,14 +300,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4396563873158930, guid: 1eb6e14853112494b867074e1507f4c7, type: 2}
       propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309930352832114, guid: 1eb6e14853112494b867074e1507f4c7, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4200357585528458, guid: 1eb6e14853112494b867074e1507f4c7, type: 2}
-      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
