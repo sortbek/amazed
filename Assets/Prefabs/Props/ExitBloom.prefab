@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33748712978102212}
   - component: {fileID: 23050871689526346}
   m_Layer: 0
-  m_Name: Bloom01
+  m_Name: ExitBloom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

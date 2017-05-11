@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Assets.Scripts.World;
 using UnityEngine;
 
@@ -27,8 +26,15 @@ namespace Assets.Scripts.Character {
         private CharacterRotation _rotation;
 
         void Awake() {
+            DontDestroyOnLoad(this);
+
+            if (FindObjectsOfType(GetType()).Length > 1) {
+                Destroy(gameObject);
+            }
+
             _translation = new CharacterTranslation(this);
-            _rotation = new CharacterRotation(this);
+            _rotation = new CharacterRotation(this); 
+
             Health = 50f;
             Speed = 3f;
             JumpForce = 5f;
