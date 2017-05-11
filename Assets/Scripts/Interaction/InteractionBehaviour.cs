@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Assets.Scripts.Character;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class InteractionBehaviour : MonoBehaviour {
     public bool HasBeenInteractedWith;
