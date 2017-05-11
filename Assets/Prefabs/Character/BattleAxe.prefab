@@ -125,3 +125,4 @@ MonoBehaviour:
   Knockback: 0.5
   WeaponID: 1
   Default: 0
+  OffsetRotation: {x: 0, y: 70, z: 0}
