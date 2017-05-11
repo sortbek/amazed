@@ -27,5 +27,10 @@ namespace Assets.Scripts.World
             return max == 0 ? _random.Next(min) : _random.Next(min, max);
         }
 
+        public Vector3 GetEndpoint()
+        {
+            return new Vector3((Size - 1) * 12, 0, Size * 12);
+        }
+
     }
 }

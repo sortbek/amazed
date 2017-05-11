@@ -12,13 +12,14 @@ namespace Assets.Scripts.PathFinding
 		// Use this for initialization
 		void Start ()
 		{
-			StartCoroutine(Waiting(1));
+			StartCoroutine(Waiting(2));
 		}
 
 		private IEnumerator Waiting(int time)
 		{
 			yield return new WaitForSeconds(time);
-			PathRequestManager.RequestPath(transform.position, GameManager.Instance.EndPoint.position, OnPathFound);
+
+			PathRequestManager.RequestPath(transform.position, GameManager.Instance.GetEndpoint(), OnPathFound);
 		}
 
 		public void OnPathFound(Vector3[] newPath, bool pathFound)
