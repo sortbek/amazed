@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class DisjointSet : MonoBehaviour
+    public class DisjointSet
     {
         public Dictionary<int, int> _set = new Dictionary<int, int>();
 

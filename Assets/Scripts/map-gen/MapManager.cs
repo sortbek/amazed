@@ -32,6 +32,8 @@ namespace Assets.Scripts {
         public void Init(GridNode[,] map) {
             _map = map;
             _newCurrent = _map[0, 0];
+
+            GameManager.Instance.Load();
         }
 
         private void SetGround() {

@@ -13,54 +13,49 @@ namespace Assets.Scripts {
         public GameObject PrefabCorner;
         public GameObject PrefabThreeWay;
         public GameObject PrefabDeadEnd;
+        public GameObject PrefabStartEnd;
 
         private int _height;
         private int _width;
 
-        public GridNode[,] GridMap;
+        private GridNode[,] _gridMap;
         private Heap<GridNode> _prioList;
         private DisjointSet _disjointSet;
         private bool _isGenerated;
-        
+
+
         public int NodeSize = 12;
 
         void Awake() {
             GameManager.Instance.Size = 10;
             GameManager.Instance.GameSeed = "test";
-            GetComponent<Generator>().enabled = true;
         }
-
         // Use this for initialization
         [ContextMenu("GenerateMap")]
-        void Start ()
-        {
-            GameManager.Instance.Size = 10;
-            GameManager.Instance.RandomSeed = true;
+        void Start() {
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
 
             _disjointSet = new DisjointSet(_width, _height);
 
-            GridMap = new GridNode[_width, _height];
-
+            _gridMap = new GridNode[_width, _height];
 
             _prioList = new Heap<GridNode>(_width * _height);
 
             GenerateMap();
 
             var chef = new DynamicOcclusion();
-            GridMap = chef.Bake(GridMap);
+            _gridMap = chef.Bake(_gridMap);
 
             _isGenerated = true;
-            GetComponent<MapManager>().Init(GridMap);
+            GetComponent<MapManager>().Init(_gridMap);
         }
 
         public bool IsGenerated() {
             return _isGenerated;
         }
 
-        public void GenerateMap()
-        {
+        private void GenerateMap() {
             // Fill the dictionary with keys and GridNodes. The keys will represent
             // the priority in the queue later.
             CreatePriorityList();
@@ -77,9 +72,14 @@ namespace Assets.Scripts {
             // Set the right configuration for each node
             ConfigurateNodes();
 
+            // Create start and end point
+            CreateStartEndPoint();
+
+            // Set the prefab for each node
+            SetNodesPrefabs();
+
             // Instantiate the map
             InstantiateMap();
-
 
         }
 
@@ -97,21 +97,29 @@ namespace Assets.Scripts {
             var x = GameManager.Instance.GetRandom(1, _width - 1);
             var y = GameManager.Instance.GetRandom(1, _height - 1);
 
-            if (GridMap[x, y].IsPartOfRoom) {
+            if (_gridMap[x, y].IsPartOfRoom) {
                 return false;
             }
-
-            if (GridMap[x, y].HasWallDown && !GridMap[x, y - 1].IsPartOfRoom) {
-                GridMap[x, y].HasWallDown = false;
+            if (_gridMap[x, y].HasWallDown && !_gridMap[x, y - 1].IsPartOfRoom) {
+                _gridMap[x, y].HasWallDown = false;
                 return true;
             }
 
-            if (GridMap[x, y].HasWallRight && !GridMap[x + 1, y].IsPartOfRoom) {
-                GridMap[x, y].HasWallRight = false;
+            if (_gridMap[x, y].HasWallRight && !_gridMap[x + 1, y].IsPartOfRoom) {
+                _gridMap[x, y].HasWallRight = false;
                 return true;
             }
 
             return false;
+        }
+
+        private void CreateStartEndPoint() {
+
+            // Remove the bottom wall from the starting location
+            _gridMap[0, 0].NodeConfiguration -= 4;
+
+            // Remove the top wall from the end location
+            _gridMap[GameManager.Instance.Size - 1, GameManager.Instance.Size - 1].NodeConfiguration -= 1;
         }
 
         private void CreateRooms() {
@@ -126,11 +134,11 @@ namespace Assets.Scripts {
             var nodeX = startX;
             var nodeY = startY;
 
-            var nodeBottomLeft = GridMap[nodeX, nodeY];
-            var nodeBottomRight = GridMap[nodeX + 1, nodeY];
+            var nodeBottomLeft = _gridMap[nodeX, nodeY];
+            var nodeBottomRight = _gridMap[nodeX + 1, nodeY];
 
-            var nodeTopLeft = GridMap[nodeX, nodeY + 1];
-            var nodeTopRight = GridMap[nodeX + 1, nodeY + 1];
+            var nodeTopLeft = _gridMap[nodeX, nodeY + 1];
+            var nodeTopRight = _gridMap[nodeX + 1, nodeY + 1];
 
 
             _disjointSet.Union(GetNodeIndex(nodeBottomLeft), GetNodeIndex(nodeBottomRight));
@@ -152,8 +160,15 @@ namespace Assets.Scripts {
         private void ConfigurateNodes() {
             for (var x = 0; x < _width; x++) {
                 for (var y = 0; y < _height; y++) {
-                    GridMap[x, y].NodeConfiguration = NodeConfig(GridMap[x, y]);
-                    SetPrefab(GridMap[x, y]);
+                    _gridMap[x, y].NodeConfiguration = NodeConfig(_gridMap[x, y]);
+                }
+            }
+        }
+
+        private void SetNodesPrefabs() {
+            for (var x = 0; x < _width; x++) {
+                for (var y = 0; y < _height; y++) {
+                    SetPrefab(_gridMap[x, y]);
                 }
             }
         }
@@ -226,12 +241,12 @@ namespace Assets.Scripts {
             var config = 0;
 
             // Check if the current node is on the top edge
-            if (node.Y == _height - 1 || GridMap[node.X, node.Y + 1].HasWallDown) {
+            if (node.Y == _height - 1 || _gridMap[node.X, node.Y + 1].HasWallDown) {
                 config += 1;
             }
 
             // Check if the current node is on the left edge
-            if (node.X == 0 || GridMap[node.X - 1, node.Y].HasWallRight) {
+            if (node.X == 0 || _gridMap[node.X - 1, node.Y].HasWallRight) {
                 config += 8;
             }
 
@@ -255,13 +270,13 @@ namespace Assets.Scripts {
         }
 
         private void CheckCurrentNode(GridNode node) {
-            if (GridMap[node.X, node.Y].IsPartOfRoom) return;
+            if (_gridMap[node.X, node.Y].IsPartOfRoom) return;
             if (node.X < _width - 1) {
-                CheckNeighbour(node, GridMap[node.X + 1, node.Y]);
+                CheckNeighbour(node, _gridMap[node.X + 1, node.Y]);
             }
 
             if (node.Y > 0) {
-                CheckNeighbour(node, GridMap[node.X, node.Y - 1]);
+                CheckNeighbour(node, _gridMap[node.X, node.Y - 1]);
             }
         }
 
@@ -270,7 +285,7 @@ namespace Assets.Scripts {
         }
 
         private void CheckNeighbour(GridNode nodeA, GridNode nodeB) {
-            if (GridMap[nodeB.X, nodeB.Y].IsPartOfRoom) return;
+            if (_gridMap[nodeB.X, nodeB.Y].IsPartOfRoom) return;
 
             var a = GetNodeIndex(nodeA);
             var b = GetNodeIndex(nodeB);
@@ -284,9 +299,9 @@ namespace Assets.Scripts {
 
         private void SetWall(GridNode a, GridNode b, bool hasWall) {
             if (a.X + 1 == b.X) {
-                GridMap[a.X, a.Y].HasWallRight = hasWall;
+                _gridMap[a.X, a.Y].HasWallRight = hasWall;
             } else {
-                GridMap[a.X, a.Y].HasWallDown = hasWall;
+                _gridMap[a.X, a.Y].HasWallDown = hasWall;
             }
         }
 
@@ -300,7 +315,7 @@ namespace Assets.Scripts {
                     var key = GameManager.Instance.GetRandom();
                     var node = new GridNode { X = x, Y = y, NodeConfiguration = 0, HasWallRight = true, HasWallDown = true, Key = key };
                     _prioList.Add(node);
-                    GridMap[x, y] = node;
+                    _gridMap[x, y] = node;
                 }
             }
         }
@@ -310,18 +325,25 @@ namespace Assets.Scripts {
         }
 
         public GridNode[,] GetMap() {
-            return GridMap;
+            return _gridMap;
         }
 
         private void InstantiateMap() {
+            // Set the default part of generated maze
             for (var x = 0; x < _width; x++) {
                 for (var y = 0; y < _height; y++) {
                     var position = new Vector3(x * NodeSize, 0, y * NodeSize);
-                    var node = GridMap[x, y];
+                    var node = _gridMap[x, y];
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
                 }
             }
+
+            // Set the start and end location
+            var start = Instantiate(PrefabStartEnd, new Vector3(0, 0, -12), transform.rotation);
+
+            var end = Instantiate(PrefabStartEnd, new Vector3((_width - 1) * 12, 0, _height * 12), transform.rotation);
+            end.transform.Rotate(Vector3.up, 180);
         }
 
         //        #if UNITY_EDITOR
@@ -338,6 +360,5 @@ namespace Assets.Scripts {
         //            }
         //        }
         //        #endif
-
     }
 }

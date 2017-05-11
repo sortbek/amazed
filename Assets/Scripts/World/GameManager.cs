@@ -67,7 +67,7 @@ namespace Assets.Scripts.World {
             if (PlayerPrefs.HasKey("defa")) PotionSelection.Defense.Amount = PlayerPrefs.GetInt("defa", PotionSelection.Defense.Amount);
             if (PlayerPrefs.HasKey("sa")) PotionSelection.Speed.Amount = PlayerPrefs.GetInt("sa", PotionSelection.Speed.Amount);
 
-            Character.transform.position = new Vector3(0, 1, -12);
+            Character.transform.position = new Vector3(0, 1.05f, -12);
         }
 
         void OnApplicationQuit() {

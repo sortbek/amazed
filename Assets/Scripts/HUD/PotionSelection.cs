@@ -22,6 +22,7 @@ namespace Assets.Scripts.HUD {
             Speed = new SpeedPotion(_player);
             Damage = new DamagePotion(_player);
             Defense = new DefensePotion(_player);
+            Guidance = new HealthPotion(_player);
         }
 
         // Use this for initialization
