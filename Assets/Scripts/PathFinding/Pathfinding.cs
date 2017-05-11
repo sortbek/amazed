@@ -23,34 +23,42 @@ namespace Assets.Scripts.pathfinding
 
         IEnumerator FindPath(Vector3 startPos, Vector3 targetPos) {
 
-            Vector3[] waypoints = new Vector3[0];
-            bool pathSuccess = false;
+            var waypoints = new Vector3[0];
+            var pathSuccess = false;
 
-            Node startNode = grid.NodeFromWorldPoint(startPos);
-            Node targetNode = grid.NodeFromWorldPoint(targetPos);
+            var startNode = grid.NodeFromWorldPoint(startPos);
+            var targetNode = grid.NodeFromWorldPoint(targetPos);
 
+            print(startNode.gridX + " " + startNode.gridY);
+            print(targetNode.gridX + " " + targetNode.gridY);
 
-            if (startNode.walkable && targetNode.walkable) {
+            if (startNode.walkable && targetNode.walkable)
+            {
                 var openSet = new Heap<Node>(grid.MaxSize);
                 HashSet<Node> closedSet = new HashSet<Node>();
                 openSet.Add(startNode);
 
-                while (openSet.Count > 0) {
+                while (openSet.Count > 0)
+                {
                     Node currentNode = openSet.RemoveFirst();
                     closedSet.Add(currentNode);
 
-                    if (currentNode == targetNode) {
+                    if (currentNode == targetNode)
+                    {
                         pathSuccess = true;
                         break;
                     }
 
-                    foreach (Node neighbour in grid.GetNeighbours(currentNode)) {
-                        if (!neighbour.walkable || closedSet.Contains(neighbour)) {
+                    foreach (Node neighbour in grid.GetNeighbours(currentNode))
+                    {
+                        if (!neighbour.walkable || closedSet.Contains(neighbour))
+                        {
                             continue;
                         }
 
                         int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
-                        if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour)) {
+                        if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+                        {
                             neighbour.gCost = newMovementCostToNeighbour;
                             neighbour.hCost = GetDistance(neighbour, targetNode);
                             neighbour.parent = currentNode;
@@ -60,6 +68,10 @@ namespace Assets.Scripts.pathfinding
                         }
                     }
                 }
+            }
+            else
+            {
+                print(startNode.walkable);
             }
             yield return null;
             if (pathSuccess) {
