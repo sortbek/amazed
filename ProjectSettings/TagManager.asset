@@ -7,6 +7,7 @@ TagManager:
   - health
   - player
   - ground
+  - interaction
   layers:
   - Default
   - TransparentFX
