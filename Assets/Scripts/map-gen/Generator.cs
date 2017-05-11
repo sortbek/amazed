@@ -48,7 +48,7 @@ namespace Assets.Scripts {
             GridMap = chef.Bake(GridMap);
 
             _isGenerated = true;
-            GetComponent<MapManager>().Init();
+            GetComponent<MapManager>().Init(GridMap);
         }
 
         public bool IsGenerated() {
@@ -97,13 +97,11 @@ namespace Assets.Scripts {
             }
 
             if (GridMap[x, y].HasWallDown && !GridMap[x, y - 1].IsPartOfRoom) {
-                print("Breakin Wall Down: " + x + " " + y);
                 GridMap[x, y].HasWallDown = false;
                 return true;
             }
 
             if (GridMap[x, y].HasWallRight && !GridMap[x + 1, y].IsPartOfRoom) {
-                print("Breakin Wall Right: " + x + " " + y);
                 GridMap[x, y].HasWallRight = false;
                 return true;
             }
