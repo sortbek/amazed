@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1134173430808506}
+  m_IsPrefabParent: 1
+--- !u!1 &1134173430808506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4994255847949652}
+  - component: {fileID: 114635833763471294}
+  - component: {fileID: 114159048225272184}
+  - component: {fileID: 114183304020847016}
+  - component: {fileID: 114500923565315232}
+  m_Layer: 0
+  m_Name: Pathfinding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4994255847949652
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1134173430808506}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 93.6, y: 0, z: -78.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114159048225272184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1134173430808506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c4767ff5c87304889ccbd196d5d565, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabCross: {fileID: 1069561775129186, guid: d1506635f6a8d2c47bd2a2c4f732e69d,
+    type: 2}
+  PrefabStraight: {fileID: 1454565863251730, guid: 2bba5c93de7b8fd4f8e83541221cc473,
+    type: 2}
+  PrefabCorner: {fileID: 1183762301793696, guid: 1eb6e14853112494b867074e1507f4c7,
+    type: 2}
+  PrefabThreeWay: {fileID: 1227695985632132, guid: 17c980c2e8dd8834b870ef5ed2a03f04,
+    type: 2}
+  PrefabDeadEnd: {fileID: 1344622350246812, guid: 0676b404a8c51e14ba02e461c62a778f,
+    type: 2}
+  NodeSize: 12
+--- !u!114 &114183304020847016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1134173430808506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e52c57af92a0eb449b952fcc4ab98af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameSeed: 
+  Size: 10
+  RandomSeed: 0
+  Debug: 0
+--- !u!114 &114500923565315232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1134173430808506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c38beff851ad724db5ac64a6ecca227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unwalkableMask:
+    serializedVersion: 2
+    m_Bits: 256
+  gridWorldSize: {x: 300, y: 300}
+  nodeRadius: 0.5
+--- !u!114 &114635833763471294
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1134173430808506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98c2d2904a82e745bbb960b39169359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
