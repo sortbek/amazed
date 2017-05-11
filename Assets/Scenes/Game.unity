@@ -402,10 +402,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Weapons:
-  - {fileID: 1420066770282142, guid: a2693a98e8c4b93419b4fceaeb674f18, type: 2}
-  - {fileID: 1247101190778272, guid: 172d7b2e6cb7a8b4fb738df1ae919cf8, type: 2}
-  - {fileID: 1202479383253024, guid: fb2ad65ad2d810b408ffc1496447cc03, type: 2}
-  - {fileID: 1963131509690670, guid: 87006c52b04d6734da34a1d1dabef8f4, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   CurrentWeapon: {fileID: 1420066770282142, guid: a2693a98e8c4b93419b4fceaeb674f18,
     type: 2}
 --- !u!114 &930479706
@@ -419,7 +419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7dc2c4f0cc1144e8cdd22a263de648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 2070951927}
 --- !u!1 &1429414514
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +588,12 @@ Prefab:
       propertyPath: GridWorldSize.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114988616461193236, guid: 7cc0427e720fd9b41aeabdbc37ee3302,
+        type: 2}
+      propertyPath: PrefabStartEnd
+      value: 
+      objectReference: {fileID: 1033042858494762, guid: 013aeb030d384c8439cd80b4cc732477,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7cc0427e720fd9b41aeabdbc37ee3302, type: 2}
   m_IsPrefabParent: 0

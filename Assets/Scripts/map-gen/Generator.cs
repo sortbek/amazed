@@ -1,8 +1,5 @@
 ﻿using System;
 using Assets.Scripts.World;
-using System.Runtime.InteropServices;
-using Assets.Scripts.Util;
-using Assets.Scripts.World;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -17,6 +14,7 @@ namespace Assets.Scripts
         public GameObject PrefabCorner;
         public GameObject PrefabThreeWay;
         public GameObject PrefabDeadEnd;
+        public GameObject PrefabStartEnd;
 
         private int _height;
         private int _width;
@@ -35,9 +33,9 @@ namespace Assets.Scripts
             GameManager.Instance.GameSeed = "test";
         }
         // Use this for initialization
+        [ContextMenu("GenerateMap")]
         void Start ()
         {
-
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
 
@@ -79,6 +77,12 @@ namespace Assets.Scripts
             // Set the right configuration for each node
             ConfigurateNodes();
 
+            // Create start and end point
+            CreateStartEndPoint();
+
+            // Set the prefab for each node
+            SetNodesPrefabs();
+
             // Instantiate the map
             InstantiateMap();
 
@@ -109,19 +113,27 @@ namespace Assets.Scripts
             }
             if (_gridMap[x,y].HasWallDown && !_gridMap[x,y-1].IsPartOfRoom)
             {
-                print("Breakin Wall Down: " + x + " " + y);
                 _gridMap[x, y].HasWallDown = false;
                 return true;
             }
 
             if (_gridMap[x, y].HasWallRight && !_gridMap[x+1,y].IsPartOfRoom)
             {
-                print("Breakin Wall Right: " + x + " " + y);
                 _gridMap[x, y].HasWallRight = false;
                 return true;
             }
 
             return false;
+        }
+
+        private void CreateStartEndPoint()
+        {
+
+            // Remove the bottom wall from the starting location
+            _gridMap[0, 0].NodeConfiguration -= 4;
+
+            // Remove the top wall from the end location
+            _gridMap[GameManager.Instance.Size-1,GameManager.Instance.Size-1 ].NodeConfiguration -= 1;
         }
 
         private void CreateRooms()
@@ -168,6 +180,16 @@ namespace Assets.Scripts
                 for (var y = 0; y < _height; y++)
                 {
                     _gridMap[x, y].NodeConfiguration = NodeConfig(_gridMap[x, y]);
+                }
+            }
+        }
+
+        private void SetNodesPrefabs()
+        {
+            for (var x = 0; x < _width; x++)
+            {
+                for (var y = 0; y < _height; y++)
+                {
                     SetPrefab(_gridMap[x, y]);
                 }
             }
@@ -357,6 +379,7 @@ namespace Assets.Scripts
 
         private void InstantiateMap()
         {
+            // Set the default part of generated maze
             for (var x = 0; x < _width; x++)
             {
                 for (var y = 0; y < _height; y++)
@@ -367,6 +390,12 @@ namespace Assets.Scripts
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
                 }
             }
+
+            // Set the start and end location
+            var start = Instantiate(PrefabStartEnd, new Vector3(0, 0, -12), transform.rotation);
+
+            var end = Instantiate(PrefabStartEnd, new Vector3((_width - 1) * 12, 0, _height * 12), transform.rotation);
+            end.transform.Rotate(Vector3.up, 180);
         }
 
 //        #if UNITY_EDITOR

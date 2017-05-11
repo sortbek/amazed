@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts;
+using Assets.Scripts.PathFinding;
 using Assets.Scripts.World;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ public class Grid : MonoBehaviour
     {
         // Set al the necessary variables we need for our grid
         GridWorldSize = new Vector2(GameManager.Instance.Size * 12 * 2, GameManager.Instance.Size * 12 * 2);
-//        transform.position = new Vector3(GridWorldSize.x / 2 - 6, -2, GridWorldSize.x / 2 - 6);
+
         _nodeDiameter = NodeRadius * 2;
         _gridSizeX = Mathf.RoundToInt(GridWorldSize.x / _nodeDiameter);
         gridSizeY = Mathf.RoundToInt(GridWorldSize.y / _nodeDiameter);
@@ -64,8 +65,8 @@ public class Grid : MonoBehaviour
                 if (x == 0 && y == 0)
                     continue;
 
-                var checkX = node.gridX + x;
-                var checkY = node.gridY + y;
+                var checkX = node.GridX + x;
+                var checkY = node.GridY + y;
 
                 if (checkX >= 0 && checkX < _gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
@@ -96,8 +97,8 @@ public class Grid : MonoBehaviour
         if (_grid == null || !DisplayGridGizmos) return;
         foreach (var n in _grid)
         {
-            Gizmos.color = (n.walkable) ? Color.white : Color.red;
-            Gizmos.DrawCube(n.worldPosition, Vector3.one * (_nodeDiameter - .1f));
+            Gizmos.color = (n.Walkable) ? Color.white : Color.red;
+            Gizmos.DrawCube(n.WorldPosition, Vector3.one * (_nodeDiameter - .1f));
         }
     }
 }
