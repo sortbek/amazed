@@ -33,7 +33,10 @@ namespace Assets.Scripts.PathFinding
 
         public int MaxSize
         {
-            get { return _gridSizeX * _gridSizeY; }
+            get
+            {
+                return _gridSizeX * _gridSizeY;
+            }
         }
 
         private void CreateGrid()
