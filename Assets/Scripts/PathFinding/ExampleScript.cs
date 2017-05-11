@@ -9,6 +9,7 @@ namespace Assets.Scripts.PathFinding
 	{
 		private Vector3[] _path;
 
+		public bool ShowPath;
 		// Use this for initialization
 		void Start ()
 		{
@@ -32,7 +33,7 @@ namespace Assets.Scripts.PathFinding
 
 		public void OnDrawGizmos()
 		{
-			if (_path == null) return;
+			if (_path == null || !ShowPath ) return;
 			for (var i = 0; i < _path.Length; i ++) {
 				Gizmos.color = Color.red;
 				_path[i].y = 1;
