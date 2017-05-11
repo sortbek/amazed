@@ -21,6 +21,8 @@ public class CharacterInteraction {
 
         _character = character;
         _interactionRadius = 2.0f;
+
+        //GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>().text = "";
     }
 
     // Update is called once per frame
@@ -53,8 +55,7 @@ public class CharacterInteraction {
             closest.PossibleInteraction(_character);
         }
         else {
-            var interaction = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
-            interaction.text = "";
+            GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>().text = "";
         }
 
         // Check if prop is nearby (withtin x distance)

@@ -9,6 +9,7 @@ public class InteractionBehaviour : MonoBehaviour {
     public String Item;
 
     private Text _interaction;
+    private GameObject _eventlog;
 
     public InteractionBehaviour(string name) {
         Name = name;
@@ -18,6 +19,9 @@ public class InteractionBehaviour : MonoBehaviour {
     void Start() {
         HasBeenInteractedWith = false;
         _interaction = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
+        _eventlog = GameObject.FindGameObjectWithTag("eventlog");
+        _eventlog.AddComponent<Text>();
+        //_eventlog.GetComponentInChildren<Text>().text = "test";
         // Radomly decide what item this prop holds
         Item = LootDropTableManager.GetRandomLoot();
     }
@@ -27,7 +31,7 @@ public class InteractionBehaviour : MonoBehaviour {
     }
 
     void Interact(Character actor) {
-        print(String.Format("{0} found in {1}", Item, Name));
+        //_eventlog.text = String.Format("{0} found in {1}", Item, Name);
         HasBeenInteractedWith = true;
         _interaction.text = "";
     }
