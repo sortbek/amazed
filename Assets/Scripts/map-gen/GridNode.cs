@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Util;
 using UnityEngine;
-namespace Assets.Scripts
-{
+
+namespace Assets.Scripts {
     [Flags]
-    public enum Walls
-    {
+    public enum Walls {
         None = 0,
         Top = 1,
         Right = 2,
@@ -13,8 +13,7 @@ namespace Assets.Scripts
         Left = 8
     }
 
-    public class GridNode : IHeapItem<GridNode>
-    {
+    public class GridNode : IHeapItem<GridNode> {
         public int NodeConfiguration;
         public bool HasWallDown = true;
         public bool HasWallRight = true;
@@ -28,18 +27,15 @@ namespace Assets.Scripts
 
         public int Rotation;
 
-        public void AddBakedNode(GridNode node)
-        {
+        public void AddBakedNode(GridNode node) {
             BakedList.Add(node);
         }
-        public void SetActive(bool isActive)
-        {
+
+        public void SetActive(bool isActive) {
             Prefab.SetActive(isActive);
         }
 
-
-        public int CompareTo(GridNode other)
-        {
+        public int CompareTo(GridNode other) {
             return Key.CompareTo(other.Key);
         }
 

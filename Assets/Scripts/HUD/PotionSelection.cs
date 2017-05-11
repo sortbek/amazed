@@ -12,7 +12,7 @@ namespace Assets.Scripts.HUD {
         private RawImage _regenLeftImage, _damageLeftImage, _defenseLeftImage, _speedLeftImage;
         private Character.Character _player;
 
-        public Potion SelectedPotion, Health, HealthRegeneration, Speed, Damage, Defense;
+        public Potion SelectedPotion, Health, HealthRegeneration, Speed, Damage, Defense, Guidance;
 
         void Awake()
         {
@@ -68,6 +68,9 @@ namespace Assets.Scripts.HUD {
                 }
             }
             SelectedPotion = Health;
+
+            _player = FindObjectOfType<Character.Character>();
+
         }
 
         // Update is called once per frame
@@ -83,7 +86,7 @@ namespace Assets.Scripts.HUD {
             // Check if another potions has been selected
             switch (_selectedPotionId) {
                 case -1:
-                    _selectedPotionId = 4;
+                    _selectedPotionId = 5;
                     break;
                 case 0:
                     SelectedPotion = Health;
@@ -101,6 +104,9 @@ namespace Assets.Scripts.HUD {
                     SelectedPotion = Speed;
                     break;
                 case 5:
+                    SelectedPotion = Guidance;
+                    break;
+                case 6:
                     _selectedPotionId = 0;
                     break;
             }

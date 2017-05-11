@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Net.Mime;
 using System.Net.NetworkInformation;
 using Assets.Scripts.HUD;
@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.World {
     public class GameManager : Singleton<GameManager> {
+
         public string GameSeed;
         public int Size;
         public bool RandomSeed;
@@ -20,6 +21,8 @@ namespace Assets.Scripts.World {
 
         public int Level = 1;
 
+        // Game stuff
+        public Transform EndPoint;
         private System.Random _random;
 
         public int GetRandom(int min = 0, int max = 0) {
@@ -69,6 +72,11 @@ namespace Assets.Scripts.World {
 
         void OnApplicationQuit() {
             PlayerPrefs.DeleteAll();
+        }
+
+        public Vector3 GetEndpoint()
+        {
+            return new Vector3((Size - 1) * 12, 0, Size * 12);
         }
     }
 }
