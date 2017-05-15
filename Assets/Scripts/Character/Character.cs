@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.World;
-using UnityEngine;
+﻿using UnityEngine;
+ using Assets.Scripts.World;
 
 namespace Assets.Scripts.Character {
 
@@ -24,6 +21,7 @@ namespace Assets.Scripts.Character {
 
         private CharacterTranslation _translation;
         private CharacterRotation _rotation;
+        private CharacterInteraction _interaction;
 
         void Awake() {
             DontDestroyOnLoad(this);
@@ -34,6 +32,8 @@ namespace Assets.Scripts.Character {
 
             _translation = new CharacterTranslation(this);
             _rotation = new CharacterRotation(this);
+            _interaction = new CharacterInteraction(this);
+
 
             Health = 50f;
             Speed = 3f;
@@ -44,6 +44,7 @@ namespace Assets.Scripts.Character {
         void Update() {
             _translation.Update();
             _rotation.Update();
+            _interaction.Update();
         }
 
         void OnCollisionEnter(Collision collision) {
