@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Character;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 public class CharacterInteraction {
     private float _interactionRadius;
@@ -15,77 +12,84 @@ public class CharacterInteraction {
     public CharacterInteraction(Character character) {
         _propLayer = LayerMask.NameToLayer("Prop");
         _playerLayer = LayerMask.NameToLayer("Player");
-        var PropLayerMask = 1 << _propLayer;
-        var PlayerLayerMask = 1 << _playerLayer;
-        _layerMask = PropLayerMask | PlayerLayerMask;
+        var propLayerMask = 1 << _propLayer;
+        var playerLayerMask = 1 << _playerLayer;
+
+        // Combine layers Prop and Player
+        _layerMask = propLayerMask | playerLayerMask;
 
         _character = character;
         _interactionRadius = 2.0f;
-
-        //GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>().text = "";
     }
 
     // Update is called once per frame
     public void Update() {
-        Collider[] nearbyColliders = Physics.OverlapSphere(
+        // Checks for Colliders within a sphere, it only checks on the prespecified layers
+        var nearbyColliders = Physics.OverlapSphere(
             _character.transform.position,
             _interactionRadius,
             _layerMask
         );
 
-        var Interactables = new List<InteractionBehaviour>();
+        var interactables = new List<InteractionBehaviour>();
 
         foreach (var c in nearbyColliders) {
             if (c.gameObject.layer != _propLayer) {
+                // This will only be the case with the Player GameObject
                 continue;
             }
 
             var interactable = (c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour);
-            if (interactable != null) {
-                if (interactable.HasBeenInteractedWith) {
-                    continue;
-                }
 
-                Interactables.Add(interactable);
+            if (interactable == null) continue;
+
+            if (interactable.HasBeenInteractedWith) {
+                continue;
             }
+
+            interactables.Add(interactable);
         }
 
-        var closest = GetClosestProp(Interactables);
+        var closest = GetClosestProp(interactables);
         if (closest != null) {
             closest.PossibleInteraction(_character);
         }
         else {
+            // No props were found => Interaction text is cleared
             GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>().text = "";
         }
 
         // Check if prop is nearby (withtin x distance)
         // https://docs.unity3d.com/ScriptReference/Physics.OverlapSphere.html
-        // Check if gameobjects of layermask 'Props' are within the sphere
+        // Check if gameobjects of layer 'Props' are within the sphere
 
-        // If multiple prop are nearby sort by where the camera is looking at most
+        // TODO: If multiple prop are nearby sort by where the camera is looking at most
 
         // Show on screen 'Search {propname}'
 
         // If prop has not been interacted with continue
-        // If 'E' is pressed try to interact with the prop
-        // If inventory is full drop gathered item on the ground
-        // Else put item in inventory
+        // If 'F' is pressed try to interact with the prop
+        // TODO: If inventory is full drop gathered item on the ground
+        // TODO: Else put item in inventory
         // Notify user what happened on screen:
         // '{itemname} found'
-        // If inventory full also: 'Inventory is full, the {itemname} is dropped on the ground'
+        // TODO: If inventory full also: 'Inventory is full, the {itemname} is dropped on the ground'
     }
 
-    InteractionBehaviour GetClosestProp(List<InteractionBehaviour>props) {
-        InteractionBehaviour tMin = null;
-        float minDist = Mathf.Infinity;
-        Vector3 currentPos = _character.transform.position;
-        foreach (InteractionBehaviour t in props) {
-            float dist = Vector3.Distance(t.transform.position, currentPos);
-            if (dist < minDist) {
-                tMin = t;
-                minDist = dist;
-            }
+    private InteractionBehaviour GetClosestProp(IEnumerable<InteractionBehaviour> props) {
+        InteractionBehaviour pMin = null;
+        var minDist = Mathf.Infinity;
+        var currentPos = _character.transform.position;
+
+        foreach (var p in props) {
+            var dist = Vector3.Distance(p.transform.position, currentPos);
+
+            if (!(dist < minDist)) continue;
+
+            pMin = p;
+            minDist = dist;
         }
-        return tMin;
+
+        return pMin;
     }
 }

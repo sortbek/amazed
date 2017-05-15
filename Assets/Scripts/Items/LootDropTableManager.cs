@@ -1,28 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-public static class LootDropTableManager {
-    public static String GetRandomLoot() {
-        List<KeyValuePair<String, int>> items = new List<KeyValuePair<string, int>>();
-        items.Add(new KeyValuePair<string, int>("Health Regeneration Potion", 20));
-        items.Add(new KeyValuePair<string, int>("Speed Potion", 20));
-        items.Add(new KeyValuePair<string, int>("Damage Potion", 20));
-        items.Add(new KeyValuePair<string, int>("Defence Potion", 20));
-        items.Add(new KeyValuePair<string, int>("Health Potion", 20));
-        // the numbers must allways add up to 100
-        var itemNr = Random.RandomRange(0, 101);
+namespace Items {
+    public static class LootDropTableManager {
+        // TODO: Replace KeyValuePair<String, int> with KeyValuePair<ItemClass, int>
 
-        int chance = 1;
+        public static string GetRandomLoot(List<KeyValuePair<string, float>> items) {
+            var itemNr = Random.RandomRange(0, 101);
 
-        foreach (var item in items) {
-            if (itemNr >= chance && itemNr < item.Value + chance) {
-                return item.Key;
+            var chance = 1.0f;
+
+            foreach (var item in items) {
+                if (itemNr >= chance && itemNr < item.Value + chance) {
+                    return item.Key;
+                }
+                else {
+                    chance += item.Value;
+                }
             }
-            else {
-                chance += item.Value;
-            }
+            return null;
         }
-        return null;
+
+        public static List<KeyValuePair<string, float>> Default = new List<KeyValuePair<string, float>>() {
+            new KeyValuePair<string, float>("Health Regeneration Potion", 16.0f),
+            new KeyValuePair<string, float>("Speed Potion", 16.0f),
+            new KeyValuePair<string, float>("Damage Potion", 16.0f),
+            new KeyValuePair<string, float>("Defence Potion", 16.0f),
+            new KeyValuePair<string, float>("Health Potion", 16.0f),
+            new KeyValuePair<string, float>("Nothing", 20.0f)
+        };
     }
 }
