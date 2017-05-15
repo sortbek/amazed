@@ -313,7 +313,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1798714475973882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.033, y: 3.529, z: -1.838}
+  m_LocalPosition: {x: 0.003, y: 3.529, z: -1.863}
   m_LocalScale: {x: 0, y: 1, z: 1}
   m_Children:
   - {fileID: 4695855387548346}
@@ -356,7 +356,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1804235061040618}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.943, y: 3.529, z: 0.053}
+  m_LocalPosition: {x: 1.943, y: 3.535, z: 0.044}
   m_LocalScale: {x: 0, y: 1, z: 1}
   m_Children:
   - {fileID: 4248644835527764}
@@ -634,12 +634,12 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.577, b: 0, a: 1}
   m_Intensity: 2
-  m_Range: 5
+  m_Range: 7
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
-    m_Resolution: 3
+    m_Type: 1
+    m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.015
@@ -648,7 +648,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -670,12 +670,12 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.577, b: 0, a: 1}
   m_Intensity: 2
-  m_Range: 5
+  m_Range: 7
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
-    m_Resolution: 3
+    m_Type: 1
+    m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.015
@@ -684,7 +684,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -778,7 +778,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1756193469
+  randomSeed: 1225420363
   InitialModule:
     serializedVersion: 3
     enabled: 1
