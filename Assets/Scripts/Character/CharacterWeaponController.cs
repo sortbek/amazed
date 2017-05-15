@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.Character {
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Character {
 
         [SerializeField]
         public GameObject[] Weapons;
+        public GameObject CurrentWeapon;
 
         private readonly KeyCode[] _numKeys = {
              KeyCode.Alpha1,
@@ -19,47 +21,63 @@ namespace Assets.Scripts.Character {
              KeyCode.Alpha6,
              KeyCode.Alpha7,
              KeyCode.Alpha8,
-             KeyCode.Alpha9,
+             KeyCode.Alpha9
         };
 
-        public GameObject CurrentWeapon;
-        private Dictionary<int, GameObject> _equipment;
-
-        public CharacterWeaponController() {
-            _equipment = new Dictionary<int, GameObject>();
-        }
+        private Transform _weaponPosition;
+        private Dictionary<int, WeaponObject> _equipment;
 
         void Start() {
-            Add(Weapons[0]);
-            Add(Weapons[1]);
-            Add(Weapons[2]);
-            Add(Weapons[3]);
+            _equipment = new Dictionary<int, WeaponObject>();
+            _weaponPosition = transform.FindDeepChild("WeaponPosition");
+            Load();
+            Add(1);
         }
 
         void Update() {
             for (int i = 0; i < Weapons.Length; i++) {
                 if (Input.GetKeyDown(_numKeys[i])) {
                     if (_equipment.ContainsKey(i)) {
-                        Equip(_equipment[i]);
+                        WeaponObject weapon = _equipment[i];
+                        if (weapon.Access)
+                            Equip(weapon.Object);
                     }
                 }
             }
         }
 
-        public void Add(GameObject obj) {
-            if (!_equipment.ContainsValue(obj)) {
-                _equipment[_equipment.Count] = obj;
-                //show in hotbar or something
+        private void Load() {
+            foreach (GameObject obj in Weapons) {
+                var stat = obj.GetComponent<WeaponStat>();
+                var position = new Vector3(_weaponPosition.position.x, _weaponPosition.position.y + obj.transform.position.y, _weaponPosition.position.z);
+                var weaponObject = Instantiate(obj, position, _weaponPosition.localRotation, _weaponPosition);
+                var weapon = new WeaponObject() { Access = stat.Default, Object = weaponObject };
+                weaponObject.transform.Rotate(stat.OffsetRotation);
+                weaponObject.SetActive(false);
+                _equipment[stat.WeaponID] = weapon;
             }
         }
 
-        public void Equip(GameObject obj) {
-            if (CurrentWeapon != null) {
-                
-            }
-            GameObject weapon = Instantiate(obj, transform.position + transform.forward + new Vector3(0.5f, 0, 0), obj.transform.rotation);
-            weapon.transform.parent = transform;
-            CurrentWeapon = obj;
+        public void Add(int slot) {
+            WeaponObject obj = _equipment[slot-1];
+            if (!obj.Access)
+                obj.Access = true;
+            _equipment[slot-1] = obj;
         }
+
+        public void Equip(GameObject obj) {
+            if (CurrentWeapon != null)
+                CurrentWeapon.SetActive(false);
+            CurrentWeapon = obj;
+            obj.SetActive(true);
+        }
+
+    }
+
+    public struct WeaponObject {
+
+        public bool Access { get; set; }
+        public GameObject Object { get; set; }
+
     }
 }

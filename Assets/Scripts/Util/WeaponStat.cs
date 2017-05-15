@@ -14,6 +14,10 @@ namespace Assets.Scripts.Util
         public float Knockback = .5f;
         [SerializeField]
         public int WeaponID = 0;
+        [SerializeField]
+        public bool Default = false;
+        [SerializeField]
+        public Vector3 OffsetRotation = new Vector3(0, 0, 0);
 
     }
 }

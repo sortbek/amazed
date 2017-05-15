@@ -9,6 +9,7 @@ TagManager:
   - ground
   - interaction
   - eventlog
+  - startend
   layers:
   - Default
   - TransparentFX
@@ -20,6 +21,8 @@ TagManager:
   - 
   - Prop
   - Player
+  - Unwalkable
+  - 
   - 
   - 
   - 

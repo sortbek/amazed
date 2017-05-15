@@ -17,13 +17,12 @@ public class WeaponSelection : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        int currentWeaponID = 0;
-        if (_controller != null) {
-            currentWeaponID = _controller.CurrentWeapon.GetComponent<WeaponStat>().WeaponID;
-        }
+        if (_controller.CurrentWeapon == null) return;
+        int currentWeaponID = _controller.CurrentWeapon.GetComponent<WeaponStat>().WeaponID;
+
         for (var index = 0; index < WeaponImages.Length; index++) {
             WeaponImages[index].color = Color.gray;
             if (index == currentWeaponID) WeaponImages[index].color = Color.white;
-        }
+        } 
     }
 }
