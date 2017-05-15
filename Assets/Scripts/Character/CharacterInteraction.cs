@@ -61,17 +61,15 @@ namespace Assets.Scripts.Character {
             // https://docs.unity3d.com/ScriptReference/Physics.OverlapSphere.html
             // Check if gameobjects of layer 'Props' are within the sphere
 
-            // TODO: If multiple prop are nearby sort by where the camera is looking at most
+            // If multiple prop are nearby sort by closest
 
             // Show on screen 'Search {propname}'
 
             // If prop has not been interacted with continue
             // If 'F' is pressed try to interact with the prop
-            // TODO: If inventory is full drop gathered item on the ground
-            // TODO: Else put item in inventory
+            // TODO: If inventory is full drop gathered item on the ground => show 'Inventory is full, the {itemname} is dropped on the ground', else put item in inventory
             // Notify user what happened on screen:
             // '{itemname} found'
-            // TODO: If inventory full also: 'Inventory is full, the {itemname} is dropped on the ground'
         }
 
         private InteractionBehaviour GetClosestProp(IEnumerable<InteractionBehaviour> props) {

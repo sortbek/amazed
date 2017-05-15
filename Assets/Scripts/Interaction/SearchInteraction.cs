@@ -6,7 +6,7 @@ namespace Interaction {
     public class SearchInteraction : InteractionBehaviour {
         public bool HasBeenInteractedWith;
 
-        // TODO: Replace Item(string) with Item(ItemClass)
+        // TODO: Replace Item(string) with Item({ItemClass})
         public string Item;
 
 
@@ -24,6 +24,8 @@ namespace Interaction {
             Eventlog.text = string.Format("{0} found in {1}", Item, Name);
 
             base.Interact(actor);
+
+            // TODO: Add item to actor's inventory
         }
 
         public override void PossibleInteraction(Character actor) {

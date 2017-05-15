@@ -3,7 +3,7 @@ using Random = UnityEngine.Random;
 
 namespace Items {
     public static class LootDropTableManager {
-        // TODO: Replace KeyValuePair<String, int> with KeyValuePair<ItemClass, int>
+        // TODO: Replace KeyValuePair<String, int> with KeyValuePair<{ItemClass}, int>
 
         public static string GetRandomLoot(List<KeyValuePair<string, float>> items) {
             var itemNr = Random.RandomRange(0, 101);

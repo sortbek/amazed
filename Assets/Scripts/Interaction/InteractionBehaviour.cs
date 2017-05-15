@@ -24,8 +24,6 @@ namespace Interaction {
 
             // Clear event log after 2 seconds
             StartCoroutine(ClearEventLog());
-
-            // TODO: Add item to actor's inventory
         }
 
         private IEnumerator ClearEventLog() {
