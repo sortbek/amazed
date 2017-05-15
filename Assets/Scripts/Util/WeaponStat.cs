@@ -16,6 +16,8 @@ namespace Assets.Scripts.Util
         public int WeaponID = 0;
         [SerializeField]
         public bool Default = false;
+        [SerializeField]
+        public Vector3 OffsetRotation = new Vector3(0, 0, 0);
 
     }
 }
