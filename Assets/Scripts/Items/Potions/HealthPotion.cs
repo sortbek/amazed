@@ -10,7 +10,6 @@ namespace Assets.Scripts.Items.Potions {
         public override void Use() {
             if (Player.Health > 70) Player.Health = 100;
             else Player.Health += 30;
-
             base.Use();
         }
     }
