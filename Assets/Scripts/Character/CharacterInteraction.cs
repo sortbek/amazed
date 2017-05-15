@@ -55,7 +55,6 @@ namespace Assets.Scripts.Character {
             else {
                 // No props were found => Interaction text is cleared
                 GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>().text = "";
-                GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>().text = "";
             }
 
             // Check if prop is nearby (withtin x distance)
