@@ -32,6 +32,7 @@ namespace Interaction {
         }
 
         public virtual void PossibleInteraction(Character actor) {
+            Interaction.text = "";
         }
     }
 }

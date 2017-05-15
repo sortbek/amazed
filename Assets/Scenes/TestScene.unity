@@ -259,11 +259,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 346792081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c49638b9e7f8804fb90b62f46ddbe64, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cc31372ab9345bf903d5d09147c712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasBeenInteractedWith: 0
   Name: Rock
+  HasBeenInteractedWith: 0
   Item: 
 --- !u!65 &346792084
 BoxCollider:
@@ -301,11 +301,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 352944587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c49638b9e7f8804fb90b62f46ddbe64, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cc31372ab9345bf903d5d09147c712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasBeenInteractedWith: 0
   Name: Bush
+  HasBeenInteractedWith: 0
   Item: 
 --- !u!1 &553519231
 GameObject:
@@ -537,89 +537,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b52d23293c002a44873b1c702ac5c9e, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &794199778
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 794199779}
-  - component: {fileID: 794199781}
-  - component: {fileID: 794199780}
-  m_Layer: 5
-  m_Name: New Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &794199779
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 794199778}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1016883444}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!102 &794199780
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 794199778}
-  m_Text: Hello World
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Color:
-    serializedVersion: 2
-    rgba: 4294967295
---- !u!23 &794199781
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 794199778}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!1 &796450367
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,47 +685,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fcaeca3b543a6d94c8085d80a7fb4e36, type: 3}
   m_IsPrefabParent: 0
---- !u!1 &1016883443
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1016883444}
-  - component: {fileID: 1016883446}
-  m_Layer: 5
-  m_Name: EventLog
-  m_TagString: eventlog
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1016883444
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1016883443}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.425, y: 0.26123077, z: 1}
-  m_Children:
-  - {fileID: 794199779}
-  m_Father: {fileID: 2003467918}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -210}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1016883446
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1016883443}
 --- !u!1 &1181501989 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 52b88751a577a904584e7ff4d8e1c157, type: 3}
@@ -833,11 +709,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1181501989}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c49638b9e7f8804fb90b62f46ddbe64, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cc31372ab9345bf903d5d09147c712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasBeenInteractedWith: 0
   Name: Barrel
+  HasBeenInteractedWith: 0
   Item: 
 --- !u!1 &1275430732 stripped
 GameObject:
@@ -851,11 +727,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1275430732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c49638b9e7f8804fb90b62f46ddbe64, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cc31372ab9345bf903d5d09147c712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasBeenInteractedWith: 0
   Name: Rock
+  HasBeenInteractedWith: 0
   Item: 
 --- !u!65 &1275430734
 BoxCollider:
@@ -1014,12 +890,12 @@ Prefab:
     - target: {fileID: 224275024199696182, guid: 6a655772c95a2d245a5f121b2697af03,
         type: 2}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 224922309890929902, guid: 6a655772c95a2d245a5f121b2697af03,
         type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 224781321810079438, guid: 6a655772c95a2d245a5f121b2697af03,
         type: 2}
@@ -1041,11 +917,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1376950837}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c49638b9e7f8804fb90b62f46ddbe64, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cc31372ab9345bf903d5d09147c712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasBeenInteractedWith: 0
   Name: Rock
+  HasBeenInteractedWith: 0
   Item: 
 --- !u!65 &1376950839
 BoxCollider:
@@ -1059,24 +935,101 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.8339714, y: 1, z: 1.3766327}
   m_Center: {x: 0.33627874, y: 0, z: 0.08070755}
---- !u!1 &1603948989 stripped
+--- !u!1 &1604407986
 GameObject:
-  m_PrefabParentObject: {fileID: 1635141917601146, guid: 6a655772c95a2d245a5f121b2697af03,
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1591712852011560, guid: 6a655772c95a2d245a5f121b2697af03,
     type: 2}
-  m_PrefabInternal: {fileID: 1324184381}
---- !u!114 &1603948994
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1604407987}
+  - component: {fileID: 1604407989}
+  - component: {fileID: 1604407988}
+  m_Layer: 5
+  m_Name: EventLog
+  m_TagString: eventlog
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1604407987
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224081731439347896, guid: 6a655772c95a2d245a5f121b2697af03,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1604407986}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2003467918}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 2, y: -527}
+  m_SizeDelta: {x: 700, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1604407988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114492382755891578, guid: 6a655772c95a2d245a5f121b2697af03,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1604407986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: be1b14e9fb5a5e24c8c47bd9f46a5976, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '[item] found in [prop]'
+--- !u!222 &1604407989
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 222229508120549896, guid: 6a655772c95a2d245a5f121b2697af03,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1604407986}
+--- !u!1 &1618430972 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: fcaeca3b543a6d94c8085d80a7fb4e36, type: 3}
+  m_PrefabInternal: {fileID: 1898400926}
+--- !u!114 &1618430976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1603948989}
-  m_Enabled: 0
+  m_GameObject: {fileID: 1618430972}
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c49638b9e7f8804fb90b62f46ddbe64, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cc31372ab9345bf903d5d09147c712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasBeenInteractedWith: 0
   Name: 
+  HasBeenInteractedWith: 0
   Item: 
 --- !u!1001 &1898400926
 Prefab:
@@ -1235,11 +1188,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2034607309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c49638b9e7f8804fb90b62f46ddbe64, type: 3}
+  m_Script: {fileID: 11500000, guid: 7cc31372ab9345bf903d5d09147c712f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasBeenInteractedWith: 0
   Name: Rock
+  HasBeenInteractedWith: 0
   Item: 
 --- !u!65 &2034607311
 BoxCollider:
