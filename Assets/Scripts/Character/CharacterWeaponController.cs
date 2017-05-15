@@ -21,7 +21,7 @@ namespace Assets.Scripts.Character {
              KeyCode.Alpha6,
              KeyCode.Alpha7,
              KeyCode.Alpha8,
-             KeyCode.Alpha9,
+             KeyCode.Alpha9
         };
 
         private Transform _weaponPosition;
