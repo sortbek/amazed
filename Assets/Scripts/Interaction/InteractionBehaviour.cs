@@ -1,56 +1,39 @@
 ﻿using System.Collections;
 using Assets.Scripts.Character;
-using Items;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InteractionBehaviour : MonoBehaviour {
-    public bool HasBeenInteractedWith;
-    public string Name;
+namespace Interaction {
+    public class InteractionBehaviour : MonoBehaviour {
+        public string Name;
 
-    // TODO: Replace Item(string) with Item(ItemClass)
-    public string Item;
+        internal Text Interaction;
+        internal Text Eventlog;
 
-    private Text _interaction;
-    private Text _eventlog;
+        // Use this for initialization
+        protected virtual void Start() {
+            Interaction = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
+            Eventlog = GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>();
 
-    // Use this for initialization
-    private void Start() {
-        _interaction = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
-        _eventlog = GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>();
+            Interaction.text = "";
+            Eventlog.text = "";
+        }
 
-        _interaction.text = "";
-        _eventlog.text = "";
+        protected virtual void Interact(Character actor) {
+            Interaction.text = "";
 
-        HasBeenInteractedWith = false;
-        Item = LootDropTableManager.GetRandomLoot(LootDropTableManager.Default);
+            // Clear event log after 2 seconds
+            StartCoroutine(ClearEventLog());
 
-        // print(string.Format("{0} in {1}", Item, Name));
-    }
+            // TODO: Add item to actor's inventory
+        }
 
-    private void Interact(Character actor) {
-        HasBeenInteractedWith = true;
-        _interaction.text = "";
-        _eventlog.text = string.Format("{0} found in {1}", Item, Name);
+        private IEnumerator ClearEventLog() {
+            yield return new WaitForSeconds(2);
+            Eventlog.text = "";
+        }
 
-        // Clear event log after 2 seconds
-        StartCoroutine(ClearEventLog());
-
-        // TODO: Add item to actor's inventory
-    }
-
-    private IEnumerator ClearEventLog() {
-        yield return new WaitForSeconds(2);
-        _eventlog.text = "";
-    }
-
-    public void PossibleInteraction(Character actor) {
-        if (_interaction == null || HasBeenInteractedWith) return;
-
-        _interaction.text = string.Format("Press 'F' to search {0}", Name);
-
-        if (Input.GetKeyDown(KeyCode.F)) {
-            Interact(actor);
+        public virtual void PossibleInteraction(Character actor) {
         }
     }
 }
