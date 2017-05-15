@@ -7,14 +7,12 @@ using UnityEngine.UI;
 public class InteractionBehaviour : MonoBehaviour {
     public bool HasBeenInteractedWith;
     public string Name;
+
+    // TODO: Replace Item(string) with Item(ItemClass)
     public string Item;
 
     private Text _interaction;
     private Text _eventlog;
-
-    public InteractionBehaviour(string name) {
-        Name = name;
-    }
 
     // Use this for initialization
     private void Start() {
@@ -26,13 +24,16 @@ public class InteractionBehaviour : MonoBehaviour {
 
         HasBeenInteractedWith = false;
         Item = LootDropTableManager.GetRandomLoot(LootDropTableManager.Default);
-        print(string.Format("{0} in {1}", Item, Name));
+
+        // print(string.Format("{0} in {1}", Item, Name));
     }
 
     private void Interact(Character actor) {
         HasBeenInteractedWith = true;
         _interaction.text = "";
         _eventlog.text = string.Format("{0} found in {1}", Item, Name);
+
+        // Clear event log after 2 seconds
         StartCoroutine(ClearEventLog());
 
         // TODO: Add item to actor's inventory
