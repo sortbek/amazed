@@ -25,15 +25,12 @@ namespace Assets.Scripts.Character {
 
         void Awake() {
             DontDestroyOnLoad(this);
-
             if (FindObjectsOfType(GetType()).Length > 1) {
                 Destroy(gameObject);
             }
-
             _translation = new CharacterTranslation(this);
             _rotation = new CharacterRotation(this);
             _interaction = new CharacterInteraction(this);
-
 
             Health = 50f;
             Speed = 3f;
