@@ -21,5 +21,7 @@ public class CharacterAnimationController : MonoBehaviour {
             _animator.Play("characterAttacking");
         else if(Input.GetKeyDown(KeyCode.Mouse1))
             _animator.Play("characterBlocking");
+        else if(Input.GetKeyDown(KeyCode.Z))
+            _animator.Play("characterMentalBreakdown");
     }
 }
