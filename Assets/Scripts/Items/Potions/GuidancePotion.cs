@@ -8,45 +8,63 @@ namespace Assets.Scripts.Items.Potions
 {
     class GuidancePotion : Potion
     {
-        public GameObject Character;
-        public Vector3 Playerloc;
+        public GameObject character;
+        public Vector3 playerloc;
 
         //testvar
-        public Vector3 Start;
-        public Vector3 End;
+        public Vector3 start;
+        public Vector3 end;
 
-        private bool _test;
-        public Vector3[] Path;
+        private bool test;
+        public Vector3[] _path;
 
         public GuidancePotion(Character.Character player) : base(player)
         {
             Texture = (Texture) Resources.Load("Sprites/potion_guidance", typeof(Texture));  
-            Character = GameObject.Find("Character");
+            test = true;
+            character = GameObject.Find("Character");
             Duration = 10;
         }
 
         public override void Use()
         {
-            Playerloc = Character.transform.position;
-            PathRequestManager.RequestPath(Playerloc, GameManager.Instance.GetEndpoint(), OnPathFound);
+            playerloc = character.transform.position;
+            PathRequestManager.RequestPath(playerloc, GameManager.Instance.GetEndpoint(), OnPathFound);
 
-            Playerloc.y += 4;
-            Path[0].y += 4;
-            DrawLine(Playerloc, Path[0], Color.red, 10);
-            for (int i = 0; i < Path.Length - 1; i++)
+            Debug.Log("rawr");
+
+            //foreach (Vector3 v in _path)
+            //{
+            //    Debug.Log(v + "sf asf ");
+
+            //}
+            //Debug.Log(playerloc);
+
+            //if (test)
+            //{
+            playerloc.y += 4;
+            _path[0].y += 4;
+            DrawLine(playerloc, _path[0], Color.red, 10);
+            for (int i = 0; i < _path.Length - 1; i++)
                 {            
-                    Start = Path[i];
-                    End = Path[i + 1];
-                    Start.y += 4;
-                    End.y += 4;
-                    DrawLine(Start,End,Color.cyan,10);
+                    start = _path[i];
+                    end = _path[i + 1];
+                    start.y += 4;
+                    end.y += 4;
+                    DrawLine(start,end,Color.cyan,10);
                 }
+                //DrawLine(playerloc, newloc, Color.blue, 10);
+              //  test = false;
+            //}
 
+
+            //test = false;
             base.Use();
         }
 
         public override void RemoveEffect()
         {
+            test = true;
             base.RemoveEffect();
         }
 
@@ -57,20 +75,20 @@ namespace Assets.Scripts.Items.Potions
             myLine.AddComponent<LineRenderer>();
             LineRenderer lr = myLine.GetComponent<LineRenderer>();
             lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
-            lr.startColor = color;
-            lr.endColor = color;
-            lr.startWidth = 0.1f;
-            lr.endWidth = 0.1f;
+            lr.SetColors(color, color);
+            lr.SetWidth(0.1f, 0.1f);
             lr.SetPosition(0, start);
             lr.SetPosition(1, end);
             GameObject.Destroy(myLine, duration);
         }
 
+        
+
         public void OnPathFound(Vector3[] newPath, bool pathFound)
         {
             if (pathFound)
             {
-                Path = newPath;
+                _path = newPath;
             }
         }
 

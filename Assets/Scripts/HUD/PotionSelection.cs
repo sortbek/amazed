@@ -12,18 +12,7 @@ namespace Assets.Scripts.HUD {
         private RawImage _regenLeftImage, _damageLeftImage, _defenseLeftImage, _speedLeftImage;
         private Character.Character _player;
 
-        public Potion SelectedPotion, Health, HealthRegeneration, Speed, Damage, Defense, Guidance;
-
-        void Awake()
-        {
-            _player = FindObjectOfType<Character.Character>();
-            Health = new HealthPotion(_player);
-            HealthRegeneration = new HealthRegenerationPotion(_player);
-            Speed = new SpeedPotion(_player);
-            Damage = new DamagePotion(_player);
-            Defense = new DefensePotion(_player);
-            Guidance = new GuidancePotion(_player);
-        }
+        private Potion _selectedPotion, _health, _healthRegeneration, _speed, _damage, _defense, _guidance;
 
         // Use this for initialization
         private void Start() {
@@ -47,8 +36,10 @@ namespace Assets.Scripts.HUD {
                 }
             }
 
-            foreach (var image in GetComponentsInChildren<RawImage>()) {
-                switch (image.name) {
+            foreach (var image in GetComponentsInChildren<RawImage>())
+            {
+                switch (image.name)
+                {
                     case "Selected_Potion":
                         _selectedPotionImage = image;
                         break;
@@ -67,8 +58,16 @@ namespace Assets.Scripts.HUD {
                 }
             }
 
-            SelectedPotion = Health;
             _player = FindObjectOfType<Character.Character>();
+
+            _health = new HealthPotion(_player);
+            _healthRegeneration = new HealthRegenerationPotion(_player);
+            _speed = new SpeedPotion(_player);
+            _damage = new DamagePotion(_player);
+            _defense = new DefensePotion(_player);
+            _guidance = new GuidancePotion(_player);
+
+            _selectedPotion = _health;
         }
 
         // Update is called once per frame
@@ -79,7 +78,7 @@ namespace Assets.Scripts.HUD {
             if (Input.GetKeyDown(KeyCode.Q)) _selectedPotionId -= 1;
             if (Input.GetKeyDown(KeyCode.E)) _selectedPotionId += 1;
 
-            if (Input.GetKeyDown(KeyCode.X) && SelectedPotion.Amount > 0 && !SelectedPotion.Active) SelectedPotion.Use();
+            if (Input.GetKeyDown(KeyCode.X) && _selectedPotion.Amount > 0 && !_selectedPotion.Active) _selectedPotion.Use();
 
             // Check if another potions has been selected
             switch (_selectedPotionId) {
@@ -87,22 +86,22 @@ namespace Assets.Scripts.HUD {
                     _selectedPotionId = 5;
                     break;
                 case 0:
-                    SelectedPotion = Health;
+                    _selectedPotion = _health;
                     break;
                 case 1:
-                    SelectedPotion = HealthRegeneration;
+                    _selectedPotion = _healthRegeneration;
                     break;
                 case 2:
-                    SelectedPotion = Damage;
+                    _selectedPotion = _damage;
                     break;
                 case 3:
-                    SelectedPotion = Defense;
+                    _selectedPotion = _defense;
                     break;
                 case 4:
-                    SelectedPotion = Speed;
+                    _selectedPotion = _speed;
                     break;
                 case 5:
-                    SelectedPotion = Guidance;
+                    _selectedPotion = _guidance;
                     break;
                 case 6:
                     _selectedPotionId = 0;
@@ -114,26 +113,26 @@ namespace Assets.Scripts.HUD {
         }
 
         private void UpdatePotionInformation() {
-            _selectedPotionImage.texture = SelectedPotion.Texture;
-            _amountLabel.text = SelectedPotion.Amount.ToString();
+            _selectedPotionImage.texture = _selectedPotion.Texture;
+            _amountLabel.text = _selectedPotion.Amount.ToString();
 
-            _defenseLeftLabel.text = Defense.TimeLeft.ToString();
-            _damageLeftLabel.text = Damage.TimeLeft.ToString();
-            _speedLeftLabel.text = Speed.TimeLeft.ToString();
-            _regenLeftLabel.text = HealthRegeneration.TimeLeft.ToString();
+            _defenseLeftLabel.text = _defense.TimeLeft.ToString();
+            _damageLeftLabel.text = _damage.TimeLeft.ToString();
+            _speedLeftLabel.text = _speed.TimeLeft.ToString();
+            _regenLeftLabel.text = _healthRegeneration.TimeLeft.ToString();
         }
 
         private void CheckActivePotions()
         {
-            _regenLeftImage.enabled = HealthRegeneration.Active;
-            _damageLeftImage.enabled = Damage.Active;
-            _defenseLeftImage.enabled = Defense.Active;
-            _speedLeftImage.enabled = Speed.Active;
+            _regenLeftImage.enabled = _healthRegeneration.Active;
+            _damageLeftImage.enabled = _damage.Active;
+            _defenseLeftImage.enabled = _defense.Active;
+            _speedLeftImage.enabled = _speed.Active;
 
-            _regenLeftLabel.enabled = HealthRegeneration.Active;
-            _damageLeftLabel.enabled = Damage.Active;
-            _defenseLeftLabel.enabled = Defense.Active;
-            _speedLeftLabel.enabled = Speed.Active;
+            _regenLeftLabel.enabled = _healthRegeneration.Active;
+            _damageLeftLabel.enabled = _damage.Active;
+            _defenseLeftLabel.enabled = _defense.Active;
+            _speedLeftLabel.enabled = _speed.Active;
         }
 
     }

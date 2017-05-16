@@ -21,7 +21,7 @@ namespace Assets.Scripts.Character {
              KeyCode.Alpha6,
              KeyCode.Alpha7,
              KeyCode.Alpha8,
-             KeyCode.Alpha9
+             KeyCode.Alpha9,
         };
 
         private Transform _weaponPosition;
@@ -29,9 +29,10 @@ namespace Assets.Scripts.Character {
 
         void Start() {
             _equipment = new Dictionary<int, WeaponObject>();
-            _weaponPosition = transform.FindDeepChild("WeaponPosition");
+            _weaponPosition = transform.FindChild("WeaponPosition");
             Load();
             Add(1);
+            Add(2);
         }
 
         void Update() {
@@ -48,21 +49,19 @@ namespace Assets.Scripts.Character {
 
         private void Load() {
             foreach (GameObject obj in Weapons) {
-                var stat = obj.GetComponent<WeaponStat>();
-                var position = new Vector3(_weaponPosition.position.x, _weaponPosition.position.y + obj.transform.position.y, _weaponPosition.position.z);
-                var weaponObject = Instantiate(obj, position, _weaponPosition.localRotation, _weaponPosition);
-                var weapon = new WeaponObject() { Access = stat.Default, Object = weaponObject };
-                weaponObject.transform.Rotate(stat.OffsetRotation);
+                WeaponStat stat = obj.GetComponent<WeaponStat>();
+                GameObject weaponObject = Instantiate(obj, new Vector3(_weaponPosition.position.x, _weaponPosition.position.y, _weaponPosition.position.z), _weaponPosition.localRotation, transform);
+                WeaponObject weapon = new WeaponObject() { Access = stat.Default, Object = weaponObject };
                 weaponObject.SetActive(false);
                 _equipment[stat.WeaponID] = weapon;
             }
         }
 
         public void Add(int slot) {
-            WeaponObject obj = _equipment[slot-1];
+            WeaponObject obj = _equipment[slot];
             if (!obj.Access)
                 obj.Access = true;
-            _equipment[slot-1] = obj;
+            _equipment[slot] = obj;
         }
 
         public void Equip(GameObject obj) {

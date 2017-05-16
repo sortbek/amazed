@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Scripts.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.Character {
@@ -22,8 +21,8 @@ namespace Assets.Scripts.Character {
         }
 
         public void Update() {
-            if (_camera == null)
-                _camera = _character.transform.FindChild("CamHolder").gameObject;
+            if(_camera == null)
+                _camera = _character.GetComponentsInChildren<Camera>()[0].gameObject;
             var delta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxis("Mouse Y"));
             delta = Vector2.Scale(delta, new Vector2(Sensivity * Smoothing, Sensivity * Smoothing));
             _smoothingVector.x = Mathf.Lerp(_smoothingVector.x, delta.x, 1f / Smoothing);
@@ -33,7 +32,7 @@ namespace Assets.Scripts.Character {
 
             _camera.transform.localRotation = Quaternion.AngleAxis(-_mouseLook.y, Vector3.right);
             _character.transform.localRotation = Quaternion.AngleAxis(_mouseLook.x, _character.transform.up);
-
+            
         }
     }
 }
