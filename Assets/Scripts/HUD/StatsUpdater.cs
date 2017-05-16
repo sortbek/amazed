@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.World;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ namespace Assets.Scripts.HUD
     public class StatsUpdater : MonoBehaviour
     {
         private Slider _health;
-        public Text Points;
+        public Text Points, CurrentLevel;
         private Character.Character _player;
 
         // Use this for initialization
@@ -16,11 +17,17 @@ namespace Assets.Scripts.HUD
             _health = GetComponentInChildren<Slider>();
 
             foreach (var text in GetComponentsInChildren<Text>())
-                if (text.name == "PointsAmount")
+            {
+                switch (text.name)
                 {
-                    Points = text;
-                    break;
+                    case "PointsAmount":
+                        Points = text;
+                        break;
+                    case "CurrentLevel":
+                        CurrentLevel = text;
+                        break;
                 }
+            }
 
             _player = FindObjectOfType<Character.Character>();
         }
@@ -34,6 +41,7 @@ namespace Assets.Scripts.HUD
         {
             _health.value = _player.Health;
             Points.text = _player.Points.ToString();
+            CurrentLevel.text = "Level " + GameManager.Instance.Level;
         }
     }
 }
