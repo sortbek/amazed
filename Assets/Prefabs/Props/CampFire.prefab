@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198381333627661160}
   - component: {fileID: 199461546700770338}
   - component: {fileID: 114670031603282312}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TorchPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4887246941964954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4647852342433100}
   - component: {fileID: 33112406127623186}
   - component: {fileID: 23983903008208366}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4197930418824910}
   - component: {fileID: 108110773797139744}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Torch_light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,9 +85,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4409921417129020}
-  m_Layer: 0
+  - component: {fileID: 65508896845675192}
+  m_Layer: 8
   m_Name: CampFire
-  m_TagString: Untagged
+  m_TagString: interaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,6 +201,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1838672399406900}
   m_Mesh: {fileID: 4300000, guid: 470f08606a4955745845eb6c98a37a4c, type: 3}
+--- !u!65 &65508896845675192
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1982391782784862}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &108110773797139744
 Light:
   m_ObjectHideFlags: 1

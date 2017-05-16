@@ -474,6 +474,12 @@ MonoBehaviour:
     type: 2}
   PrefabStartEnd: {fileID: 1501729378463848, guid: 013aeb030d384c8439cd80b4cc732477,
     type: 2}
+  Props:
+  - {fileID: 1059114642443414, guid: 9bf1444b511fd174a89e04b9acb48420, type: 2}
+  - {fileID: 1905415455931398, guid: 76d95cd4b2539274faf884b8649ebf22, type: 2}
+  - {fileID: 1982391782784862, guid: 915bf03afc99d0d49955d94baa374051, type: 2}
+  - {fileID: 1447733874552936, guid: 728abc22ef0073c46bd0018538831a18, type: 2}
+  PropPerNode: 0.25
   NodeSize: 12
 --- !u!114 &355875949
 MonoBehaviour:

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4766044436007824}
   - component: {fileID: 33992097854392836}
   - component: {fileID: 23884123157694688}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,9 +36,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4960103190469600}
-  m_Layer: 0
+  - component: {fileID: 65684278990438556}
+  - component: {fileID: 114167669638069486}
+  m_Layer: 8
   m_Name: Bush
-  m_TagString: Untagged
+  m_TagString: interaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,3 +111,29 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730137834875572}
   m_Mesh: {fileID: 4300000, guid: dec2aed80e6cff240b523151648c488c, type: 3}
+--- !u!65 &65684278990438556
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1905415455931398}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114167669638069486
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1905415455931398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cc31372ab9345bf903d5d09147c712f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Bush
+  HasBeenInteractedWith: 0
+  Item: 

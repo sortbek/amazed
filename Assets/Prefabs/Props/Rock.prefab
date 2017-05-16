@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4584079872348760}
   - component: {fileID: 33264550527331448}
   - component: {fileID: 23354946597208274}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,9 +36,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4830815871848228}
-  m_Layer: 0
+  - component: {fileID: 65222423460035030}
+  - component: {fileID: 114183460810880138}
+  m_Layer: 8
   m_Name: Rock
-  m_TagString: Untagged
+  m_TagString: interaction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,3 +111,29 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240231268316872}
   m_Mesh: {fileID: 4300000, guid: fcaeca3b543a6d94c8085d80a7fb4e36, type: 3}
+--- !u!65 &65222423460035030
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1447733874552936}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114183460810880138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1447733874552936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cc31372ab9345bf903d5d09147c712f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Rock
+  HasBeenInteractedWith: 0
+  Item: 
