@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class DynamicOcclusion : MonoBehaviour
+    public class DynamicOcclusion
     {
         private GridNode[,] _generatedMap;
 
