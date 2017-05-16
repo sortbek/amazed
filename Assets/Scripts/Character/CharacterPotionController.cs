@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.Items.Potions;
+﻿using Assets.Scripts.Items.Potions;
 using UnityEngine;
 
 namespace Assets.Scripts.Character {
     class CharacterPotionController : MonoBehaviour {
-        public Potion SelectedPotion, Health, HealthRegeneration, Speed, Damage, Defense, Guidance;
+
+        public Potion Health, HealthRegeneration, Speed, Damage, Defense, Guidance;
         private Character _player;
-        void Awake()
-        {
+
+        void Awake() {
             _player = GetComponent<Character>();
             Health = new HealthPotion(_player);
             HealthRegeneration = new HealthRegenerationPotion(_player);
@@ -20,10 +17,8 @@ namespace Assets.Scripts.Character {
             Guidance = new GuidancePotion(_player);
         }
 
-        public void Add(string type)
-        {
-            switch (type)
-            {
+        public void Add(string type) {
+            switch (type) {
                 case "Health Regeneration Potion":
                     HealthRegeneration.Amount += 1;
                     break;
