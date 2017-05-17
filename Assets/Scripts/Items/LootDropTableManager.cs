@@ -22,11 +22,12 @@ namespace Items {
         }
 
         public static List<KeyValuePair<string, float>> Default = new List<KeyValuePair<string, float>>() {
-            new KeyValuePair<string, float>("Health Regeneration Potion", 10.0f),
-            new KeyValuePair<string, float>("Speed Potion", 10.0f),
-            new KeyValuePair<string, float>("Damage Potion", 10.0f),
-            new KeyValuePair<string, float>("Defence Potion", 10.0f),
             new KeyValuePair<string, float>("Health Potion", 10.0f),
+            new KeyValuePair<string, float>("Health Regeneration Potion", 10.0f),
+            new KeyValuePair<string, float>("Damage Potion", 10.0f),
+            new KeyValuePair<string, float>("Defense Potion", 10.0f),
+            new KeyValuePair<string, float>("Speed Potion", 10.0f),
+            new KeyValuePair<string, float>("Guidance Potion", 10.0f),
             new KeyValuePair<string, float>("Nothing", 50.0f)
         };
     }

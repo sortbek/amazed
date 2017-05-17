@@ -9,6 +9,8 @@ namespace Assets.Scripts.LevelTransition {
 
         // Use this for initialization
         void Start() {
+            Cursor.lockState = CursorLockMode.None;
+
             _character = FindObjectOfType<Character.Character>();
             int levelPoints = 1000 - (int)PlayerPrefs.GetFloat("sec");
             _character.Points += levelPoints;

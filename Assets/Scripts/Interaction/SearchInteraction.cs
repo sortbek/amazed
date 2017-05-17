@@ -5,10 +5,7 @@ using UnityEngine;
 namespace Interaction {
     public class SearchInteraction : InteractionBehaviour {
         public bool HasBeenInteractedWith;
-
-        // TODO: Replace Item(string) with Item({ItemClass})
         public string Item;
-
 
         protected override void Start() {
             base.Start();
@@ -25,7 +22,7 @@ namespace Interaction {
 
             base.Interact(actor);
 
-            // TODO: Add item to actor's inventory
+            PotionController.Add(Item);
         }
 
         public override void PossibleInteraction(Character actor) {

@@ -18,6 +18,7 @@ namespace Assets.Scripts.Character {
         public int Points { get; set; }
 
         public static readonly string ColliderTag = "Ground";
+        public const float MAX_HEALTH = 100;
 
         private CharacterTranslation _translation;
         private CharacterRotation _rotation;
@@ -33,12 +34,12 @@ namespace Assets.Scripts.Character {
             _interaction = new CharacterInteraction(this);
 
             Health = 50f;
-            Speed = 3f;
+            Speed = 4f;
             JumpForce = 5f;
             Points = 0;
         }
 
-        void Update() {
+        void FixedUpdate() {
             _translation.Update();
             _rotation.Update();
             _interaction.Update();

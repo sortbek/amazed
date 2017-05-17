@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Assets.Scripts.Character {
-    class CharacterPotionController : MonoBehaviour {
+    public class CharacterPotionController : MonoBehaviour {
 
         public Potion Health, HealthRegeneration, Speed, Damage, Defense, Guidance;
         private Character _player;
@@ -19,20 +19,23 @@ namespace Assets.Scripts.Character {
 
         public void Add(string type) {
             switch (type) {
+                case "Health Potion":
+                    Health.Amount += 1;
+                    break;
                 case "Health Regeneration Potion":
                     HealthRegeneration.Amount += 1;
-                    break;
-                case "Speed Potion":
-                    Speed.Amount += 1;
                     break;
                 case "Damage Potion":
                     Damage.Amount += 1;
                     break;
-                case "Defence Potion":
+                case "Defense Potion":
                     Defense.Amount += 1;
                     break;
-                case "Health Potion":
-                    Health.Amount += 1;
+                case "Speed Potion":
+                    Speed.Amount += 1;
+                    break;
+                case "Guidance Potion":
+                    Guidance.Amount += 1;
                     break;
             }
         }

@@ -5,13 +5,13 @@ namespace Assets.Scripts.Items.Potions {
         public int Amount;
         public Texture Texture;
         public Character.Character Player;
-        public int Boost;
+        public float Boost;
         public bool Active;
         public int Duration;
         public int TimeLeft;
 
         protected Potion(Character.Character player) {
-            Amount = 5;
+            Amount = 0;
             Player = player;
             Duration = 20;
         }
