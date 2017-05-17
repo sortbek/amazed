@@ -17,6 +17,7 @@ namespace Assets.Scripts {
         public int NodeConfiguration;
         public bool HasWallDown = true;
         public bool HasWallRight = true;
+        public bool IsTopSide;
         public int X;
         public int Y;
         public int Key;
@@ -25,6 +26,7 @@ namespace Assets.Scripts {
         public List<GridNode> BakedList = new List<GridNode>();
         public GameObject Prefab;
 
+        public Vector3 Scale = new Vector3(1,1,1);
         public int Rotation;
 
         public void AddBakedNode(GridNode node) {
