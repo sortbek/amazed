@@ -18,6 +18,8 @@ namespace Assets.Scripts {
         public GameObject PrefabRoomCorner;
         public GameObject PrefabRoomEntrance;
 
+        public GameObject[] Props;
+
         private int _height;
         private int _width;
 
@@ -28,8 +30,10 @@ namespace Assets.Scripts {
 
         public string Seed;
         public bool IsRandom;
+        public bool ShowDebugNumbers;
 
         private List<int> _rooms = new List<int>();
+        public float PropPerNode = 0.1f;
 
         public int NodeSize = 12;
 
@@ -419,14 +423,19 @@ namespace Assets.Scripts {
         }
 
         private void InstantiateMap() {
-                // Set the default part of generated maze
-                for (var x = 0; x < _width; x++) {
+            // Set the default part of generated maze
+            for (var x = 0; x < _width; x++) {
                 for (var y = 0; y < _height; y++) {
                     var position = new Vector3(x * NodeSize, 0, y * NodeSize);
                     var node = _gridMap[x, y];
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.localScale = node.Scale;
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
+
+                    if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f)
+                    {
+                        node.Prop = Instantiate(Props[GameManager.Instance.GetRandom(0, 4)], position, transform.rotation);
+                    }
                 }
             }
 
@@ -440,14 +449,17 @@ namespace Assets.Scripts {
                 #if UNITY_EDITOR
                 void OnDrawGizmos()
                 {
-                    for (var x = 0; x < _width; x++)
+                    if (ShowDebugNumbers)
                     {
-                        for (var y = 0; y < _height; y++)
+                        for (var x = 0; x < _width; x++)
                         {
-                            if (_gridMap[x, y].IsPartOfRoom)
+                            for (var y = 0; y < _height; y++)
                             {
-                                Handles.color = Color.red;
-                                Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), "("+ GetNodeIndex(_gridMap[x,y])+")"+ _gridMap[x,y].NodeConfiguration);
+                                if (_gridMap[x, y].IsPartOfRoom)
+                                {
+                                    Handles.color = Color.red;
+                                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), "("+ GetNodeIndex(_gridMap[x,y])+")"+ _gridMap[x,y].NodeConfiguration);
+                                }
                             }
                         }
                     }

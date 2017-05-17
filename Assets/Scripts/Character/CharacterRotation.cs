@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.Util;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Character {
     public class CharacterRotation : ICharacterTransformation {
