@@ -4,12 +4,13 @@ namespace Assets.Scripts.Items.Potions {
     class SpeedPotion : Potion {
         public SpeedPotion(Character.Character player) : base(player) {
             Texture = (Texture) Resources.Load("Sprites/potion_speed", typeof(Texture));
-            Boost = 2;
+            Boost = 1.5f;
             Duration = 10;
+            Amount = 1;
         }
 
         public override void Use() {
-            Player.Speed += Boost;
+            Player.Speed *= Boost;
             base.Use();
         }
 

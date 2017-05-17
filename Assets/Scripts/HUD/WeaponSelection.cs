@@ -23,6 +23,6 @@ public class WeaponSelection : MonoBehaviour {
         for (var index = 0; index < WeaponImages.Length; index++) {
             WeaponImages[index].color = Color.gray;
             if (index == currentWeaponID) WeaponImages[index].color = Color.white;
-        } 
+        }
     }
 }

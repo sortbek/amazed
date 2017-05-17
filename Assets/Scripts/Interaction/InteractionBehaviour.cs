@@ -10,10 +10,16 @@ namespace Interaction {
         internal Text Interaction;
         internal Text Eventlog;
 
+        public CharacterPotionController PotionController;
+        public CharacterWeaponController WeaponController;
+
         // Use this for initialization
         protected virtual void Start() {
             Interaction = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
             Eventlog = GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>();
+
+            PotionController = FindObjectOfType<CharacterPotionController>();
+            WeaponController = FindObjectOfType<CharacterWeaponController>();
 
             Interaction.text = "";
             Eventlog.text = "";

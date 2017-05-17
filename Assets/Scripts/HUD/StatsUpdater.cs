@@ -3,23 +3,18 @@ using Assets.Scripts.World;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.HUD
-{
-    public class StatsUpdater : MonoBehaviour
-    {
+namespace Assets.Scripts.HUD {
+    public class StatsUpdater : MonoBehaviour {
         private Slider _health;
         public Text Points, CurrentLevel;
         private Character.Character _player;
 
         // Use this for initialization
-        void Start()
-        {
+        void Start() {
             _health = GetComponentInChildren<Slider>();
 
-            foreach (var text in GetComponentsInChildren<Text>())
-            {
-                switch (text.name)
-                {
+            foreach (var text in GetComponentsInChildren<Text>()) {
+                switch (text.name) {
                     case "PointsAmount":
                         Points = text;
                         break;
@@ -37,8 +32,7 @@ namespace Assets.Scripts.HUD
             UpdateHudInformation();
         }
 
-        void UpdateHudInformation()
-        {
+        void UpdateHudInformation() {
             _health.value = _player.Health;
             Points.text = _player.Points.ToString();
             CurrentLevel.text = "Level " + GameManager.Instance.Level;

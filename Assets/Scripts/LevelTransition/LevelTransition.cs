@@ -3,13 +3,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.LevelTransition {
-    public class LevelTransition : MonoBehaviour
-    {
-        private Text  _summaryText, _timeAmount, _pointsAmount, _pointsTotalAmount;
+    public class LevelTransition : MonoBehaviour {
+        private Text _summaryText, _timeAmount, _pointsAmount, _pointsTotalAmount;
         private Character.Character _character;
 
         // Use this for initialization
         void Start() {
+            Cursor.lockState = CursorLockMode.None;
+
             _character = FindObjectOfType<Character.Character>();
             int levelPoints = 1000 - (int)PlayerPrefs.GetFloat("sec");
             _character.Points += levelPoints;
@@ -17,10 +18,8 @@ namespace Assets.Scripts.LevelTransition {
             _character.transform.position = new Vector3(10, 2, 10);
             _character.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-            foreach (var text in GetComponentsInChildren<Text>())
-            {
-                switch (text.name)
-                {
+            foreach (var text in GetComponentsInChildren<Text>()) {
+                switch (text.name) {
                     case "SummaryText":
                         _summaryText = text;
                         break;

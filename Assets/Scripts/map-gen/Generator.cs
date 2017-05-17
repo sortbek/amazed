@@ -39,7 +39,6 @@ namespace Assets.Scripts {
 
         private void SetSettings()
         {
-            GameManager.Instance.Size = 10;
             if (IsRandom)
             {
                 Seed = Guid.NewGuid().ToString().Replace("-", "");
@@ -441,8 +440,10 @@ namespace Assets.Scripts {
 
             // Set the start and end location
             var start = Instantiate(PrefabStartEnd, new Vector3(0, 0, -12), transform.rotation);
-
+            start.GetComponent<BoxCollider>().isTrigger = false;
+            start.name = "Start";
             var end = Instantiate(PrefabStartEnd, new Vector3((_width - 1) * 12, 0, _height * 12), transform.rotation);
+            end.name = "End";
             end.transform.Rotate(Vector3.up, 180);
         }
 
