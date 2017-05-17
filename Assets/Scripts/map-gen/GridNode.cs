@@ -24,7 +24,7 @@ namespace Assets.Scripts {
 
         public List<GridNode> BakedList = new List<GridNode>();
         public GameObject Prefab;
-        public GameObject[] Props;
+        public GameObject Prop;
 
         public int Rotation;
 
@@ -34,10 +34,7 @@ namespace Assets.Scripts {
 
         public void SetActive(bool isActive) {
             Prefab.SetActive(isActive);
-            foreach (var prop in Props)
-            {
-                prop.SetActive(isActive);
-            }
+            if (Prop != null) Prop.SetActive(isActive);
         }
 
         public int CompareTo(GridNode other) {

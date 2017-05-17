@@ -342,7 +342,7 @@ namespace Assets.Scripts {
 
                     if (Random.Range(0, 101) * 1.0f <= PropPerNode * 100.0f)
                     {
-                        node.Props = new GameObject[1] { Instantiate(Props[Random.Range(0, 4)], position, transform.rotation)};
+                        node.Prop = Instantiate(Props[Random.Range(0, 4)], position, transform.rotation);
                     }
                 }
             }

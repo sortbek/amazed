@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Assets.Scripts.Character;
 using Assets.Scripts.Items.Potions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,18 +12,12 @@ namespace Assets.Scripts.HUD {
         private Text _amountLabel, _regenLeftLabel, _damageLeftLabel, _defenseLeftLabel, _speedLeftLabel;
         private RawImage _regenLeftImage, _damageLeftImage, _defenseLeftImage, _speedLeftImage;
         private Character.Character _player;
-
-        public Potion SelectedPotion, Health, HealthRegeneration, Speed, Damage, Defense, Guidance;
-
+        private CharacterPotionController _controller;
+        public Potion SelectedPotion;
         void Awake()
         {
             _player = FindObjectOfType<Character.Character>();
-            Health = new HealthPotion(_player);
-            HealthRegeneration = new HealthRegenerationPotion(_player);
-            Speed = new SpeedPotion(_player);
-            Damage = new DamagePotion(_player);
-            Defense = new DefensePotion(_player);
-            Guidance = new GuidancePotion(_player);
+            _controller = FindObjectOfType<CharacterPotionController>();
         }
 
         // Use this for initialization
@@ -67,7 +62,7 @@ namespace Assets.Scripts.HUD {
                 }
             }
 
-            SelectedPotion = Health;
+            SelectedPotion = _controller.Health;
             _player = FindObjectOfType<Character.Character>();
         }
 
@@ -87,22 +82,22 @@ namespace Assets.Scripts.HUD {
                     _selectedPotionId = 5;
                     break;
                 case 0:
-                    SelectedPotion = Health;
+                    SelectedPotion = _controller.Health;
                     break;
                 case 1:
-                    SelectedPotion = HealthRegeneration;
+                    SelectedPotion = _controller.HealthRegeneration;
                     break;
                 case 2:
-                    SelectedPotion = Damage;
+                    SelectedPotion = _controller.Damage;
                     break;
                 case 3:
-                    SelectedPotion = Defense;
+                    SelectedPotion = _controller.Defense;
                     break;
                 case 4:
-                    SelectedPotion = Speed;
+                    SelectedPotion = _controller.Speed;
                     break;
                 case 5:
-                    SelectedPotion = Guidance;
+                    SelectedPotion = _controller.Guidance;
                     break;
                 case 6:
                     _selectedPotionId = 0;
@@ -117,23 +112,23 @@ namespace Assets.Scripts.HUD {
             _selectedPotionImage.texture = SelectedPotion.Texture;
             _amountLabel.text = SelectedPotion.Amount.ToString();
 
-            _defenseLeftLabel.text = Defense.TimeLeft.ToString();
-            _damageLeftLabel.text = Damage.TimeLeft.ToString();
-            _speedLeftLabel.text = Speed.TimeLeft.ToString();
-            _regenLeftLabel.text = HealthRegeneration.TimeLeft.ToString();
+            _defenseLeftLabel.text = _controller.Defense.TimeLeft.ToString();
+            _damageLeftLabel.text = _controller.Damage.TimeLeft.ToString();
+            _speedLeftLabel.text = _controller.Speed.TimeLeft.ToString();
+            _regenLeftLabel.text = _controller.HealthRegeneration.TimeLeft.ToString();
         }
 
         private void CheckActivePotions()
         {
-            _regenLeftImage.enabled = HealthRegeneration.Active;
-            _damageLeftImage.enabled = Damage.Active;
-            _defenseLeftImage.enabled = Defense.Active;
-            _speedLeftImage.enabled = Speed.Active;
+            _regenLeftImage.enabled = _controller.HealthRegeneration.Active;
+            _damageLeftImage.enabled = _controller.Damage.Active;
+            _defenseLeftImage.enabled = _controller.Defense.Active;
+            _speedLeftImage.enabled = _controller.Speed.Active;
 
-            _regenLeftLabel.enabled = HealthRegeneration.Active;
-            _damageLeftLabel.enabled = Damage.Active;
-            _defenseLeftLabel.enabled = Defense.Active;
-            _speedLeftLabel.enabled = Speed.Active;
+            _regenLeftLabel.enabled = _controller.HealthRegeneration.Active;
+            _damageLeftLabel.enabled = _controller.Damage.Active;
+            _defenseLeftLabel.enabled = _controller.Defense.Active;
+            _speedLeftLabel.enabled = _controller.Speed.Active;
         }
 
     }
