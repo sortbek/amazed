@@ -2,6 +2,7 @@
 using Assets.Scripts.Util;
 using Assets.Scripts.World;
 using UnityEngine;
+using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -15,6 +16,8 @@ namespace Assets.Scripts {
         public GameObject PrefabDeadEnd;
         public GameObject PrefabStartEnd;
 
+        public GameObject[] Props;
+
         private int _height;
         private int _width;
 
@@ -23,7 +26,7 @@ namespace Assets.Scripts {
         private DisjointSet _disjointSet;
         private bool _isGenerated;
 
-
+        public float PropPerNode = 0.1f;
         public int NodeSize = 12;
 
         void Awake() {
@@ -336,6 +339,11 @@ namespace Assets.Scripts {
                     var node = _gridMap[x, y];
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
+
+                    if (Random.Range(0, 101) * 1.0f <= PropPerNode * 100.0f)
+                    {
+                        node.Prop = Instantiate(Props[Random.Range(0, 4)], position, transform.rotation);
+                    }
                 }
             }
 
