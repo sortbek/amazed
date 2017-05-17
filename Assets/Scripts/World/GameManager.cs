@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 namespace Assets.Scripts.World {
     public class GameManager : Singleton<GameManager> {
         public string GameSeed;
-        public int Size;
+        public int Size = 10;
         public bool Debug;
 
         public Character.Character Character;

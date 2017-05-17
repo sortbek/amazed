@@ -39,7 +39,6 @@ namespace Assets.Scripts {
 
         private void SetSettings()
         {
-            GameManager.Instance.Size = 10;
             if (IsRandom)
             {
                 Seed = Guid.NewGuid().ToString().Replace("-", "");
