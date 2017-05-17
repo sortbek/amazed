@@ -1,8 +1,8 @@
-﻿﻿﻿using System;
+﻿using System;
 using System.Net.Mime;
 using System.Net.NetworkInformation;
-  using Assets.Scripts.Character;
-  using Assets.Scripts.HUD;
+using Assets.Scripts.Character;
+using Assets.Scripts.HUD;
 using Assets.Scripts.Items.Potions;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -61,8 +61,7 @@ namespace Assets.Scripts.World {
             PlayerPrefs.DeleteAll();
         }
 
-        public Vector3 GetEndpoint()
-        {
+        public Vector3 GetEndpoint() {
             return new Vector3((Size - 1) * 12, 0, Size * 12);
         }
     }

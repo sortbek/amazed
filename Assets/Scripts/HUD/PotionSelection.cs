@@ -14,8 +14,7 @@ namespace Assets.Scripts.HUD {
         private Character.Character _player;
         private CharacterPotionController _controller;
         public Potion SelectedPotion;
-        void Awake()
-        {
+        void Awake() {
             _player = FindObjectOfType<Character.Character>();
             _controller = FindObjectOfType<CharacterPotionController>();
         }
@@ -118,8 +117,7 @@ namespace Assets.Scripts.HUD {
             _regenLeftLabel.text = _controller.HealthRegeneration.TimeLeft.ToString();
         }
 
-        private void CheckActivePotions()
-        {
+        private void CheckActivePotions() {
             _regenLeftImage.enabled = _controller.HealthRegeneration.Active;
             _damageLeftImage.enabled = _controller.Damage.Active;
             _defenseLeftImage.enabled = _controller.Defense.Active;

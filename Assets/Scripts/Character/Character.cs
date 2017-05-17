@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
- using Assets.Scripts.World;
+using Assets.Scripts.World;
 
 namespace Assets.Scripts.Character {
 
