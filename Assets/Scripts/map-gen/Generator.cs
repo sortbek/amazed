@@ -340,9 +340,9 @@ namespace Assets.Scripts {
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
 
-                    if (Random.Range(0, 101) * 1.0f <= PropPerNode * 100.0f)
+                    if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f)
                     {
-                        node.Prop = Instantiate(Props[Random.Range(0, 4)], position, transform.rotation);
+                        node.Prop = Instantiate(Props[GameManager.Instance.GetRandom(0, 4)], position, transform.rotation);
                     }
                 }
             }
