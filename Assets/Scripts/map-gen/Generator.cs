@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Util;
 using Assets.Scripts.World;
 using UnityEngine;
-using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -15,6 +15,8 @@ namespace Assets.Scripts {
         public GameObject PrefabThreeWay;
         public GameObject PrefabDeadEnd;
         public GameObject PrefabStartEnd;
+        public GameObject PrefabRoomCorner;
+        public GameObject PrefabRoomEntrance;
 
         public GameObject[] Props;
 
@@ -26,16 +28,28 @@ namespace Assets.Scripts {
         private DisjointSet _disjointSet;
         private bool _isGenerated;
 
+        public string Seed;
+        public bool IsRandom;
+        public bool ShowDebugNumbers;
+
+        private List<int> _rooms = new List<int>();
         public float PropPerNode = 0.1f;
+
         public int NodeSize = 12;
 
-        void Awake() {
+        private void SetSettings()
+        {
             GameManager.Instance.Size = 10;
-            GameManager.Instance.GameSeed = "test";
+            if (IsRandom)
+            {
+                Seed = Guid.NewGuid().ToString().Replace("-", "");
+            }
+            GameManager.Instance.GameSeed = Seed;
         }
-        // Use this for initialization
-        [ContextMenu("GenerateMap")]
+
         void Start() {
+
+            SetSettings();
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
 
@@ -63,7 +77,8 @@ namespace Assets.Scripts {
             // the priority in the queue later.
             CreatePriorityList();
 
-            // Creating predefined rooms
+            // Creating predefined rooms which will be different from the other nodes generated. These will
+            // contain 'loot' and 'mobs' inside and the layout of the room will always be the same
             CreateRooms();
 
             // Break down walls to build the actual maze
@@ -125,12 +140,39 @@ namespace Assets.Scripts {
             _gridMap[GameManager.Instance.Size - 1, GameManager.Instance.Size - 1].NodeConfiguration -= 1;
         }
 
+        // For now, the amount of rooms will be calculated as follows:
+        // The size of the maze divided by two minus one. So a maze 10x10 would have 4 rooms
+        // inside it. SUBJECT TO CHANGE.
+
         private void CreateRooms() {
-            var maxSize = _height - 3;
-            CreateRoom(1, 1);
-            CreateRoom(1, maxSize);
-            CreateRoom(maxSize, maxSize);
-            CreateRoom(maxSize, 1);
+            var amount = (GameManager.Instance.Size  / 2) - 1;
+
+            while (amount > 0)
+            {
+                if (FindRoomPosition())
+                {
+                    amount--;
+                }
+            }
+
+        }
+
+        private bool FindRoomPosition()
+        {
+            var startX = GameManager.Instance.GetRandom(1, GameManager.Instance.Size - 3);
+            var startY = GameManager.Instance.GetRandom(1, GameManager.Instance.Size - 3);
+            var startIndex = GetCoordIndex(startX, startY);
+
+            if (!_rooms.Contains(startIndex) && !_rooms.Contains(startIndex + 1) && !_rooms.Contains(startIndex + _width) && !_rooms.Contains(startIndex + _width + 1 ))
+            {
+                _rooms.Add(startIndex);
+                _rooms.Add(startIndex + 1);
+                _rooms.Add(startIndex + _width + 1);
+                _rooms.Add(startIndex + _width);
+                CreateRoom(startX,startY);
+                return true;
+            }
+            return false;
         }
 
         private void CreateRoom(int startX, int startY) {
@@ -152,6 +194,8 @@ namespace Assets.Scripts {
             nodeBottomRight.IsPartOfRoom = true;
             nodeTopLeft.IsPartOfRoom = true;
             nodeTopRight.IsPartOfRoom = true;
+            nodeTopLeft.IsTopSide = true;
+            nodeTopRight.IsTopSide = true;
 
             nodeBottomLeft.HasWallRight = false;
             nodeBottomLeft.HasWallDown = false;
@@ -171,12 +215,58 @@ namespace Assets.Scripts {
         private void SetNodesPrefabs() {
             for (var x = 0; x < _width; x++) {
                 for (var y = 0; y < _height; y++) {
-                    SetPrefab(_gridMap[x, y]);
+                    if (_gridMap[x, y].IsPartOfRoom)
+                    {
+                        SetRoomPrefab(_gridMap[x,y]);
+                    }
+                    else
+                    {
+                        SetDefaultPrefab(_gridMap[x, y]);
+
+                    }
                 }
             }
         }
 
-        private void SetPrefab(GridNode node) {
+        private void SetRoomPrefab(GridNode node)
+        {
+            switch (node.NodeConfiguration)
+            {
+                    case 2:
+                        node.Prefab = PrefabRoomEntrance;
+                        if (node.IsTopSide)
+                        {
+                            node.Scale = new Vector3(-1,1,-1);
+                        }
+                        break;
+                    case 3:
+                        node.Prefab = PrefabRoomCorner;
+                        node.Rotation = -90;
+                        break;
+                    case 6:
+                        node.Prefab = PrefabRoomCorner;
+                        break;
+                    case 8:
+                        node.Prefab = PrefabRoomEntrance;
+                        break;
+                    case 9:
+                        node.Rotation = 180;
+                        node.Prefab = PrefabRoomCorner;
+                        break;
+                    case 12:
+                        node.Prefab = PrefabRoomCorner;
+                        node.Rotation = 90;
+                        break;
+                    default:
+                        print("CONFIG: " + node.NodeConfiguration);
+                        node.Prefab = PrefabCross;
+                        break;
+
+
+            }
+        }
+
+        private void SetDefaultPrefab(GridNode node) {
 
             switch (node.NodeConfiguration) {
                 case 0:
@@ -283,6 +373,11 @@ namespace Assets.Scripts {
             }
         }
 
+        private int GetCoordIndex(int x, int y)
+        {
+            return (y * _width) + x;
+        }
+
         private int GetNodeIndex(GridNode node) {
             return (node.Y * _width) + node.X;
         }
@@ -309,10 +404,6 @@ namespace Assets.Scripts {
         }
 
         private void CreatePriorityList() {
-            if (GameManager.Instance.RandomSeed) {
-                GameManager.Instance.GameSeed = Guid.NewGuid().ToString().Replace("-", "");
-            }
-
             for (var x = 0; x < _width; x++) {
                 for (var y = 0; y < _height; y++) {
                     var key = GameManager.Instance.GetRandom();
@@ -338,6 +429,7 @@ namespace Assets.Scripts {
                     var position = new Vector3(x * NodeSize, 0, y * NodeSize);
                     var node = _gridMap[x, y];
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
+                    node.Prefab.transform.localScale = node.Scale;
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
 
                     if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f)
@@ -354,19 +446,24 @@ namespace Assets.Scripts {
             end.transform.Rotate(Vector3.up, 180);
         }
 
-        //        #if UNITY_EDITOR
-        //        void OnDrawGizmos()
-        //        {
-        //            var nodeSize = 2;
-        //            for (var x = 0; x < _width; x++)
-        //            {
-        //                for (var y = 0; y < _height; y++)
-        //                {
-        //                    Handles.color = Color.red;
-        //                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), "("+ GetNodeIndex(_gridMap[x,y])+")"+ _gridMap[x,y].NodeConfiguration);
-        //                }
-        //            }
-        //        }
-        //        #endif
+                #if UNITY_EDITOR
+                void OnDrawGizmos()
+                {
+                    if (ShowDebugNumbers)
+                    {
+                        for (var x = 0; x < _width; x++)
+                        {
+                            for (var y = 0; y < _height; y++)
+                            {
+                                if (_gridMap[x, y].IsPartOfRoom)
+                                {
+                                    Handles.color = Color.red;
+                                    Handles.Label(new Vector3(x * NodeSize, 0 , (y * NodeSize)), "("+ GetNodeIndex(_gridMap[x,y])+")"+ _gridMap[x,y].NodeConfiguration);
+                                }
+                            }
+                        }
+                    }
+                }
+                #endif
     }
 }
