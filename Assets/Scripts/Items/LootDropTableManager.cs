@@ -6,7 +6,7 @@ namespace Items {
         // TODO: Replace KeyValuePair<String, int> with KeyValuePair<{ItemClass}, int>
 
         public static string GetRandomLoot(List<KeyValuePair<string, float>> items) {
-            var itemNr = Random.RandomRange(0, 101);
+            var itemNr = Random.Range(0, 101);
 
             var chance = 1.0f;
 
