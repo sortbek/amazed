@@ -51,8 +51,9 @@ namespace Assets.Scripts.Character {
             }
         }
 
+        // Collider for the end point
         void OnTriggerEnter(Collider collision) {
-            if (collision.gameObject.tag == "startend") {
+            if (collision.gameObject.name == "End") {
                 GameManager.Instance.LoadNextLevel();
             }
         }

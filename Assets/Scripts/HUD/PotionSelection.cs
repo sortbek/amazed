@@ -75,7 +75,7 @@ namespace Assets.Scripts.HUD {
 
             if (Input.GetKeyDown(KeyCode.X) && SelectedPotion.Amount > 0 && !SelectedPotion.Active) SelectedPotion.Use();
 
-            // Check if another potions has been selected
+            // Check if another potion has been selected
             switch (_selectedPotionId) {
                 case -1:
                     _selectedPotionId = 5;
@@ -107,6 +107,7 @@ namespace Assets.Scripts.HUD {
             UpdatePotionInformation();
         }
 
+        // Updates the potion information on the HUD
         private void UpdatePotionInformation() {
             _selectedPotionImage.texture = SelectedPotion.Texture;
             _amountLabel.text = SelectedPotion.Amount.ToString();
@@ -117,6 +118,7 @@ namespace Assets.Scripts.HUD {
             _regenLeftLabel.text = _controller.HealthRegeneration.TimeLeft.ToString();
         }
 
+        // Updates the HUD items according to which potions (with a duration) are active
         private void CheckActivePotions() {
             _regenLeftImage.enabled = _controller.HealthRegeneration.Active;
             _damageLeftImage.enabled = _controller.Damage.Active;
