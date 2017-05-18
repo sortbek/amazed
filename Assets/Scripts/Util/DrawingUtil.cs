@@ -44,13 +44,14 @@ public class DrawingUtil : MonoBehaviour {
 
         for (int i = 0; i < path.Length - 1; i++)
         {
+           
 
             start = path[i];
             end = path[i + 1];
-            start.y += 4;
-            end.y += 4;
-
-            particleClone.Add(Instantiate(particle, loc, transform.rotation));
+            start.y += 2;
+            // end.y += 4;
+            var gameobject = Instantiate(particle, start, transform.rotation);
+            particleClone.Add(gameobject);
             // DrawLine(start, end, Color.cyan, 60);
         }
         
