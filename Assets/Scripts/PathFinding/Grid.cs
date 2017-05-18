@@ -15,7 +15,7 @@ namespace Assets.Scripts.PathFinding
         private float _nodeDiameter;
         private int _gridSizeX, _gridSizeY;
 
-        void Start()
+        public void Init()
         {
             // Set al the necessary variables we need for our grid
             GridWorldSize = new Vector2(GameManager.Instance.Size * 12 * 2, GameManager.Instance.Size * 12 * 2);
