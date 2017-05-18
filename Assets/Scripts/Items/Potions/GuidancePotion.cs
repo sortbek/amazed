@@ -26,6 +26,7 @@ namespace Assets.Scripts.Items.Potions
             var go = GameObject.Find("DrawDust");
             drawUtil = go.GetComponent<DrawingUtil>();
             Duration = 10;
+            Amount = 1000;
         }
 
         public override void Use()
@@ -33,12 +34,6 @@ namespace Assets.Scripts.Items.Potions
             playerloc = GameManager.Instance.Character.transform.position;
             PathRequestManager.RequestPath(playerloc, GameManager.Instance.GetEndpoint(), OnPathFound);
         }
-
-        public override void RemoveEffect()
-        {
-            base.RemoveEffect();
-        }
-
 
         public void OnPathFound(Vector3[] newPath, bool pathFound) {
 
