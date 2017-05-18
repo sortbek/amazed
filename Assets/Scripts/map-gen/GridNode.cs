@@ -17,6 +17,7 @@ namespace Assets.Scripts {
         public int NodeConfiguration;
         public bool HasWallDown = true;
         public bool HasWallRight = true;
+        public bool IsTopSide;
         public int X;
         public int Y;
         public int Key;
@@ -24,7 +25,9 @@ namespace Assets.Scripts {
 
         public List<GridNode> BakedList = new List<GridNode>();
         public GameObject Prefab;
+        public GameObject Prop;
 
+        public Vector3 Scale = new Vector3(1,1,1);
         public int Rotation;
 
         public void AddBakedNode(GridNode node) {
@@ -33,6 +36,7 @@ namespace Assets.Scripts {
 
         public void SetActive(bool isActive) {
             Prefab.SetActive(isActive);
+            if (Prop != null) Prop.SetActive(isActive);
         }
 
         public int CompareTo(GridNode other) {

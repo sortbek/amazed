@@ -10,7 +10,7 @@ namespace Assets.Scripts
         private readonly List<int> _openTop = new List<int>{0,1,2,3,8,9,10,11};
         private readonly List<int> _openRight = new List<int> {0,1,2,3,4,5,6,7};
         private readonly List<int> _openBottom = new List<int> {0, 2, 4, 6, 8, 10, 12, 14};
-        private readonly List<int> _openLeft = new List<int> {6, 1, 4, 5, 9, 12, 13};
+        private readonly List<int> _openLeft = new List<int> {0, 1, 4, 5, 9, 8, 12, 13};
 
         private GridNode _currentChecking;
 
@@ -61,7 +61,10 @@ namespace Assets.Scripts
         }
 
         private GridNode GetNextTopVisible(GridNode node)
-        {
+        {   if (node.IsPartOfRoom)
+            {
+                AddSquareArea(node);
+            }
             // Check if the current node we're checking is on the top row. If so, return null because we can't go higher
             if (node.Y == _generatedMap.GetLength(1) - 1 )
             {
@@ -73,42 +76,66 @@ namespace Assets.Scripts
                 return null;
             }
             _currentChecking.AddBakedNode(_generatedMap[node.X, node.Y + 1]);
+
             return _generatedMap[node.X, node.Y + 1];
         }
 
         private GridNode GetNextRightVisible(GridNode node)
         {
+            if (node.IsPartOfRoom)
+            {
+                AddSquareArea(node);
+            }
             // Check if the current node we're checkking is on the right edge of the map. If that's the case, we don't
             // need to go any further, because we reached the end.
             if (node.X == _generatedMap.GetLength(0) - 1 || _openRight.IndexOf(_generatedMap[node.X + 1, node.Y].NodeConfiguration) == -1 )
             {
                 return null;
             }
-
             _currentChecking.AddBakedNode(_generatedMap[node.X + 1, node.Y]);
+
             return _generatedMap[node.X + 1, node.Y];
         }
 
         private GridNode GetNextBottomVisible(GridNode node)
-        {
+        {   if (node.IsPartOfRoom)
+            {
+                AddSquareArea(node);
+            }
             if (node.Y == 0 || _openBottom.IndexOf(_generatedMap[node.X, node.Y - 1].NodeConfiguration) == -1)
             {
                 return null;
             }
 
-            _currentChecking.AddBakedNode(_generatedMap[node.X, node.Y - 1]);
+
+                _currentChecking.AddBakedNode(_generatedMap[node.X, node.Y - 1]);
+
+
             return _generatedMap[node.X, node.Y - 1];
         }
 
         private GridNode GetNextLeftVisible(GridNode node)
         {
+            if (node.IsPartOfRoom)
+            {
+                AddSquareArea(node);
+            }
             if (node.X == 0 || _openLeft.IndexOf(_generatedMap[node.X - 1, node.Y].NodeConfiguration) == -1)
             {
                 return null;
             }
+                _currentChecking.AddBakedNode(_generatedMap[node.X - 1, node.Y]);
 
-            _currentChecking.AddBakedNode(_generatedMap[node.X - 1, node.Y]);
+
             return _generatedMap[node.X - 1, node.Y];
+        }
+
+        private void AddSquareArea(GridNode node)
+        {
+            _currentChecking.AddBakedNode(_generatedMap[node.X + 1, node.Y]);
+            _currentChecking.AddBakedNode(_generatedMap[node.X + 1, node.Y + 1]);
+            _currentChecking.AddBakedNode(_generatedMap[node.X, node.Y + 1]);
+            _currentChecking.AddBakedNode(_generatedMap[node.X - 1, node.Y -1]);
         }
     }
 }

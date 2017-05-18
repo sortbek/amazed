@@ -1,18 +1,17 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Items.Potions {
-    public abstract class Potion : MonoBehaviour
-    {
-        public int Amount;
-        public Texture Texture;
-        public Character.Character Player;
-        public int Boost;
+    public abstract class Potion {
         public bool Active;
+        public int Amount;
+        public float Boost;
         public int Duration;
+        public Character.Character Player;
+        public Texture Texture;
         public int TimeLeft;
 
         protected Potion(Character.Character player) {
-            Amount = 5;
+            Amount = 0;
             Player = player;
             Duration = 20;
         }
@@ -20,7 +19,7 @@ namespace Assets.Scripts.Items.Potions {
         public virtual void Use() {
             TimeLeft = Duration;
 
-            PotionRunnable pr = new PotionRunnable(Player, this);
+            var pr = new PotionRunnable(Player, this);
             pr.Start();
 
             Amount -= 1;

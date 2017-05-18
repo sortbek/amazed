@@ -1,81 +1,63 @@
-﻿﻿﻿using System;
-using System.Net.Mime;
-using System.Net.NetworkInformation;
-using Assets.Scripts.HUD;
-using Assets.Scripts.Items.Potions;
+﻿using System;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using Random = System.Random;
 
 namespace Assets.Scripts.World {
     public class GameManager : Singleton<GameManager> {
-        public string GameSeed;
-        public int Size;
-        public bool RandomSeed;
-        public bool Debug;
+        private Random _random;
 
         public Character.Character Character;
-        public StatsUpdater StatsUpdater;
-        public PotionSelection PotionSelection;
-
-        public int Level = 1;
+        public bool Debug;
 
         // Game stuff
         public Transform EndPoint;
-        private System.Random _random;
+
+        public string GameSeed;
+
+        public int Level = 1;
+        public int Size = 10;
 
         public int GetRandom(int min = 0, int max = 0) {
-            if (_random == null) {
-                _random = new System.Random(GameSeed.GetHashCode());
-            }
-            if (min == 0 & max == 0) {
-                return _random.Next();
-            }
+            if (_random == null) _random = new Random(GameSeed.GetHashCode());
+            if ((min == 0) & (max == 0)) return _random.Next();
             return max == 0 ? _random.Next(min) : _random.Next(min, max);
         }
 
+        // Opens the Level Transition scene to go to the next level
         public void LoadNextLevel() {
             Save();
             SceneManager.LoadScene(2);
         }
 
+        // Gets the needed GameObjects needed for the transition to new levels 
         public void SetGameObjects() {
-            Character = FindObjectOfType<Character.Character>();
-            StatsUpdater = FindObjectOfType<StatsUpdater>();
-            PotionSelection = FindObjectOfType<PotionSelection>();
+            if (Character == null) Character = FindObjectOfType<Character.Character>();
         }
 
+        // Saves the needed data about the game on the end of a level
         public void Save() {
             SetGameObjects();
-            PlayerPrefs.SetInt("ha", PotionSelection.Health.Amount);
-            PlayerPrefs.SetInt("hra", PotionSelection.HealthRegeneration.Amount);
-            PlayerPrefs.SetInt("dama", PotionSelection.Damage.Amount);
-            PlayerPrefs.SetInt("defa", PotionSelection.Defense.Amount);
-            PlayerPrefs.SetInt("sa", PotionSelection.Speed.Amount);
-            PlayerPrefs.SetFloat("sec", Time.timeSinceLevelLoad);
+            var elapsedSeconds = Time.timeSinceLevelLoad;
+            var timeSpan = TimeSpan.FromSeconds(elapsedSeconds);
+            var timeText = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
 
-            TimeSpan timeSpan = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
-            string timeText = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            PlayerPrefs.SetFloat("sec", elapsedSeconds);
             PlayerPrefs.SetString("t", timeText);
         }
 
+        // On the start of each new level place the character in the correct start position
         public void Load() {
             SetGameObjects();
-            if (PlayerPrefs.HasKey("ha")) PotionSelection.Health.Amount = PlayerPrefs.GetInt("ha", PotionSelection.Health.Amount);
-            if (PlayerPrefs.HasKey("hra")) PotionSelection.HealthRegeneration.Amount = PlayerPrefs.GetInt("hra", PotionSelection.HealthRegeneration.Amount);
-            if (PlayerPrefs.HasKey("dama")) PotionSelection.Damage.Amount = PlayerPrefs.GetInt("dama", PotionSelection.Damage.Amount);
-            if (PlayerPrefs.HasKey("defa")) PotionSelection.Defense.Amount = PlayerPrefs.GetInt("defa", PotionSelection.Defense.Amount);
-            if (PlayerPrefs.HasKey("sa")) PotionSelection.Speed.Amount = PlayerPrefs.GetInt("sa", PotionSelection.Speed.Amount);
-
             Character.transform.position = new Vector3(0, 1.05f, -12);
         }
 
-        void OnApplicationQuit() {
+        // Deletes the temporary save game data once the application quits
+        private void OnApplicationQuit() {
             PlayerPrefs.DeleteAll();
         }
 
-        public Vector3 GetEndpoint()
-        {
+        public Vector3 GetEndpoint() {
             return new Vector3((Size - 1) * 12, 0, Size * 12);
         }
     }
