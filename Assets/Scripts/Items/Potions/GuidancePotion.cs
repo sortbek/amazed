@@ -22,7 +22,7 @@ namespace Assets.Scripts.Items.Potions
         public GuidancePotion(Character.Character player) : base(player)
         {
             Texture = (Texture) Resources.Load("Sprites/potion_guidance", typeof(Texture));
-            character = GameObject.Find("Character");
+            
             var go = GameObject.Find("DrawDust");
             drawUtil = go.GetComponent<DrawingUtil>();
             Duration = 10;
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Items.Potions
 
         public override void Use()
         {
-            playerloc = character.transform.position;
+            playerloc = GameManager.Instance.Character.transform.position;
             PathRequestManager.RequestPath(playerloc, GameManager.Instance.GetEndpoint(), OnPathFound);
         }
 
