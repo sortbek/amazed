@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.World;
 using UnityEngine;
+using Assets.Scripts.PathFinding;
 
 namespace Assets.Scripts {
     public class MapManager : MonoBehaviour {
@@ -34,6 +35,7 @@ namespace Assets.Scripts {
             _newCurrent = _map[0, 0];
 
             GameManager.Instance.Load();
+            GetComponentInChildren<Grid>().Init();
         }
 
         private void SetGround() {

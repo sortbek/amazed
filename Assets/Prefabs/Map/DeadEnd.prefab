@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 33626064887508866}
   - component: {fileID: 65377251440894442}
   - component: {fileID: 23413758255148462}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4501230849836354}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Unwalkable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 33962202581093398}
   - component: {fileID: 65981500788591052}
   - component: {fileID: 23505159611506060}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 33057225860876264}
   - component: {fileID: 65191183417706880}
   - component: {fileID: 23269133361587002}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

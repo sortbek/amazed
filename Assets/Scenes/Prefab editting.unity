@@ -300,15 +300,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4396563873158930, guid: 1eb6e14853112494b867074e1507f4c7, type: 2}
       propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309930352832114, guid: 1eb6e14853112494b867074e1507f4c7, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4200357585528458, guid: 1eb6e14853112494b867074e1507f4c7, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1eb6e14853112494b867074e1507f4c7, type: 2}
@@ -518,6 +510,7 @@ MonoBehaviour:
   PrefabCorner: {fileID: 0}
   PrefabThreeWay: {fileID: 0}
   PrefabDeadEnd: {fileID: 0}
+  PrefabStartEnd: {fileID: 0}
   NodeSize: 12
 --- !u!4 &1160600382
 Transform:

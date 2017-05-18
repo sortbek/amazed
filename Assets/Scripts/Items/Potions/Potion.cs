@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Items.Potions {
-    public abstract class Potion {
+    public abstract class Potion : MonoBehaviour
+    {
         public int Amount;
         public Texture Texture;
         public Character.Character Player;
