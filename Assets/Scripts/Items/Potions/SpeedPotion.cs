@@ -15,7 +15,7 @@ namespace Assets.Scripts.Items.Potions {
         }
 
         public override void RemoveEffect() {
-            Player.Speed -= Boost;
+            Player.Speed /= Boost;
             base.RemoveEffect();
         }
     }
