@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Items.Potions {
-    internal class DefensePotion : Potion {
+    class DefensePotion : Potion {
         public double NextActionTime = 30.0f;
 
         public DefensePotion(Character.Character player) : base(player) {
