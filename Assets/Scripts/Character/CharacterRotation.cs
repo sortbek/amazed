@@ -23,7 +23,7 @@ namespace Assets.Scripts.Character {
 
         public void Update() {
             if (_camera == null)
-                _camera = _character.transform.FindChild("CamHolder").gameObject;
+                _camera = _character.transform.Find("CamHolder").gameObject;
             var delta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxis("Mouse Y"));
             delta = Vector2.Scale(delta, new Vector2(Sensivity * Smoothing, Sensivity * Smoothing));
             _smoothingVector.x = Mathf.Lerp(_smoothingVector.x, delta.x, 1f / Smoothing);
