@@ -422,11 +422,11 @@ namespace Assets.Scripts {
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
 
                     if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f) {
-                        var propLocs = node.Prefab.GetComponentInChildren<Transform>().Find("PropPlacement");
+                        //var propLocs = node.Prefab.GetComponentInChildren<Transform>().Find("PropPlacement");
                         //if (propLocs == null) continue;
-                        var children = propLocs.GetComponentsInChildren<Transform>();
+                        //var children = propLocs.GetComponentsInChildren<Transform>();
 
-                        Instantiate(Props[GameManager.Instance.GetRandom(0, 4)], children[0].GetComponent<GameObject>().transform.position, transform.rotation);
+                        Instantiate(Props[GameManager.Instance.GetRandom(0, 4)], position, transform.rotation);
                     }
                 }
             }
