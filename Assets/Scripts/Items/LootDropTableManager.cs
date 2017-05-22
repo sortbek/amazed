@@ -6,7 +6,7 @@ namespace Items {
         // TODO: Replace KeyValuePair<String, int> with KeyValuePair<{ItemClass}, int>
 
         public static string GetRandomLoot(List<KeyValuePair<string, float>> items) {
-            var itemNr = Random.RandomRange(0, 101);
+            var itemNr = Random.Range(0, 101);
 
             var chance = 1.0f;
 
@@ -22,11 +22,12 @@ namespace Items {
         }
 
         public static List<KeyValuePair<string, float>> Default = new List<KeyValuePair<string, float>>() {
-            new KeyValuePair<string, float>("Health Regeneration Potion", 10.0f),
-            new KeyValuePair<string, float>("Speed Potion", 10.0f),
-            new KeyValuePair<string, float>("Damage Potion", 10.0f),
-            new KeyValuePair<string, float>("Defence Potion", 10.0f),
             new KeyValuePair<string, float>("Health Potion", 10.0f),
+            new KeyValuePair<string, float>("Health Regeneration Potion", 10.0f),
+            new KeyValuePair<string, float>("Damage Potion", 10.0f),
+            new KeyValuePair<string, float>("Defense Potion", 10.0f),
+            new KeyValuePair<string, float>("Speed Potion", 10.0f),
+            new KeyValuePair<string, float>("Guidance Potion", 10.0f),
             new KeyValuePair<string, float>("Nothing", 50.0f)
         };
     }

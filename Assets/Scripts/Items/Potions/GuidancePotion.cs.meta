@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 097b960e4454bdc43bfc28453c32670b
-timeCreated: 1494849820
+timeCreated: 1494937102
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Texture: {instanceID: 0}
+  - Player: {instanceID: 0}
+  - character: {instanceID: 0}
+  - particle: {fileID: 100002, guid: 4462f6159ce56f54aa3d847cdf8a3291, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
