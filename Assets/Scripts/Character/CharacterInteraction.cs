@@ -21,7 +21,7 @@ namespace Assets.Scripts.Character {
             _layerMask = propLayerMask | playerLayerMask;
 
             _character = character;
-            _interactionRadius = 2.0f;
+            _interactionRadius = 3.5f;
         }
 
         // Update is called once per frame
