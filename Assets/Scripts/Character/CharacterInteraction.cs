@@ -2,6 +2,7 @@
 using Assets.Scripts.Character;
 using Interaction;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Character {
@@ -53,9 +54,11 @@ namespace Assets.Scripts.Character {
                 closest.PossibleInteraction(_character);
             }
             else {
-                // No props were found => Interaction text is cleared
-                GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>().text = "";
-                GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>().text = "";
+                if (SceneManager.GetActiveScene().name == "Game") {
+                    // No props were found => Interaction text is cleared
+                    GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>().text = "";
+                    GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>().text = "";
+                }
             }
 
             // Check if prop is nearby (withtin x distance)

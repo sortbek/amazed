@@ -21,7 +21,7 @@ namespace Assets.Scripts.Items.Potions
             var go = GameObject.Find("DrawDust");
             DrawUtil = go.GetComponent<DrawingUtil>();
             Duration = 10;
-            Amount = 1000;
+            Amount = 1;
         }
 
         public override void Use()
