@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Util;
 using Assets.Scripts.World;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-
 #endif
 
 namespace Assets.Scripts {
@@ -32,7 +30,7 @@ namespace Assets.Scripts {
         public bool IsRandom;
         public bool ShowDebugNumbers;
 
-        private List<int> _rooms = new List<int>();
+        private readonly List<int> _rooms = new List<int>();
         public float PropPerNode = 0.1f;
 
         public int NodeSize = 12;
@@ -124,7 +122,6 @@ namespace Assets.Scripts {
         // For now, the amount of rooms will be calculated as follows:
         // The size of the maze divided by two minus one. So a maze 10x10 would have 4 rooms
         // inside it. SUBJECT TO CHANGE.
-
         private void CreateRooms() {
             var amount = (GameManager.Instance.Size / 2) - 1;
 
@@ -140,16 +137,14 @@ namespace Assets.Scripts {
             var startY = GameManager.Instance.GetRandom(1, GameManager.Instance.Size - 3);
             var startIndex = GetCoordIndex(startX, startY);
 
-            if (!_rooms.Contains(startIndex) && !_rooms.Contains(startIndex + 1) &&
-                !_rooms.Contains(startIndex + _width) && !_rooms.Contains(startIndex + _width + 1)) {
-                _rooms.Add(startIndex);
-                _rooms.Add(startIndex + 1);
-                _rooms.Add(startIndex + _width + 1);
-                _rooms.Add(startIndex + _width);
-                CreateRoom(startX, startY);
-                return true;
-            }
-            return false;
+            if (_rooms.Contains(startIndex) || _rooms.Contains(startIndex + 1) ||
+                _rooms.Contains(startIndex + _width) || _rooms.Contains(startIndex + _width + 1)) return false;
+            _rooms.Add(startIndex);
+            _rooms.Add(startIndex + 1);
+            _rooms.Add(startIndex + _width + 1);
+            _rooms.Add(startIndex + _width);
+            CreateRoom(startX, startY);
+            return true;
         }
 
         private void CreateRoom(int startX, int startY) {
@@ -411,16 +406,15 @@ namespace Assets.Scripts {
 
 #if UNITY_EDITOR
 
-        void OnDrawGizmos() {
-            if (ShowDebugNumbers) {
-                for (var x = 0; x < _width; x++) {
-                    for (var y = 0; y < _height; y++) {
-                        if (_gridMap[x, y].IsPartOfRoom) {
-                            Handles.color = Color.red;
-                            Handles.Label(new Vector3(x * NodeSize, 0, (y * NodeSize)),
-                                "(" + GetNodeIndex(_gridMap[x, y]) + ")" + _gridMap[x, y].NodeConfiguration);
-                        }
-                    }
+        void OnDrawGizmos()
+        {
+            if (!ShowDebugNumbers) return;
+            for (var x = 0; x < _width; x++) {
+                for (var y = 0; y < _height; y++) {
+                    if (!_gridMap[x, y].IsPartOfRoom) continue;
+                    Handles.color = Color.red;
+                    Handles.Label(new Vector3(x * NodeSize, 0, (y * NodeSize)),
+                        "(" + GetNodeIndex(_gridMap[x, y]) + ")" + _gridMap[x, y].NodeConfiguration);
                 }
             }
         }
