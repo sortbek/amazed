@@ -221,15 +221,14 @@ namespace Assets.Scripts {
                     node.Prefab = PrefabRoomEntrance;
                     break;
                 case 9:
-                    node.Rotation = 180;
                     node.Prefab = PrefabRoomCorner;
+                    node.Rotation = 180;
                     break;
                 case 12:
                     node.Prefab = PrefabRoomCorner;
                     node.Rotation = 90;
                     break;
                 default:
-                    print("CONFIG: " + node.NodeConfiguration);
                     node.Prefab = PrefabCross;
                     break;
             }
@@ -244,8 +243,8 @@ namespace Assets.Scripts {
                     node.Prefab = PrefabThreeWay;
                     break;
                 case 2:
-                    node.Rotation = 90;
                     node.Prefab = PrefabThreeWay;
+                    node.Rotation = 90;
                     break;
                 case 3:
                     node.Prefab = PrefabCorner;
@@ -270,8 +269,8 @@ namespace Assets.Scripts {
                     node.Rotation = -90;
                     break;
                 case 9:
-                    node.Rotation = 180;
                     node.Prefab = PrefabCorner;
+                    node.Rotation = 180;
                     break;
                 case 10:
                     node.Prefab = PrefabStraight;
@@ -324,7 +323,7 @@ namespace Assets.Scripts {
 
         private void BuildHeapMaze() {
             while (_prioList.Count > 0) {
-                CheckCurrentNode(GetLowestFromHeap());
+                CheckCurrentNode(_prioList.RemoveFirst());
             }
         }
 
@@ -386,14 +385,6 @@ namespace Assets.Scripts {
                     _gridMap[x, y] = node;
                 }
             }
-        }
-
-        private GridNode GetLowestFromHeap() {
-            return _prioList.RemoveFirst();
-        }
-
-        public GridNode[,] GetMap() {
-            return _gridMap;
         }
 
         private void InstantiateMap() {
