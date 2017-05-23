@@ -43,11 +43,8 @@ namespace Assets.Scripts {
         {
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
-
             _disjointSet = new DisjointSet(_width, _height);
-
             _gridMap = new GridNode[_width, _height];
-
             _prioList = new Heap<GridNode>(_width * _height);
 
             GenerateMap();

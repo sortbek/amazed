@@ -24,11 +24,14 @@ namespace Assets.Scripts {
             _generator = GetComponent<Generator>();
             _player = GameObject.FindWithTag("player");
 
+            Init();
 
         }
 
         // Update is called once per frame
         void Update() {
+            // Check every frame the current node the player is in. If the player walks into a new node, we must enable
+            // the neighbour prefabs that were baked into the node with Dynamic Occlusion Culling
             CurrentLocation();
             if (_newCurrent != _current) {
                 UpdateCulling();
@@ -58,8 +61,14 @@ namespace Assets.Scripts {
             _map = map;
             _newCurrent = _map[0, 0];
 
+            // Position the player on the map
             GameManager.Instance.Load();
+
+            // Create the graph we need for A*
             GetComponentInChildren<Grid>().Init();
+
+            // Enable the Dynamic Occlusion Culling
+            EnableCulling();
         }
 
         private void SetGround() {
