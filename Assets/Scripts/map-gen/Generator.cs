@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Util;
@@ -6,7 +6,6 @@ using Assets.Scripts.World;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-
 #endif
 
 namespace Assets.Scripts{
@@ -28,33 +27,20 @@ namespace Assets.Scripts{
         private GridNode[,] _gridMap;
         private Heap<GridNode> _prioList;
         private DisjointSet _disjointSet;
-        private bool _isGenerated;
 
-        public string Seed;
-        public bool IsRandom;
         public bool ShowDebugNumbers;
 
-        private List<int> _rooms = new List<int>();
+        private readonly List<int> _rooms = new List<int>();
         public float PropPerNode = 0.1f;
 
         public int NodeSize = 12;
 
-        private void SetSettings(){
-            if (IsRandom){
-                Seed = Guid.NewGuid().ToString().Replace("-", "");
-            }
-            GameManager.Instance.GameSeed = Seed;
-        }
-
-        void Start(){
-            SetSettings();
+        public GridNode[,] Init()
+        {
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
-
             _disjointSet = new DisjointSet(_width, _height);
-
             _gridMap = new GridNode[_width, _height];
-
             _prioList = new Heap<GridNode>(_width * _height);
 
             GenerateMap();
@@ -62,12 +48,7 @@ namespace Assets.Scripts{
             var chef = new DynamicOcclusion();
             _gridMap = chef.Bake(_gridMap);
 
-            _isGenerated = true;
-            GetComponent<MapManager>().Init(_gridMap);
-        }
-
-        public bool IsGenerated(){
-            return _isGenerated;
+            return _gridMap;
         }
 
         private void GenerateMap(){
@@ -139,8 +120,7 @@ namespace Assets.Scripts{
         // For now, the amount of rooms will be calculated as follows:
         // The size of the maze divided by two minus one. So a maze 10x10 would have 4 rooms
         // inside it. SUBJECT TO CHANGE.
-
-        private void CreateRooms(){
+        private void CreateRooms() {
             var amount = (GameManager.Instance.Size / 2) - 1;
 
             while (amount > 0){
@@ -155,16 +135,14 @@ namespace Assets.Scripts{
             var startY = GameManager.Instance.GetRandom(1, GameManager.Instance.Size - 3);
             var startIndex = GetCoordIndex(startX, startY);
 
-            if (!_rooms.Contains(startIndex) && !_rooms.Contains(startIndex + 1) &&
-                !_rooms.Contains(startIndex + _width) && !_rooms.Contains(startIndex + _width + 1)){
-                _rooms.Add(startIndex);
-                _rooms.Add(startIndex + 1);
-                _rooms.Add(startIndex + _width + 1);
-                _rooms.Add(startIndex + _width);
-                CreateRoom(startX, startY);
-                return true;
-            }
-            return false;
+            if (_rooms.Contains(startIndex) || _rooms.Contains(startIndex + 1) ||
+                _rooms.Contains(startIndex + _width) || _rooms.Contains(startIndex + _width + 1)) return false;
+            _rooms.Add(startIndex);
+            _rooms.Add(startIndex + 1);
+            _rooms.Add(startIndex + _width + 1);
+            _rooms.Add(startIndex + _width);
+            CreateRoom(startX, startY);
+            return true;
         }
 
         private void CreateRoom(int startX, int startY){
@@ -176,7 +154,6 @@ namespace Assets.Scripts{
 
             var nodeTopLeft = _gridMap[nodeX, nodeY + 1];
             var nodeTopRight = _gridMap[nodeX + 1, nodeY + 1];
-
 
             _disjointSet.Union(GetNodeIndex(nodeBottomLeft), GetNodeIndex(nodeBottomRight));
             _disjointSet.Union(GetNodeIndex(nodeBottomRight), GetNodeIndex(nodeTopRight));
@@ -194,6 +171,20 @@ namespace Assets.Scripts{
             nodeTopLeft.HasWallDown = false;
             nodeTopLeft.HasWallRight = false;
             nodeTopRight.HasWallDown = false;
+
+            // Dynamic Occlusion Fix
+            var list = new List<GridNode>
+            {
+                nodeBottomLeft,
+                nodeBottomRight,
+                nodeTopLeft,
+                nodeTopRight
+            };
+
+            nodeBottomLeft.RoomList = list;
+            nodeBottomRight.RoomList = list;
+            nodeTopLeft.RoomList = list;
+            nodeTopRight.RoomList = list;
         }
 
         private void ConfigurateNodes(){
@@ -236,15 +227,14 @@ namespace Assets.Scripts{
                     node.Prefab = PrefabRoomEntrance;
                     break;
                 case 9:
-                    node.Rotation = 180;
                     node.Prefab = PrefabRoomCorner;
+                    node.Rotation = 180;
                     break;
                 case 12:
                     node.Prefab = PrefabRoomCorner;
                     node.Rotation = 90;
                     break;
                 default:
-                    print("CONFIG: " + node.NodeConfiguration);
                     node.Prefab = PrefabCross;
                     break;
             }
@@ -259,8 +249,8 @@ namespace Assets.Scripts{
                     node.Prefab = PrefabThreeWay;
                     break;
                 case 2:
-                    node.Rotation = 90;
                     node.Prefab = PrefabThreeWay;
+                    node.Rotation = 90;
                     break;
                 case 3:
                     node.Prefab = PrefabCorner;
@@ -285,8 +275,8 @@ namespace Assets.Scripts{
                     node.Rotation = -90;
                     break;
                 case 9:
-                    node.Rotation = 180;
                     node.Prefab = PrefabCorner;
+                    node.Rotation = 180;
                     break;
                 case 10:
                     node.Prefab = PrefabStraight;
@@ -337,9 +327,9 @@ namespace Assets.Scripts{
             return config;
         }
 
-        private void BuildHeapMaze(){
-            while (_prioList.Count > 0){
-                CheckCurrentNode(GetLowestFromHeap());
+        private void BuildHeapMaze() {
+            while (_prioList.Count > 0) {
+                CheckCurrentNode(_prioList.RemoveFirst());
             }
         }
 
@@ -403,15 +393,8 @@ namespace Assets.Scripts{
             }
         }
 
-        private GridNode GetLowestFromHeap(){
-            return _prioList.RemoveFirst();
-        }
 
-        public GridNode[,] GetMap(){
-            return _gridMap;
-        }
-
-        private void InstantiateMap(){
+        private void InstantiateMap() {
             // Set the default part of generated maze
             for (var x = 0; x < _width; x++){
                 for (var y = 0; y < _height; y++){
@@ -421,6 +404,7 @@ namespace Assets.Scripts{
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.localScale = node.Scale;
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
+
 
                     if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f){
                         var children = node.Prefab.transform.Find("PropPlacement").GetComponentsInChildren<Transform>();
@@ -444,21 +428,18 @@ namespace Assets.Scripts{
         }
 
 #if UNITY_EDITOR
-
-        void OnDrawGizmos(){
-            if (ShowDebugNumbers){
-                for (var x = 0; x < _width; x++){
-                    for (var y = 0; y < _height; y++){
-                        if (_gridMap[x, y].IsPartOfRoom){
-                            Handles.color = Color.red;
-                            Handles.Label(new Vector3(x * NodeSize, 0, (y * NodeSize)),
-                                "(" + GetNodeIndex(_gridMap[x, y]) + ")" + _gridMap[x, y].NodeConfiguration);
-                        }
-                    }
+        void OnDrawGizmos()
+        {
+            if (!ShowDebugNumbers) return;
+            for (var x = 0; x < _width; x++) {
+                for (var y = 0; y < _height; y++) {
+                    if (!_gridMap[x, y].IsPartOfRoom) continue;
+                    Handles.color = Color.red;
+                    Handles.Label(new Vector3(x * NodeSize, 0, (y * NodeSize)),
+                        "(" + GetNodeIndex(_gridMap[x, y]) + ")" + _gridMap[x, y].NodeConfiguration);
                 }
             }
         }
-
 #endif
     }
 }
