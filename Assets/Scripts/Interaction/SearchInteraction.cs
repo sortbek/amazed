@@ -4,16 +4,12 @@ using UnityEngine;
 
 namespace Interaction {
     public class SearchInteraction : InteractionBehaviour {
-        public bool HasBeenInteractedWith;
+        public bool HasBeenInteractedWith = false;
         public string Item;
 
         protected override void Start() {
             base.Start();
-
-            HasBeenInteractedWith = false;
             Item = LootDropTableManager.GetRandomLoot(LootDropTableManager.Default);
-
-            //print(string.Format("{0} in {1}", Item, Name));
         }
 
         protected override void Interact(Character actor) {

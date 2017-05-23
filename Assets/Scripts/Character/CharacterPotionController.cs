@@ -15,6 +15,8 @@ namespace Assets.Scripts.Character {
             Damage = new DamagePotion(_player);
             Defense = new DefensePotion(_player);
             Guidance = new GuidancePotion(_player);
+
+            Speed.Amount += 9;
         }
 
         public void Add(string type) {

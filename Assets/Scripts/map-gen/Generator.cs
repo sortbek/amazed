@@ -19,6 +19,7 @@ namespace Assets.Scripts{
         public GameObject PrefabStartEnd;
         public GameObject PrefabRoomCorner;
         public GameObject PrefabRoomEntrance;
+        public GameObject PrefabRoomContent;
 
         public GameObject[] Props;
 
@@ -389,7 +390,7 @@ namespace Assets.Scripts{
             for (var x = 0; x < _width; x++){
                 for (var y = 0; y < _height; y++){
                     var key = GameManager.Instance.GetRandom();
-                    var node = new GridNode {
+                    var node = new GridNode{
                         X = x,
                         Y = y,
                         NodeConfiguration = 0,
@@ -421,6 +422,13 @@ namespace Assets.Scripts{
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.localScale = node.Scale;
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
+
+                    if (node.IsPartOfRoom){
+                        if (node.NodeConfiguration == 2 || node.NodeConfiguration == 8){
+                            Instantiate(PrefabRoomContent, node.Prefab.transform.position + new Vector3(6.0f, 0.0f, 6.0f), transform.rotation);
+                        }
+                        continue;
+                    }
 
                     if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f){
                         var children = node.Prefab.transform.Find("PropPlacement").GetComponentsInChildren<Transform>();
