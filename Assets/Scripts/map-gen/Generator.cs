@@ -26,16 +26,12 @@ namespace Assets.Scripts {
         private Heap<GridNode> _prioList;
         private DisjointSet _disjointSet;
 
-        public string Seed;
-        public bool IsRandom;
         public bool ShowDebugNumbers;
 
         private readonly List<int> _rooms = new List<int>();
         public float PropPerNode = 0.1f;
 
         public int NodeSize = 12;
-
-
 
         public GridNode[,] Init()
         {
@@ -157,7 +153,6 @@ namespace Assets.Scripts {
             var nodeTopLeft = _gridMap[nodeX, nodeY + 1];
             var nodeTopRight = _gridMap[nodeX + 1, nodeY + 1];
 
-
             _disjointSet.Union(GetNodeIndex(nodeBottomLeft), GetNodeIndex(nodeBottomRight));
             _disjointSet.Union(GetNodeIndex(nodeBottomRight), GetNodeIndex(nodeTopRight));
             _disjointSet.Union(GetNodeIndex(nodeTopRight), GetNodeIndex(nodeTopLeft));
@@ -174,6 +169,20 @@ namespace Assets.Scripts {
             nodeTopLeft.HasWallDown = false;
             nodeTopLeft.HasWallRight = false;
             nodeTopRight.HasWallDown = false;
+
+            // Dynamic Occlusion Fix
+            var list = new List<GridNode>
+            {
+                nodeBottomLeft,
+                nodeBottomRight,
+                nodeTopLeft,
+                nodeTopRight
+            };
+
+            nodeBottomLeft.RoomList = list;
+            nodeBottomRight.RoomList = list;
+            nodeTopLeft.RoomList = list;
+            nodeTopRight.RoomList = list;
         }
 
         private void ConfigurateNodes() {

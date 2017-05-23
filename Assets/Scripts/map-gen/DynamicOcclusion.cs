@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using Assets.Scripts.PathFinding;
 
 namespace Assets.Scripts
 {
@@ -132,10 +132,7 @@ namespace Assets.Scripts
 
         private void AddSquareArea(GridNode node)
         {
-            _currentChecking.AddBakedNode(_generatedMap[node.X + 1, node.Y]);
-            _currentChecking.AddBakedNode(_generatedMap[node.X + 1, node.Y + 1]);
-            _currentChecking.AddBakedNode(_generatedMap[node.X, node.Y + 1]);
-            _currentChecking.AddBakedNode(_generatedMap[node.X - 1, node.Y -1]);
+            _currentChecking.BakedList.AddRange(node.RoomList);
         }
     }
 }

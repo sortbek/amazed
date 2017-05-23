@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Assets.Scripts.Util;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Assets.Scripts {
     [Flags]
@@ -25,6 +24,7 @@ namespace Assets.Scripts {
         public bool IsPartOfRoom;
 
         public List<GridNode> BakedList = new List<GridNode>();
+        public List<GridNode> RoomList = new List<GridNode>();
         public GameObject Prop;
         public Vector3 Scale = new Vector3(1,1,1);
         public int Rotation;

@@ -25,7 +25,6 @@ namespace Assets.Scripts {
             _player = GameObject.FindWithTag("player");
 
             Init();
-
         }
 
         // Update is called once per frame
