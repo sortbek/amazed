@@ -27,7 +27,6 @@ namespace Assets.Scripts {
         private GridNode[,] _gridMap;
         private Heap<GridNode> _prioList;
         private DisjointSet _disjointSet;
-        private bool _isGenerated;
 
         public string Seed;
         public bool IsRandom;
@@ -38,15 +37,10 @@ namespace Assets.Scripts {
 
         public int NodeSize = 12;
 
-        private void SetSettings() {
-            if (IsRandom) {
-                Seed = Guid.NewGuid().ToString().Replace("-", "");
-            }
-            GameManager.Instance.GameSeed = Seed;
-        }
 
-        void Start() {
-            SetSettings();
+
+        public GridNode[,] Init()
+        {
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
 
@@ -61,12 +55,7 @@ namespace Assets.Scripts {
             var chef = new DynamicOcclusion();
             _gridMap = chef.Bake(_gridMap);
 
-            _isGenerated = true;
-            GetComponent<MapManager>().Init(_gridMap);
-        }
-
-        public bool IsGenerated() {
-            return _isGenerated;
+            return _gridMap;
         }
 
         private void GenerateMap() {
@@ -420,14 +409,6 @@ namespace Assets.Scripts {
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
                     node.Prefab.transform.localScale = node.Scale;
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
-
-                    if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f) {
-                        //var propLocs = node.Prefab.GetComponentInChildren<Transform>().Find("PropPlacement");
-                        //if (propLocs == null) continue;
-                        //var children = propLocs.GetComponentsInChildren<Transform>();
-
-                        Instantiate(Props[GameManager.Instance.GetRandom(0, 4)], position, transform.rotation);
-                    }
                 }
             }
 

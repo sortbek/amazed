@@ -14,12 +14,17 @@ namespace Assets.Scripts {
         private GridNode _current;
         private GridNode _newCurrent;
 
+        // Map settings
+        public int Size;
+        public string Seed;
+        public bool IsRandom;
+
         // Use this for initialization
         void Start() {
             _generator = GetComponent<Generator>();
             _player = GameObject.FindWithTag("player");
 
-            SetGround();
+
         }
 
         // Update is called once per frame
@@ -30,7 +35,26 @@ namespace Assets.Scripts {
             }
         }
 
-        public void Init(GridNode[,] map) {
+        private void SetSettings() {
+            if (IsRandom) {
+                Seed = Guid.NewGuid().ToString().Replace("-", "");
+            }
+            GameManager.Instance.GameSeed = Seed;
+            GameManager.Instance.Size = Size;
+        }
+
+        public void Init() {
+
+            // Set the initial settings for the map like Size and Seed
+            SetSettings();
+
+            // The ground is set dynamically depending on the map and node size
+            SetGround();
+
+            // Generate the grid
+            var map = _generator.Init();
+
+
             _map = map;
             _newCurrent = _map[0, 0];
 
