@@ -1,11 +1,13 @@
 ﻿using Assets.Scripts.Character;
+using Assets.Scripts.Util;
 using Items;
 using UnityEngine;
+using Util;
 
 namespace Interaction {
     public class SearchInteraction : InteractionBehaviour {
         public bool HasBeenInteractedWith = false;
-        public string Item;
+        public Item Item;
 
         protected override void Start() {
             base.Start();
@@ -14,11 +16,12 @@ namespace Interaction {
 
         protected override void Interact(Character actor) {
             HasBeenInteractedWith = true;
-            Eventlog.text = string.Format("{0} found in {1}", Item, Name);
+            Eventlog.text = string.Format("{0} found in {1}", ItemUtil.ItemToString(Item), Name);
 
             base.Interact(actor);
 
             PotionController.Add(Item);
+            WeaponController.Add(Item);
         }
 
         public override void PossibleInteraction(Character actor) {

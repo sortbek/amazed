@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts.Util;
 using UnityEngine;
+using Util;
 
 namespace Assets.Scripts.Character {
     public class CharacterWeaponController : MonoBehaviour {
@@ -55,6 +56,25 @@ namespace Assets.Scripts.Character {
                 weaponObject.transform.Rotate(stat.OffsetRotation);
                 weaponObject.SetActive(false);
                 _equipment[stat.WeaponID] = weapon;
+            }
+        }
+
+        public void Add(Item item) {
+            switch (item) {
+                case Item.Sword:
+                    Add(1);
+                    break;
+                case Item.BattleAxe:
+                    Add(2);
+                    break;
+                case Item.Maul:
+                    Add(3);
+                    break;
+                case Item.Dagger:
+                    Add(4);
+                    break;
+                default:
+                    break;
             }
         }
 
