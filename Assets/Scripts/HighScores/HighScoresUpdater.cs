@@ -17,8 +17,6 @@ namespace Assets.Scripts.HighScores {
             _highScoresController = GameManager.Instance.GetHighScoresController();
 
             FillTextComponents();
-
-            GameManager.Instance.Character.enabled = false;
         }
 
         private void FillTextComponents() {
