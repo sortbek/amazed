@@ -6,8 +6,8 @@ namespace Assets.Scripts.Map.Weather
 {
 	public class WeatherManager : MonoBehaviour
 	{
-		private Weather _activeWeather;
-		public Weather ActiveWeather
+		private IWeather _activeWeather;
+		public IWeather ActiveWeather
 		{
 			get { return _activeWeather; }
 			set
@@ -17,11 +17,11 @@ namespace Assets.Scripts.Map.Weather
 			}
 		}
 
-		private readonly List<Weather> _weatherOptions = new List<Weather>();
+		private readonly List<IWeather> _weatherOptions = new List<IWeather>();
 
 		void Awake()
 		{
-			_weatherOptions.Add(new Storm(this));
+			_weatherOptions.Add(gameObject.AddComponent<Storm>());
 		}
 
 		public void Init ()
