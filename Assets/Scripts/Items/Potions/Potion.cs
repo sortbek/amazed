@@ -11,7 +11,7 @@ namespace Assets.Scripts.Items.Potions {
         public int TimeLeft;
 
         protected Potion(Character.Character player) {
-            Amount = 0;
+            Amount = 5;
             Player = player;
             Duration = 20;
         }
