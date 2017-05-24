@@ -8,12 +8,13 @@ namespace Interaction {
     public class SearchInteraction : InteractionBehaviour {
         public bool HasBeenInteractedWith = false;
         public LootTable LootTable = LootTable.Potions;
+        public float DropChance = 0.5f;
 
         private Item _item;
 
         protected override void Start() {
             base.Start();
-            _item = LootDropTableManager.GetRandomLoot(LootDropTableManager.GetLootTable(LootTable));
+            _item = LootTableManager.GetRandomLoot(LootTable, DropChance);
         }
 
         protected override void Interact(Character actor) {
