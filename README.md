@@ -11,3 +11,33 @@ The moment your coffeecup touches your mouth you feel an extremely strong force 
 After a few hours you regain conscience and open your eyes, and what you see is an entirely other world. It's dark and cold, and you immediately feel uncomfortable.
 The first thing you notice is a big yellow portal which emits a very strong coffee smell. You wonder what in the world could have happened! You are surrounded by big, stone, castle-like walls. 
 What do you do?!
+
+Controls
+-----------
+* Movement - W/A/S/D or arrow keys
+* Look around - Mouse
+* Select weapons - 1/2/3/4
+* Select potions - Q/E or Scrollwheel
+* Use potion - X
+* Dance - Z
+
+Potions
+-----------
+| Image        | Name           | Effect  |
+| :-------------: |:-------------| :-----|
+| ![Health](/Assets/Resources/Sprites/potion_health.png) | Health Potion | Adds 30 HP to your current HP |
+| ![Health Regeneration](/Assets/Resources/Sprites/potion_regen.png)      | Health Regeneration Potion | Adds 4 HP to your current HP every second for 10 seconds |
+| ![Damage](/Assets/Resources/Sprites/potion_damage.png) | Damage Potion | Increases the damage you do to enemies |
+| ![Defense](/Assets/Resources/Sprites/potion_defense.png) | Defense Potion | Decreases the amount of damage you take from enemies |
+| ![Speed](/Assets/Resources/Sprites/potion_speed.png) | Speed Potion | Increases your movement speed |
+| ![Guidance](/Assets/Resources/Sprites/potion_guidance.png) | Guidance Potion | Spawns a twinkling entity that guides you through the maze |
+
+
+Developers
+-----------
+The aMAZEd development team consists of five Dutch IT students.
+* Eelco Eikelboom
+* Hugo Kamps
+* Jeffrey Wienen
+* Jordi Wolthuis
+* Niek van den Brink
