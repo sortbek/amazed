@@ -2,63 +2,53 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Scripts.AI.Entity;
+using Assets.Scripts.AI.Actions;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP {
     public class GoapAgent : MonoBehaviour {
 
-        public LivingEntity Entity { get; private set; }
-        public GoapAction CurrentAction { get; set; }
-        public HashSet<GoapAction> ActionRegister { get; private set; }
         public GoapStateMachine StateMachine { get; private set; }
+        public Dictionary<GoapCondition, bool> AgentState { get; private set; }
+        public Queue<GoapAction> ActionQueue { get; private set; }
+        public HashSet<GoapAction> Actions { get; private set; }
+        public GoapPlanner Planner { get; private set; }
 
-        private readonly Dictionary<GoapConditionKey, bool> _agentState;
-        private readonly Queue<GoapAction> _actionQueue;
+        private void LoadDefaultState() {
+            foreach (var condition in Enum.GetValues(typeof(GoapCondition)).Cast<GoapCondition>())
+                AgentState[condition] = false;
+        }
 
-        public GoapAgent() {
-            Entity = new LivingEntity() {Energy = 10f, Health = 100f};
+        void Awake() {
             StateMachine = new GoapStateMachine(this);
-            _actionQueue = new Queue<GoapAction>();
-            _agentState = new Dictionary<GoapConditionKey, bool>();
-            CurrentAction = null;
-            ActionRegister = new HashSet<GoapAction>();
-        }
-
-        public void CallAction(GoapAction action) {
-            foreach (var effect in action.Effects)
-                _agentState[effect.Key] = effect.Value;
-        }
-
-        public bool Is(GoapConditionKey key, bool val) {
-            return _agentState[key] == val;
+            ActionQueue = new Queue<GoapAction>();
+            Actions = new HashSet<GoapAction>();
+            Planner = new GoapPlanner(this);
+            AgentState = new Dictionary<GoapCondition, bool>();
+            LoadDefaultState();
+            StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
         }
 
         void Start() {
             LoadActions();
-            StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
+
+            SetState(GoapCondition.IsTired, true);
+
+            Planner.Plan(new GoapPlan(GoapCondition.InRange, true));
         }
 
-        void Update() {
-            StateMachine.Update();
-        }
-
-        public Queue<GoapAction> GetQueue() {
-            return _actionQueue;
-        }
-
-        public IEnumerable<GoapAction> GetUsable() {
-            return ActionRegister.Select(x => x).Where(x => x.CanPerform());
-        }
-
-        public Dictionary<GoapConditionKey, bool> GetAgentState() {
-            return _agentState;
+        public void SetState(GoapCondition cond, bool val) {
+            AgentState[cond] = val;
         }
 
         private void LoadActions() {
             var actions = GetComponents<GoapAction>();
             foreach (var action in actions)
-                ActionRegister.Add(action);
+                Actions.Add(action);
+        }
+
+        void Update() {
+            StateMachine.Update();
         }
 
     }

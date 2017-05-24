@@ -20,8 +20,6 @@ namespace Assets.Scripts.AI.GOAP {
 
         public void ChangeState(StateType type) {
             AbstractState state = _stateRegister[type];
-            if(_currentState != null)
-                _currentState.Exit();
             _currentState = state;
             _currentState.Enter();
         }

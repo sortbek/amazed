@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP.States {
-    public class GoapMovingState : AbstractState{
+    public class GoapMovingState : AbstractState {
 
         public GoapMovingState(GoapAgent agent) : base(agent) {}
 
         public override void Enter() {
-            throw new NotImplementedException();
+            Debug.Log("AI Moving state");
         }
 
         public override void Execute() {
-            throw new NotImplementedException();
+            // Moving to target code here.
+            // target uit CurrentPlan halen (eerste waarde)
+            Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Action);
         }
 
-        public override void Exit() {
-            throw new NotImplementedException();
-        }
     }
 }

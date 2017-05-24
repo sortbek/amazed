@@ -6,13 +6,12 @@ using System.Text;
 namespace Assets.Scripts.AI.GOAP.States {
     public abstract class AbstractState {
 
-        protected readonly GoapAgent _agent;
+        protected readonly GoapAgent Agent;
         protected AbstractState(GoapAgent agent) {
-            _agent = agent;
+            Agent = agent;
         }
 
         public abstract void Enter();
         public abstract void Execute();
-        public abstract void Exit();
     }
 }

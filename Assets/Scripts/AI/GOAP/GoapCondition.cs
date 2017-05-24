@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 
 namespace Assets.Scripts.AI.GOAP {
-    public enum GoapConditionKey {
+    public enum GoapCondition {
 
-        InRange = 0,
-        IsTired = 0,
-        HasWood = 0,
-        HasAxe = 0
+        InRange,
+        IsTired,
+        IsDamaged
     }
+
 }

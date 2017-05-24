@@ -5,31 +5,32 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP {
-    public abstract class GoapAction : MonoBehaviour{
+    public abstract class GoapAction : MonoBehaviour {
 
-        public Dictionary<GoapConditionKey, bool> Preconditions { get; private set; }
-        public Dictionary<GoapConditionKey, bool> Effects { get; private set; }
-        public int Cost { get; set; }
+        public Dictionary<GoapCondition, bool> Preconditions { get; private set; }
+        public Dictionary<GoapCondition, bool> Effects { get; private set; }
 
+        protected GoapAgent Agent { get; private set; }
         protected GoapAction() {
-            Preconditions = new Dictionary<GoapConditionKey, bool>();
-            Effects = new Dictionary<GoapConditionKey, bool>();
+            Preconditions = new Dictionary<GoapCondition, bool>();
+            Effects = new Dictionary<GoapCondition, bool>();
         }
 
-        protected GoapAction(int cost) : this() {
-            Cost = cost;
+        protected void RegisterPrecondition(GoapCondition condition, bool val) {
+            Preconditions[condition] = val;
         }
 
-        public abstract void Perform();
-        public abstract bool Complete();
-        public abstract bool CanPerform();
-
-        protected void RegisterPrecondition(GoapConditionKey key, bool condition) {
-            Preconditions[key] = condition;
+        protected void RegisterEffect(GoapCondition cond, bool result) {
+            Effects[cond] = result;
         }
 
-        protected void RegisterEffect(GoapConditionKey key, bool condition) {
-            Effects[key] = condition;
+        void Awake() {
+            Agent = GetComponent<GoapAgent>();
+            Init();
         }
+
+        public abstract void Init();
+        public abstract void Execute();
+        public abstract bool Completed();
     }
 }
