@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Items.Potions {
-    internal class DamagePotion : Potion {
+    class DamagePotion : Potion {
         public DamagePotion(Character.Character player) : base(player) {
             Texture = (Texture) Resources.Load("Sprites/potion_damage", typeof(Texture));
             Boost = 20;

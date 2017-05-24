@@ -1,26 +1,28 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Random = System.Random;
 
 namespace Assets.Scripts.World {
     public class GameManager : Singleton<GameManager> {
-        private Random _random;
+        public string GameSeed;
+        public int Size = 10;
+        public bool Debug;
 
         public Character.Character Character;
-        public bool Debug;
+
+        public int Level = 1;
 
         // Game stuff
         public Transform EndPoint;
-
-        public string GameSeed;
-
-        public int Level = 1;
-        public int Size = 10;
+        private System.Random _random;
 
         public int GetRandom(int min = 0, int max = 0) {
-            if (_random == null) _random = new Random(GameSeed.GetHashCode());
-            if ((min == 0) & (max == 0)) return _random.Next();
+            if (_random == null) {
+                _random = new System.Random(GameSeed.GetHashCode());
+            }
+            if (min == 0 & max == 0) {
+                return _random.Next();
+            }
             return max == 0 ? _random.Next(min) : _random.Next(min, max);
         }
 
@@ -53,7 +55,7 @@ namespace Assets.Scripts.World {
         }
 
         // Deletes the temporary save game data once the application quits
-        private void OnApplicationQuit() {
+        void OnApplicationQuit() {
             PlayerPrefs.DeleteAll();
         }
 
