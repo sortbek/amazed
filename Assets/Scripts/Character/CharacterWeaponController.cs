@@ -72,6 +72,10 @@ namespace Assets.Scripts.Character {
             obj.SetActive(true);
         }
 
+        public Dictionary<int, WeaponObject> GetEquipment() {
+            return _equipment;
+        }
+
     }
 
     public struct WeaponObject {
