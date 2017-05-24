@@ -56,27 +56,27 @@ namespace Assets.Scripts{
             // Fill the dictionary with keys and GridNodes. The keys will represent
             // the priority in the queue later.
             CreatePriorityList();
-
-            // Creating predefined rooms which will be different from the other nodes generated. These will
-            // contain 'loot' and 'mobs' inside and the layout of the room will always be the same
+//
+//            // Creating predefined rooms which will be different from the other nodes generated. These will
+//            // contain 'loot' and 'mobs' inside and the layout of the room will always be the same
             CreateRooms();
-
-            // Break down walls to build the actual maze
+//
+//            // Break down walls to build the actual maze
             BuildHeapMaze();
-
-            // Remove walls to make the maze imperfect and generate loops
+//
+//            // Remove walls to make the maze imperfect and generate loops
             MakeMazeImperfect();
-
-            // Set the right configuration for each node
+//
+//            // Set the right configuration for each node
             ConfigurateNodes();
-
-            // Create start and end point
+//
+//            // Create start and end point
             CreateStartEndPoint();
-
-            // Set the prefab for each node
+//
+//            // Set the prefab for each node
             SetNodesPrefabs();
-
-            // Instantiate the map
+//
+//            // Instantiate the map
             InstantiateMap();
         }
 
@@ -122,7 +122,7 @@ namespace Assets.Scripts{
         // The size of the maze divided by two minus one. So a maze 10x10 would have 4 rooms
         // inside it. SUBJECT TO CHANGE.
         private void CreateRooms() {
-            var amount = (GameManager.Instance.Size / 2) - 1;
+            var amount = (GameManager.Instance.Size / 2) - 2;
 
             while (amount > 0){
                 if (FindRoomPosition()){
