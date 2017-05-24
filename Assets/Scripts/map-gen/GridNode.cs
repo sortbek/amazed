@@ -24,11 +24,12 @@ namespace Assets.Scripts {
         public bool IsPartOfRoom;
 
         public List<GridNode> BakedList = new List<GridNode>();
-        public GameObject Prefab;
+        public List<GridNode> RoomList = new List<GridNode>();
         public GameObject Prop;
-
         public Vector3 Scale = new Vector3(1,1,1);
         public int Rotation;
+        public GameObject Prefab;
+
 
         public void AddBakedNode(GridNode node) {
             BakedList.Add(node);

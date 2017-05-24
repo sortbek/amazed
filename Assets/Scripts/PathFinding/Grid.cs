@@ -26,9 +26,6 @@ namespace Assets.Scripts.PathFinding
 
             // Create the actual grid
             CreateGrid();
-
-            // Inform the MapManager our grid is completed and enable the dynamic culling
-            GetComponentInParent<MapManager>().EnableCulling();
         }
 
         public int MaxSize

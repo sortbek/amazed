@@ -11,6 +11,10 @@ public class DrawingUtil : MonoBehaviour {
     public GameObject particle;
     public List<GameObject> particleClone = new List<GameObject>();
 
+    void Awake() {
+        DontDestroyOnLoad(this);
+    }
+
     public void drawlineFromTo(Vector3[] path, Vector3 playerloc)
     {
         playerloc.y += 4;
