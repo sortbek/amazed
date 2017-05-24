@@ -5,7 +5,7 @@ namespace Assets.Scripts
 {
     public class DisjointSet
     {
-        public Dictionary<int, int> _set = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> _set = new Dictionary<int, int>();
 
         public DisjointSet(int width, int height)
         {

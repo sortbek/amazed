@@ -14,28 +14,60 @@ namespace Assets.Scripts {
         private GridNode _current;
         private GridNode _newCurrent;
 
+        // Map settings
+        public int Size;
+        public string Seed;
+        public bool IsRandom;
+
         // Use this for initialization
         void Start() {
             _generator = GetComponent<Generator>();
             _player = GameObject.FindWithTag("player");
 
-            SetGround();
+            Init();
         }
 
         // Update is called once per frame
         void Update() {
+            // Check every frame the current node the player is in. If the player walks into a new node, we must enable
+            // the neighbour prefabs that were baked into the node with Dynamic Occlusion Culling
             CurrentLocation();
             if (_newCurrent != _current) {
                 UpdateCulling();
             }
         }
 
-        public void Init(GridNode[,] map) {
+        private void SetSettings() {
+            if (IsRandom) {
+                Seed = Guid.NewGuid().ToString().Replace("-", "");
+            }
+            GameManager.Instance.GameSeed = Seed;
+            GameManager.Instance.Size = Size;
+        }
+
+        public void Init() {
+
+            // Set the initial settings for the map like Size and Seed
+            SetSettings();
+
+            // The ground is set dynamically depending on the map and node size
+            SetGround();
+
+            // Generate the grid
+            var map = _generator.Init();
+
+
             _map = map;
             _newCurrent = _map[0, 0];
 
+            // Position the player on the map
             GameManager.Instance.Load();
+
+            // Create the graph we need for A*
             GetComponentInChildren<Grid>().Init();
+
+            // Enable the Dynamic Occlusion Culling
+            EnableCulling();
         }
 
         private void SetGround() {

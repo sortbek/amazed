@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Net.Mime;
-using System.Net.NetworkInformation;
-using Assets.Scripts.Character;
 using Assets.Scripts.HighScores;
-using Assets.Scripts.HUD;
-using Assets.Scripts.Items.Potions;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.World {
@@ -53,9 +47,9 @@ namespace Assets.Scripts.World {
         // Saves the needed data about the game on the end of a level
         public void Save() {
             SetGameObjects();
-            float elapsedSeconds = Time.timeSinceLevelLoad;
-            TimeSpan timeSpan = TimeSpan.FromSeconds(elapsedSeconds);
-            string timeText = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            var elapsedSeconds = Time.timeSinceLevelLoad;
+            var timeSpan = TimeSpan.FromSeconds(elapsedSeconds);
+            var timeText = string.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
 
             PlayerPrefs.SetFloat("sec", elapsedSeconds);
             PlayerPrefs.SetString("t", timeText);
