@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.PathFinding;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Map
 {
     public class DynamicOcclusion
     {

@@ -1,9 +1,10 @@
 ﻿using System;
+using Assets.Scripts.Map.Weather;
+using Assets.Scripts.PathFinding;
 using Assets.Scripts.World;
 using UnityEngine;
-using Assets.Scripts.PathFinding;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Map {
     public class MapManager : MonoBehaviour {
         public GameObject Ground;
 
@@ -14,6 +15,8 @@ namespace Assets.Scripts {
         private GridNode _current;
         private GridNode _newCurrent;
 
+        private WeatherManager _weatherManager;
+
         // Map settings
         public int Size;
         public string Seed;
@@ -23,7 +26,7 @@ namespace Assets.Scripts {
         void Start() {
             _generator = GetComponent<Generator>();
             _player = GameObject.FindWithTag("player");
-
+            _weatherManager = GameObject.Find("WeatherStation").GetComponent<WeatherManager>();
             Init();
         }
 
@@ -66,8 +69,9 @@ namespace Assets.Scripts {
             // Create the graph we need for A*
             GetComponentInChildren<Grid>().Init();
 
-            // Enable the Dynamic Occlusion Culling
             EnableCulling();
+
+            _weatherManager.Init();
         }
 
         private void SetGround() {
