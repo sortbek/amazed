@@ -45,7 +45,7 @@ namespace Assets.Scripts.LevelTransition {
             _pointsTotalAmount.text = "Total points: " + _character.Points;
 
             GameManager.Instance.Level += 1;
-            GameManager.Instance.Size += GameManager.Instance.Level;
+            GameManager.Instance.Size += 1;
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 namespace Assets.Scripts.World {
     public class GameManager : Singleton<GameManager> {
         public string GameSeed;
-        public int Size = 10;
+        public int Size = 5;
         public bool Debug;
 
         public Character.Character Character;
