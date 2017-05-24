@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Assets.Scripts.World;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Character {
 
@@ -40,6 +41,7 @@ namespace Assets.Scripts.Character {
         }
 
         void FixedUpdate() {
+            if(Input.GetKeyDown("p")) SceneManager.LoadScene(3);
             _translation.Update();
             _rotation.Update();
             _interaction.Update();

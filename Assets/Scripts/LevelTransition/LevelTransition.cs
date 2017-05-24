@@ -35,13 +35,15 @@ namespace Assets.Scripts.LevelTransition {
                 }
             }
 
+            GameManager.Instance.GetHighScoresController().SaveHighScores("Hugo", GameManager.Instance.Level, _character.Points);
+
             _summaryText.text = "Level " + GameManager.Instance.Level + " summary";
             _timeAmount.text = PlayerPrefs.GetString("t");
             _pointsAmount.text = levelPoints.ToString();
             _pointsTotalAmount.text = "Total points: " + _character.Points;
 
             GameManager.Instance.Level += 1;
-            GameManager.Instance.Size += GameManager.Instance.Level;
+            GameManager.Instance.Size += 1;
         }
     }
 }
