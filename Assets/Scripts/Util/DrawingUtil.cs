@@ -36,7 +36,7 @@ public class DrawingUtil : MonoBehaviour {
         if (Vector3.Distance(nextNode, particleGO.transform.position) < 0.1f) nodeIndex++;
     }
 
-    public void SpawnDust(Vector3[] path, Vector3 loc, int time) {
+    public void SpawnDust(Vector3[] path, Vector3 loc) {
         _path = new List<Vector3>(path);
         // inserts player location at the start of the list 
         _path.Insert(0, loc);
