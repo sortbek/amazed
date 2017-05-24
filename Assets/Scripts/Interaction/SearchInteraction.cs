@@ -11,7 +11,7 @@ namespace Interaction {
 
         protected override void Start() {
             base.Start();
-            Item = LootDropTableManager.GetRandomLoot(LootDropTableManager.Default);
+            Item = LootDropTableManager.GetRandomLoot(LootDropTableManager.PotionDropTable);
         }
 
         protected override void Interact(Character actor) {

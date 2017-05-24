@@ -29,13 +29,21 @@ namespace Items {
             return total;
         }
 
-        public static List<KeyValuePair<Item, float>> Default = new List<KeyValuePair<Item, float>>() {
+        public static List<KeyValuePair<Item, float>> PotionDropTable = new List<KeyValuePair<Item, float>>() {
             new KeyValuePair<Item, float>(Item.HealthPot, 1.0f),
             new KeyValuePair<Item, float>(Item.HealthRegenPot, 1.0f),
             new KeyValuePair<Item, float>(Item.DamagePot, 1.0f),
             new KeyValuePair<Item, float>(Item.DefensePot, 1.0f),
             new KeyValuePair<Item, float>(Item.SpeedPot, 1.0f),
             new KeyValuePair<Item, float>(Item.GuidancePot, 1.0f),
+            new KeyValuePair<Item, float>(Item.Null, 5.0f)
+        };
+
+        public static List<KeyValuePair<Item, float>> WeaponDropTable = new List<KeyValuePair<Item, float>>() {
+            new KeyValuePair<Item, float>(Item.Sword, 1.0f),
+            new KeyValuePair<Item, float>(Item.BattleAxe, 1.0f),
+            new KeyValuePair<Item, float>(Item.Maul, 1.0f),
+            new KeyValuePair<Item, float>(Item.Dagger, 1.0f),
             new KeyValuePair<Item, float>(Item.Null, 5.0f)
         };
     }
