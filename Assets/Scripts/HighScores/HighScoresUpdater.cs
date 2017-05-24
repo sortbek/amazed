@@ -9,6 +9,7 @@ namespace Assets.Scripts.HighScores {
         private HighScoresController _highScoresController;
 
         // Use this for initialization
+        void Start() {
             _names = GameObject.FindGameObjectsWithTag("hs_name").OrderByDescending(o => o.transform.position.y).ToArray();
             _points = GameObject.FindGameObjectsWithTag("hs_points").OrderByDescending(o => o.transform.position.y).ToArray();
             _levels = GameObject.FindGameObjectsWithTag("hs_level").OrderByDescending(o => o.transform.position.y).ToArray();
