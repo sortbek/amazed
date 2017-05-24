@@ -1,40 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.HighScores;
+﻿using System.Linq;
 using Assets.Scripts.World;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HighScoresUpdater : MonoBehaviour {
-    private GameObject[] _names, _points, _levels;
-    private HighScoresController _highScoresController;
+namespace Assets.Scripts.HighScores {
+    public class HighScoresUpdater : MonoBehaviour {
+        private GameObject[] _names, _points, _levels;
+        private HighScoresController _highScoresController;
 
-    // Use this for initialization
-    void Start () {
-	    _names = GameObject.FindGameObjectsWithTag("hs_name").OrderByDescending(o => o.transform.position.y).ToArray();
-	    _points = GameObject.FindGameObjectsWithTag("hs_points").OrderByDescending(o => o.transform.position.y).ToArray();
-	    _levels = GameObject.FindGameObjectsWithTag("hs_level").OrderByDescending(o => o.transform.position.y).ToArray();
+        // Use this for initialization
+            _names = GameObject.FindGameObjectsWithTag("hs_name").OrderByDescending(o => o.transform.position.y).ToArray();
+            _points = GameObject.FindGameObjectsWithTag("hs_points").OrderByDescending(o => o.transform.position.y).ToArray();
+            _levels = GameObject.FindGameObjectsWithTag("hs_level").OrderByDescending(o => o.transform.position.y).ToArray();
 
-        _highScoresController = GameManager.Instance.GetHighScoresController();
+            _highScoresController = GameManager.Instance.GetHighScoresController();
 
-        FillTextComponents();
+            FillTextComponents();
 
-        GameManager.Instance.Character.enabled = false;
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+            GameManager.Instance.Character.enabled = false;
+        }
 
-
-    private void FillTextComponents() {
-        for (var index = 0; index < _highScoresController.LoadHighScores().HighScoresList.Count; index++) {
-            var highScore = _highScoresController.LoadHighScores().HighScoresList[index];
-            _names[index].GetComponent<Text>().text = highScore.Name;
-            _points[index].GetComponent<Text>().text = highScore.Points.ToString();
-            _levels[index].GetComponent<Text>().text = highScore.Level.ToString();
+        private void FillTextComponents() {
+            for (var index = 0; index < _highScoresController.LoadHighScores().HighScoresList.Count; index++) {
+                var highScore = _highScoresController.LoadHighScores().HighScoresList[index];
+                _names[index].GetComponent<Text>().text = highScore.Name;
+                _points[index].GetComponent<Text>().text = highScore.Points.ToString();
+                _levels[index].GetComponent<Text>().text = highScore.Level.ToString();
+            }
         }
     }
 }
