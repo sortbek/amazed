@@ -28,8 +28,6 @@ public class DrawingUtil : MonoBehaviour {
             _path[nodeIndex].y + particleHeight,
             _path[nodeIndex].z);
 
-        Debug.Log("Current: " + particleGO.transform.position + " - Target: " + nextNode);
-
         // Make the gameobject move forward (own position, target, movementspeed)
         particleGO.transform.position = Vector3.MoveTowards(
             particleGO.transform.position, nextNode, Time.deltaTime * speed);
