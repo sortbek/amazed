@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.World;
+﻿using System.IO;
+using Assets.Scripts.HighScores;
+using Assets.Scripts.World;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +36,8 @@ namespace Assets.Scripts.LevelTransition {
                         break;
                 }
             }
+
+            GameManager.Instance.GetHighScoresController().SaveHighScores("Hugo", GameManager.Instance.Level, _character.Points);
 
             _summaryText.text = "Level " + GameManager.Instance.Level + " summary";
             _timeAmount.text = PlayerPrefs.GetString("t");

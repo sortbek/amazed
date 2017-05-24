@@ -2,6 +2,7 @@
 using System.Net.Mime;
 using System.Net.NetworkInformation;
 using Assets.Scripts.Character;
+using Assets.Scripts.HighScores;
 using Assets.Scripts.HUD;
 using Assets.Scripts.Items.Potions;
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace Assets.Scripts.World {
         public Transform EndPoint;
         private System.Random _random;
 
+        public HighScoresController HighScoresController;
+
         public int GetRandom(int min = 0, int max = 0) {
             if (_random == null) {
                 _random = new System.Random(GameSeed.GetHashCode());
@@ -41,6 +44,10 @@ namespace Assets.Scripts.World {
         // Gets the needed GameObjects needed for the transition to new levels 
         public void SetGameObjects() {
             if (Character == null) Character = FindObjectOfType<Character.Character>();
+        }
+
+        public HighScoresController GetHighScoresController() {
+            return HighScoresController ?? (HighScoresController = new HighScoresController());
         }
 
         // Saves the needed data about the game on the end of a level
