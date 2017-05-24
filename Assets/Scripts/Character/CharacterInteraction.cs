@@ -60,7 +60,6 @@ namespace Assets.Scripts.Character {
                 // No props were found => Interaction text is cleared
                 if (SceneManager.GetActiveScene().name == "Game") {
                     GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>().text = "";
-                    GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>().text = "";
                 }
             }
         }

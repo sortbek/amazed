@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Util;
 using Random = UnityEngine.Random;
 
@@ -29,6 +30,17 @@ namespace Items {
             return total;
         }
 
+        public static List<KeyValuePair<Item, float>> GetLootTable(LootTable type) {
+            switch (type) {
+                case LootTable.Potions:
+                    return LootDropTableManager.PotionDropTable;
+                case LootTable.Weapons:
+                    return LootDropTableManager.WeaponDropTable;
+                default:
+                    return null;
+            }
+        }
+
         public static List<KeyValuePair<Item, float>> PotionDropTable = new List<KeyValuePair<Item, float>>() {
             new KeyValuePair<Item, float>(Item.HealthPot, 1.0f),
             new KeyValuePair<Item, float>(Item.HealthRegenPot, 1.0f),
@@ -46,5 +58,10 @@ namespace Items {
             new KeyValuePair<Item, float>(Item.Dagger, 1.0f),
             new KeyValuePair<Item, float>(Item.Null, 5.0f)
         };
+    }
+
+    public enum LootTable {
+        Potions,
+        Weapons
     }
 }
