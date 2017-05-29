@@ -410,7 +410,9 @@ namespace Assets.Scripts{
                     if (node.IsPartOfRoom){
                         // NodeConfiguration 2 and 8 are the entrances off a room, the content is placed based on these nodes
                         if (node.NodeConfiguration == 2 || node.NodeConfiguration == 8){
-                            Instantiate(PrefabRoomContent, node.Prefab.transform.position + new Vector3(6.0f, 0.0f, 6.0f), transform.rotation);
+                            var roomContent = Instantiate(PrefabRoomContent, node.Prefab.transform.position + new Vector3(6.0f, 0.0f, 6.0f), transform.rotation);
+                            roomContent.transform.Rotate(Vector3.up, node.Rotation);
+                            // TODO: Spawn enemy at the location of 'EnemySpawn' in the roomContent
                         }
                     }
                     // If the semi-random number is within the range of the PropPerNode variable a prop will spawn in this node
