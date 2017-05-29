@@ -36,12 +36,12 @@ namespace Items
             return Item.Null;
         }
 
-        public static float GetRandomItemNr(float total, float dropChanceInContext)
+        public static float GetRandomItemNr(float total, float dropRateInContext)
         {
             return Random.Range(0.0f, total + dropChanceInContext);
         }
 
-        public static float GetDropRateInContext(float dropRate, float total)
+        public static float GetDropRateInContext(float total, float dropRate)
         {
             // If the droprate is 1 we want 'nothing' to drop 0 percent of the time
             //  the function below i only an approximation
@@ -95,14 +95,14 @@ namespace Items
             return temp;
         }
 
-        public static float GetTotalOfValues(List<KeyValuePair<Item, float>> list,
+        public static float GetTotalOfValues(List<KeyValuePair<Item, float>> items,
             int index, float total)
         {
-            if (index >= list.Count) return 0.0f;
+            if (index >= items.Count) return 0.0f;
 
-            var currentItem = list[index];
+            var currentItem = items[index];
             index++;
-            total += GetTotalOfValues(list, index, total);
+            total += GetTotalOfValues(items, index, total);
             total += currentItem.Value;
             return total;
         }
