@@ -13,6 +13,7 @@ namespace Assets.Scripts.AI.GOAP {
 
         public void Plan(GoapPlan plan, int attempt= 0) {
             var valid = false;
+            if (attempt >= _agent.Actions.Count) return;
             foreach (var action in _agent.Actions) {
                 if (!Executable(action) || _agent.ActionQueue.Contains(action)) continue;
                 Update(action);

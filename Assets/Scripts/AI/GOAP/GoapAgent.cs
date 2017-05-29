@@ -31,7 +31,7 @@ namespace Assets.Scripts.AI.GOAP {
 
         void Start() {
             LoadActions();
-
+            SetState(GoapCondition.IsDamaged, true);
             SetState(GoapCondition.IsTired, true);
 
             Planner.Plan(new GoapPlan(GoapCondition.InRange, true));
