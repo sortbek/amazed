@@ -68,5 +68,4 @@ public class MenuBehaviour : MonoBehaviour
         SettingMenu.enabled = false;
         MainMenu.enabled = false;
     }
-
 }

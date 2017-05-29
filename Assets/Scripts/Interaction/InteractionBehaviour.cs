@@ -25,20 +25,20 @@ namespace Interaction {
             Eventlog.text = "";
         }
 
-        protected virtual void Interact(Character actor) {
-            Interaction.text = "";
+        protected virtual void Interact(Character actor) { }
 
-            // Clear event log after 2 seconds
-            StartCoroutine(ClearEventLog());
+        public virtual void PossibleInteraction(Character actor) { }
+
+        protected void ClearInteraction() {
+            Interaction.text = "";
         }
 
-        private IEnumerator ClearEventLog() {
+        protected IEnumerator ClearEventLog() {
+            var txt = Eventlog.text;
             yield return new WaitForSeconds(2);
-            Eventlog.text = "";
-        }
-
-        public virtual void PossibleInteraction(Character actor) {
-            Interaction.text = "";
+            if (Eventlog.text == txt) {
+                Eventlog.text = "";
+            }
         }
     }
 }
