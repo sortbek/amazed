@@ -14,4 +14,10 @@ public class TransitionAnimation : MonoBehaviour {
     public void StartLevel() {
         SceneManager.LoadScene(1);
     }
+
+    public void HideMenu() {
+        foreach (var component in FindObjectsOfType<Canvas>()) {
+            component.enabled = false;
+        }
+    }
 }

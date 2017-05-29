@@ -12,6 +12,7 @@ namespace Assets.Scripts.LevelTransition {
             Cursor.lockState = CursorLockMode.None;
 
             _character = FindObjectOfType<Character.Character>();
+            _character.gameObject.SetActive(false);
             int levelPoints = 1000 - (int)PlayerPrefs.GetFloat("sec");
             _character.Points += levelPoints;
 
@@ -34,8 +35,6 @@ namespace Assets.Scripts.LevelTransition {
                         break;
                 }
             }
-
-            GameManager.Instance.GetHighScoresController().SaveHighScores("Hugo", GameManager.Instance.Level, _character.Points);
 
             _summaryText.text = "Level " + GameManager.Instance.Level + " summary";
             _timeAmount.text = PlayerPrefs.GetString("t");
