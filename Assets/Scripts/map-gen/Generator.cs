@@ -18,6 +18,7 @@ namespace Assets.Scripts{
         public GameObject PrefabStartEnd;
         public GameObject PrefabRoomCorner;
         public GameObject PrefabRoomEntrance;
+        public GameObject PrefabRoomContent;
 
         public GameObject[] Props;
 
@@ -379,7 +380,7 @@ namespace Assets.Scripts{
             for (var x = 0; x < _width; x++){
                 for (var y = 0; y < _height; y++){
                     var key = GameManager.Instance.GetRandom();
-                    var node = new GridNode {
+                    var node = new GridNode{
                         X = x,
                         Y = y,
                         NodeConfiguration = 0,
@@ -405,13 +406,26 @@ namespace Assets.Scripts{
                     node.Prefab.transform.localScale = node.Scale;
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
 
-
-                    if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f){
+                    // If a node is part of a room it will not get the normal prop, instead it will get a RoomContent prefab
+                    if (node.IsPartOfRoom){
+                        // NodeConfiguration 2 and 8 are the entrances off a room, the content is placed based on these nodes
+                        if (node.NodeConfiguration == 2 || node.NodeConfiguration == 8){
+                            var roomContent = Instantiate(PrefabRoomContent, node.Prefab.transform.position + new Vector3(6.0f, 0.0f, 6.0f), transform.rotation);
+                            roomContent.transform.Rotate(Vector3.up, node.Rotation);
+                            // TODO: Spawn enemy at the location of 'EnemySpawn' in the roomContent
+                        }
+                    }
+                    // If the semi-random number is within the range of the PropPerNode variable a prop will spawn in this node
+                    else if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f){
                         var children = node.Prefab.transform.Find("PropPlacement").GetComponentsInChildren<Transform>();
 
+                        // If the children.Length is 1 it only contains itself
                         if (children.Length <= 1) return;
 
+                        // The actual children, if it has any, will start at index 1
                         var child = children[GameManager.Instance.GetRandom(1, children.Length)];
+
+                        // Get a semi-random prop and place it at the previously gotten predefined prostion
                         Instantiate(Props[GameManager.Instance.GetRandom(0, 4)], child.transform.position,
                             transform.rotation);
                     }
