@@ -38,7 +38,7 @@ namespace Items
 
         public static float GetRandomItemNr(float total, float dropRateInContext)
         {
-            return Random.Range(0.0f, total + dropChanceInContext);
+            return Random.Range(0.0f, total + dropRateInContext);
         }
 
         public static float GetDropRateInContext(float total, float dropRate)
