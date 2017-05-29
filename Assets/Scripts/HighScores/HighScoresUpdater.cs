@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Assets.Scripts.World;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.HighScores {
@@ -26,6 +27,10 @@ namespace Assets.Scripts.HighScores {
                 _points[index].GetComponent<Text>().text = highScore.Points.ToString();
                 _levels[index].GetComponent<Text>().text = highScore.Level.ToString();
             }
+        }
+
+        public void BackToMainMenu() {
+            SceneManager.LoadScene(0);
         }
     }
 }

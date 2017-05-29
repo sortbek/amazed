@@ -42,6 +42,7 @@ namespace Assets.Scripts.Character {
 
         void FixedUpdate() {
             if(Input.GetKeyDown("p")) SceneManager.LoadScene(3);
+            if(Input.GetKeyDown("o")) SceneManager.LoadScene("GameOver");
             _translation.Update();
             _rotation.Update();
             _interaction.Update();
@@ -68,5 +69,4 @@ namespace Assets.Scripts.Character {
             src.Play();
         }
     }
-
 }

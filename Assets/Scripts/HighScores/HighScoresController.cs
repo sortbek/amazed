@@ -12,7 +12,7 @@ namespace Assets.Scripts.HighScores {
 
         public void SaveHighScores(string name, int level, int points) {
             HighScores = LoadHighScores() ?? new HighScores();
-            if (HighScores.HighScoresList[4].Points > points) return;
+            if (HighScores.HighScoresList.Count > 4 && HighScores.HighScoresList[4].Points > points) return;
 
             HighScores.HighScoresList.Add(new HighScore {
                 Name = name,
