@@ -21,9 +21,11 @@ namespace Assets.Scripts.Map {
         public int Size;
         public string Seed;
         public bool IsRandom;
-
+        private int _offset;
+        
         // Use this for initialization
         void Start() {
+            _offset = (12 * GameManager.Instance.Size / 2) - 6;
             _generator = GetComponent<Generator>();
             _player = GameObject.FindWithTag("player");
             _weatherManager = GameObject.Find("WeatherStation").GetComponent<WeatherManager>();
@@ -75,8 +77,7 @@ namespace Assets.Scripts.Map {
         }
 
         private void SetGround() {
-            var size = GameManager.Instance.Size * _generator.NodeSize + 100;
-            Ground.transform.position = new Vector3(size / 2 - 50, 0, size / 2 - 50);
+            var size = GameManager.Instance.Size * _generator.NodeSize;
             Ground.transform.localScale = new Vector3(size, .1f, size);
         }
 
@@ -87,9 +88,10 @@ namespace Assets.Scripts.Map {
         }
 
         private void CurrentLocation() {
-            var x = (int)Math.Round(_player.transform.position.x / _generator.NodeSize);
-            var y = (int)Math.Round(_player.transform.position.z / _generator.NodeSize);
-
+            
+            var x = (int)Math.Round((_player.transform.position.x + _offset) / _generator.NodeSize);
+            var y = (int)Math.Round((_player.transform.position.z + _offset) / _generator.NodeSize);
+            
             if (x < 0 || y < 0 || x > GameManager.Instance.Size || y > GameManager.Instance.Size) {
                 return;
             }
