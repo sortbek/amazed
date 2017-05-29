@@ -77,7 +77,7 @@ namespace Assets.Scripts.Map {
         }
 
         private void SetGround() {
-            var size = GameManager.Instance.Size * _generator.NodeSize;
+            var size = GameManager.Instance.Size * _generator.NodeSize + 20;
             Ground.transform.localScale = new Vector3(size, .1f, size);
         }
 
