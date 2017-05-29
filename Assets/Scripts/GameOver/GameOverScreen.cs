@@ -14,6 +14,8 @@ namespace Assets.Scripts.GameOver {
 
         // Use this for initialization
         void Start () {
+            Cursor.lockState = CursorLockMode.None;
+
             foreach (var text in GetComponentsInChildren<Text>()) {
                 switch (text.name) {
                     case "PointsText":
