@@ -38,6 +38,11 @@ namespace Assets.Scripts.GameOver {
             }
         }
 
+        public void TryAgainClick() {
+            Destroy(FindObjectOfType<Character.Character>());
+            SceneManager.LoadScene(1);
+        }
+
         public void BackToMainMenuClick() {
             SceneManager.LoadScene(0);
         }
