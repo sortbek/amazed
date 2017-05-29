@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Map;
+using Assets.Scripts.PathFinding;
 using Assets.Scripts.Util;
 using Assets.Scripts.World;
 using UnityEngine;
@@ -397,9 +398,12 @@ namespace Assets.Scripts{
 
         private void InstantiateMap() {
             // Set the default part of generated maze
+            var offset = (NodeSize * GameManager.Instance.Size / 2) - 6;
             for (var x = 0; x < _width; x++){
-                for (var y = 0; y < _height; y++){
-                    var position = new Vector3(x * NodeSize, 0, y * NodeSize);
+                for (var y = 0; y < _height; y++)
+                {
+                    
+                    var position = new Vector3((x * NodeSize) - offset, 0, (y * NodeSize) - offset);
                     var node = _gridMap[x, y];
 
                     node.Prefab = Instantiate(node.Prefab, position, transform.rotation);
@@ -420,10 +424,10 @@ namespace Assets.Scripts{
             }
 
             // Set the start and end location
-            var start = Instantiate(PrefabStartEnd, new Vector3(0, 0, -12), transform.rotation);
+            var start = Instantiate(PrefabStartEnd, new Vector3(0 - offset, 0, -12 - offset), transform.rotation);
             start.GetComponent<BoxCollider>().isTrigger = false;
             start.name = "Start";
-            var end = Instantiate(PrefabStartEnd, new Vector3((_width - 1) * 12, 0, _height * 12), transform.rotation);
+            var end = Instantiate(PrefabStartEnd, new Vector3((_width - 1) * 12 - offset, 0, _height * 12 - offset), transform.rotation);
             end.name = "End";
             end.transform.Rotate(Vector3.up, 180);
         }

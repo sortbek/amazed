@@ -6,6 +6,10 @@ namespace Assets.Scripts.Map.Weather
 {
 	public class WeatherManager : MonoBehaviour
 	{
+		private ParticleSystem _rainSystem;
+
+		private ParticleSystem.ShapeModule _rainSystemShape;
+		
 		private IWeather _activeWeather;
 		public IWeather ActiveWeather
 		{
@@ -22,11 +26,21 @@ namespace Assets.Scripts.Map.Weather
 		void Awake()
 		{
 			_weatherOptions.Add(gameObject.AddComponent<Storm>());
+			
+			_rainSystem = GetComponentInChildren<ParticleSystem>();
+			_rainSystemShape = _rainSystem.shape;
 		}
 
 		public void Init ()
 		{
+			SetCloudSize();
 			SetRandomWeather();
+		}
+
+		private void SetCloudSize()
+		{
+			var size = GameManager.Instance.Size * 12;
+			_rainSystemShape.box = new Vector3(size,size);
 		}
 
 		private void SetRandomWeather()
