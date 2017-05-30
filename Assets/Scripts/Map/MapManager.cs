@@ -25,7 +25,6 @@ namespace Assets.Scripts.Map {
         
         // Use this for initialization
         void Start() {
-            _offset = (12 * GameManager.Instance.Size / 2) - 6;
             _generator = GetComponent<Generator>();
             _player = GameObject.FindWithTag("player");
             _weatherManager = GameObject.Find("WeatherStation").GetComponent<WeatherManager>();
@@ -61,7 +60,6 @@ namespace Assets.Scripts.Map {
             // Generate the grid
             var map = _generator.Init();
 
-
             _map = map;
             _newCurrent = _map[0, 0];
 
@@ -74,6 +72,8 @@ namespace Assets.Scripts.Map {
             EnableCulling();
 
             _weatherManager.Init();
+            
+            _offset = (12 * GameManager.Instance.Size / 2) - 6;
         }
 
         private void SetGround() {
@@ -91,7 +91,6 @@ namespace Assets.Scripts.Map {
             
             var x = (int)Math.Round((_player.transform.position.x + _offset) / _generator.NodeSize);
             var y = (int)Math.Round((_player.transform.position.z + _offset) / _generator.NodeSize);
-            
             if (x < 0 || y < 0 || x > GameManager.Instance.Size || y > GameManager.Instance.Size) {
                 return;
             }
