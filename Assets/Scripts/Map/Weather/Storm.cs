@@ -12,6 +12,7 @@ namespace Assets.Scripts.Map.Weather
 		private Light _light;
 		private readonly System.Random _random = new System.Random();
 		private RainCameraController _rainVision;
+		private AudioSource _rainAudio;
 
 		
 		public void Execute(Action callback)
@@ -19,7 +20,8 @@ namespace Assets.Scripts.Map.Weather
 			_rain = GetComponentInChildren<ParticleSystem>();
 			_light = GetComponentInChildren<Light>();
 			_rainVision = GetComponentInChildren<RainCameraController>();
-
+			_rainAudio = _rain.gameObject.GetComponentInChildren<AudioSource>();
+			
 			// Start the rain
 			var em = _rain.emission;
 			em.rateOverTime = 10000f;
@@ -30,6 +32,9 @@ namespace Assets.Scripts.Map.Weather
 			{
 				_rainVision.enabled = true;
 			}
+
+			_rainAudio.Play();
+			StartCoroutine(FadeIn(_rainAudio, 1));
 			
 			StartCoroutine(StartThunderProgram(callback));
 		}
@@ -51,8 +56,7 @@ namespace Assets.Scripts.Map.Weather
 
 		private void Stop()
 		{
-			_rainVision.Stop();
-			
+			_rainVision.Stop();	
 		}
 
 		private void Thunder()
@@ -75,6 +79,29 @@ namespace Assets.Scripts.Map.Weather
 
 			yield return new WaitForSeconds(0.2f);
 			_light.intensity = 0;
+		}
+		
+		public static IEnumerator FadeIn (AudioSource audioSource, float FadeTime) {
+			var startVolume = 0.1f;
+ 
+			while (audioSource.volume < 0.5) {
+				audioSource.volume += startVolume * Time.deltaTime / FadeTime;
+ 
+				yield return null;
+			}
+		}
+		
+		public static IEnumerator FadeOut (AudioSource audioSource, float FadeTime) {
+			float startVolume = audioSource.volume;
+ 
+			while (audioSource.volume > 0) {
+				audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+ 
+				yield return null;
+			}
+ 
+			audioSource.Stop ();
+			audioSource.volume = startVolume;
 		}
 	}
 }
