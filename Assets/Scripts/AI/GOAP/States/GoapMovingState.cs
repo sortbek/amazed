@@ -15,7 +15,6 @@ namespace Assets.Scripts.AI.GOAP.States {
 
         public override void Execute() {
             // Moving to target code here.
-            // target uit CurrentPlan halen (eerste waarde)
             Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Action);
         }
 

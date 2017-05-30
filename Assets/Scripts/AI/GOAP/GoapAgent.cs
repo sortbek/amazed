@@ -18,6 +18,7 @@ namespace Assets.Scripts.AI.GOAP {
         public HashSet<GoapAction> Actions { get; private set; }
         public GoapPlanner Planner { get; private set; }
 
+        // Registers all possible agent states
         private void LoadDefaultState() {
             foreach (var condition in Enum.GetValues(typeof(GoapCondition)).Cast<GoapCondition>())
                 AgentState[condition] = false;
@@ -43,10 +44,12 @@ namespace Assets.Scripts.AI.GOAP {
             Planner.Plan(new GoapPlan(GoapCondition.InAttackRange, true).Add(GoapCondition.IsDamaged, false));
         }
 
+        // Updates the agent state by altering the given condition
         public void SetState(GoapCondition cond, bool val) {
             AgentState[cond] = val;
         }
 
+        //Loads all action components based on the assigned GoapActions in the unity inspector
         private void LoadActions() {
             var actions = GetComponents<GoapAction>();
             foreach (var action in actions)

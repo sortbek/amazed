@@ -16,9 +16,12 @@ namespace Assets.Scripts.AI.GOAP.States {
 
         public override void Execute() {
             var plan = Agent.ActionQueue;
-            if (plan.Count > 0)
+            //Check whether there is a requested plan active
+            if (plan.Count > 0) { 
+                //Set the state to the moving state, since we found a plan
                 Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Moving);
-            else {
+            } else {
+                //Idle, there is no requested plan
                 Agent.Entity.SetBehaviour(new EntityWanderBehaviour());
             }
         }

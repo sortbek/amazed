@@ -19,12 +19,16 @@ namespace Assets.Scripts.AI.GOAP.States {
         }
 
         public override void Execute() {
+            //Check if there's a current action running
             if (!_running) {
+                // Execute the first action in the queue
                 _running = true;
                 _current = Agent.ActionQueue.Dequeue();
                 _current.Execute();
             }else {
+                //Check whether the current action is completed
                 if (!_current.Completed()) return;
+                //Change the state based on the amount of actions left
                 Agent.StateMachine.ChangeState(Agent.ActionQueue.Count > 0
                     ? GoapStateMachine.StateType.Moving
                     : GoapStateMachine.StateType.Idle);
