@@ -78,6 +78,7 @@ namespace Assets.Scripts.Character {
             }
         }
 
+        //Allows the character to use the weapon located at the given slot
         public void Add(int slot) {
             WeaponObject obj = _equipment[slot-1];
             if (!obj.Access)
@@ -85,6 +86,7 @@ namespace Assets.Scripts.Character {
             _equipment[slot-1] = obj;
         }
 
+        //Equips the given gameobject as the weapon
         public void Equip(GameObject obj) {
             if (CurrentWeapon != null)
                 CurrentWeapon.SetActive(false);
