@@ -23,7 +23,7 @@ namespace Assets.Scripts.World {
             if (_random == null) {
                 _random = new System.Random(GameSeed.GetHashCode());
             }
-            if (min == 0 & max == 0) {
+            if (min == 0 & max == 0) { 
                 return _random.Next();
             }
             return max == 0 ? _random.Next(min) : _random.Next(min, max);
