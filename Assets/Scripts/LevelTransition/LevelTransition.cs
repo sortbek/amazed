@@ -12,6 +12,7 @@ namespace Assets.Scripts.LevelTransition {
             Cursor.lockState = CursorLockMode.None;
 
             _character = FindObjectOfType<Character.Character>();
+            _character.gameObject.SetActive(false);
             int levelPoints = 1000 - (int)PlayerPrefs.GetFloat("sec");
             _character.Points += levelPoints;
 
@@ -41,7 +42,7 @@ namespace Assets.Scripts.LevelTransition {
             _pointsTotalAmount.text = "Total points: " + _character.Points;
 
             GameManager.Instance.Level += 1;
-            GameManager.Instance.Size += GameManager.Instance.Level;
+            GameManager.Instance.Size += 1;
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
+using Assets.Scripts.HighScores;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.World {
     public class GameManager : Singleton<GameManager> {
         public string GameSeed;
-        public int Size = 10;
+        public int Size = 5;
         public bool Debug;
 
         public Character.Character Character;
@@ -15,6 +16,8 @@ namespace Assets.Scripts.World {
         // Game stuff
         public Transform EndPoint;
         private System.Random _random;
+
+        public HighScoresController HighScoresController;
 
         public int GetRandom(int min = 0, int max = 0) {
             if (_random == null) {
@@ -37,6 +40,10 @@ namespace Assets.Scripts.World {
             if (Character == null) Character = FindObjectOfType<Character.Character>();
         }
 
+        public HighScoresController GetHighScoresController() {
+            return HighScoresController ?? (HighScoresController = new HighScoresController());
+        }
+
         // Saves the needed data about the game on the end of a level
         public void Save() {
             SetGameObjects();
@@ -51,7 +58,9 @@ namespace Assets.Scripts.World {
         // On the start of each new level place the character in the correct start position
         public void Load() {
             SetGameObjects();
+            Character.gameObject.SetActive(true);
             Character.transform.position = GetStartPoint();
+
         }
 
         // Deletes the temporary save game data once the application quits

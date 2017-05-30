@@ -32,6 +32,10 @@ public class MenuBehaviour : MonoBehaviour
         EnableSettingsMenu();
     }
 
+    public void HighScoresPress() {
+        SceneManager.LoadScene(3);
+    }
+
     public void BackToMenuPress() {
         EnableMainMenu();
     }
@@ -64,5 +68,4 @@ public class MenuBehaviour : MonoBehaviour
         SettingMenu.enabled = false;
         MainMenu.enabled = false;
     }
-
 }

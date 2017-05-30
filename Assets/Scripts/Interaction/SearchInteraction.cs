@@ -1,35 +1,40 @@
-﻿using Assets.Scripts.Character;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Character;
 using Items;
 using UnityEngine;
+using Util;
 
 namespace Interaction {
     public class SearchInteraction : InteractionBehaviour {
-        public bool HasBeenInteractedWith;
-        public string Item;
+        public bool HasBeenInteractedWith = false;
+        public LootTable LootTable = LootTable.Potions;
+        public float DropChance = 0.5f;
+
+        private Item _item;
 
         protected override void Start() {
             base.Start();
-
-            HasBeenInteractedWith = false;
-            Item = LootDropTableManager.GetRandomLoot(LootDropTableManager.Default);
-
-            //print(string.Format("{0} in {1}", Item, Name));
+            _item = LootTableManager.GetRandomLoot(LootTable, DropChance);
         }
 
         protected override void Interact(Character actor) {
+            Eventlog.text = string.Format("{0} found in {1}", ItemUtil.ItemToString(_item), Name);
+
+            PotionController.Add(_item);
+            WeaponController.Add(_item);
+
+            ClearInteraction();
+            // Clear event log after 2 seconds
+            StartCoroutine(ClearEventLog());
             HasBeenInteractedWith = true;
-            Eventlog.text = string.Format("{0} found in {1}", Item, Name);
-
-            base.Interact(actor);
-
-            PotionController.Add(Item);
         }
 
         public override void PossibleInteraction(Character actor) {
-            base.PossibleInteraction(actor);
+            ClearInteraction();
 
             if (Interaction == null || HasBeenInteractedWith) return;
 
+            Interaction.color = Color.blue;
             Interaction.text = string.Format("Press 'F' to search {0}", Name);
 
             if (Input.GetKeyDown(KeyCode.F)) {

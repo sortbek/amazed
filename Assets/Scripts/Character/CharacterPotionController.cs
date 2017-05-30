@@ -1,5 +1,7 @@
-﻿using Assets.Scripts.Items.Potions;
+﻿using System;
+using Assets.Scripts.Items.Potions;
 using UnityEngine;
+using Util;
 
 namespace Assets.Scripts.Character {
     public class CharacterPotionController : MonoBehaviour {
@@ -15,27 +17,31 @@ namespace Assets.Scripts.Character {
             Damage = new DamagePotion(_player);
             Defense = new DefensePotion(_player);
             Guidance = new GuidancePotion(_player);
+
+            Speed.Amount += 9;
         }
 
-        public void Add(string type) {
+        public void Add(Item type) {
             switch (type) {
-                case "Health Potion":
+                case Item.HealthPot:
                     Health.Amount += 1;
                     break;
-                case "Health Regeneration Potion":
+                case Item.HealthRegenPot:
                     HealthRegeneration.Amount += 1;
                     break;
-                case "Damage Potion":
+                case Item.DamagePot:
                     Damage.Amount += 1;
                     break;
-                case "Defense Potion":
+                case Item.DefensePot:
                     Defense.Amount += 1;
                     break;
-                case "Speed Potion":
+                case Item.SpeedPot:
                     Speed.Amount += 1;
                     break;
-                case "Guidance Potion":
+                case Item.GuidancePot:
                     Guidance.Amount += 1;
+                    break;
+                default:
                     break;
             }
         }
