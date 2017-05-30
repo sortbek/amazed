@@ -10,21 +10,31 @@ namespace Assets.Scripts.Map.Weather
 		private int _duration = 30;
 		private ParticleSystem _rain;
 		private Light _light;
-		private System.Random _random = new System.Random();
+		private readonly System.Random _random = new System.Random();
+		private RainCameraController _rainVision;
 
+		
 		public void Execute(Action callback)
 		{
 			_rain = GetComponentInChildren<ParticleSystem>();
 			_light = GetComponentInChildren<Light>();
+			_rainVision = GetComponentInChildren<RainCameraController>();
 
 			// Start the rain
 			var em = _rain.emission;
 			em.rateOverTime = 10000f;
 
-			StartCoroutine(StartThunderProgram());
+			// Start the visual 'on screen' effect of the rain.
+			// 
+			if (!_rainVision.enabled)
+			{
+				_rainVision.enabled = true;
+			}
+			
+			StartCoroutine(StartThunderProgram(callback));
 		}
 
-		private IEnumerator StartThunderProgram()
+		private IEnumerator StartThunderProgram(Action callback)
 		{
 			var random = new System.Random();
 			while (_duration > 0)
@@ -35,6 +45,14 @@ namespace Assets.Scripts.Map.Weather
 				yield return new WaitForSeconds(ThunderInterval - i);
 				_duration -= i;
 			}
+			Stop();
+			callback();
+		}
+
+		private void Stop()
+		{
+			_rainVision.Stop();
+			
 		}
 
 		private void Thunder()
@@ -58,6 +76,5 @@ namespace Assets.Scripts.Map.Weather
 			yield return new WaitForSeconds(0.2f);
 			_light.intensity = 0;
 		}
-
 	}
 }

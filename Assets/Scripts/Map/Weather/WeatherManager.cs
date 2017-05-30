@@ -9,6 +9,8 @@ namespace Assets.Scripts.Map.Weather
 		private ParticleSystem _rainSystem;
 
 		private ParticleSystem.ShapeModule _rainSystemShape;
+
+		public bool Start;
 		
 		private IWeather _activeWeather;
 		public IWeather ActiveWeather
@@ -33,14 +35,24 @@ namespace Assets.Scripts.Map.Weather
 
 		public void Init ()
 		{
-			SetCloudSize();
+			InitEnv();
 			SetRandomWeather();
 		}
 
-		private void SetCloudSize()
+		private void InitEnv()
 		{
+			// Set cloud (particleSystem) size to fit the map
 			var size = GameManager.Instance.Size * 12;
-			_rainSystemShape.box = new Vector3(size,size);
+			_rainSystemShape.box = new Vector3(size,size + 20);
+
+		}
+
+		private void Update()
+		{
+			if (Start)
+			{
+				GetComponentInChildren<RainCameraController>().Play();
+			}
 		}
 
 		private void SetRandomWeather()
