@@ -12,6 +12,7 @@ public class TransitionAnimation : MonoBehaviour {
     
     // Loads a new version of the 'Game' scene
     public void StartLevel() {
+        if(GameManager.Instance.Character != null)GameManager.Instance.Character.gameObject.SetActive(true);
         SceneManager.LoadScene(1);
     }
 

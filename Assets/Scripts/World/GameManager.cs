@@ -58,7 +58,6 @@ namespace Assets.Scripts.World {
         // On the start of each new level place the character in the correct start position
         public void Load() {
             SetGameObjects();
-            Character.gameObject.SetActive(true);
             Character.transform.position = new Vector3(0, 1.05f, -12);
         }
 

@@ -17,7 +17,6 @@ namespace Assets.Scripts.LevelTransition {
             _character.Points += levelPoints;
 
             _character.transform.position = new Vector3(10, 2, 10);
-            _character.transform.rotation = Quaternion.Euler(0, 0, 0);
 
             foreach (var text in GetComponentsInChildren<Text>()) {
                 switch (text.name) {
