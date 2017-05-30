@@ -6,10 +6,10 @@ using Assets.Scripts.AI.GOAP;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
-    public class FindTargetAction : GoapAction {
+    public class ChargeTargetAction : GoapAction {
 
         public override void Init() {
-            RegisterEffect(GoapCondition.InRange, true);
+            RegisterEffect(GoapCondition.InAttackRange, true);
             RegisterPrecondition(GoapCondition.IsTired, false);
         }
 
@@ -21,5 +21,6 @@ namespace Assets.Scripts.AI.Actions {
             //TODO iets returnen dat ie m gevonden heeft (afstand tussen char en AI ofzo)
             return true;
         }
+
     }
 }

@@ -25,7 +25,8 @@ namespace Assets.Scripts.AI.GOAP {
         }
 
         public void Update() {
-            _currentState.Execute();
+            if(_currentState != null)
+                _currentState.Execute();
         }
 
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.AI.Entity.Behaviours;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP.States {
@@ -17,6 +18,9 @@ namespace Assets.Scripts.AI.GOAP.States {
             var plan = Agent.ActionQueue;
             if (plan.Count > 0)
                 Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Moving);
+            else {
+                Agent.Entity.SetBehaviour(new EntityWanderBehaviour());
+            }
         }
 
     }

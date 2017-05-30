@@ -6,7 +6,7 @@ using System.Text;
 namespace Assets.Scripts.AI.GOAP {
     public enum GoapCondition {
 
-        InRange,
+        InAttackRange,
         IsTired,
         IsDamaged
     }

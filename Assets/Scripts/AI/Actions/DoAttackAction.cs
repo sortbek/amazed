@@ -19,9 +19,10 @@ namespace Assets.Scripts.AI.Actions {
         }
 
         public override void Init() {
-            RegisterPrecondition(GoapCondition.InRange, true);
+            RegisterPrecondition(GoapCondition.InAttackRange, true);
             RegisterPrecondition(GoapCondition.IsTired, false);
             RegisterPrecondition(GoapCondition.IsDamaged, false);
         }
+
     }
 }
