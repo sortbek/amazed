@@ -36,5 +36,6 @@ namespace Assets.Scripts.Character {
                 _character.GetComponent<Rigidbody>().velocity += _character.JumpForce * Vector3.up;
             }
         }
+
     }
 }
