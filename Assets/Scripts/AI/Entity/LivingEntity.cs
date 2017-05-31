@@ -20,7 +20,6 @@ namespace Assets.Scripts.AI.Entity {
 
         public void SetBehaviour(IEntityBehaviour behaviour) {
             _currentBehaviour = behaviour;
-            _currentBehaviour.Load(this);
         }
 
         public IEntityBehaviour GetCurrentBehaviour() {

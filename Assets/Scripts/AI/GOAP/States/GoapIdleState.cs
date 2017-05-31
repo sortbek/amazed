@@ -9,7 +9,11 @@ using Animation = Assets.Scripts.AI.Entity.Animation;
 namespace Assets.Scripts.AI.GOAP.States {
     public class GoapIdleState : AbstractState {
 
-        public GoapIdleState(GoapAgent agent) : base(agent) { }
+        private readonly EntityWanderBehaviour _wander;
+
+        public GoapIdleState(GoapAgent agent) : base(agent) {
+            _wander = new EntityWanderBehaviour();
+        }
 
         public override void Enter() {
             Debug.Log("AI Idling state");
@@ -24,7 +28,11 @@ namespace Assets.Scripts.AI.GOAP.States {
                 Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Moving);
             } else {
                 //Idle, there is no requested plan
+<<<<<<< HEAD
                 //Agent.Entity.SetBehaviour(new EntityWanderBehaviour());
+=======
+                Agent.Entity.SetBehaviour(_wander);
+>>>>>>> 4fcd15f3b5901c2d815ac92e9ea7c91f714dc7cd
             }
         }
 

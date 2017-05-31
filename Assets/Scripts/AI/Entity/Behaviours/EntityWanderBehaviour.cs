@@ -10,44 +10,34 @@ using Random = UnityEngine.Random;
 namespace Assets.Scripts.AI.Entity.Behaviours {
     public class EntityWanderBehaviour : IEntityBehaviour {
 
-        private float _speed, _interval, _maxHeadingChange, _heading;
-        private Vector3 _targetRotation;
-        private LivingEntity _entity;
+        private readonly float _speed, _triggerDistance, _radius, _rotationSpeed;
+        private Vector3? _target;
 
-        public void Load(LivingEntity entity) {
-            _entity = entity;
-            _speed = 5f;
-            _interval = 1f;
-            _maxHeadingChange = 30f;
-        }
-
-        private void CalculateHeadingRoutine() {
-            var floor = Mathf.Clamp(_heading - _maxHeadingChange, 0, 360);
-            var ceil = Mathf.Clamp(_heading + _maxHeadingChange, 0, 360);
-            _heading = Random.Range(floor, ceil);
-            _targetRotation = new Vector3(0, _heading, 0);
-        }
-
-        private IEnumerator CalculateHeading() {
-            while (true) {
-                CalculateHeadingRoutine();
-                yield return new WaitForSeconds(_interval);
-            }
+        public EntityWanderBehaviour() {
+            _speed = 1f;
+            _rotationSpeed = 10f;
+            _radius = 10;
+            _triggerDistance = .3f;
+            _target = null;
         }
 
         public Vector3 Update(LivingEntity entity) {
-            var transform = entity.transform;
-            transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, _targetRotation, Time.deltaTime * _interval);
-            var forward = transform.TransformDirection(Vector3.forward);
-            return forward * _speed;
+            if (_target == null || Vector3.Distance(entity.transform.position, _target.Value) < _triggerDistance)
+                UpdateTarget(entity);
+            Rotate(entity, _target.Value);
+            return Vector3.MoveTowards(entity.transform.position, _target.Value, _speed* Time.deltaTime);
         }
 
-        private Vector3 RandomSphere(Vector3 origin, float dist, int layermask) {
-            Vector3 randDirection = Random.insideUnitSphere * dist;
-            randDirection += origin;
-            NavMeshHit navHit;
-            NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
-            return navHit.position;
+        private void UpdateTarget(LivingEntity entity) {
+            var loc = Random.insideUnitSphere * _radius;
+            loc.y = 1;
+            _target = loc;
+        }
+
+        private void Rotate(LivingEntity entity, Vector3 dir) {
+            dir.y = 1;
+            entity.transform.rotation = Quaternion.Lerp(entity.transform.rotation, Quaternion.LookRotation(dir),
+                _rotationSpeed*Time.deltaTime);
         }
     }
 }

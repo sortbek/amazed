@@ -7,7 +7,6 @@ using UnityEngine;
 namespace Assets.Scripts.AI.Entity.Behaviours {
     public interface IEntityBehaviour {
 
-        void Load(LivingEntity entity);
         Vector3 Update(LivingEntity entity);
     }
 }
