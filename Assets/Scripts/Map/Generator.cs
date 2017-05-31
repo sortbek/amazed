@@ -22,6 +22,8 @@ namespace Assets.Scripts{
         public GameObject PrefabRoomEntrance;
         public GameObject PrefabRoomContent;
 
+        public GameObject EnemeyPrefab;
+        
         public GameObject[] Props;
 
         private int _height;
@@ -417,6 +419,11 @@ namespace Assets.Scripts{
                         if (node.NodeConfiguration == 2 || node.NodeConfiguration == 8){
                             var roomContent = Instantiate(PrefabRoomContent, node.Prefab.transform.position + new Vector3(6.0f, 0.0f, 6.0f), transform.rotation);
                             roomContent.transform.Rotate(Vector3.up, node.Rotation);
+                            var spawnLoc = roomContent.transform.Find("EnemySpawn");
+                            if (spawnLoc != null) {
+                                Instantiate(EnemeyPrefab, spawnLoc.position + new Vector3(0.0f, 1.0f, 0.0f), transform.rotation);
+                            }
+                            
                             // TODO: Spawn enemy at the location of 'EnemySpawn' in the roomContent
                         }
                     }
