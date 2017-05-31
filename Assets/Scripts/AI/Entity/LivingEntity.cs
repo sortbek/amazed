@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Assets.Scripts.AI.Entity.Behaviours;
 using UnityEngine;
 
@@ -12,8 +11,13 @@ namespace Assets.Scripts.AI.Entity {
         public float Health = 10f;
         [SerializeField]
         public float Energy = 8f;
+        [SerializeField] public float Speed = 5.0f;
+        [SerializeField] public Vector3 Target;
 
         private IEntityBehaviour _currentBehaviour;
+        private UnityEngine.Animation _animation;
+
+        public bool Dead;
 
         public void SetBehaviour(IEntityBehaviour behaviour) {
             _currentBehaviour = behaviour;
@@ -24,9 +28,27 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         void Update() {
-            if (_currentBehaviour != null)
+            if (_currentBehaviour != null && !Dead)
                 transform.position = _currentBehaviour.Update(this);
         }
 
+        public void PlayAnimation(Animation animation) {
+            if (_animation == null) _animation = GetComponentInChildren<UnityEngine.Animation>();
+            _animation.Play(Enum.GetName(typeof(Animation), animation));
+        }
+
+        void OnCollisionEnter() {
+            if (!Dead) {
+                PlayAnimation(Animation.death);
+                GetComponent<CapsuleCollider>().enabled = false;
+            }
+            Dead = true;
+        }
+
+
+    }
+
+    public enum Animation {
+        attack1, walk, idle, run, death
     }
 }
