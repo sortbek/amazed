@@ -43,7 +43,7 @@ namespace Assets.Scripts.Map.Weather
 		{
 			// Set cloud (particleSystem) size to fit the map
 			var size = GameManager.Instance.Size * 12;
-			_rainSystemShape.box = new Vector3(size,size + 20);
+			_rainSystemShape.box = new Vector3(size + 80,size + 80);
 
 		}
 
