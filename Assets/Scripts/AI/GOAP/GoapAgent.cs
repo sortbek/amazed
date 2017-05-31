@@ -57,7 +57,7 @@ namespace Assets.Scripts.AI.GOAP {
         }
 
         void Update() {
-            StateMachine.Update();
+            if(!Entity.Dead) StateMachine.Update();
         }
 
     }

@@ -60,7 +60,7 @@ namespace Assets.Scripts.World {
             SetGameObjects();
 
             Character.gameObject.SetActive(true);
-            Character.transform.position = GetStartPoint();
+            Character.transform.position = GetStartPoint() - new Vector3(0, 0, 12);
 
         }
 
@@ -70,13 +70,13 @@ namespace Assets.Scripts.World {
         }
 
         public Vector3 GetEndpoint() {
-            var offset = ((Size * 12) / 2) - 6;
-            return new Vector3((Size - 1) * 12 - offset, 0, Size * 12 -offset);
+            var offset = Size * 12 / 2 - 6;
+            return new Vector3((Size - 1) * 12 - offset, 0, Size * 12 - offset);
         }
 
         public Vector3 GetStartPoint()
         {
-            var offset = ((Size * 12) / 2) - 6;
+            var offset = Size * 12 / 2 - 6;
             return new Vector3(-offset,2, -offset);
         }
     }
