@@ -57,8 +57,11 @@ namespace Assets.Scripts.Map.Weather
 
 		private void SetRandomWeather()
 		{
+			print("SETTING RANDOM");
 			var i = GameManager.Instance.GetRandom(0, _weatherOptions.Count);
 			ActiveWeather = _weatherOptions[i];
+
+			
 		}
 
 		private void WeatherProgramDone()
