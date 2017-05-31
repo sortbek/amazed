@@ -12,6 +12,11 @@ namespace Assets.Scripts.Map.Weather
             StartCoroutine(Program(callback));
         }
 
+        public bool CanBeChained()
+        {
+            return true;
+        }
+
         private IEnumerator Program(Action callback)
         {
             yield return new WaitForSeconds(ProgramDuration);

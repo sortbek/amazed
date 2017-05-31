@@ -50,8 +50,14 @@ namespace Assets.Scripts.Map.Weather
 
 		private int GetNewRandom()
 		{
-			var i = _random.Next(0, _weatherOptions.Count);
-			return _weatherOptions[i] != ActiveWeather ? i : GetNewRandom();
+			while (true)
+			{
+				var i = _random.Next(0, _weatherOptions.Count);
+				if (_weatherOptions[i] != ActiveWeather || _activeWeather.CanBeChained())
+				{
+					return i;
+				}
+			}
 		}
 
 		private void SetRandomWeather()

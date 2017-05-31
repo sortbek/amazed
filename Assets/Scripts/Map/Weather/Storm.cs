@@ -50,6 +50,11 @@ namespace Assets.Scripts.Map.Weather
 			StartCoroutine(FadeInProgram());
 		}
 
+		public bool CanBeChained()
+		{
+			return false;
+		}
+
 		private IEnumerator FadeInProgram()
 		{
 			StartCoroutine(AudioFader.FadeIn(_rainAudio, FadeTime, 0.5f));
