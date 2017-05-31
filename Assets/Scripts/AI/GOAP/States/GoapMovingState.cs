@@ -14,6 +14,7 @@ namespace Assets.Scripts.AI.GOAP.States {
             Debug.Log("AI Moving state");
             Path = null;
             CurrentIndex = 0;
+            Agent.Entity.Target = GameManager.Instance.GetEndpoint();
             PathRequestManager.RequestPath(Agent.transform.position, Agent.Entity.Target, OnPathFound);
         }
 

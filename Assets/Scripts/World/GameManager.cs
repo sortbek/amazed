@@ -70,12 +70,13 @@ namespace Assets.Scripts.World {
         }
 
         public Vector3 GetEndpoint() {
-            return new Vector3((Size - 1) * 12, 0, Size * 12);
+            var offset = Size * 12 / 2 - 6;
+            return new Vector3((Size - 1) * 12 - offset, 0, Size * 12 - offset);
         }
 
         public Vector3 GetStartPoint()
         {
-            var offset = ((Size * 12) / 2) - 6;
+            var offset = Size * 12 / 2 - 6;
             return new Vector3(-offset,2, -offset);
         }
     }
