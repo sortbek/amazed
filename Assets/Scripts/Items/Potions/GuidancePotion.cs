@@ -4,12 +4,9 @@ using Assets.Scripts.World;
 
 namespace Assets.Scripts.Items.Potions {
     class GuidancePotion : Potion {
-        public GameObject Character;
-
         public DrawingUtil DrawUtil;
 
         public Vector3 Playerloc;
-        public Vector3[] NodeList;
         public Vector3[] Path;
 
         public GuidancePotion(Character.Character player) : base(player) {
