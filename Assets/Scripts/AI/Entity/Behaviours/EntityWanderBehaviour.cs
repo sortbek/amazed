@@ -10,44 +10,27 @@ using Random = UnityEngine.Random;
 namespace Assets.Scripts.AI.Entity.Behaviours {
     public class EntityWanderBehaviour : IEntityBehaviour {
 
-        private float _speed, _interval, _maxHeadingChange, _heading;
-        private Vector3 _targetRotation;
-        private LivingEntity _entity;
+        private float _speed, _radius, _arriveRadius;
+        private Vector3? _target;
 
         public void Load(LivingEntity entity) {
-            _entity = entity;
-            _speed = 5f;
-            _interval = 1f;
-            _maxHeadingChange = 30f;
-        }
-
-        private void CalculateHeadingRoutine() {
-            var floor = Mathf.Clamp(_heading - _maxHeadingChange, 0, 360);
-            var ceil = Mathf.Clamp(_heading + _maxHeadingChange, 0, 360);
-            _heading = Random.Range(floor, ceil);
-            _targetRotation = new Vector3(0, _heading, 0);
-        }
-
-        private IEnumerator CalculateHeading() {
-            while (true) {
-                CalculateHeadingRoutine();
-                yield return new WaitForSeconds(_interval);
-            }
+            _speed = .4f * Time.deltaTime;
+            _arriveRadius = .5f;
+            _radius = 4f;
+            _target = null;
         }
 
         public Vector3 Update(LivingEntity entity) {
-            var transform = entity.transform;
-            transform.eulerAngles = Vector3.Slerp(transform.eulerAngles, _targetRotation, Time.deltaTime * _interval);
-            var forward = transform.TransformDirection(Vector3.forward);
-            return forward * _speed;
+            if (_target == null || Vector3.Distance(entity.transform.position, _target.Value) < _arriveRadius)
+                _target = Fetch(entity.transform.position);
+            return Vector3.Lerp(entity.transform.position, _target.Value, _speed);
         }
 
-        private Vector3 RandomSphere(Vector3 origin, float dist, int layermask) {
-            Vector3 randDirection = Random.insideUnitSphere * dist;
-            randDirection += origin;
-            NavMeshHit navHit;
-            NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
-            return navHit.position;
+        private Vector3 Fetch(Vector3 current) {
+            var ranx = Random.Range(-_radius, _radius);
+            var ranz = Random.Range(-_radius, _radius);
+            return new Vector3(current.x +ranx, current.y, current.z+ranz);
         }
+
     }
 }
