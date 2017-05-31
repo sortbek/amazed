@@ -7,38 +7,43 @@ namespace Interaction {
     public class InteractionBehaviour : MonoBehaviour {
         public string Name;
 
+        protected bool ShowEventLog;
+
         internal Text Interaction;
-        internal Text Eventlog;
 
         public CharacterPotionController PotionController;
         public CharacterWeaponController WeaponController;
 
         // Use this for initialization
-        protected virtual void Start() {
+        protected virtual void Start(){
+            ShowEventLog = false;
+            
             Interaction = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
-            Eventlog = GameObject.FindGameObjectWithTag("eventlog").GetComponent<Text>();
 
             PotionController = FindObjectOfType<CharacterPotionController>();
             WeaponController = FindObjectOfType<CharacterWeaponController>();
 
             Interaction.text = "";
-            Eventlog.text = "";
         }
 
         protected virtual void Interact(Character actor) { }
 
         public virtual void PossibleInteraction(Character actor) { }
 
-        protected void ClearInteraction() {
-            Interaction.text = "";
+        protected IEnumerator ClearInteractionWait(){
+            ShowEventLog = true;
+            var txt = Interaction.text;
+            yield return new WaitForSeconds(2);
+            if (Interaction.text == txt) {
+                Interaction.text = "";
+            }
+            ShowEventLog = false;
         }
 
-        protected IEnumerator ClearEventLog() {
-            var txt = Eventlog.text;
-            yield return new WaitForSeconds(2);
-            if (Eventlog.text == txt) {
-                Eventlog.text = "";
-            }
+        protected void ClearInteraction(){
+            if (ShowEventLog) return;
+            
+            Interaction.text = "";
         }
     }
 }
