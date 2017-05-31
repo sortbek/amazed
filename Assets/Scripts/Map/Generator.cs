@@ -431,7 +431,7 @@ namespace Assets.Scripts{
                         var child = children[GameManager.Instance.GetRandom(1, children.Length)];
 
                         // Get a semi-random prop and place it at the previously gotten predefined prostion
-                        Instantiate(Props[GameManager.Instance.GetRandom(0, 4)], child.transform.position,
+                        Instantiate(Props[GameManager.Instance.GetRandom(0, Props.Length)], child.transform.position,
                             transform.rotation);
                     }
                 }
