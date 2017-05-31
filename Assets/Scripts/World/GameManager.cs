@@ -60,7 +60,7 @@ namespace Assets.Scripts.World {
             SetGameObjects();
 
             Character.gameObject.SetActive(true);
-            Character.transform.position = GetStartPoint();
+            Character.transform.position = GetStartPoint() - new Vector3(0, 0, 12);
 
         }
 
