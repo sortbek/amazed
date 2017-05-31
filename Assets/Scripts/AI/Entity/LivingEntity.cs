@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.AI.Entity.Behaviours;
 using UnityEngine;
@@ -33,28 +34,12 @@ namespace Assets.Scripts.AI.Entity {
 
         public void PlayAnimation(Animation animation) {
             if (_animation == null) _animation = GetComponentInChildren<UnityEngine.Animation>();
-            switch (animation) {
-                case Animation.Attack:
-                    _animation.Play("attack1");
-                    break;
-                case Animation.Walk:
-                    _animation.Play("walk");
-                    break;
-                case Animation.Run:
-                    _animation.Play("run");
-                    break;
-                case Animation.Idle:
-                    _animation.Play("idle");
-                    break;
-                case Animation.Death:
-                    _animation.Play("death");
-                    break;
-            }
+            _animation.Play(Enum.GetName(typeof(Animation), animation));
         }
 
         void OnCollisionEnter() {
             if (!Dead) {
-                PlayAnimation(Animation.Death);
+                PlayAnimation(Animation.death);
                 GetComponent<CapsuleCollider>().enabled = false;
             }
             Dead = true;
@@ -64,6 +49,6 @@ namespace Assets.Scripts.AI.Entity {
     }
 
     public enum Animation {
-        Attack, Walk, Idle, Run, Death
+        attack1, walk, idle, run, death
     }
 }

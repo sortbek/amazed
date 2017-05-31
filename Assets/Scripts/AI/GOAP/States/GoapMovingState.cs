@@ -20,7 +20,7 @@ namespace Assets.Scripts.AI.GOAP.States {
 
         public override void Execute() {
             if (Path != null && Path.Length > 0) {
-                Agent.Entity.PlayAnimation(Animation.Run);
+                Agent.Entity.PlayAnimation(Animation.run);
                 Path[CurrentIndex].y = 0.0f;
 
                 Agent.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(Agent.transform.forward, Path[CurrentIndex] - Agent.transform.position,
