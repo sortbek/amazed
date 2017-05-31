@@ -7,8 +7,8 @@ namespace Assets.Scripts.Map.Weather
 	public class WeatherManager : MonoBehaviour
 	{
 		private ParticleSystem _rainSystem;
-
 		private ParticleSystem.ShapeModule _rainSystemShape;
+		private readonly System.Random _random = new System.Random();
 
 		public bool Start;
 		
@@ -28,6 +28,7 @@ namespace Assets.Scripts.Map.Weather
 		void Awake()
 		{
 			_weatherOptions.Add(gameObject.AddComponent<Storm>());
+			_weatherOptions.Add(gameObject.AddComponent<ClearSky>());
 			
 			_rainSystem = GetComponentInChildren<ParticleSystem>();
 			_rainSystemShape = _rainSystem.shape;
@@ -47,21 +48,15 @@ namespace Assets.Scripts.Map.Weather
 
 		}
 
-		private void Update()
+		private int GetNewRandom()
 		{
-			if (Start)
-			{
-				GetComponentInChildren<RainCameraController>().Play();
-			}
+			var i = _random.Next(0, _weatherOptions.Count);
+			return _weatherOptions[i] != ActiveWeather ? i : GetNewRandom();
 		}
 
 		private void SetRandomWeather()
 		{
-			print("SETTING RANDOM");
-			var i = GameManager.Instance.GetRandom(0, _weatherOptions.Count);
-			ActiveWeather = _weatherOptions[i];
-
-			
+			ActiveWeather = _weatherOptions[GetNewRandom()];
 		}
 
 		private void WeatherProgramDone()

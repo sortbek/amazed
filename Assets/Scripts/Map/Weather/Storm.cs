@@ -11,7 +11,6 @@ namespace Assets.Scripts.Map.Weather
 
 		// Unity Components
 		private ParticleSystem _rain;
-
 		private Light _light;
 		private RainCameraController _rainVision;
 		private AudioSource _rainAudio;
