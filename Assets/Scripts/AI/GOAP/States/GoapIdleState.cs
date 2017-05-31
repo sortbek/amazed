@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts.AI.Entity.Behaviours;
 using UnityEngine;
+using Animation = Assets.Scripts.AI.Entity.Animation;
 
 namespace Assets.Scripts.AI.GOAP.States {
     public class GoapIdleState : AbstractState {
@@ -20,6 +21,7 @@ namespace Assets.Scripts.AI.GOAP.States {
 
         public override void Execute() {
             var plan = Agent.ActionQueue;
+            Agent.Entity.PlayAnimation(Animation.idle);
             //Check whether there is a requested plan active
             if (plan.Count > 0) { 
                 //Set the state to the moving state, since we found a plan
