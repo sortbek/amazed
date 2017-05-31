@@ -10,27 +10,34 @@ using Random = UnityEngine.Random;
 namespace Assets.Scripts.AI.Entity.Behaviours {
     public class EntityWanderBehaviour : IEntityBehaviour {
 
-        private float _speed, _radius, _arriveRadius;
+        private readonly float _speed, _triggerDistance, _radius, _rotationSpeed;
         private Vector3? _target;
 
-        public void Load(LivingEntity entity) {
-            _speed = .4f * Time.deltaTime;
-            _arriveRadius = .5f;
-            _radius = 4f;
+        public EntityWanderBehaviour() {
+            _speed = 1f;
+            _rotationSpeed = 10f;
+            _radius = 10;
+            _triggerDistance = .3f;
             _target = null;
         }
 
         public Vector3 Update(LivingEntity entity) {
-            if (_target == null || Vector3.Distance(entity.transform.position, _target.Value) < _arriveRadius)
-                _target = Fetch(entity.transform.position);
-            return Vector3.Lerp(entity.transform.position, _target.Value, _speed);
+            if (_target == null || Vector3.Distance(entity.transform.position, _target.Value) < _triggerDistance)
+                UpdateTarget(entity);
+            Rotate(entity, _target.Value);
+            return Vector3.MoveTowards(entity.transform.position, _target.Value, _speed* Time.deltaTime);
         }
 
-        private Vector3 Fetch(Vector3 current) {
-            var ranx = Random.Range(-_radius, _radius);
-            var ranz = Random.Range(-_radius, _radius);
-            return new Vector3(current.x +ranx, current.y, current.z+ranz);
+        private void UpdateTarget(LivingEntity entity) {
+            var loc = Random.insideUnitSphere * _radius;
+            loc.y = 1;
+            _target = loc;
         }
 
+        private void Rotate(LivingEntity entity, Vector3 dir) {
+            dir.y = 1;
+            entity.transform.rotation = Quaternion.Lerp(entity.transform.rotation, Quaternion.LookRotation(dir),
+                _rotationSpeed*Time.deltaTime);
+        }
     }
 }
