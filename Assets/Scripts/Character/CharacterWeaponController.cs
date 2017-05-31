@@ -56,7 +56,6 @@ namespace Assets.Scripts.Character {
                 var position = new Vector3(_weaponPosition.position.x, _weaponPosition.position.y + obj.transform.position.y, _weaponPosition.position.z);
                 var weaponObject = Instantiate(obj, position, _weaponPosition.rotation, _weaponPosition);
                 var weapon = new WeaponObject() { Access = stat.Default, Object = weaponObject };
-                //weaponObject.transform.Rotate(stat.OffsetRotation);
                 weaponObject.SetActive(false);
                 _equipment[stat.WeaponID] = weapon;
             }
