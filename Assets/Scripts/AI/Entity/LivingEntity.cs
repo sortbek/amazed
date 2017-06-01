@@ -12,29 +12,28 @@ namespace Assets.Scripts.AI.Entity {
         [SerializeField]
         public float Energy = 8f;
         [SerializeField] public float Speed = 5.0f;
-        [SerializeField] public Vector3 Target;
 
-        private IEntityBehaviour _currentBehaviour;
+        private AbstractEntityBehaviour _currentBehaviour;
         private UnityEngine.Animation _animation;
 
         public bool Dead;
 
-        public void SetBehaviour(IEntityBehaviour behaviour) {
+        public void SetBehaviour(AbstractEntityBehaviour behaviour) {
             _currentBehaviour = behaviour;
         }
 
-        public IEntityBehaviour GetCurrentBehaviour() {
+        public AbstractEntityBehaviour GetCurrentBehaviour() {
             return _currentBehaviour;
         }
 
         void Update() {
             if (_currentBehaviour != null && !Dead)
-                transform.position = _currentBehaviour.Update(this);
+                transform.position = _currentBehaviour.Update();
         }
 
         public void PlayAnimation(Animation animation) {
-            //if (_animation == null) _animation = GetComponentInChildren<UnityEngine.Animation>();
-            //_animation.Play(Enum.GetName(typeof(Animation), animation));
+            if (_animation == null) _animation = GetComponentInChildren<UnityEngine.Animation>();
+            _animation.Play(Enum.GetName(typeof(Animation), animation));
         }
 
         void OnCollisionEnter() {

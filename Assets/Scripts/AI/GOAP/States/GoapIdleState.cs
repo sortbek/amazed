@@ -12,7 +12,7 @@ namespace Assets.Scripts.AI.GOAP.States {
         private readonly EntityWanderBehaviour _wander;
 
         public GoapIdleState(GoapAgent agent) : base(agent) {
-            _wander = new EntityWanderBehaviour();
+            _wander = new EntityWanderBehaviour(agent.Entity);
         }
 
         public override void Enter() {

@@ -1,33 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.AI.GOAP;
+﻿using Assets.Scripts.AI.GOAP;
+using Assets.Scripts.pathfinding;
+using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
-    class PathFollowingBehaviour : IEntityBehaviour {
-        
+    class PathFollowingBehaviour : AbstractEntityBehaviour {
         public Vector3[] Path;
-        public int CurrentIndex;
+        public int CurrentIndex { get; set; }
 
-        public PathFollowingBehaviour() {
-            
+        public PathFollowingBehaviour(LivingEntity entity) : base(entity) { }
+
+        public override Vector3 Update() {
+            if (Path == null || Path.Length <= 0) return Entity.transform.position;
+
+            Entity.PlayAnimation(Animation.run);
+            Path[CurrentIndex].y = 0.0f;
+
+            var target = Vector3.MoveTowards(Entity.transform.position, Path[CurrentIndex], Time.deltaTime * Entity.Speed);
+
+            Rotate(Entity, target);
+
+            if (Vector3.Distance(Entity.transform.position, Path[CurrentIndex]) < 0.1f) CurrentIndex += 1;
+
+            return target;
         }
-        public Vector3 Update(LivingEntity entity) {
-            if (Path != null && Path.Length > 0) {
-                entity.PlayAnimation(Animation.run);
-                Path[CurrentIndex].y = 0.0f;
 
-                entity.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(Agent.transform.forward, Path[CurrentIndex] - Agent.transform.position,
-                    Time.deltaTime * entity.Speed, 0.0f));
+        public void UpdateTarget() {
+            CurrentIndex = 0;
+            var agent = Entity.GetComponent<GoapAgent>();
+            var target = agent.ActionQueue.Peek().GetTarget() == null
+                ? Entity.transform.position
+                : agent.ActionQueue.Peek().GetTarget();
 
-                if (CurrentIndex == Path.Length - 1) Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Action);
-                if (Vector3.Distance(Agent.transform.position, Path[CurrentIndex]) < 0.1f) CurrentIndex += 1;
+            Debug.Log(agent.ActionQueue);
 
-                return Vector3.MoveTowards(entity.transform.position, Path[CurrentIndex], Time.deltaTime * entity.Speed);
+            PathRequestManager.RequestPath(Entity.transform.position, target.Value, OnPathFound);
+        }
+
+        public void OnPathFound(Vector3[] newPath, bool pathFound) {
+            if (pathFound) {
+                Path = newPath;
             }
-            entity.StateMachine.ChangeState(GoapStateMachine.StateType.Action);
+        }
+
+        public bool Reached() {
+            return Vector3.Distance(Entity.transform.position, GameManager.Instance.Character.transform.position) < 0.3f;
         }
     }
 }

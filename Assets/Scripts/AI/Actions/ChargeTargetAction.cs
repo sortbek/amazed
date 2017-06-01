@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts.AI.GOAP;
+using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
     public class ChargeTargetAction : GoapAction {
+        public override Vector3? GetTarget() {
+            return GameManager.Instance.Character.transform.position;
+        }
 
         public override void Init() {
             RegisterEffect(GoapCondition.InAttackRange, true);
@@ -18,9 +22,10 @@ namespace Assets.Scripts.AI.Actions {
         }
 
         public override bool Completed() {
-            //TODO iets returnen dat ie m gevonden heeft (afstand tussen char en AI ofzo)
-            return true;
+            return Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) < 0.3f;
         }
+
+        
 
     }
 }
