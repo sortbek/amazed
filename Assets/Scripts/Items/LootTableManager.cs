@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Util;
 using Random = UnityEngine.Random;
 
+// Created By:
+// Niek van den Brink
+// S1078937
 namespace Items
 {
     public static class LootTableManager
@@ -19,13 +22,13 @@ namespace Items
             // Convert dropRate (in %) to a usable value in the context of 'items'
             var dropRateInContext = GetDropRateInContext(dropRate, total);
 
-            var temp = ApplyDropRate(items, dropRateInContext);
+            var finalLootTable = ApplyDropRate(items, dropRateInContext);
             
             var itemNr = GetRandomItemNr(total, dropRateInContext);
 
             var chance = 0.0f;
 
-            foreach (var item in temp)
+            foreach (var item in finalLootTable)
             {
                 if (itemNr >= chance && itemNr < item.Value + chance)
                 {

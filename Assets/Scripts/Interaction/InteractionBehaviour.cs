@@ -3,6 +3,9 @@ using Assets.Scripts.Character;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Created By:
+// Niek van den Brink
+// S1078937
 namespace Interaction {
     public class InteractionBehaviour : MonoBehaviour {
         public string Name;

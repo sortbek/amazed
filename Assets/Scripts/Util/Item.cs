@@ -1,4 +1,8 @@
-﻿namespace Util {
+﻿
+// Created By:
+// Niek van den Brink
+// S1078937
+namespace Util {
     public enum Item {
         Null,
         HealthPot,
