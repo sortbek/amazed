@@ -1,32 +1,46 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using System.Security.Policy;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseMenuBehaviour : MonoBehaviour {
+    public Canvas uiCanvas;
 
-    public Canvas SettingsCanvas;
-    public Canvas QuitMenu;
-    public Canvas SettingMenu;
-    public Canvas MainMenu;
-    public Button ResumeText;
-    public Button ExitText;
-    public Button SettingText;
+    public Canvas PauseMenu;
     public Text title;
-    //public Transform player;
 
-    // Use this for initialization
+    public Canvas MenuCanvas;
+    public Button Resume;
+    public Button Settings;
+    public Button Exit;
+
+    public Canvas QuitMenu;
+
+    public Canvas SettingsMenu;
+
+
     void Start() {
-        //SettingsCanvas.gameObject.SetActive(false);
-        MainMenu = MainMenu.GetComponent<Canvas>();
+        
+        uiCanvas = uiCanvas.GetComponent<Canvas>();
+        title = title.GetComponent<Text>();
+
+        PauseMenu = PauseMenu.GetComponent<Canvas>();
+
+        MenuCanvas = MenuCanvas.GetComponent<Canvas>();
+        Resume = Resume.GetComponent<Button>();
+        Settings = Settings.GetComponent<Button>();
+        Exit = Exit.GetComponent<Button>();
+
         QuitMenu = QuitMenu.GetComponent<Canvas>();
-        SettingMenu = SettingMenu.GetComponent<Canvas>();
-        ResumeText = ResumeText.GetComponent<Button>();
-        ExitText = ExitText.GetComponent<Button>();
-        SettingText = SettingText.GetComponent<Button>();
+
+        SettingsMenu = SettingsMenu.GetComponent<Canvas>();
         disableAll();
+        title.enabled = false;
+
 
     }
 
@@ -35,26 +49,25 @@ public class PauseMenuBehaviour : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.U))
         {
             pause();
-            Debug.Log("hierbenik ");
         }
     }
 
     public void pause() {
         Debug.Log(Time.timeScale);
         if (Time.timeScale == 1) {
-            Cursor.lockState = CursorLockMode.None;
-            //SettingsCanvas.gameObject.SetActive(true);
-            print("hierbenik 1");
+            MenuCanvas.gameObject.SetActive(true);
+            title.enabled = true;
             EnablePauseMenu();
+            Cursor.lockState = CursorLockMode.None;
+            uiCanvas.gameObject.SetActive(false);
             Time.timeScale = 0;
-          //  player.GetComponent<CharacterController>().enabled = false;
         }
         else {
             Cursor.lockState = CursorLockMode.Locked;
             disableAll();
-            //SettingsCanvas.gameObject.SetActive(false);
+            title.enabled = false;
+            uiCanvas.gameObject.SetActive(true);
             Time.timeScale = 1;
-         //   player.GetComponent<CharacterController>().enabled = true;
         }
      
     }
@@ -67,60 +80,63 @@ public class PauseMenuBehaviour : MonoBehaviour {
     }
 
     public void EnablePauseMenu() {
-        title.enabled = true;
-        MainMenu.enabled = true;
-        ResumeText.enabled = true;
-        ExitText.enabled = true;
-        SettingText.enabled = true;
-        SettingMenu.enabled = false;
-        QuitMenu.enabled = false;
+        disableAll();
+        MenuCanvas.gameObject.SetActive(true);
+        uiCanvas.gameObject.SetActive(false);
+
     }
 
     public void EnableSettingsMenu()
     {
-        title.enabled = true;
-        SettingMenu.enabled = true;
-        MainMenu.enabled = false;
-        QuitMenu.enabled = false;
+        disableAll();
+        SettingsMenu.gameObject.SetActive(true);
+        uiCanvas.gameObject.SetActive(false);
     }
 
     public void EnableExitMenu()
     {
-        title.enabled = true;
-        QuitMenu.enabled = true;
-        SettingMenu.enabled = false;
-        MainMenu.enabled = false;
+        disableAll();
+        QuitMenu.gameObject.SetActive(true);
+        uiCanvas.gameObject.SetActive(false);
     }
-
+    /// <summary>
+    /// ////////////////////////////////////////////
+    /// </summary>
     public void DisablePauseMeu() {
-        title.enabled = false;
-        MainMenu.enabled = false;
-        ResumeText.enabled = false;
-        ExitText.enabled = false;
-        SettingText.enabled = false;
-        SettingMenu.enabled = false;
-        QuitMenu.enabled = false;
+        MenuCanvas.gameObject.SetActive(false);
+        uiCanvas.gameObject.SetActive(true);
+
     }
 
     public void DisableSettingsMenu()
     {
-        title.enabled = false;
-        SettingMenu.enabled = false;
-        MainMenu.enabled = false;
-        QuitMenu.enabled = false;
+        SettingsMenu.gameObject.SetActive(false);  
     }
 
     public void DisableExitMenu()
     {
-        title.enabled = false;
-        QuitMenu.enabled = false;
-        SettingMenu.enabled = false;
-        MainMenu.enabled = false;
+      QuitMenu.gameObject.SetActive(false);
+      
     }
 
-    public void ExitGame()
-    {
-        Application.Quit();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void ExitGame() {
+        SceneManager.LoadScene(0);
     }
 
     public void ExitPress()
@@ -140,9 +156,16 @@ public class PauseMenuBehaviour : MonoBehaviour {
 
     public void ResumeLevel()
     {
-        if (Time.timeScale == 0) {
+        //Debug.Log("resume");
+        if (Time.timeScale == 0)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+
             Time.timeScale = 1;
+            disableAll();
+            title.enabled = false;
         }
+
     }
 
 }
