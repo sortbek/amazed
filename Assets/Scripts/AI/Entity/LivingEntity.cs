@@ -33,8 +33,8 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         public void PlayAnimation(Animation animation) {
-            if (_animation == null) _animation = GetComponentInChildren<UnityEngine.Animation>();
-            _animation.Play(Enum.GetName(typeof(Animation), animation));
+            //if (_animation == null) _animation = GetComponentInChildren<UnityEngine.Animation>();
+            //_animation.Play(Enum.GetName(typeof(Animation), animation));
         }
 
         void OnCollisionEnter() {
