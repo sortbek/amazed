@@ -24,7 +24,6 @@ public class PauseMenuBehaviour : MonoBehaviour {
 
 
     void Start() {
-        
         uiCanvas = uiCanvas.GetComponent<Canvas>();
         title = title.GetComponent<Text>();
 
@@ -40,14 +39,11 @@ public class PauseMenuBehaviour : MonoBehaviour {
         SettingsMenu = SettingsMenu.GetComponent<Canvas>();
         disableAll();
         title.enabled = false;
-
-
     }
 
     // Update is called once per frame
-    void Update () {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.U)) {
             pause();
         }
     }
@@ -69,11 +65,9 @@ public class PauseMenuBehaviour : MonoBehaviour {
             uiCanvas.gameObject.SetActive(true);
             Time.timeScale = 1;
         }
-     
     }
 
-    private void disableAll()
-    {
+    private void disableAll() {
         DisableExitMenu();
         DisablePauseMeu();
         DisableSettingsMenu();
@@ -83,89 +77,56 @@ public class PauseMenuBehaviour : MonoBehaviour {
         disableAll();
         MenuCanvas.gameObject.SetActive(true);
         uiCanvas.gameObject.SetActive(false);
-
     }
 
-    public void EnableSettingsMenu()
-    {
+    public void EnableSettingsMenu() {
         disableAll();
         SettingsMenu.gameObject.SetActive(true);
         uiCanvas.gameObject.SetActive(false);
     }
 
-    public void EnableExitMenu()
-    {
+    public void EnableExitMenu() {
         disableAll();
         QuitMenu.gameObject.SetActive(true);
         uiCanvas.gameObject.SetActive(false);
     }
-    /// <summary>
-    /// ////////////////////////////////////////////
-    /// </summary>
+
     public void DisablePauseMeu() {
         MenuCanvas.gameObject.SetActive(false);
         uiCanvas.gameObject.SetActive(true);
-
     }
 
-    public void DisableSettingsMenu()
-    {
-        SettingsMenu.gameObject.SetActive(false);  
+    public void DisableSettingsMenu() {
+        SettingsMenu.gameObject.SetActive(false);
     }
 
-    public void DisableExitMenu()
-    {
-      QuitMenu.gameObject.SetActive(false);
-      
+    public void DisableExitMenu() {
+        QuitMenu.gameObject.SetActive(false);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public void ExitGame() {
         SceneManager.LoadScene(0);
     }
 
-    public void ExitPress()
-    {
+    public void ExitPress() {
         EnableExitMenu();
     }
 
-    public void SettingPress()
-    {
+    public void SettingPress() {
         EnableSettingsMenu();
     }
 
-    public void BackToMenuPress()
-    {
+    public void BackToMenuPress() {
         EnablePauseMenu();
     }
 
-    public void ResumeLevel()
-    {
-        //Debug.Log("resume");
-        if (Time.timeScale == 0)
-        {
+    public void ResumeLevel() {
+        if (Time.timeScale == 0) {
             Cursor.lockState = CursorLockMode.Locked;
 
             Time.timeScale = 1;
             disableAll();
             title.enabled = false;
         }
-
     }
-
 }
