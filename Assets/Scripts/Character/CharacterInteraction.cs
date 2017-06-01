@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// Created By:
+// Niek van den Brink
+// S1078937
 namespace Assets.Scripts.Character {
     public class CharacterInteraction {
         private float _interactionRadius;

@@ -21,6 +21,9 @@ namespace Assets.Scripts.Character {
             Speed.Amount += 9;
         }
 
+// Created By:
+// Niek van den Brink
+// S1078937
         public void Add(Item type) {
             switch (type) {
                 case Item.HealthPot:

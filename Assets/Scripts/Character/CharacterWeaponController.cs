@@ -61,6 +61,9 @@ namespace Assets.Scripts.Character {
             }
         }
 
+// Created By:
+// Niek van den Brink
+// S1078937
         public void Add(Item item) {
             switch (item) {
                 case Item.Sword:
