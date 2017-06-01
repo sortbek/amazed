@@ -3,6 +3,10 @@ using Assets.Scripts.pathfinding;
 using Assets.Scripts.World;
 
 namespace Assets.Scripts.Items.Potions {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     class GuidancePotion : Potion {
         public GameObject Character;
 

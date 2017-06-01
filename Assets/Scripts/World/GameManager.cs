@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.World {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class GameManager : Singleton<GameManager> {
         public string GameSeed;
         public int Size = 5;
