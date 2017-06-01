@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts.Util
-{
-    public class WeaponStat : MonoBehaviour
-    {
+namespace Assets.Scripts.Util {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
+    public class WeaponStat : MonoBehaviour {
         [SerializeField]
         public float Damage = 1f;
         [SerializeField]

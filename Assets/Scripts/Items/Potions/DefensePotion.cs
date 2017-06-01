@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Items.Potions {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     class DefensePotion : Potion {
         public double NextActionTime = 30.0f;
 

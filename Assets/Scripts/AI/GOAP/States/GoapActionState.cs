@@ -5,6 +5,10 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP.States {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class GoapActionState : AbstractState {
 
         private GoapAction _current;

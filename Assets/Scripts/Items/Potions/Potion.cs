@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Items.Potions {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public abstract class Potion {
         public int Amount;
         public Texture Texture;

@@ -7,6 +7,9 @@ using UnityEngine;
 using Animation = Assets.Scripts.AI.Entity.Animation;
 
 namespace Assets.Scripts.AI.GOAP.States {
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class GoapIdleState : AbstractState {
 
         private readonly EntityWanderBehaviour _wander;

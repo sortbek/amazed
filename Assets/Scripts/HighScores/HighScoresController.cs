@@ -3,6 +3,10 @@ using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.HighScores {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class HighScoresController {
         public HighScores HighScores;
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Assets.Scripts.Character;
 using UnityEngine;
 
+// Created by:
+// Eelco Eikelboom
+// S1080542
 public class CharacterAnimationController : MonoBehaviour {
 
     private Animator _animator;

@@ -4,6 +4,10 @@ using UnityEngine;
 using Animation = Assets.Scripts.AI.Entity.Animation;
 
 namespace Assets.Scripts.AI.GOAP.States {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class GoapMovingState : AbstractState {
 
         public Vector3[] Path;
