@@ -3,6 +3,12 @@ using Assets.Scripts.HighScores;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+*/
+
 namespace Assets.Scripts.World {
 
     // Created by:

@@ -1,29 +1,35 @@
 ﻿using System;
 
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+*/
+
 namespace Assets.Scripts.Util
 {
     public class Heap<T> where T : IHeapItem<T>
     {
-        T[] items;
-        int currentItemCount;
+        private readonly T[] _items;
+        private int _currentItemCount;
 
         public Heap(int maxHeapSize) {
-            items = new T[maxHeapSize];
+            _items = new T[maxHeapSize];
         }
 
         public void Add(T item) {
-            item.HeapIndex = currentItemCount;
-            items[currentItemCount] = item;
+            item.HeapIndex = _currentItemCount;
+            _items[_currentItemCount] = item;
             SortUp(item);
-            currentItemCount++;
+            _currentItemCount++;
         }
 
         public T RemoveFirst() {
-            T firstItem = items[0];
-            currentItemCount--;
-            items[0] = items[currentItemCount];
-            items[0].HeapIndex = 0;
-            SortDown(items[0]);
+            var firstItem = _items[0];
+            _currentItemCount--;
+            _items[0] = _items[_currentItemCount];
+            _items[0].HeapIndex = 0;
+            SortDown(_items[0]);
             return firstItem;
         }
 
@@ -33,31 +39,30 @@ namespace Assets.Scripts.Util
 
         public int Count {
             get {
-                return currentItemCount;
+                return _currentItemCount;
             }
         }
 
         public bool Contains(T item) {
-            return Equals(items[item.HeapIndex], item);
+            return Equals(_items[item.HeapIndex], item);
         }
 
-        void SortDown(T item) {
+        private void SortDown(T item) {
             while (true) {
-                int childIndexLeft = item.HeapIndex * 2 + 1;
-                int childIndexRight = item.HeapIndex * 2 + 2;
-                int swapIndex = 0;
+                var childIndexLeft = item.HeapIndex * 2 + 1;
+                var childIndexRight = item.HeapIndex * 2 + 2;
 
-                if (childIndexLeft < currentItemCount) {
-                    swapIndex = childIndexLeft;
+                if (childIndexLeft < _currentItemCount) {
+                    var swapIndex = childIndexLeft;
 
-                    if (childIndexRight < currentItemCount) {
-                        if (items[childIndexLeft].CompareTo(items[childIndexRight]) < 0) {
+                    if (childIndexRight < _currentItemCount) {
+                        if (_items[childIndexLeft].CompareTo(_items[childIndexRight]) < 0) {
                             swapIndex = childIndexRight;
                         }
                     }
 
-                    if (item.CompareTo(items[swapIndex]) < 0) {
-                        Swap (item,items[swapIndex]);
+                    if (item.CompareTo(_items[swapIndex]) < 0) {
+                        Swap (item,_items[swapIndex]);
                     }
                     else {
                         return;
@@ -71,11 +76,11 @@ namespace Assets.Scripts.Util
             }
         }
 
-        void SortUp(T item) {
-            int parentIndex = (item.HeapIndex-1)/2;
+        private void SortUp(T item) {
+            var parentIndex = (item.HeapIndex-1)/2;
 
             while (true) {
-                T parentItem = items[parentIndex];
+                var parentItem = _items[parentIndex];
                 if (item.CompareTo(parentItem) > 0) {
                     Swap (item,parentItem);
                 }
@@ -87,10 +92,10 @@ namespace Assets.Scripts.Util
             }
         }
 
-        void Swap(T itemA, T itemB) {
-            items[itemA.HeapIndex] = itemB;
-            items[itemB.HeapIndex] = itemA;
-            int itemAIndex = itemA.HeapIndex;
+        private void Swap(T itemA, T itemB) {
+            _items[itemA.HeapIndex] = itemB;
+            _items[itemB.HeapIndex] = itemA;
+            var itemAIndex = itemA.HeapIndex;
             itemA.HeapIndex = itemB.HeapIndex;
             itemB.HeapIndex = itemAIndex;
         }
@@ -101,6 +106,5 @@ namespace Assets.Scripts.Util
             get;
             set;
         }
-
     }
 }

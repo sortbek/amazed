@@ -9,6 +9,12 @@ using UnityEditor;
 
 #endif
 
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+*/
+
 namespace Assets.Scripts{
     public class Generator : MonoBehaviour{
         public GameObject PrefabCross;
