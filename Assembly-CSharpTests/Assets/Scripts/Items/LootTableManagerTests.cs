@@ -18,7 +18,7 @@ namespace Items.Tests
         {
             r = new Random();
             sampleSize = 1000;
-            errorMargin = 6;
+            errorMargin = 5;
         }
 
         [TestMethod()]
@@ -112,7 +112,7 @@ namespace Items.Tests
 
             return results;
         }
-        
+
         /* COPY OF CODE TO BE TESTED - MIGHT CHANGE FUNCTIONALITY OF TESTE ITEMS */
         /*      MAKE SURE THIS CODE IS ROUGHLY THE SAME AS THE TESTED ITEM       */
         public static Item GetRandomLootTest(List<KeyValuePair<Item, float>> items, float dropRate)
@@ -120,7 +120,7 @@ namespace Items.Tests
             // Get the total value of all values
             var total = LootTableManager.GetTotalOfValues(items, 0, 0.0f);
             // Convert dropRate (in %) to a usable value in the context of 'items'
-            var dropRateInContext = LootTableManager.GetDropRateInContext(dropRate, total);
+            var dropRateInContext = LootTableManager.GetDropRateInContext(total, dropRate);
 
             var temp = LootTableManager.ApplyDropRate(items, dropRateInContext);
 
