@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.HUD {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class PotionSelection : MonoBehaviour {
         private int _selectedPotionId;
 

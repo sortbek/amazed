@@ -2,6 +2,14 @@
 using Assets.Scripts.World;
 using UnityEngine;
 
+
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+*/
+
+
 namespace Assets.Scripts.PathFinding
 {
     public class Grid : MonoBehaviour
@@ -18,7 +26,7 @@ namespace Assets.Scripts.PathFinding
         public void Init()
         {
             // Set al the necessary variables we need for our grid
-            GridWorldSize = new Vector2(GameManager.Instance.Size * 12 * 2, GameManager.Instance.Size * 12 * 2);
+            GridWorldSize = new Vector2(GameManager.Instance.Size * 12 + 20, GameManager.Instance.Size * 12 + 20);
 
             _nodeDiameter = NodeRadius * 2;
             _gridSizeX = Mathf.RoundToInt(GridWorldSize.x / _nodeDiameter);

@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-/// <summary>
-/// This class is used for all the functions that are used during animations
-/// </summary>
+// Created by:
+// Hugo Kamps
+// S1084074
 public class TransitionAnimation : MonoBehaviour {
     
     // Loads a new version of the 'Game' scene
     public void StartLevel() {
+        if(GameManager.Instance.Character != null)GameManager.Instance.Character.gameObject.SetActive(true);
         SceneManager.LoadScene(1);
     }
 

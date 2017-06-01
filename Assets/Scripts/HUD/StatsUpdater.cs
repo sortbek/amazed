@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.HUD {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class StatsUpdater : MonoBehaviour {
         private Slider _health;
         public Text Points, CurrentLevel;

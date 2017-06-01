@@ -5,9 +5,13 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.Util {
+
     public static class TransformDeepChildExtension {
 
         /// <summary>
+        /// 
+        /// Method found at: http://answers.unity3d.com/questions/799429/transformfindstring-no-longer-finds-grandchild.html
+        /// 
         /// Uses BFS technique to find any child under a parent.
         /// The normal Find() method only looks for direct children.
         /// This method finds grandchildren aswell.

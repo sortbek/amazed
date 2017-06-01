@@ -3,7 +3,17 @@ using Assets.Scripts.HighScores;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+*/
+
 namespace Assets.Scripts.World {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class GameManager : Singleton<GameManager> {
         public string GameSeed;
         public int Size = 5;
@@ -23,7 +33,7 @@ namespace Assets.Scripts.World {
             if (_random == null) {
                 _random = new System.Random(GameSeed.GetHashCode());
             }
-            if (min == 0 & max == 0) {
+            if (min == 0 & max == 0) { 
                 return _random.Next();
             }
             return max == 0 ? _random.Next(min) : _random.Next(min, max);
@@ -58,8 +68,10 @@ namespace Assets.Scripts.World {
         // On the start of each new level place the character in the correct start position
         public void Load() {
             SetGameObjects();
+
             Character.gameObject.SetActive(true);
-            Character.transform.position = new Vector3(0, 1.05f, -12);
+            Character.transform.position = GetStartPoint() - new Vector3(0, 0, 12);
+
         }
 
         // Deletes the temporary save game data once the application quits
@@ -68,7 +80,14 @@ namespace Assets.Scripts.World {
         }
 
         public Vector3 GetEndpoint() {
-            return new Vector3((Size - 1) * 12, 0, Size * 12);
+            var offset = Size * 12 / 2 - 6;
+            return new Vector3((Size - 1) * 12 - offset, 0, Size * 12 - offset);
+        }
+
+        public Vector3 GetStartPoint()
+        {
+            var offset = Size * 12 / 2 - 6;
+            return new Vector3(-offset,2, -offset);
         }
     }
 }

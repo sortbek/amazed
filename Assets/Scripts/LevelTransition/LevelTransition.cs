@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.LevelTransition {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class LevelTransition : MonoBehaviour {
         private Text _summaryText, _timeAmount, _pointsAmount, _pointsTotalAmount;
         private Character.Character _character;
@@ -17,7 +21,6 @@ namespace Assets.Scripts.LevelTransition {
             _character.Points += levelPoints;
 
             _character.transform.position = new Vector3(10, 2, 10);
-            _character.transform.rotation = Quaternion.Euler(0, 0, 0);
 
             foreach (var text in GetComponentsInChildren<Text>()) {
                 switch (text.name) {

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Character;
+﻿using Assets.Scripts.Character;
 using Items;
 using UnityEngine;
 using Util;
 
+// Created By:
+// Niek van den Brink
+// S1078937
 namespace Interaction {
     public class SearchInteraction : InteractionBehaviour {
         public bool HasBeenInteractedWith = false;
@@ -18,14 +20,12 @@ namespace Interaction {
         }
 
         protected override void Interact(Character actor) {
-            Eventlog.text = string.Format("{0} found in {1}", ItemUtil.ItemToString(_item), Name);
+            Interaction.text = string.Format("{0} Found", ItemUtil.ItemToString(_item));
 
             PotionController.Add(_item);
             WeaponController.Add(_item);
 
-            ClearInteraction();
-            // Clear event log after 2 seconds
-            StartCoroutine(ClearEventLog());
+            StartCoroutine(ClearInteractionWait());
             HasBeenInteractedWith = true;
         }
 
@@ -34,8 +34,8 @@ namespace Interaction {
 
             if (Interaction == null || HasBeenInteractedWith) return;
 
-            Interaction.color = Color.blue;
-            Interaction.text = string.Format("Press 'F' to search {0}", Name);
+            if (ShowEventLog) return;
+            Interaction.text = string.Format("[F] Search {0}", Name);
 
             if (Input.GetKeyDown(KeyCode.F)) {
                 Interact(actor);

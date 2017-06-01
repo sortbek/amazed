@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.GameOver {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class GameOverScreen : MonoBehaviour {
 
         private Text _pointsText;

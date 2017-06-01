@@ -7,6 +7,10 @@ using UnityEngine;
 using Util;
 
 namespace Assets.Scripts.Character {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class CharacterWeaponController : MonoBehaviour {
 
         [SerializeField]
@@ -51,14 +55,16 @@ namespace Assets.Scripts.Character {
             foreach (GameObject obj in Weapons) {
                 var stat = obj.GetComponent<WeaponStat>();
                 var position = new Vector3(_weaponPosition.position.x, _weaponPosition.position.y + obj.transform.position.y, _weaponPosition.position.z);
-                var weaponObject = Instantiate(obj, position, _weaponPosition.localRotation, _weaponPosition);
+                var weaponObject = Instantiate(obj, position, _weaponPosition.rotation, _weaponPosition);
                 var weapon = new WeaponObject() { Access = stat.Default, Object = weaponObject };
-                weaponObject.transform.Rotate(stat.OffsetRotation);
                 weaponObject.SetActive(false);
                 _equipment[stat.WeaponID] = weapon;
             }
         }
 
+// Created By:
+// Niek van den Brink
+// S1078937
         public void Add(Item item) {
             switch (item) {
                 case Item.Sword:
@@ -78,6 +84,7 @@ namespace Assets.Scripts.Character {
             }
         }
 
+        //Allows the character to use the weapon located at the given slot
         public void Add(int slot) {
             WeaponObject obj = _equipment[slot-1];
             if (!obj.Access)
@@ -85,6 +92,7 @@ namespace Assets.Scripts.Character {
             _equipment[slot-1] = obj;
         }
 
+        //Equips the given gameobject as the weapon
         public void Equip(GameObject obj) {
             if (CurrentWeapon != null)
                 CurrentWeapon.SetActive(false);

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts.Util
-{
-    public class WeaponStat : MonoBehaviour
-    {
+namespace Assets.Scripts.Util {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
+    public class WeaponStat : MonoBehaviour {
         [SerializeField]
         public float Damage = 1f;
         [SerializeField]
@@ -16,8 +18,6 @@ namespace Assets.Scripts.Util
         public int WeaponID = 0;
         [SerializeField]
         public bool Default = false;
-        [SerializeField]
-        public Vector3 OffsetRotation = new Vector3(0, 0, 0);
 
     }
 }

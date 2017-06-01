@@ -2,58 +2,62 @@
 using Assets.Scripts.Character;
 using UnityEngine;
 
-namespace Interaction {
-    public class OpenInteraction : SearchInteraction {
+// Created By:
+// Niek van den Brink
+// S1078937
+namespace Interaction{
+    public class OpenInteraction : SearchInteraction{
         public bool IsOpen;
         private bool _animating;
 
         private Animator _animator;
 
-        protected override void Start() {
+        protected override void Start(){
             base.Start();
             _animator = GetComponent<Animator>();
             _animating = false;
         }
 
-        private void Animating() {
+        private void Animating(){
             StartCoroutine(Animate());
         }
-        
-        private IEnumerator Animate() {
+
+        private IEnumerator Animate(){
             _animating = true;
+            _animator.Play(IsOpen ? "ChestClose" : "ChestOpen");
             yield return new WaitForSeconds(1);
             _animating = false;
         }
 
-        protected override void Interact(Character actor) {
-            _animator.Play(IsOpen ? "ChestClose" : "ChestOpen");
+        protected override void Interact(Character actor){
+            if (IsOpen && !HasBeenInteractedWith){
+                base.Interact(actor);
+                return;
+            }
             
             Animating();
             ClearInteraction();
             IsOpen = !IsOpen;
         }
 
-        public override void PossibleInteraction(Character actor) {
+        public override void PossibleInteraction(Character actor){
             ClearInteraction();
 
             if (Interaction == null) return;
 
-            if (IsOpen && !HasBeenInteractedWith) {
+            if (IsOpen && !HasBeenInteractedWith){
                 base.PossibleInteraction(actor);
-                if (Input.GetKeyDown(KeyCode.F)) {
-                    base.Interact(actor);
-                }
+                return;
             }
-            else {
-                if (_animating) return;
-                Interaction.color = Color.red;
-                Interaction.text = IsOpen
-                    ? string.Format("Press 'F' to close {0}", Name)
-                    : string.Format("Press 'F' to open {0}", Name);
 
-                if (Input.GetKeyDown(KeyCode.F)) {
-                    Interact(actor);
-                }
+            if (_animating) return;
+            if (ShowEventLog) return;
+            Interaction.text = IsOpen
+                ? string.Format("[F] Close {0}", Name)
+                : string.Format("[F] Open {0}", Name);
+
+            if (Input.GetKeyDown(KeyCode.F)){
+                Interact(actor);
             }
         }
     }

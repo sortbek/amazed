@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.HighScores {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class HighScoresUpdater : MonoBehaviour {
         private GameObject[] _names, _points, _levels;
         private HighScoresController _highScoresController;
