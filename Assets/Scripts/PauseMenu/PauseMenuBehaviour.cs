@@ -49,7 +49,6 @@ public class PauseMenuBehaviour : MonoBehaviour {
 
     // setting the timescale wil make the game freeze or unfreeze
     public void Pause() {
-        Debug.Log(Time.timeScale);
         if (Time.timeScale == 1) {
             MenuCanvas.gameObject.SetActive(true);
             title.enabled = true;
