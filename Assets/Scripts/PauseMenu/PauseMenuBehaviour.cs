@@ -22,7 +22,6 @@ public class PauseMenuBehaviour : MonoBehaviour {
 
     public Canvas SettingsMenu;
 
-
     void Start() {
         uiCanvas = uiCanvas.GetComponent<Canvas>();
         title = title.GetComponent<Text>();
@@ -37,18 +36,19 @@ public class PauseMenuBehaviour : MonoBehaviour {
         QuitMenu = QuitMenu.GetComponent<Canvas>();
 
         SettingsMenu = SettingsMenu.GetComponent<Canvas>();
-        disableAll();
+        DisableAll();
         title.enabled = false;
     }
 
     // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            pause();
+            Pause();
         }
     }
 
-    public void pause() {
+    // setting the timescale wil make the game freeze or unfreeze
+    public void Pause() {
         Debug.Log(Time.timeScale);
         if (Time.timeScale == 1) {
             MenuCanvas.gameObject.SetActive(true);
@@ -60,33 +60,33 @@ public class PauseMenuBehaviour : MonoBehaviour {
         }
         else {
             Cursor.lockState = CursorLockMode.Locked;
-            disableAll();
+            DisableAll();
             title.enabled = false;
             uiCanvas.gameObject.SetActive(true);
             Time.timeScale = 1;
         }
     }
 
-    private void disableAll() {
+    private void DisableAll() {
         DisableExitMenu();
         DisablePauseMeu();
         DisableSettingsMenu();
     }
 
     public void EnablePauseMenu() {
-        disableAll();
+        DisableAll();
         MenuCanvas.gameObject.SetActive(true);
         uiCanvas.gameObject.SetActive(false);
     }
 
     public void EnableSettingsMenu() {
-        disableAll();
+        DisableAll();
         SettingsMenu.gameObject.SetActive(true);
         uiCanvas.gameObject.SetActive(false);
     }
 
     public void EnableExitMenu() {
-        disableAll();
+        DisableAll();
         QuitMenu.gameObject.SetActive(true);
         uiCanvas.gameObject.SetActive(false);
     }
@@ -125,7 +125,7 @@ public class PauseMenuBehaviour : MonoBehaviour {
             Cursor.lockState = CursorLockMode.Locked;
 
             Time.timeScale = 1;
-            disableAll();
+            DisableAll();
             title.enabled = false;
         }
     }
