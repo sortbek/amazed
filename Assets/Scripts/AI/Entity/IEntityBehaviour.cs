@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
-namespace Assets.Scripts.Character {
+namespace Assets.Scripts.AI.Entity.Behaviours {
 
     // Created by:
     // Eelco Eikelboom
     // S1080542
-    interface ICharacterTransformation {
+    public interface IEntityBehaviour {
 
-        void Update();
-        
+        Vector3 Update(LivingEntity entity);
     }
 }

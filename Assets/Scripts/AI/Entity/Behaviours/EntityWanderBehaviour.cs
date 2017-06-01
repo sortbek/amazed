@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class EntityWanderBehaviour : AbstractEntityBehaviour {
 
         private readonly float _speed, _triggerDistance, _radius;

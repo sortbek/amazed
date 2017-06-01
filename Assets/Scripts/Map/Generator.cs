@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Map;
-using Assets.Scripts.PathFinding;
 using Assets.Scripts.Util;
 using Assets.Scripts.World;
+using Random = UnityEngine.Random;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
+
 #endif
 
 namespace Assets.Scripts{
@@ -21,6 +20,8 @@ namespace Assets.Scripts{
         public GameObject PrefabRoomCorner;
         public GameObject PrefabRoomEntrance;
         public GameObject PrefabRoomContent;
+
+        public GameObject EnemeyPrefab;
 
         public GameObject[] Props;
 
@@ -38,8 +39,7 @@ namespace Assets.Scripts{
 
         public int NodeSize = 12;
 
-        public GridNode[,] Init()
-        {
+        public GridNode[,] Init(){
             _height = GameManager.Instance.Size;
             _width = GameManager.Instance.Size;
             _disjointSet = new DisjointSet(_width, _height);
@@ -123,7 +123,7 @@ namespace Assets.Scripts{
         // For now, the amount of rooms will be calculated as follows:
         // The size of the maze divided by two minus one. So a maze 10x10 would have 4 rooms
         // inside it. SUBJECT TO CHANGE.
-        private void CreateRooms() {
+        private void CreateRooms(){
             var amount = (GameManager.Instance.Size / 2) - 2;
 
             while (amount > 0){
@@ -176,8 +176,7 @@ namespace Assets.Scripts{
             nodeTopRight.HasWallDown = false;
 
             // Dynamic Occlusion Fix
-            var list = new List<GridNode>
-            {
+            var list = new List<GridNode>{
                 nodeBottomLeft,
                 nodeBottomRight,
                 nodeTopLeft,
@@ -330,8 +329,8 @@ namespace Assets.Scripts{
             return config;
         }
 
-        private void BuildHeapMaze() {
-            while (_prioList.Count > 0) {
+        private void BuildHeapMaze(){
+            while (_prioList.Count > 0){
                 CheckCurrentNode(_prioList.RemoveFirst());
             }
         }
@@ -396,14 +395,50 @@ namespace Assets.Scripts{
             }
         }
 
+// Created By:
+// Niek van den Brink
+// S1078937
+        private void CreateProp(GridNode node){
+            // If the semi-random number is within the range of the PropPerNode variable a prop will spawn in this node
+            if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f){
+                var children = node.Prefab.transform.Find("PropPlacement").GetComponentsInChildren<Transform>();
 
-        private void InstantiateMap() {
+                // If the children.Length is 1 it only contains itself
+                if (children.Length <= 1) return;
+
+                // The actual children, if it has any, will start at index 1
+                var child = children[GameManager.Instance.GetRandom(1, children.Length)];
+
+                // Get a semi-random prop and place it at the previously gotten predefined prostion
+                Instantiate(Props[GameManager.Instance.GetRandom(0, Props.Length)], child.transform.position,
+                    transform.rotation);
+            }
+        }
+        
+// Created By:
+// Niek van den Brink
+// S1078937
+        private void FillRoomWithContent(GridNode node){
+            var roomContent = Instantiate(PrefabRoomContent,
+                node.Prefab.transform.position + new Vector3(6.0f, 0.0f, 6.0f), transform.rotation);
+            roomContent.transform.Rotate(Vector3.up, node.Rotation);
+            var locations = roomContent.transform.Find("EnemySpawns")
+                .GetComponentsInChildren<Transform>();
+            if (locations.Length <= 1) return;
+
+            var spawnLoc = locations[Random.Range(1, locations.Length)];
+
+            if (spawnLoc != null){
+                Instantiate(EnemeyPrefab, spawnLoc.position + new Vector3(0.0f, 1.0f, 0.0f),
+                    transform.rotation);
+            }
+        }
+
+        private void InstantiateMap(){
             // Set the default part of generated maze
             var offset = (NodeSize * GameManager.Instance.Size / 2) - 6;
             for (var x = 0; x < _width; x++){
-                for (var y = 0; y < _height; y++)
-                {
-                    
+                for (var y = 0; y < _height; y++){
                     var position = new Vector3((x * NodeSize) - offset, 0, (y * NodeSize) - offset);
                     var node = _gridMap[x, y];
 
@@ -411,28 +446,12 @@ namespace Assets.Scripts{
                     node.Prefab.transform.localScale = node.Scale;
                     node.Prefab.transform.Rotate(Vector3.up, node.Rotation);
 
-                    // If a node is part of a room it will not get the normal prop, instead it will get a RoomContent prefab
-                    if (node.IsPartOfRoom){
-                        // NodeConfiguration 2 and 8 are the entrances off a room, the content is placed based on these nodes
-                        if (node.NodeConfiguration == 2 || node.NodeConfiguration == 8){
-                            var roomContent = Instantiate(PrefabRoomContent, node.Prefab.transform.position + new Vector3(6.0f, 0.0f, 6.0f), transform.rotation);
-                            roomContent.transform.Rotate(Vector3.up, node.Rotation);
-                            // TODO: Spawn enemy at the location of 'EnemySpawn' in the roomContent
-                        }
+                    // NodeConfiguration 2 and 8 are the entrances off a room, the content is placed based on these nodes
+                    if (node.IsPartOfRoom && (node.NodeConfiguration == 2 || node.NodeConfiguration == 8)){
+                        FillRoomWithContent(node);
                     }
-                    // If the semi-random number is within the range of the PropPerNode variable a prop will spawn in this node
-                    else if (GameManager.Instance.GetRandom(0, 101) * 1.0f <= PropPerNode * 100.0f){
-                        var children = node.Prefab.transform.Find("PropPlacement").GetComponentsInChildren<Transform>();
-
-                        // If the children.Length is 1 it only contains itself
-                        if (children.Length <= 1) return;
-
-                        // The actual children, if it has any, will start at index 1
-                        var child = children[GameManager.Instance.GetRandom(1, children.Length)];
-
-                        // Get a semi-random prop and place it at the previously gotten predefined prostion
-                        Instantiate(Props[GameManager.Instance.GetRandom(0, Props.Length)], child.transform.position,
-                            transform.rotation);
+                    else{
+                        CreateProp(node);
                     }
                 }
             }
@@ -441,17 +460,17 @@ namespace Assets.Scripts{
             var start = Instantiate(PrefabStartEnd, new Vector3(0 - offset, 0, -12 - offset), transform.rotation);
             start.GetComponent<BoxCollider>().isTrigger = false;
             start.name = "Start";
-            var end = Instantiate(PrefabStartEnd, new Vector3((_width - 1) * 12 - offset, 0, _height * 12 - offset), transform.rotation);
+            var end = Instantiate(PrefabStartEnd, new Vector3((_width - 1) * 12 - offset, 0, _height * 12 - offset),
+                transform.rotation);
             end.name = "End";
             end.transform.Rotate(Vector3.up, 180);
         }
 
 #if UNITY_EDITOR
-        void OnDrawGizmos()
-        {
+        void OnDrawGizmos(){
             if (!ShowDebugNumbers) return;
-            for (var x = 0; x < _width; x++) {
-                for (var y = 0; y < _height; y++) {
+            for (var x = 0; x < _width; x++){
+                for (var y = 0; y < _height; y++){
                     if (!_gridMap[x, y].IsPartOfRoom) continue;
                     Handles.color = Color.red;
                     Handles.Label(new Vector3(x * NodeSize, 0, (y * NodeSize)),

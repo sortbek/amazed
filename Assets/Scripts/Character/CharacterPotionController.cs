@@ -4,6 +4,10 @@ using UnityEngine;
 using Util;
 
 namespace Assets.Scripts.Character {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class CharacterPotionController : MonoBehaviour {
 
         public Potion Health, HealthRegeneration, Speed, Damage, Defense, Guidance;
@@ -17,10 +21,11 @@ namespace Assets.Scripts.Character {
             Damage = new DamagePotion(_player);
             Defense = new DefensePotion(_player);
             Guidance = new GuidancePotion(_player);
-
-            Speed.Amount += 9;
         }
 
+// Created By:
+// Niek van den Brink
+// S1078937
         public void Add(Item type) {
             switch (type) {
                 case Item.HealthPot:

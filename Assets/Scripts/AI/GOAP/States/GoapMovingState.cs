@@ -2,6 +2,10 @@
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP.States {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class GoapMovingState : AbstractState {
         private PathFollowingBehaviour _pathFollowingBehaviour;
 

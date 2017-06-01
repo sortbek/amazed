@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Character;
+﻿using Assets.Scripts.Character;
 using Items;
 using UnityEngine;
 using Util;
 
+// Created By:
+// Niek van den Brink
+// S1078937
 namespace Interaction {
     public class SearchInteraction : InteractionBehaviour {
         public bool HasBeenInteractedWith = false;

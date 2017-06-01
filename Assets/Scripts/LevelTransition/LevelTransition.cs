@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.LevelTransition {
+
+    // Created by:
+    // Hugo Kamps
+    // S1084074
     public class LevelTransition : MonoBehaviour {
         private Text _summaryText, _timeAmount, _pointsAmount, _pointsTotalAmount;
         private Character.Character _character;

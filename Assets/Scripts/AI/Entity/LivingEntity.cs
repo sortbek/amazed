@@ -5,13 +5,18 @@ using Assets.Scripts.AI.Entity.Behaviours;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
+
+    // Created by:
+    // Eelco Eikelboom     Hugo Kamps
+    // S1080542            S1084074
     public class LivingEntity : MonoBehaviour {
 
         [SerializeField]
         public float Health = 10f;
         [SerializeField]
         public float Energy = 8f;
-        [SerializeField] public float Speed = 5.0f;
+        [SerializeField]
+        public float Speed = 5.0f;
 
         private AbstractEntityBehaviour _currentBehaviour;
         private UnityEngine.Animation _animation;

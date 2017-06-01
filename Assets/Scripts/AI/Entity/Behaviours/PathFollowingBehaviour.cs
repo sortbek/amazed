@@ -32,8 +32,6 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
                 ? Entity.transform.position
                 : agent.ActionQueue.Peek().GetTarget();
 
-            Debug.Log(agent.ActionQueue);
-
             PathRequestManager.RequestPath(Entity.transform.position, target.Value, OnPathFound);
         }
 

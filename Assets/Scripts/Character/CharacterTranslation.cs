@@ -5,6 +5,10 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.Character {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class CharacterTranslation : ICharacterTransformation {
 
         private readonly Character _character;

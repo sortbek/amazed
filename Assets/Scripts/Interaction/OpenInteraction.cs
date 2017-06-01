@@ -2,6 +2,9 @@
 using Assets.Scripts.Character;
 using UnityEngine;
 
+// Created By:
+// Niek van den Brink
+// S1078937
 namespace Interaction{
     public class OpenInteraction : SearchInteraction{
         public bool IsOpen;
