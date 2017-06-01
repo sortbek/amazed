@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP {
 
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     [RequireComponent(typeof(LivingEntity))]
     public class GoapAgent : MonoBehaviour {
 

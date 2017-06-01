@@ -8,6 +8,10 @@ using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class EntityWanderBehaviour : IEntityBehaviour {
 
         private readonly float _speed, _triggerDistance, _radius, _rotationSpeed;

@@ -5,6 +5,10 @@ using System.Text;
 using Assets.Scripts.AI.GOAP.States;
 
 namespace Assets.Scripts.AI.GOAP {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class GoapStateMachine {
         
         public enum StateType { Idle, Moving, Action }
@@ -19,7 +23,7 @@ namespace Assets.Scripts.AI.GOAP {
         }
 
         public void ChangeState(StateType type) {
-            AbstractState state = _stateRegister[type];
+            var state = _stateRegister[type];
             _currentState = state;
             _currentState.Enter();
         }

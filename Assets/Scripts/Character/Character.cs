@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Character {
 
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class Character : MonoBehaviour {
 
         [SerializeField]

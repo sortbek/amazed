@@ -7,6 +7,10 @@ using UnityEngine;
 using Util;
 
 namespace Assets.Scripts.Character {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class CharacterWeaponController : MonoBehaviour {
 
         [SerializeField]

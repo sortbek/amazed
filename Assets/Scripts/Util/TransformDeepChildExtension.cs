@@ -5,6 +5,10 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.Util {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public static class TransformDeepChildExtension {
 
         /// <summary>
