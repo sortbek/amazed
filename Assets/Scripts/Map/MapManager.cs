@@ -4,6 +4,12 @@ using Assets.Scripts.PathFinding;
 using Assets.Scripts.World;
 using UnityEngine;
 
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+*/
+
 namespace Assets.Scripts.Map {
     public class MapManager : MonoBehaviour {
         public GameObject Ground;

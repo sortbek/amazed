@@ -1,5 +1,11 @@
 ﻿using System.Collections.Generic;
 
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+*/
+
 namespace Assets.Scripts.Map
 {
     public class DynamicOcclusion

@@ -1,14 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Map;
-using Assets.Scripts.PathFinding;
 using Assets.Scripts.Util;
 using Assets.Scripts.World;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+*/
 
 namespace Assets.Scripts{
     public class Generator : MonoBehaviour{

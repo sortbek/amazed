@@ -2,6 +2,11 @@
 using Assets.Scripts.World;
 using UnityEngine;
 
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+*/
 namespace Assets.Scripts.Map.Weather
 {
 	public class WeatherManager : MonoBehaviour

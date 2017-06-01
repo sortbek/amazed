@@ -1,5 +1,13 @@
 ﻿using UnityEngine;
 
+/*
+    File owner: Jeffrey Wienen
+    Created by:
+    Jeffrey Wienen     s1079065 
+    Origin:
+    http://wiki.unity3d.com/index.php/Singleton
+*/
+
 /// <summary>
 /// Be aware this will not prevent a non singleton constructor
 ///   such as `T myT = new T();`
