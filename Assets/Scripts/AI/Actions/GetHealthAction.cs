@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
     public class GetHealthAction : GoapAction{
+        public override Vector3? GetTarget() {
+            return null;
+        }
 
         public override void Init() {
             RegisterPrecondition(GoapCondition.IsDamaged, true);

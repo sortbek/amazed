@@ -28,21 +28,18 @@ namespace Assets.Scripts.AI.GOAP {
         }
 
         void Awake() {
-            StateMachine = new GoapStateMachine(this);
             ActionQueue = new Queue<GoapAction>();
             Actions = new HashSet<GoapAction>();
             Planner = new GoapPlanner(this);
             AgentState = new Dictionary<GoapCondition, bool>();
             LoadDefaultState();
             Entity = GetComponent<LivingEntity>();
+            StateMachine = new GoapStateMachine(this);
             StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
         }
 
         void Start() {
             LoadActions();
-
-            SetState(GoapCondition.IsDamaged, true);
-            SetState(GoapCondition.IsTired, true);
 
             Planner.Plan(new GoapPlan(GoapCondition.InAttackRange, true).Add(GoapCondition.IsDamaged, false));
         }

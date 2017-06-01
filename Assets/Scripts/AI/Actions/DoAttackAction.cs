@@ -18,6 +18,10 @@ namespace Assets.Scripts.AI.Actions {
             return true;
         }
 
+        public override Vector3? GetTarget() {
+            return null;
+        }
+
         public override void Init() {
             RegisterPrecondition(GoapCondition.InAttackRange, true);
             RegisterPrecondition(GoapCondition.IsTired, false);

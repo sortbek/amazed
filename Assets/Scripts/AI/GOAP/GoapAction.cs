@@ -33,6 +33,8 @@ namespace Assets.Scripts.AI.GOAP {
             Init();
         }
 
+        public abstract Vector3? GetTarget();
+
         public abstract void Init();
         public abstract void Execute();
         public abstract bool Completed();

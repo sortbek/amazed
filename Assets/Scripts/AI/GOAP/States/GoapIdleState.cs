@@ -15,7 +15,7 @@ namespace Assets.Scripts.AI.GOAP.States {
         private readonly EntityWanderBehaviour _wander;
 
         public GoapIdleState(GoapAgent agent) : base(agent) {
-            _wander = new EntityWanderBehaviour();
+            _wander = new EntityWanderBehaviour(agent.Entity);
         }
 
         public override void Enter() {
@@ -24,7 +24,7 @@ namespace Assets.Scripts.AI.GOAP.States {
 
         public override void Execute() {
             var plan = Agent.ActionQueue;
-            Agent.Entity.PlayAnimation(Animation.idle);
+            Agent.Entity.PlayAnimation(Animation.walk);
             //Check whether there is a requested plan active
             if (plan.Count > 0) { 
                 //Set the state to the moving state, since we found a plan
