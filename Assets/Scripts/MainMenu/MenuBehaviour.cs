@@ -3,6 +3,10 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+// Created By:
+// Jordi Wolthuis
+// S1085303
+
 public class MenuBehaviour : MonoBehaviour
 {
 

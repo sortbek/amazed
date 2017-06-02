@@ -5,6 +5,10 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Created By:
+// Jordi Wolthuis
+// S1085303
+
 public class SettingsBehaviour : MonoBehaviour
 {
 

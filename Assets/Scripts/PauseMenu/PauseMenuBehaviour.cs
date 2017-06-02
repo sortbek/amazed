@@ -7,6 +7,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// Created By:
+// Jordi Wolthuis
+// S1085303
+
 public class PauseMenuBehaviour : MonoBehaviour {
     public Canvas uiCanvas;
 
