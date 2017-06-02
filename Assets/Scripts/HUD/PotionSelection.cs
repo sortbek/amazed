@@ -9,6 +9,8 @@ namespace Assets.Scripts.HUD {
     // Created by:
     // Hugo Kamps
     // S1084074
+    // Jordi Wolthuis
+    // S1085303
     public class PotionSelection : MonoBehaviour {
         private int _selectedPotionId;
 

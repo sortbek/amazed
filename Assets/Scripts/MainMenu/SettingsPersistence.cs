@@ -2,6 +2,10 @@
 using System.IO;
 using UnityEngine;
 
+// Created By:
+// Jordi Wolthuis
+// S1085303
+
 namespace Assets.Scripts.MainMenu {
     public class SettingsPersistence : MonoBehaviour {
 
