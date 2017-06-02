@@ -4,41 +4,36 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.HUD {
-
     // Created by:
     // Hugo Kamps
     // S1084074
     public class WeaponSelection : MonoBehaviour {
-        public RawImage[] WeaponImages;
-        public Character.Character Character;
-
         private CharacterWeaponController _controller;
+        public Character.Character Character;
+        public RawImage[] WeaponImages;
 
         // Use this for initialization
-        void Start() {
+        private void Start() {
             _controller = FindObjectOfType<CharacterWeaponController>();
             WeaponImages = GetComponentsInChildren<RawImage>();
             foreach (var image in WeaponImages) image.color = Color.black;
         }
 
         // Update is called once per frame
-        void Update() {
+        private void Update() {
             CheckEquipment();
             if (_controller.CurrentWeapon != null) UpdateHUD();
         }
 
-        void UpdateHUD() {
-            int currentWeaponID = _controller.CurrentWeapon.GetComponent<WeaponStat>().WeaponID;
-            for (var index = 0; index < WeaponImages.Length; index++) {
+        private void UpdateHUD() {
+            var currentWeaponID = _controller.CurrentWeapon.GetComponent<WeaponStat>().WeaponID;
+            for (var index = 0; index < WeaponImages.Length; index++)
                 WeaponImages[index].color = index == currentWeaponID ? Color.white : Color.black;
-            }
         }
 
-        void CheckEquipment() {
-            for (var index = 0; index < WeaponImages.Length; index++) {
+        private void CheckEquipment() {
+            for (var index = 0; index < WeaponImages.Length; index++)
                 WeaponImages[index].enabled = _controller.GetEquipment()[index].Access;
-            }
         }
-
     }
 }

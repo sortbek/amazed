@@ -6,46 +6,69 @@ using Random = UnityEngine.Random;
 // Created By:
 // Niek van den Brink
 // S1078937
-namespace Items
-{
-    public static class LootTableManager
-    {
-        public static Item GetRandomLoot(LootTable type, float dropChance)
-        {
+namespace Items {
+    public static class LootTableManager {
+        private static readonly List<KeyValuePair<Item, float>> DefaultLootTable =
+            new List<KeyValuePair<Item, float>> {
+                new KeyValuePair<Item, float>(Item.HealthPot, 1.0f),
+                new KeyValuePair<Item, float>(Item.HealthRegenPot, 1.0f),
+                new KeyValuePair<Item, float>(Item.DamagePot, 1.0f),
+                new KeyValuePair<Item, float>(Item.DefensePot, 1.0f),
+                new KeyValuePair<Item, float>(Item.SpeedPot, 1.0f),
+                new KeyValuePair<Item, float>(Item.GuidancePot, 1.0f),
+                new KeyValuePair<Item, float>(Item.Sword, 1.0f),
+                new KeyValuePair<Item, float>(Item.BattleAxe, 1.0f),
+                new KeyValuePair<Item, float>(Item.Maul, 1.0f),
+                new KeyValuePair<Item, float>(Item.Dagger, 1.0f)
+            };
+
+        private static readonly List<KeyValuePair<Item, float>> PotionLootTable =
+            new List<KeyValuePair<Item, float>> {
+                new KeyValuePair<Item, float>(Item.HealthPot, 1.0f),
+                new KeyValuePair<Item, float>(Item.HealthRegenPot, 1.0f),
+                new KeyValuePair<Item, float>(Item.DamagePot, 1.0f),
+                new KeyValuePair<Item, float>(Item.DefensePot, 1.0f),
+                new KeyValuePair<Item, float>(Item.SpeedPot, 1.0f),
+                new KeyValuePair<Item, float>(Item.GuidancePot, 1.0f)
+            };
+
+        private static readonly List<KeyValuePair<Item, float>> WeaponLootTable =
+            new List<KeyValuePair<Item, float>> {
+                new KeyValuePair<Item, float>(Item.Sword, 1.0f),
+                new KeyValuePair<Item, float>(Item.BattleAxe, 1.0f),
+                new KeyValuePair<Item, float>(Item.Maul, 1.0f),
+                new KeyValuePair<Item, float>(Item.Dagger, 1.0f)
+            };
+
+        public static Item GetRandomLoot(LootTable type, float dropChance) {
             return GetRandomLoot(GetLootTable(type), dropChance);
         }
 
-        public static Item GetRandomLoot(List<KeyValuePair<Item, float>> items, float dropRate)
-        {
+        public static Item GetRandomLoot(List<KeyValuePair<Item, float>> items, float dropRate) {
             // Get the total value of all values
             var total = GetTotalOfValues(items, 0, 0.0f);
             // Convert dropRate (in %) to a usable value in the context of 'items'
             var dropRateInContext = GetDropRateInContext(dropRate, total);
 
             var finalLootTable = ApplyDropRate(items, dropRateInContext);
-            
+
             var itemNr = GetRandomItemNr(total, dropRateInContext);
 
             var chance = 0.0f;
 
-            foreach (var item in finalLootTable)
-            {
+            foreach (var item in finalLootTable) {
                 if (itemNr >= chance && itemNr < item.Value + chance)
-                {
                     return item.Key;
-                }
                 chance += item.Value;
             }
             return Item.Null;
         }
 
-        public static float GetRandomItemNr(float total, float dropRateInContext)
-        {
+        public static float GetRandomItemNr(float total, float dropRateInContext) {
             return Random.Range(0.0f, total + dropRateInContext);
         }
 
-        public static float GetDropRateInContext(float total, float dropRate)
-        {
+        public static float GetDropRateInContext(float total, float dropRate) {
             // If the droprate is 1 we want 'nothing' to drop 0 percent of the time
             //  the function below i only an approximation
             if (dropRate >= 1) return 0;
@@ -53,7 +76,7 @@ namespace Items
             //  because we multiply it with the total we will now divide it - later we will also add total so now we subtract it
             if (dropRate <= 0) return int.MaxValue / total - total;
 
-            var dropChanceInContext = (float)(-0.15 + 8.5f * Math.Pow(2.7, (-4 * dropRate))) * total;
+            var dropChanceInContext = (float) (-0.15 + 8.5f * Math.Pow(2.7, -4 * dropRate)) * total;
             /* This function is based on the following points:
 
             dropchance = 1;
@@ -84,23 +107,20 @@ namespace Items
             */
 
             if (dropChanceInContext < 0)
-            {
                 dropChanceInContext = 0;
-            }
 
             return dropChanceInContext;
         }
 
-        public static List<KeyValuePair<Item, float>> ApplyDropRate(List<KeyValuePair<Item, float>> items, float dropRateInContext)
-        {
+        public static List<KeyValuePair<Item, float>> ApplyDropRate(List<KeyValuePair<Item, float>> items,
+            float dropRateInContext) {
             var temp = new List<KeyValuePair<Item, float>>(items);
             temp.Add(new KeyValuePair<Item, float>(Item.Null, dropRateInContext));
             return temp;
         }
 
         public static float GetTotalOfValues(List<KeyValuePair<Item, float>> items,
-            int index, float total)
-        {
+            int index, float total) {
             if (index >= items.Count) return 0.0f;
 
             var currentItem = items[index];
@@ -110,10 +130,8 @@ namespace Items
             return total;
         }
 
-        public static List<KeyValuePair<Item, float>> GetLootTable(LootTable type)
-        {
-            switch (type)
-            {
+        public static List<KeyValuePair<Item, float>> GetLootTable(LootTable type) {
+            switch (type) {
                 case LootTable.Potions:
                     return PotionLootTable;
                 case LootTable.Weapons:
@@ -122,42 +140,9 @@ namespace Items
                     return DefaultLootTable;
             }
         }
-
-        private static readonly List<KeyValuePair<Item, float>> DefaultLootTable =
-            new List<KeyValuePair<Item, float>>() {
-                new KeyValuePair<Item, float>(Item.HealthPot, 1.0f),
-                new KeyValuePair<Item, float>(Item.HealthRegenPot, 1.0f),
-                new KeyValuePair<Item, float>(Item.DamagePot, 1.0f),
-                new KeyValuePair<Item, float>(Item.DefensePot, 1.0f),
-                new KeyValuePair<Item, float>(Item.SpeedPot, 1.0f),
-                new KeyValuePair<Item, float>(Item.GuidancePot, 1.0f),
-                new KeyValuePair<Item, float>(Item.Sword, 1.0f),
-                new KeyValuePair<Item, float>(Item.BattleAxe, 1.0f),
-                new KeyValuePair<Item, float>(Item.Maul, 1.0f),
-                new KeyValuePair<Item, float>(Item.Dagger, 1.0f)
-            };
-
-        private static readonly List<KeyValuePair<Item, float>> PotionLootTable =
-            new List<KeyValuePair<Item, float>>() {
-                new KeyValuePair<Item, float>(Item.HealthPot, 1.0f),
-                new KeyValuePair<Item, float>(Item.HealthRegenPot, 1.0f),
-                new KeyValuePair<Item, float>(Item.DamagePot, 1.0f),
-                new KeyValuePair<Item, float>(Item.DefensePot, 1.0f),
-                new KeyValuePair<Item, float>(Item.SpeedPot, 1.0f),
-                new KeyValuePair<Item, float>(Item.GuidancePot, 1.0f)
-            };
-
-        private static readonly List<KeyValuePair<Item, float>> WeaponLootTable =
-            new List<KeyValuePair<Item, float>>() {
-                new KeyValuePair<Item, float>(Item.Sword, 1.0f),
-                new KeyValuePair<Item, float>(Item.BattleAxe, 1.0f),
-                new KeyValuePair<Item, float>(Item.Maul, 1.0f),
-                new KeyValuePair<Item, float>(Item.Dagger, 1.0f)
-            };
     }
 
-    public enum LootTable
-    {
+    public enum LootTable {
         Default,
         Potions,
         Weapons

@@ -3,14 +3,13 @@ using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.HighScores {
-
     // Created by:
     // Hugo Kamps
     // S1084074
     public class HighScoresController {
         public HighScores HighScores;
 
-        public HighScoresController() { 
+        public HighScoresController() {
             HighScores = new HighScores();
         }
 
@@ -25,7 +24,7 @@ namespace Assets.Scripts.HighScores {
             });
 
             HighScores.HighScoresList = HighScores.HighScoresList.OrderByDescending(score => score.Points).ToList();
-            if(HighScores.HighScoresList.Count > 5) HighScores.HighScoresList.RemoveAt(5);
+            if (HighScores.HighScoresList.Count > 5) HighScores.HighScoresList.RemoveAt(5);
             File.WriteAllText(Application.persistentDataPath + "/highscores.json",
                 JsonUtility.ToJson(HighScores, true));
         }

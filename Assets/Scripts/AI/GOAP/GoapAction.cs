@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP {
-
     // Created by:
     // Eelco Eikelboom
     // S1080542
     public abstract class GoapAction : MonoBehaviour {
+        protected GoapAction() {
+            Preconditions = new Dictionary<GoapCondition, bool>();
+            Effects = new Dictionary<GoapCondition, bool>();
+        }
 
         public Dictionary<GoapCondition, bool> Preconditions { get; private set; }
         public Dictionary<GoapCondition, bool> Effects { get; private set; }
 
         protected GoapAgent Agent { get; private set; }
-        protected GoapAction() {
-            Preconditions = new Dictionary<GoapCondition, bool>();
-            Effects = new Dictionary<GoapCondition, bool>();
-        }
 
         protected void RegisterPrecondition(GoapCondition condition, bool val) {
             Preconditions[condition] = val;
@@ -28,7 +24,7 @@ namespace Assets.Scripts.AI.GOAP {
             Effects[cond] = result;
         }
 
-        void Awake() {
+        private void Awake() {
             Agent = GetComponent<GoapAgent>();
             Init();
         }

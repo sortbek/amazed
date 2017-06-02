@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 namespace Assets.Scripts.HighScores {
-
     // Created by:
     // Hugo Kamps
     // S1084074

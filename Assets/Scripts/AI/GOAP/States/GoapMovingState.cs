@@ -2,7 +2,6 @@
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP.States {
-
     // Created by:
     // Hugo Kamps
     // S1084074
@@ -21,8 +20,9 @@ namespace Assets.Scripts.AI.GOAP.States {
 
         public override void Execute() {
             _pathFollowingBehaviour.UpdateTarget();
-            if (_pathFollowingBehaviour.Path == null || _pathFollowingBehaviour.Path.Length > 0 && !_pathFollowingBehaviour.Reached()) return;
-            
+            if (_pathFollowingBehaviour.Path == null || _pathFollowingBehaviour.Path.Length > 0 &&
+                !_pathFollowingBehaviour.Reached()) return;
+
             Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Action);
         }
     }

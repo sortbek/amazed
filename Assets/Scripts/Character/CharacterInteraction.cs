@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Character;
 using Interaction;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,8 +9,8 @@ using UnityEngine.UI;
 // S1078937
 namespace Assets.Scripts.Character {
     public class CharacterInteraction {
-        private float _interactionRadius;
         private readonly Character _character;
+        private float _interactionRadius;
         private int _layerMask, _propLayer, _playerLayer;
 
 
@@ -40,12 +39,11 @@ namespace Assets.Scripts.Character {
             var interactables = new List<InteractionBehaviour>();
 
             foreach (var c in nearbyColliders) {
-
                 // This will only be the case with the Player GameObject
                 if (c.gameObject.layer != _propLayer) continue;
 
                 // Try to get Interaction behaviour of found prop
-                var interactable = (c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour);
+                var interactable = c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour;
 
                 // Filter out non interactable props
                 if (interactable == null) continue;

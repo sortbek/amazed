@@ -3,28 +3,27 @@
 // Created by:
 // Jeffrey Wienen
 // S1079065
-namespace Assets.Scripts.Util
-{
-    public class Heap<T> where T : IHeapItem<T>
-    {
+namespace Assets.Scripts.Util {
+    public class Heap<T> where T : IHeapItem<T> {
         private readonly T[] _items;
-        private int _currentItemCount;
 
         public Heap(int maxHeapSize) {
             _items = new T[maxHeapSize];
         }
 
+        public int Count { get; private set; }
+
         public void Add(T item) {
-            item.HeapIndex = _currentItemCount;
-            _items[_currentItemCount] = item;
+            item.HeapIndex = Count;
+            _items[Count] = item;
             SortUp(item);
-            _currentItemCount++;
+            Count++;
         }
 
         public T RemoveFirst() {
             var firstItem = _items[0];
-            _currentItemCount--;
-            _items[0] = _items[_currentItemCount];
+            Count--;
+            _items[0] = _items[Count];
             _items[0].HeapIndex = 0;
             SortDown(_items[0]);
             return firstItem;
@@ -32,12 +31,6 @@ namespace Assets.Scripts.Util
 
         public void UpdateItem(T item) {
             SortUp(item);
-        }
-
-        public int Count {
-            get {
-                return _currentItemCount;
-            }
         }
 
         public bool Contains(T item) {
@@ -49,43 +42,30 @@ namespace Assets.Scripts.Util
                 var childIndexLeft = item.HeapIndex * 2 + 1;
                 var childIndexRight = item.HeapIndex * 2 + 2;
 
-                if (childIndexLeft < _currentItemCount) {
+                if (childIndexLeft < Count) {
                     var swapIndex = childIndexLeft;
 
-                    if (childIndexRight < _currentItemCount) {
-                        if (_items[childIndexLeft].CompareTo(_items[childIndexRight]) < 0) {
-                            swapIndex = childIndexRight;
-                        }
-                    }
+                    if (childIndexRight < Count)
+                        if (_items[childIndexLeft].CompareTo(_items[childIndexRight]) < 0) swapIndex = childIndexRight;
 
-                    if (item.CompareTo(_items[swapIndex]) < 0) {
-                        Swap (item,_items[swapIndex]);
-                    }
-                    else {
-                        return;
-                    }
-
+                    if (item.CompareTo(_items[swapIndex]) < 0) Swap(item, _items[swapIndex]);
+                    else return;
                 }
                 else {
                     return;
                 }
-
             }
         }
 
         private void SortUp(T item) {
-            var parentIndex = (item.HeapIndex-1)/2;
+            var parentIndex = (item.HeapIndex - 1) / 2;
 
             while (true) {
                 var parentItem = _items[parentIndex];
-                if (item.CompareTo(parentItem) > 0) {
-                    Swap (item,parentItem);
-                }
-                else {
-                    break;
-                }
+                if (item.CompareTo(parentItem) > 0) Swap(item, parentItem);
+                else break;
 
-                parentIndex = (item.HeapIndex-1)/2;
+                parentIndex = (item.HeapIndex - 1) / 2;
             }
         }
 
@@ -99,9 +79,6 @@ namespace Assets.Scripts.Util
     }
 
     public interface IHeapItem<T> : IComparable<T> {
-        int HeapIndex {
-            get;
-            set;
-        }
+        int HeapIndex { get; set; }
     }
 }
