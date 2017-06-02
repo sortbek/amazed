@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+// Created By:
+// Jordi Wolthuis
+// S1085303
+
 public class DrawingUtil : MonoBehaviour {
     public Vector3 playerloc;
 
