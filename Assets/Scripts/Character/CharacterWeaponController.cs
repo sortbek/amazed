@@ -13,7 +13,10 @@ namespace Assets.Scripts.Character {
         [SerializeField]
         public GameObject[] Weapons;
         public GameObject CurrentWeapon;
+        
         private int _currentWeaponNumber;
+        private Transform _weaponPosition;
+        private Dictionary<int, WeaponObject> _equipment;
 
         private readonly KeyCode[] _numKeys = {
              KeyCode.Alpha1,
@@ -26,24 +29,28 @@ namespace Assets.Scripts.Character {
              KeyCode.Alpha8,
              KeyCode.Alpha9
         };
-        
-        private readonly Dictionary<Item, string> WeaponEnumToAnimation = new Dictionary<Item, string>() {
+
+// Created By:
+// Niek van den Brink
+// S1078937        
+        private readonly Dictionary<Item, string> _weaponEnumToAnimation = new Dictionary<Item, string>() {
             {Item.Dagger, "daggerAttack"},
             {Item.BattleAxe, "characterAttacking"},
             {Item.Sword, "characterAttacking"},
             {Item.Maul, "characterAttacking"},
             {Item.Null, "characterAttacking"}
         };
-        
-        private readonly  Dictionary<int, Item> ItemNumberToEnum = new Dictionary<int, Item>() {
+ 
+// Created By:
+// Niek van den Brink
+// S1078937       
+        private readonly  Dictionary<int, Item> _itemNumberToEnum = new Dictionary<int, Item>() {
             {1, Item.Sword},
             {2, Item.BattleAxe},
             {3, Item.Maul},
             {4, Item.Dagger}
         };
 
-        private Transform _weaponPosition;
-        private Dictionary<int, WeaponObject> _equipment;
 
         void Start() {
             _equipment = new Dictionary<int, WeaponObject>();
@@ -102,11 +109,14 @@ namespace Assets.Scripts.Character {
             }
         }
 
+// Created By:
+// Niek van den Brink
+// S1078937
         public string GetWeaponAnimation() {
             if (_currentWeaponNumber == 0) 
                 return "characterAttacking";
 
-            return WeaponEnumToAnimation[ItemNumberToEnum[_currentWeaponNumber]];
+            return _weaponEnumToAnimation[_itemNumberToEnum[_currentWeaponNumber]];
         }
 
         //Allows the character to use the weapon located at the given slot
