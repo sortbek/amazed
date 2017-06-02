@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using Assets.Scripts.Util;
 using UnityEngine;
 
-/*
-    File owner: Jeffrey Wienen
-    Created by:
-    Jeffrey Wienen     s1079065 
-*/
+
+// Created by:
+// Jeffrey Wienen
+// S1079065
 namespace Assets.Scripts {
     [Flags]
     public enum Walls {
@@ -19,21 +18,26 @@ namespace Assets.Scripts {
     }
 
     public class GridNode : IHeapItem<GridNode> {
-        public int NodeConfiguration;
+        public List<GridNode> BakedList = new List<GridNode>();
         public bool HasWallDown = true;
         public bool HasWallRight = true;
+        public bool IsPartOfRoom;
         public bool IsTopSide;
+        public int Key;
+        public int NodeConfiguration;
+        public GameObject Prefab;
+        public GameObject Prop;
+        public List<GridNode> RoomList = new List<GridNode>();
+        public int Rotation;
+        public Vector3 Scale = new Vector3(1, 1, 1);
         public int X;
         public int Y;
-        public int Key;
-        public bool IsPartOfRoom;
 
-        public List<GridNode> BakedList = new List<GridNode>();
-        public List<GridNode> RoomList = new List<GridNode>();
-        public GameObject Prop;
-        public Vector3 Scale = new Vector3(1,1,1);
-        public int Rotation;
-        public GameObject Prefab;
+        public int CompareTo(GridNode other) {
+            return Key.CompareTo(other.Key);
+        }
+
+        public int HeapIndex { get; set; }
 
 
         public void AddBakedNode(GridNode node) {
@@ -44,11 +48,5 @@ namespace Assets.Scripts {
             Prefab.SetActive(isActive);
             if (Prop != null) Prop.SetActive(isActive);
         }
-
-        public int CompareTo(GridNode other) {
-            return Key.CompareTo(other.Key);
-        }
-
-        public int HeapIndex { get; set; }
     }
 }

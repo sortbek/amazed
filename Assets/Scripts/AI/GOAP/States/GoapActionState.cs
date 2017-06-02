@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP.States {
-
     // Created by:
     // Eelco Eikelboom
     // S1080542
     public class GoapActionState : AbstractState {
-
         private GoapAction _current;
         private bool _running;
+
         public GoapActionState(GoapAgent agent) : base(agent) {
             _current = null;
             _running = false;
@@ -29,7 +24,8 @@ namespace Assets.Scripts.AI.GOAP.States {
                 _running = true;
                 _current = Agent.ActionQueue.Dequeue();
                 _current.Execute();
-            }else {
+            }
+            else {
                 //Check whether the current action is completed
                 if (!_current.Completed()) return;
                 //Change the state based on the amount of actions left

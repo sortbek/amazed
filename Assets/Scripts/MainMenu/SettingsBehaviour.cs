@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,22 +7,21 @@ using UnityEngine.UI;
 // Jordi Wolthuis
 // S1085303
 
-public class SettingsBehaviour : MonoBehaviour
-{
-
-    public Toggle fullscreenToggle;
-    public Dropdown resolutionDropdown;
-    public Dropdown textureQualityDropdown;
+public class SettingsBehaviour : MonoBehaviour {
     public Dropdown antialiasingDropdown;
-    public Dropdown vSyncDropdown;
-    public Slider musicVolumeSlider;
     public Button ApplyButton;
 
-    public AudioSource musicSource;
-    public Resolution[] resolutions;
+    public Toggle fullscreenToggle;
     public GameSettings gameSettings;
 
-    void OnEnable(){
+    public AudioSource musicSource;
+    public Slider musicVolumeSlider;
+    public Dropdown resolutionDropdown;
+    public Resolution[] resolutions;
+    public Dropdown textureQualityDropdown;
+    public Dropdown vSyncDropdown;
+
+    private void OnEnable() {
         gameSettings = new GameSettings();
 
         musicVolumeSlider.value = 100;
@@ -38,10 +35,8 @@ public class SettingsBehaviour : MonoBehaviour
         ApplyButton.onClick.AddListener(delegate { OnApplyButtonClick(); });
 
         resolutions = Screen.resolutions;
-        foreach(Resolution resolution in resolutions)
-        {
-            resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));       
-        }
+        foreach (var resolution in resolutions)
+            resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
 
         LoadSettings();
     }
@@ -51,16 +46,17 @@ public class SettingsBehaviour : MonoBehaviour
     }
 
     public void OnResolutionChange() {
-        Screen.SetResolution(resolutions[resolutionDropdown.value].width, resolutions[resolutionDropdown.value].height, Screen.fullScreen);
+        Screen.SetResolution(resolutions[resolutionDropdown.value].width, resolutions[resolutionDropdown.value].height,
+            Screen.fullScreen);
         gameSettings.resolutionIndex = resolutionDropdown.value;
     }
 
     public void OnTextureQualityChange() {
-        QualitySettings.masterTextureLimit = gameSettings.textureQuality = textureQualityDropdown.value;  
+        QualitySettings.masterTextureLimit = gameSettings.textureQuality = textureQualityDropdown.value;
     }
 
     public void OnAntialiasingChange() {
-        QualitySettings.antiAliasing = gameSettings.antialiasing = (int)Mathf.Pow(2f, antialiasingDropdown.value);
+        QualitySettings.antiAliasing = gameSettings.antialiasing = (int) Mathf.Pow(2f, antialiasingDropdown.value);
     }
 
     public void OnVSyncChange() {
@@ -70,21 +66,22 @@ public class SettingsBehaviour : MonoBehaviour
     public void OnMusicVolumeChange() {
         musicSource.volume = gameSettings.musicVolume = musicVolumeSlider.value;
     }
+
     // in unity at the buildsettings you can select playersettings and change the save folder.
-    public void OnApplyButtonClick()
-    {
+    public void OnApplyButtonClick() {
         SaveSettings();
     }
 
     public void SaveSettings() {
-        string jsonData = JsonUtility.ToJson(gameSettings, true);
+        var jsonData = JsonUtility.ToJson(gameSettings, true);
         File.WriteAllText(Application.persistentDataPath + "/gamesettings.json", jsonData);
     }
 
     public void LoadSettings() {
-        try
-        {
-            gameSettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
+        try {
+            gameSettings =
+                JsonUtility.FromJson<GameSettings>(
+                    File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
 
             musicVolumeSlider.value = gameSettings.musicVolume;
             antialiasingDropdown.value = gameSettings.antialiasing;
@@ -93,21 +90,13 @@ public class SettingsBehaviour : MonoBehaviour
             resolutionDropdown.value = gameSettings.resolutionIndex;
             fullscreenToggle.isOn = gameSettings.fullscreen;
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             Console.WriteLine(e);
             throw;
         }
-       
+
         Screen.fullScreen = gameSettings.fullscreen;
 
         resolutionDropdown.RefreshShownValue();
     }
-
-
-
-
-
-
-
 }

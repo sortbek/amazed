@@ -1,27 +1,23 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts.AI.Entity.Behaviours;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
-
     // Created by:
     // Eelco Eikelboom     Hugo Kamps
     // S1080542            S1084074
     public class LivingEntity : MonoBehaviour {
-
-        [SerializeField]
-        public float Health = 10f;
-        [SerializeField]
-        public float Energy = 8f;
-        [SerializeField]
-        public float Speed = 5.0f;
-
-        private AbstractEntityBehaviour _currentBehaviour;
         private UnityEngine.Animation _animation;
 
+        private AbstractEntityBehaviour _currentBehaviour;
+
         public bool Dead;
+
+        [SerializeField] public float Energy = 8f;
+
+        [SerializeField] public float Health = 10f;
+
+        [SerializeField] public float Speed = 5.0f;
 
         public void SetBehaviour(AbstractEntityBehaviour behaviour) {
             _currentBehaviour = behaviour;
@@ -31,7 +27,7 @@ namespace Assets.Scripts.AI.Entity {
             return _currentBehaviour;
         }
 
-        void Update() {
+        private void Update() {
             if (_currentBehaviour != null && !Dead)
                 transform.position = _currentBehaviour.Update();
         }
@@ -41,18 +37,20 @@ namespace Assets.Scripts.AI.Entity {
             _animation.Play(Enum.GetName(typeof(Animation), animation));
         }
 
-        void OnCollisionEnter() {
+        private void OnCollisionEnter() {
             if (!Dead) {
                 PlayAnimation(Animation.death);
                 GetComponent<CapsuleCollider>().enabled = false;
             }
             Dead = true;
         }
-
-
     }
 
     public enum Animation {
-        attack1, walk, idle, run, death
+        attack1,
+        walk,
+        idle,
+        run,
+        death
     }
 }

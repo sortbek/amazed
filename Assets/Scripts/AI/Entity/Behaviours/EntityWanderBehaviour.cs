@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
-
     // Created by:
     // Eelco Eikelboom
     // S1080542
     public class EntityWanderBehaviour : AbstractEntityBehaviour {
-
         private readonly float _speed, _triggerDistance, _radius;
         private Vector3? _target;
 
@@ -22,7 +19,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             if (_target == null || Vector3.Distance(Entity.transform.position, _target.Value) < _triggerDistance)
                 UpdateTarget();
             Rotate(Entity, _target.Value);
-            return Vector3.MoveTowards(Entity.transform.position, _target.Value, _speed* Time.deltaTime);
+            return Vector3.MoveTowards(Entity.transform.position, _target.Value, _speed * Time.deltaTime);
         }
 
         private void UpdateTarget() {

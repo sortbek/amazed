@@ -8,19 +8,18 @@ using UnityEngine.UI;
 // S1078937
 namespace Interaction {
     public class InteractionBehaviour : MonoBehaviour {
+        internal Text Interaction;
         public string Name;
 
-        protected bool ShowEventLog;
-
-        internal Text Interaction;
-
         public CharacterPotionController PotionController;
+
+        protected bool ShowEventLog;
         public CharacterWeaponController WeaponController;
 
         // Use this for initialization
-        protected virtual void Start(){
+        protected virtual void Start() {
             ShowEventLog = false;
-            
+
             Interaction = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
 
             PotionController = FindObjectOfType<CharacterPotionController>();
@@ -33,19 +32,17 @@ namespace Interaction {
 
         public virtual void PossibleInteraction(Character actor) { }
 
-        protected IEnumerator ClearInteractionWait(){
+        protected IEnumerator ClearInteractionWait() {
             ShowEventLog = true;
             var txt = Interaction.text;
             yield return new WaitForSeconds(2);
-            if (Interaction.text == txt) {
-                Interaction.text = "";
-            }
+            if (Interaction.text == txt) Interaction.text = "";
             ShowEventLog = false;
         }
 
-        protected void ClearInteraction(){
+        protected void ClearInteraction() {
             if (ShowEventLog) return;
-            
+
             Interaction.text = "";
         }
     }

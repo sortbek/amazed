@@ -1,19 +1,17 @@
-﻿using System;
-using Assets.Scripts.Items.Potions;
+﻿using Assets.Scripts.Items.Potions;
 using UnityEngine;
 using Util;
 
 namespace Assets.Scripts.Character {
-
     // Created by:
     // Hugo Kamps
     // S1084074
     public class CharacterPotionController : MonoBehaviour {
-
-        public Potion Health, HealthRegeneration, Speed, Damage, Defense, Guidance;
         private Character _player;
 
-        void Awake() {
+        public Potion Health, HealthRegeneration, Speed, Damage, Defense, Guidance;
+
+        private void Awake() {
             _player = GetComponent<Character>();
             Health = new HealthPotion(_player);
             HealthRegeneration = new HealthRegenerationPotion(_player);

@@ -1,7 +1,7 @@
-﻿
-// Created By:
+﻿// Created By:
 // Niek van den Brink
 // S1078937
+
 namespace Util {
     public enum Item {
         Null,
@@ -25,7 +25,7 @@ namespace Util {
                 case Item.HealthPot:
                     return "Health Potion";
                 case Item.HealthRegenPot:
-                    return "Health Regenration Potion";
+                    return "Health Regeneration Potion";
                 case Item.DamagePot:
                     return "Damage Potion";
                 case Item.DefensePot:

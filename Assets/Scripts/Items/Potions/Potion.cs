@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Items.Potions {
-
     // Created by:
     // Hugo Kamps
     // S1084074
     public abstract class Potion {
-        public int Amount;
-        public Texture Texture;
-        public Character.Character Player;
-        public float Boost;
         public bool Active;
+        public int Amount;
+        public float Boost;
         public int Duration;
+        public Character.Character Player;
+        public Texture Texture;
         public int TimeLeft;
 
         protected Potion(Character.Character player) {
@@ -23,7 +22,7 @@ namespace Assets.Scripts.Items.Potions {
         public virtual void Use() {
             TimeLeft = Duration;
 
-            PotionRunnable pr = new PotionRunnable(Player, this);
+            var pr = new PotionRunnable(Player, this);
             pr.Start();
 
             Amount -= 1;

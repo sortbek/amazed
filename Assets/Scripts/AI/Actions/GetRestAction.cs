@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
-    public class GetRestAction : GoapAction{
+    public class GetRestAction : GoapAction {
         public override Vector3? GetTarget() {
             return null;
         }
