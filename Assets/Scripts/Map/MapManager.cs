@@ -4,18 +4,15 @@ using Assets.Scripts.PathFinding;
 using Assets.Scripts.World;
 using UnityEngine;
 
-/*
-    File owner: Jeffrey Wienen
-    Created by:
-    Jeffrey Wienen     s1079065 
-*/
-
+// Created by:
+// Jeffrey Wienen
+// S1079065
 namespace Assets.Scripts.Map {
     public class MapManager : MonoBehaviour {
         public GameObject Ground;
 
         private GridNode[,] _map;
-        private Generator _generator;
+        private MazeGenerator _mazeGenerator;
         private GameObject _player;
 
         private GridNode _current;
@@ -31,7 +28,7 @@ namespace Assets.Scripts.Map {
         
         // Use this for initialization
         void Start() {
-            _generator = GetComponent<Generator>();
+            _mazeGenerator = GetComponent<MazeGenerator>();
             _player = GameObject.FindWithTag("player");
             _weatherManager = GameObject.Find("WeatherStation").GetComponent<WeatherManager>();
             Init();
@@ -64,7 +61,7 @@ namespace Assets.Scripts.Map {
             SetGround();
 
             // Generate the grid
-            var map = _generator.Init();
+            var map = _mazeGenerator.Init();
 
             _map = map;
             _newCurrent = _map[0, 0];
@@ -83,7 +80,7 @@ namespace Assets.Scripts.Map {
         }
 
         private void SetGround() {
-            var size = GameManager.Instance.Size * _generator.NodeSize + 20;
+            var size = GameManager.Instance.Size * _mazeGenerator.NodeSize + 20;
             Ground.transform.localScale = new Vector3(size, .1f, size);
         }
 
@@ -95,8 +92,8 @@ namespace Assets.Scripts.Map {
 
         private void CurrentLocation() {
             
-            var x = (int)Math.Round((_player.transform.position.x + _offset) / _generator.NodeSize);
-            var y = (int)Math.Round((_player.transform.position.z + _offset) / _generator.NodeSize);
+            var x = (int)Math.Round((_player.transform.position.x + _offset) / _mazeGenerator.NodeSize);
+            var y = (int)Math.Round((_player.transform.position.z + _offset) / _mazeGenerator.NodeSize);
             if (x < 0 || y < 0 || x > GameManager.Instance.Size || y > GameManager.Instance.Size) {
                 return;
             }

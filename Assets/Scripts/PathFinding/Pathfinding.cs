@@ -5,12 +5,10 @@ using System;
 using Assets.Scripts.PathFinding;
 using Assets.Scripts.Util;
 
-/*
-    File owner: Jeffrey Wienen
-    Created by:
-    Jeffrey Wienen     s1079065 
-*/
 
+// Created by:
+// Jeffrey Wienen
+// S1079065
 namespace Assets.Scripts.pathfinding
 {
     public class Pathfinding : MonoBehaviour

@@ -3,17 +3,11 @@ using Assets.Scripts.HighScores;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/*
-    File owner: Jeffrey Wienen
-    Created by:
-    Jeffrey Wienen     s1079065 
-*/
-
 namespace Assets.Scripts.World {
 
     // Created by:
-    // Hugo Kamps
-    // S1084074
+    // Jeffrey Wienen
+    // S1079065 
     public class GameManager : Singleton<GameManager> {
         public string GameSeed;
         public int Size = 5;
@@ -23,7 +17,6 @@ namespace Assets.Scripts.World {
 
         public int Level = 1;
 
-        // Game stuff
         public Transform EndPoint;
         private System.Random _random;
 
@@ -39,21 +32,33 @@ namespace Assets.Scripts.World {
             return max == 0 ? _random.Next(min) : _random.Next(min, max);
         }
 
+        // Created by:
+        // Hugo Kamps
+        // S1084074
         // Opens the Level Transition scene to go to the next level
         public void LoadNextLevel() {
             Save();
             SceneManager.LoadScene(2);
         }
 
+        // Created by:
+        // Hugo Kamps
+        // S1084074
         // Gets the needed GameObjects needed for the transition to new levels 
         public void SetGameObjects() {
             if (Character == null) Character = FindObjectOfType<Character.Character>();
         }
 
+        // Created by:
+        // Hugo Kamps
+        // S1084074
         public HighScoresController GetHighScoresController() {
             return HighScoresController ?? (HighScoresController = new HighScoresController());
         }
 
+        // Created by:
+        // Hugo Kamps
+        // S1084074
         // Saves the needed data about the game on the end of a level
         public void Save() {
             SetGameObjects();
@@ -65,6 +70,9 @@ namespace Assets.Scripts.World {
             PlayerPrefs.SetString("t", timeText);
         }
 
+        // Created by:
+        // Hugo Kamps
+        // S1084074
         // On the start of each new level place the character in the correct start position
         public void Load() {
             SetGameObjects();
@@ -74,6 +82,9 @@ namespace Assets.Scripts.World {
 
         }
 
+        // Created by:
+        // Hugo Kamps
+        // S1084074
         // Deletes the temporary save game data once the application quits
         void OnApplicationQuit() {
             PlayerPrefs.DeleteAll();
