@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Util;
 using UnityEngine;
 using Util;
@@ -16,6 +13,10 @@ namespace Assets.Scripts.Character {
         [SerializeField]
         public GameObject[] Weapons;
         public GameObject CurrentWeapon;
+        
+        private int _currentWeaponNumber;
+        private Transform _weaponPosition;
+        private Dictionary<int, WeaponObject> _equipment;
 
         private readonly KeyCode[] _numKeys = {
              KeyCode.Alpha1,
@@ -29,14 +30,36 @@ namespace Assets.Scripts.Character {
              KeyCode.Alpha9
         };
 
-        private Transform _weaponPosition;
-        private Dictionary<int, WeaponObject> _equipment;
+// Created By:
+// Niek van den Brink
+// S1078937        
+        private readonly Dictionary<Item, string> _weaponEnumToAnimation = new Dictionary<Item, string>() {
+            {Item.Dagger, "daggerAttack"},
+            {Item.BattleAxe, "characterAttacking"},
+            {Item.Sword, "characterAttacking"},
+            {Item.Maul, "characterAttacking"},
+            {Item.Null, "characterAttacking"}
+        };
+ 
+// Created By:
+// Niek van den Brink
+// S1078937       
+        private readonly  Dictionary<int, Item> _itemNumberToEnum = new Dictionary<int, Item>() {
+            {1, Item.Sword},
+            {2, Item.BattleAxe},
+            {3, Item.Maul},
+            {4, Item.Dagger}
+        };
+
 
         void Start() {
             _equipment = new Dictionary<int, WeaponObject>();
             _weaponPosition = transform.FindDeepChild("WeaponPosition");
             Load();
             Add(1);
+            Add(2);
+            Add(3);
+            Add(4);
         }
 
         void Update() {
@@ -44,8 +67,10 @@ namespace Assets.Scripts.Character {
                 if (Input.GetKeyDown(_numKeys[i])) {
                     if (_equipment.ContainsKey(i)) {
                         WeaponObject weapon = _equipment[i];
-                        if (weapon.Access)
+                        if (weapon.Access) {
                             Equip(weapon.Object);
+                            _currentWeaponNumber = i + 1;
+                        }
                     }
                 }
             }
@@ -84,6 +109,16 @@ namespace Assets.Scripts.Character {
             }
         }
 
+// Created By:
+// Niek van den Brink
+// S1078937
+        public string GetWeaponAnimation() {
+            if (_currentWeaponNumber == 0) 
+                return "characterAttacking";
+
+            return _weaponEnumToAnimation[_itemNumberToEnum[_currentWeaponNumber]];
+        }
+
         //Allows the character to use the weapon located at the given slot
         public void Add(int slot) {
             WeaponObject obj = _equipment[slot-1];
@@ -107,9 +142,7 @@ namespace Assets.Scripts.Character {
     }
 
     public struct WeaponObject {
-
         public bool Access { get; set; }
         public GameObject Object { get; set; }
-
     }
 }
