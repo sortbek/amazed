@@ -5,6 +5,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
     // Eelco Eikelboom
     // S1080542
     public class EntityWanderBehaviour : AbstractEntityBehaviour {
+
         private readonly float _speed, _triggerDistance, _radius;
         private Vector3? _target;
 
