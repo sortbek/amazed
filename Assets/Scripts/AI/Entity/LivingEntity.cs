@@ -7,16 +7,14 @@ namespace Assets.Scripts.AI.Entity {
     // Eelco Eikelboom     Hugo Kamps
     // S1080542            S1084074
     public class LivingEntity : MonoBehaviour {
-        private UnityEngine.Animation _animation;
 
+        private UnityEngine.Animation _animation;
         private AbstractEntityBehaviour _currentBehaviour;
 
         public bool Dead;
 
         [SerializeField] public float Energy = 8f;
-
         [SerializeField] public float Health = 10f;
-
         [SerializeField] public float Speed = 5.0f;
 
         public void SetBehaviour(AbstractEntityBehaviour behaviour) {
@@ -33,7 +31,8 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         public void PlayAnimation(Animation animation) {
-            if (_animation == null) _animation = GetComponentInChildren<UnityEngine.Animation>();
+            if (_animation == null)
+                _animation = GetComponentInChildren<UnityEngine.Animation>();
             _animation.Play(Enum.GetName(typeof(Animation), animation));
         }
 

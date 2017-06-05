@@ -2,9 +2,13 @@
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
     public abstract class AbstractEntityBehaviour {
+
+        // Created by:
+        // Eelco Eikelboom
+        // S1080542
         protected LivingEntity Entity;
 
-        public AbstractEntityBehaviour(LivingEntity entity) {
+        protected AbstractEntityBehaviour(LivingEntity entity) {
             Entity = entity;
             RotationSpeed = 10f;
         }
