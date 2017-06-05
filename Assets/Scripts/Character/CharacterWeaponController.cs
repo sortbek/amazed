@@ -4,19 +4,12 @@ using UnityEngine;
 using Util;
 
 namespace Assets.Scripts.Character {
-    // Created by:
-    // Eelco Eikelboom
-    // S1080542
+    // Created by:          
+    // Eelco Eikelboom      Niek van den Brink
+    // S1080542             S1078937
     public class CharacterWeaponController : MonoBehaviour {
-// Created By:
-// Niek van den Brink
-// S1078937       
-        private readonly Dictionary<int, Item> _itemNumberToEnum = new Dictionary<int, Item> {
-            {1, Item.Sword},
-            {2, Item.BattleAxe},
-            {3, Item.Maul},
-            {4, Item.Dagger}
-        };
+        //TODO
+        // Clean up unneccesary code
 
         private readonly KeyCode[] _numKeys = {
             KeyCode.Alpha1,
@@ -29,10 +22,7 @@ namespace Assets.Scripts.Character {
             KeyCode.Alpha8,
             KeyCode.Alpha9
         };
-
-// Created By:
-// Niek van den Brink
-// S1078937        
+    
         private readonly Dictionary<Item, string> _weaponEnumToAnimation = new Dictionary<Item, string> {
             {Item.Dagger, "daggerAttack"},
             {Item.BattleAxe, "characterAttacking"},
@@ -41,7 +31,6 @@ namespace Assets.Scripts.Character {
             {Item.Null, "characterAttacking"}
         };
 
-        private int _currentWeaponNumber;
         private Dictionary<int, WeaponObject> _equipment;
         private Transform _weaponPosition;
         public GameObject CurrentWeapon;
@@ -64,10 +53,8 @@ namespace Assets.Scripts.Character {
                 if (Input.GetKeyDown(_numKeys[i]))
                     if (_equipment.ContainsKey(i)) {
                         var weapon = _equipment[i];
-                        if (weapon.Access) {
-                            Equip(weapon.Object);
-                            _currentWeaponNumber = i + 1;
-                        }
+                        if (!weapon.Access) continue;
+                        Equip(weapon.Object);
                     }
         }
 
@@ -83,40 +70,21 @@ namespace Assets.Scripts.Character {
             }
         }
 
-// Created By:
-// Niek van den Brink
-// S1078937
+        // Created By:
+        // Niek van den Brink
+        // S1078937
         public void Add(Item item) {
-            switch (item) {
-                case Item.Sword:
-                    Add(1);
-                    break;
-                case Item.BattleAxe:
-                    Add(2);
-                    break;
-                case Item.Maul:
-                    Add(3);
-                    break;
-                case Item.Dagger:
-                    Add(4);
-                    break;
-                default:
-                    break;
-            }
+            Add((int) item);
         }
 
-// Created By:
-// Niek van den Brink
-// S1078937
         public string GetWeaponAnimation() {
-            if (_currentWeaponNumber == 0)
-                return "characterAttacking";
-
-            return _weaponEnumToAnimation[_itemNumberToEnum[_currentWeaponNumber]];
+            return CurrentWeapon == null ? "characterAttacking" 
+                : CurrentWeapon.GetComponent<WeaponStat>().AnimationTag;
         }
 
         //Allows the character to use the weapon located at the given slot
         public void Add(int slot) {
+            if (slot < 0 || slot > Weapons.Length) slot = 1;
             var obj = _equipment[slot - 1];
             if (!obj.Access)
                 obj.Access = true;

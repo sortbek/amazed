@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.AI.Entity.Behaviours;
+using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
@@ -12,6 +13,7 @@ namespace Assets.Scripts.AI.Entity {
         private AbstractEntityBehaviour _currentBehaviour;
 
         public bool Dead { get; set; }
+        public LivingEntityPerspective Perspective { get; private set; }
 
         [SerializeField] public float Energy = 8f;
         [SerializeField] public float Health = 10f;
@@ -21,13 +23,19 @@ namespace Assets.Scripts.AI.Entity {
             _currentBehaviour = behaviour;
         }
 
-        public AbstractEntityBehaviour GetCurrentBehaviour() {
-            return _currentBehaviour;
+        private void Awake() {
+            Perspective = new LivingEntityPerspective(this);
         }
 
         private void Update() {
+            if(Perspective.Visible(GameManager.Instance.Character.gameObject))
+                Debug.Log("VISIBLE");
             if (_currentBehaviour != null && !Dead) 
                 transform.position = _currentBehaviour.Update();
+        }
+
+        public AbstractEntityBehaviour GetCurrentBehaviour() {
+            return _currentBehaviour;
         }
 
         public void PlayAnimation(Animation animation) {
