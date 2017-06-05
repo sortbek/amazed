@@ -38,6 +38,10 @@ namespace Assets.Scripts.Character {
         }
 
         private void FixedUpdate() {
+            if (_interaction == null) {
+                _interaction = new CharacterInteraction(this);
+            }
+
             if (Input.GetKeyDown("p")) SceneManager.LoadScene(3);
             if (Input.GetKeyDown("o")) SceneManager.LoadScene("GameOver");
             _translation.Update();
