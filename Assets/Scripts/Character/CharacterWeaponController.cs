@@ -8,8 +8,6 @@ namespace Assets.Scripts.Character {
     // Eelco Eikelboom      Niek van den Brink
     // S1080542             S1078937
     public class CharacterWeaponController : MonoBehaviour {
-        //TODO
-        // Clean up unneccesary code
 
         private readonly KeyCode[] _numKeys = {
             KeyCode.Alpha1,
@@ -23,14 +21,6 @@ namespace Assets.Scripts.Character {
             KeyCode.Alpha9
         };
     
-        private readonly Dictionary<Item, string> _weaponEnumToAnimation = new Dictionary<Item, string> {
-            {Item.Dagger, "daggerAttack"},
-            {Item.BattleAxe, "characterAttacking"},
-            {Item.Sword, "characterAttacking"},
-            {Item.Maul, "characterAttacking"},
-            {Item.Null, "characterAttacking"}
-        };
-
         private Dictionary<int, WeaponObject> _equipment;
         private Transform _weaponPosition;
         public GameObject CurrentWeapon;
@@ -70,9 +60,6 @@ namespace Assets.Scripts.Character {
             }
         }
 
-        // Created By:
-        // Niek van den Brink
-        // S1078937
         public void Add(Item item) {
             Add((int) item);
         }
