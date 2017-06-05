@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.AI.GOAP;
 using UnityEngine;
+using Animation = Assets.Scripts.AI.Entity.Animation;
 
 namespace Assets.Scripts.AI.Actions {
     public class DoAttackAction : GoapAction {

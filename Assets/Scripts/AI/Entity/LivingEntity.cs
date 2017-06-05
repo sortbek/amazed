@@ -34,15 +34,18 @@ namespace Assets.Scripts.AI.Entity {
 
         public void PlayAnimation(Animation animation) {
             if (_animation == null) _animation = GetComponentInChildren<UnityEngine.Animation>();
+            Debug.Log("Now playing animation: " + Enum.GetName(typeof(Animation), animation));
             _animation.Play(Enum.GetName(typeof(Animation), animation));
         }
 
         private void OnCollisionEnter() {
-            if (!Dead) {
-                PlayAnimation(Animation.death);
-                GetComponent<CapsuleCollider>().enabled = false;
-            }
+            Health -= 1.0f;
+
+            if (!(Health <= 0.0f)) return;
+
             Dead = true;
+            PlayAnimation(Animation.death);
+            GetComponent<CapsuleCollider>().enabled = false;
         }
     }
 
