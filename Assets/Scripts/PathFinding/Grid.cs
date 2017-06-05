@@ -8,10 +8,11 @@ using UnityEngine;
 // S1079065
 namespace Assets.Scripts.PathFinding {
     public class Grid : MonoBehaviour {
+
         private Node[,] _grid;
         private int _gridSizeX, _gridSizeY;
-
         private float _nodeDiameter;
+
         public bool DisplayGridGizmos;
         public Vector2 GridWorldSize;
         public float NodeRadius;
@@ -45,6 +46,10 @@ namespace Assets.Scripts.PathFinding {
                 var walkable = !Physics.CheckSphere(worldPoint, NodeRadius, UnwalkableMask);
                 _grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
+        }
+
+        public Node[,] GetGrid() {
+            return _grid;
         }
 
         public List<Node> GetNeighbours(Node node) {

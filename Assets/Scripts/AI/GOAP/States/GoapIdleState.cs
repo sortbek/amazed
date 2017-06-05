@@ -20,7 +20,7 @@ namespace Assets.Scripts.AI.GOAP.States {
 
         public override void Execute() {
             var plan = Agent.ActionQueue;
-            Agent.Entity.PlayAnimation(Animation.walk);
+            Agent.Entity.PlayAnimation(Animation.Walk);
             //Check whether there is a requested plan active
             if (plan.Count > 0) Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Moving);
             else Agent.Entity.SetBehaviour(_wander);

@@ -7,13 +7,12 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
         // Eelco Eikelboom
         // S1080542
         protected LivingEntity Entity;
+        public float RotationSpeed { get; protected set; }
 
         protected AbstractEntityBehaviour(LivingEntity entity) {
             Entity = entity;
-            RotationSpeed = 10f;
+            RotationSpeed = 8f;
         }
-
-        public float RotationSpeed { get; protected set; }
 
         public abstract Vector3 Update();
 

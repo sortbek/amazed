@@ -33,12 +33,12 @@ namespace Assets.Scripts.AI.Entity {
         public void PlayAnimation(Animation animation) {
             if (_animation == null)
                 _animation = GetComponentInChildren<UnityEngine.Animation>();
-            _animation.Play(Enum.GetName(typeof(Animation), animation));
+            _animation.Play(Enum.GetName(typeof(Animation), animation).ToLower());
         }
 
         private void OnCollisionEnter() {
             if (!Dead) {
-                PlayAnimation(Animation.death);
+                PlayAnimation(Animation.Death);
                 GetComponent<CapsuleCollider>().enabled = false;
             }
             Dead = true;
@@ -46,10 +46,10 @@ namespace Assets.Scripts.AI.Entity {
     }
 
     public enum Animation {
-        attack1,
-        walk,
-        idle,
-        run,
-        death
+        Attack1,
+        Walk,
+        Idle,
+        Run,
+        Death
     }
 }
