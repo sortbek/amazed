@@ -13,7 +13,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             RotationSpeed = 10f;
         }
 
-        public float RotationSpeed { get; private set; }
+        public float RotationSpeed { get; protected set; }
 
         public abstract Vector3 Update();
 

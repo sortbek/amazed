@@ -7,16 +7,24 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
     public class EntityWanderBehaviour : AbstractEntityBehaviour {
 
         private readonly float _speed, _triggerDistance, _radius;
-        private Vector3? _target;
+        private Vector3? _target, _startWanderPosition;
 
         public EntityWanderBehaviour(LivingEntity entity) : base(entity) {
             _speed = 1f;
-            _radius = 10;
+            _radius = 3;
+            RotationSpeed = 5f;
             _triggerDistance = .3f;
+            Reset();
+        }
+
+        public void Reset() {
             _target = null;
+            _startWanderPosition = null;
         }
 
         public override Vector3 Update() {
+            if (_startWanderPosition == null)
+                _startWanderPosition = Entity.transform.position;
             if (_target == null || Vector3.Distance(Entity.transform.position, _target.Value) < _triggerDistance)
                 UpdateTarget();
             Rotate(Entity, _target.Value);
@@ -25,8 +33,9 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
 
         private void UpdateTarget() {
             var loc = Random.insideUnitSphere * _radius;
-            loc.y = 1;
-            _target = loc;
+            loc += Entity.transform.position;
+            loc.y = Entity.transform.position.y;
+            _target = Vector3.Distance(_startWanderPosition.Value, loc) > _radius*2 ? _startWanderPosition.Value : loc;
         }
     }
 }

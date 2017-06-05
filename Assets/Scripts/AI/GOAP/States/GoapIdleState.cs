@@ -14,6 +14,7 @@ namespace Assets.Scripts.AI.GOAP.States {
         }
 
         public override void Enter() {
+            _wander.Reset();
             Debug.Log("AI Idling state");
         }
 

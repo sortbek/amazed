@@ -11,7 +11,7 @@ namespace Assets.Scripts.AI.Entity {
         private UnityEngine.Animation _animation;
         private AbstractEntityBehaviour _currentBehaviour;
 
-        public bool Dead;
+        public bool Dead { get; set; }
 
         [SerializeField] public float Energy = 8f;
         [SerializeField] public float Health = 10f;
@@ -26,7 +26,7 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         private void Update() {
-            if (_currentBehaviour != null && !Dead)
+            if (_currentBehaviour != null && !Dead) 
                 transform.position = _currentBehaviour.Update();
         }
 
