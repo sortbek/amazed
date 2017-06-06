@@ -10,7 +10,7 @@ namespace Assets.Scripts.AI.GOAP {
         public Dictionary<GoapCondition, bool> Preconditions { get; private set; }
         public Dictionary<GoapCondition, bool> Effects { get; private set; }
 
-        protected GoapAgent Agent { get; private set; }
+        public GoapAgent Agent { get; set; }
 
         protected GoapAction() {
             Preconditions = new Dictionary<GoapCondition, bool>();
