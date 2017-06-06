@@ -56,6 +56,11 @@ namespace Assets.Scripts.Character {
                 PlayAudio(AudioLanding);
                 _translation.Airborne = false;
             }
+
+            if (collision.gameObject.tag.Equals("EnemyWeapon")){
+                Debug.Log("AU!!!");
+                Health -= 1.0f;
+            }
         }
 
         // Collider for the end point
