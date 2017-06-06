@@ -26,10 +26,7 @@ namespace Assets.Scripts.Character {
             _momentum = translation;
             _character.transform.Translate(translation);
 
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                Application.Quit();
-                Cursor.lockState = CursorLockMode.None;
-            }
+            if (Input.GetKeyDown(KeyCode.L)) Cursor.lockState = CursorLockMode.None;
             else if (Input.GetKeyDown(KeyCode.Space) && !Airborne) {
                 //Space is pressed and the player is NOT in the air
                 Airborne = true;

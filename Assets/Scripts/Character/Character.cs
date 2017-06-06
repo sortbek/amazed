@@ -12,11 +12,9 @@ namespace Assets.Scripts.Character {
         public static readonly string ColliderTag = "Ground";
         private CharacterInteraction _interaction;
         private CharacterRotation _rotation;
-
         private CharacterTranslation _translation;
 
         [SerializeField] public AudioClip AudioJumping, AudioLanding;
-
         [SerializeField] public AudioClip[] AudioWalking;
 
         public float DEF { get; set; }
