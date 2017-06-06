@@ -1,24 +1,23 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Character {
-
     // Created by:
     // Eelco Eikelboom
     // S1080542
     public class CharacterRotation : ICharacterTransformation {
+        private readonly Character _character;
+        private GameObject _camera;
 
         private Vector2 _mouseLook, _smoothingVector;
-        private GameObject _camera;
-        private readonly Character _character;
-
-        public float Sensivity { get; set; }
-        public float Smoothing { get; set; }
 
         public CharacterRotation(Character character) {
             _character = character;
             Sensivity = 1f;
             Smoothing = 2f;
         }
+
+        public float Sensivity { get; set; }
+        public float Smoothing { get; set; }
 
         //Handles the camera movement for the character
         public void Update() {
@@ -37,7 +36,6 @@ namespace Assets.Scripts.Character {
             //Update the camera rotation
             _camera.transform.localRotation = Quaternion.AngleAxis(-_mouseLook.y, Vector3.right);
             _character.transform.localRotation = Quaternion.AngleAxis(_mouseLook.x, _character.transform.up);
-
         }
     }
 }

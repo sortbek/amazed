@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class MenuBehaviour : MonoBehaviour
-{
+// Created By:
+// Jordi Wolthuis
+// S1085303
+
+public class MenuBehaviour : MonoBehaviour {
+    public Button ExitText;
+    public Canvas MainMenu;
 
     public Canvas QuitMenu;
     public Canvas SettingMenu;
-    public Canvas MainMenu;
-    public Button StartText;
-    public Button ExitText;
     public Button SettingText;
+    public Button StartText;
 
-    void Start() {
+    private void Start() {
         MainMenu = MainMenu.GetComponent<Canvas>();
         QuitMenu = QuitMenu.GetComponent<Canvas>();
         SettingMenu = SettingMenu.GetComponent<Canvas>();
@@ -41,7 +43,8 @@ public class MenuBehaviour : MonoBehaviour
     }
 
     public void StartLevel() {
-        SceneManager.LoadScene(1); //this will load our first level from our build settings. "1" is the second scene in our game
+        SceneManager
+            .LoadScene(1); //this will load our first level from our build settings. "1" is the second scene in our game
     }
 
     public void ExitGame() {

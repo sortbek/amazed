@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.AI.GOAP;
+﻿using Assets.Scripts.AI.GOAP;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
-    public class DoAttackAction : GoapAction{
-
+    public class DoAttackAction : GoapAction {
         public override void Execute() {
             Debug.Log("Attacking!");
             //attack
@@ -27,6 +22,5 @@ namespace Assets.Scripts.AI.Actions {
             RegisterPrecondition(GoapCondition.IsTired, false);
             RegisterPrecondition(GoapCondition.IsDamaged, false);
         }
-
     }
 }

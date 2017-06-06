@@ -1,18 +1,21 @@
-﻿using UnityEngine;
-using Assets.Scripts.World;
+﻿using Assets.Scripts.World;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Character {
-
     // Created by:
     // Eelco Eikelboom
     // S1080542
     public class Character : MonoBehaviour {
+        public const float MAX_HEALTH = 100;
 
-        [SerializeField]
-        public AudioClip AudioJumping, AudioLanding;
-        [SerializeField]
-        public AudioClip[] AudioWalking;
+        public static readonly string ColliderTag = "Ground";
+        private CharacterInteraction _interaction;
+        private CharacterRotation _rotation;
+        private CharacterTranslation _translation;
+
+        [SerializeField] public AudioClip AudioJumping, AudioLanding;
+        [SerializeField] public AudioClip[] AudioWalking;
 
         public float DEF { get; set; }
         public float ATT { get; set; }
@@ -21,18 +24,9 @@ namespace Assets.Scripts.Character {
         public float JumpForce { get; set; }
         public int Points { get; set; }
 
-        public static readonly string ColliderTag = "Ground";
-        public const float MAX_HEALTH = 100;
-
-        private CharacterTranslation _translation;
-        private CharacterRotation _rotation;
-        private CharacterInteraction _interaction;
-
-        void Awake() {
+        private void Awake() {
             DontDestroyOnLoad(this);
-            if (FindObjectsOfType(GetType()).Length > 1) {
-                Destroy(gameObject);
-            }
+            if (FindObjectsOfType(GetType()).Length > 1) Destroy(gameObject);
             _translation = new CharacterTranslation(this);
             _rotation = new CharacterRotation(this);
             _interaction = new CharacterInteraction(this);
@@ -43,15 +37,19 @@ namespace Assets.Scripts.Character {
             Points = 0;
         }
 
-        void FixedUpdate() {
-            if(Input.GetKeyDown("p")) SceneManager.LoadScene(3);
-            if(Input.GetKeyDown("o")) SceneManager.LoadScene("GameOver");
+        private void FixedUpdate() {
+            if (_interaction == null) {
+                _interaction = new CharacterInteraction(this);
+            }
+
+            if (Input.GetKeyDown("p")) SceneManager.LoadScene(3);
+            if (Input.GetKeyDown("o")) SceneManager.LoadScene("GameOver");
             _translation.Update();
             _rotation.Update();
             _interaction.Update();
         }
 
-        void OnCollisionEnter(Collision collision) {
+        private void OnCollisionEnter(Collision collision) {
             if (collision.gameObject.name.Equals(ColliderTag) && _translation.Airborne) {
                 PlayAudio(AudioLanding);
                 _translation.Airborne = false;
@@ -59,15 +57,13 @@ namespace Assets.Scripts.Character {
         }
 
         // Collider for the end point
-        void OnTriggerEnter(Collider collision) {
-            if (collision.gameObject.name == "End") {
-                GameManager.Instance.LoadNextLevel();
-            }
+        private void OnTriggerEnter(Collider collision) {
+            if (collision.gameObject.name == "End") GameManager.Instance.LoadNextLevel();
         }
 
         public void PlayAudio(AudioClip clip) {
             if (clip == null) return;
-            AudioSource src = GetComponent<AudioSource>();
+            var src = GetComponent<AudioSource>();
             src.clip = clip;
             src.Play();
         }

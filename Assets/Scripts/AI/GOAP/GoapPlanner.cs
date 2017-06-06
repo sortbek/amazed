@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace Assets.Scripts.AI.GOAP {
-
     // Created by:
     // Eelco Eikelboom
     // S1080542
     public class GoapPlanner {
-
         private readonly GoapAgent _agent;
+
         public GoapPlanner(GoapAgent agent) {
             _agent = agent;
         }
 
-        
+
         // Attempts to plan a set of actions to satisfy the requested GoapPlan instance.
-        public void Plan(GoapPlan plan, int attempt= 0) {
+        public void Plan(GoapPlan plan, int attempt = 0) {
             var valid = false;
             if (attempt >= _agent.Actions.Count) return;
             // Loop through each possible action
@@ -46,7 +42,8 @@ namespace Assets.Scripts.AI.GOAP {
         //Determines whether the given action is executable or not based on the preconditions 
         //of the action and the state of the agent
         private bool Executable(GoapAction action) {
-            return action.Preconditions.Count == 0 || action.Preconditions.All(pair => _agent.AgentState[pair.Key] == pair.Value);
+            return action.Preconditions.Count == 0 ||
+                   action.Preconditions.All(pair => _agent.AgentState[pair.Key] == pair.Value);
         }
 
         //Determines whether the given plan is reached based on the state of the agent

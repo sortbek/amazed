@@ -4,7 +4,7 @@ namespace Assets.Scripts.Items.Potions {
     // Created by:
     // Hugo Kamps
     // S1084074
-    class HealthPotion : Potion {
+    internal class HealthPotion : Potion {
         public HealthPotion(Character.Character player) : base(player) {
             Texture = (Texture) Resources.Load("Sprites/potion_health", typeof(Texture));
             Boost = 30;

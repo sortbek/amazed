@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Assets.Scripts.AI.Actions;
 using Assets.Scripts.AI.Entity;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP {
-
     // Created by:
     // Eelco Eikelboom
     // S1080542
     [RequireComponent(typeof(LivingEntity))]
     public class GoapAgent : MonoBehaviour {
-
         public LivingEntity Entity { get; private set; }
         public GoapStateMachine StateMachine { get; private set; }
         public Dictionary<GoapCondition, bool> AgentState { get; private set; }
@@ -27,7 +23,7 @@ namespace Assets.Scripts.AI.GOAP {
                 AgentState[condition] = false;
         }
 
-        void Awake() {
+        private void Awake() {
             ActionQueue = new Queue<GoapAction>();
             Actions = new HashSet<GoapAction>();
             Planner = new GoapPlanner(this);
@@ -38,10 +34,9 @@ namespace Assets.Scripts.AI.GOAP {
             StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
         }
 
-        void Start() {
+        private void Start() {
             LoadActions();
-
-            Planner.Plan(new GoapPlan(GoapCondition.InAttackRange, true).Add(GoapCondition.IsDamaged, false));
+            //Planner.Plan(new GoapPlan(GoapCondition.InAttackRange, true));
         }
 
         // Updates the agent state by altering the given condition
@@ -56,9 +51,8 @@ namespace Assets.Scripts.AI.GOAP {
                 Actions.Add(action);
         }
 
-        void Update() {
-            if(!Entity.Dead) StateMachine.Update();
+        private void Update() {
+            if (!Entity.Dead) StateMachine.Update();
         }
-
     }
 }

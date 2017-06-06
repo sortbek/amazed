@@ -8,11 +8,10 @@ using Util;
 // S1078937
 namespace Interaction {
     public class SearchInteraction : InteractionBehaviour {
-        public bool HasBeenInteractedWith = false;
-        public LootTable LootTable = LootTable.Potions;
-        public float DropChance = 0.5f;
-
         private Item _item;
+        public float DropChance = 0.5f;
+        public bool HasBeenInteractedWith;
+        public LootTable LootTable = LootTable.Potions;
 
         protected override void Start() {
             base.Start();
@@ -37,9 +36,7 @@ namespace Interaction {
             if (ShowEventLog) return;
             Interaction.text = string.Format("[F] Search {0}", Name);
 
-            if (Input.GetKeyDown(KeyCode.F)) {
-                Interact(actor);
-            }
+            if (Input.GetKeyDown(KeyCode.F)) Interact(actor);
         }
     }
 }

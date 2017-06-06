@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawingUtil : MonoBehaviour {
-    public Vector3 playerloc;
+// Created By:
+// Jordi Wolthuis
+// S1085303
 
+public class DrawingUtil : MonoBehaviour {
     public const float speed = 5f;
     public const float baseHeight = -1f;
     public const float particleHeight = 4f;
@@ -12,8 +14,9 @@ public class DrawingUtil : MonoBehaviour {
     public int nodeIndex;
 
     public GameObject particle;
-    public GameObject particleGO;
     public List<GameObject> particleClone = new List<GameObject>();
+    public GameObject particleGO;
+    public Vector3 playerloc;
 
     private void Update() {
         if (_path == null || _path.Count == 0 || _path.Count <= nodeIndex)

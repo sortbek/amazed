@@ -1,23 +1,23 @@
 ﻿using System.Threading;
 using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace Assets.Scripts.Items.Potions {
-
     // Created by:
     // Hugo Kamps
     // S1084074
     public class PotionRunnable {
-        private Potion _potion;
         private readonly Character.Character _player;
         private readonly Thread _thread;
-        private System.Timers.Timer _timer;
+        private Potion _potion;
+        private Timer _timer;
 
         public PotionRunnable(Character.Character player, Potion potion) {
             _potion = potion;
             _player = player;
             _thread = new Thread(Run);
 
-            _timer = new System.Timers.Timer { Interval = 1000 };
+            _timer = new Timer {Interval = 1000};
             _timer.Elapsed += DisplayTimeEvent;
         }
 

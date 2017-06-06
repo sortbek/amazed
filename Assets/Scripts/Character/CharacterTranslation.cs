@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Character {
-
     // Created by:
     // Eelco Eikelboom
     // S1080542
     public class CharacterTranslation : ICharacterTransformation {
-
         private readonly Character _character;
         private Vector3 _momentum;
-        public bool Airborne { get; set; }
 
         public CharacterTranslation(Character character) {
             _character = character;
             Airborne = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
+
+        public bool Airborne { get; set; }
 
         //Handles the basic movement of the player + the jumping
         public void Update() {
@@ -31,10 +26,8 @@ namespace Assets.Scripts.Character {
             _momentum = translation;
             _character.transform.Translate(translation);
 
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                Application.Quit();
-                Cursor.lockState = CursorLockMode.None;
-            } else if (Input.GetKeyDown(KeyCode.Space) && !Airborne) {
+            if (Input.GetKeyDown(KeyCode.L)) Cursor.lockState = CursorLockMode.None;
+            else if (Input.GetKeyDown(KeyCode.Space) && !Airborne) {
                 //Space is pressed and the player is NOT in the air
                 Airborne = true;
                 _character.PlayAudio(_character.AudioJumping);

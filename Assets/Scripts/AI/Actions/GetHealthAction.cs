@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.AI.GOAP;
+﻿using Assets.Scripts.AI.GOAP;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
-    public class GetHealthAction : GoapAction{
+    public class GetHealthAction : GoapAction {
         public override Vector3? GetTarget() {
             return null;
         }

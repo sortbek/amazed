@@ -1,20 +1,21 @@
-﻿
-// Created By:
+﻿// Created By:
 // Niek van den Brink
 // S1078937
+
 namespace Util {
     public enum Item {
+
         Null,
+        Sword,
+        BattleAxe,
+        Maul,
+        Dagger,
         HealthPot,
         HealthRegenPot,
         DamagePot,
         DefensePot,
         SpeedPot,
         GuidancePot,
-        Sword,
-        BattleAxe,
-        Maul,
-        Dagger
     }
 
     public static class ItemUtil {
@@ -25,7 +26,7 @@ namespace Util {
                 case Item.HealthPot:
                     return "Health Potion";
                 case Item.HealthRegenPot:
-                    return "Health Regenration Potion";
+                    return "Health Regeneration Potion";
                 case Item.DamagePot:
                     return "Damage Potion";
                 case Item.DefensePot:
