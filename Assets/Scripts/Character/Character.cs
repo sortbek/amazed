@@ -12,11 +12,9 @@ namespace Assets.Scripts.Character {
         public static readonly string ColliderTag = "Ground";
         private CharacterInteraction _interaction;
         private CharacterRotation _rotation;
-
         private CharacterTranslation _translation;
 
         [SerializeField] public AudioClip AudioJumping, AudioLanding;
-
         [SerializeField] public AudioClip[] AudioWalking;
 
         public float DEF { get; set; }
@@ -40,6 +38,10 @@ namespace Assets.Scripts.Character {
         }
 
         private void FixedUpdate() {
+            if (_interaction == null) {
+                _interaction = new CharacterInteraction(this);
+            }
+
             if (Input.GetKeyDown("p")) SceneManager.LoadScene(3);
             if (Input.GetKeyDown("o")) SceneManager.LoadScene("GameOver");
             _translation.Update();

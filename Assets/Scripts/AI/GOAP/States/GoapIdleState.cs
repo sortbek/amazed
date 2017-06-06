@@ -14,12 +14,13 @@ namespace Assets.Scripts.AI.GOAP.States {
         }
 
         public override void Enter() {
+            _wander.Reset();
             Debug.Log("AI Idling state");
         }
 
         public override void Execute() {
             var plan = Agent.ActionQueue;
-            Agent.Entity.PlayAnimation(Animation.walk);
+            Agent.Entity.PlayAnimation(Animation.Walk);
             //Check whether there is a requested plan active
             if (plan.Count > 0) Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Moving);
             else Agent.Entity.SetBehaviour(_wander);

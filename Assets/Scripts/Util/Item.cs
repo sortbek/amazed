@@ -4,17 +4,18 @@
 
 namespace Util {
     public enum Item {
+
         Null,
+        Sword,
+        BattleAxe,
+        Maul,
+        Dagger,
         HealthPot,
         HealthRegenPot,
         DamagePot,
         DefensePot,
         SpeedPot,
         GuidancePot,
-        Sword,
-        BattleAxe,
-        Maul,
-        Dagger
     }
 
     public static class ItemUtil {

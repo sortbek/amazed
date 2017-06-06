@@ -36,8 +36,7 @@ namespace Assets.Scripts.AI.GOAP {
 
         private void Start() {
             LoadActions();
-
-            Planner.Plan(new GoapPlan(GoapCondition.InAttackRange, true).Add(GoapCondition.IsDamaged, false));
+            //Planner.Plan(new GoapPlan(GoapCondition.InAttackRange, true));
         }
 
         // Updates the agent state by altering the given condition
