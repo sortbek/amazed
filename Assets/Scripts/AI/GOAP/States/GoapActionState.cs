@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.AI.Actions;
 using UnityEngine;
-using Animation = Assets.Scripts.AI.Entity.Animation;
 
 namespace Assets.Scripts.AI.GOAP.States{
     // Created by:
@@ -17,7 +16,7 @@ namespace Assets.Scripts.AI.GOAP.States{
 
         public override void Enter(){
             Debug.Log("Action state");
-            _running = false;
+            _running = true;
             _current = new DoAttackAction(){ Agent = Agent};
             _current.Execute();
         }

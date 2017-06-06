@@ -6,7 +6,7 @@ namespace Assets.Scripts.AI.Actions {
     public class DoAttackAction : GoapAction{
         public override void Execute() {
             Debug.Log("Attacking!");
-            
+
             Agent.Entity.PlayAnimation(Animation.attack1);
             //attack
         }

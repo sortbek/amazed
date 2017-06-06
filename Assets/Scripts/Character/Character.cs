@@ -58,8 +58,7 @@ namespace Assets.Scripts.Character {
             }
 
             if (collision.gameObject.tag.Equals("EnemyWeapon")){
-                Debug.Log("AU!!!");
-                Health -= 1.0f;
+                Health -= 5.0f;
             }
         }
 
