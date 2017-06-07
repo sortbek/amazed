@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Util;
 using UnityEngine;
 using Random = System.Random;
@@ -10,23 +11,20 @@ using Random = System.Random;
 namespace Assets.Scripts.Map.Weather {
     public class Storm : MonoBehaviour, IWeather {
         // CONSTANTS settings
-        private const float ProgramDuration = 10f;
-
+        private const float ProgramDuration = 60f;
         private const float MaxRain = 10000f;
         private const float FadeTime = 5f;
         private const float FadeSteps = 10f;
         private const int ThunderInterval = 10;
         private readonly Random _random = new Random();
-
-        // Callback
+        private AudioSource[] _audioList;
+        
         private Action _callback;
-
         private bool _isInitialized;
         private Light _light;
 
         // Unity Components
         private ParticleSystem _rain;
-
         private AudioSource _rainAudio;
 
         // Sub-components/modules
@@ -52,10 +50,11 @@ namespace Assets.Scripts.Map.Weather {
             _rainAudio = _rain.gameObject.GetComponentInChildren<AudioSource>();
             _rainEmission = _rain.emission;
             _isInitialized = true;
+            _audioList = GameObject.Find("Thunder").GetComponentsInChildren<AudioSource>();
         }
 
         private IEnumerator FadeInProgram() {
-            StartCoroutine(AudioFader.FadeIn(_rainAudio, FadeTime, 0.5f));
+            StartCoroutine(AudioFader.FadeIn(_rainAudio, FadeTime, 0.3f));
             var rain = 0.1f;
             var duration = 0f;
             while (duration < FadeTime) {
@@ -105,15 +104,23 @@ namespace Assets.Scripts.Map.Weather {
             var intens = _random.Next(0, 8);
             while (i > 0) {
                 i--;
-
                 yield return new WaitForSeconds((float) _random.Next(3, 7) / 10);
                 intens = _random.Next(2, 7);
                 _light.intensity = intens;
+                PlayThunder();
             }
             _light.intensity = intens / 2;
 
             yield return new WaitForSeconds(0.2f);
             _light.intensity = 0;
+        }
+
+
+        private void PlayThunder()
+        {
+            var i = _random.Next(0, _audioList.Length);
+            print("Playing: " + i);
+            _audioList[i].Play();
         }
     }
 }

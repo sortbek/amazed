@@ -1,7 +1,5 @@
 ﻿using System;
 using Assets.Scripts.AI.Entity.Behaviours;
-using Assets.Scripts.HighScores;
-using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {

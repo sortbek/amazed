@@ -86,7 +86,8 @@ namespace Assets.Scripts.Map {
         private void CurrentLocation() {
             var x = (int) Math.Round((_player.transform.position.x + _offset) / _mazeGenerator.NodeSize);
             var y = (int) Math.Round((_player.transform.position.z + _offset) / _mazeGenerator.NodeSize);
-            if (x < 0 || y < 0 || x > GameManager.Instance.Size || y > GameManager.Instance.Size) return;
+            
+            if (x < 0 || y < 0 || x > GameManager.Instance.Size - 1 || y > GameManager.Instance.Size - 1) return;
             if (_current == null || x != _current.X || y != _current.Y) {
                 _newCurrent = _map[x, y];
                 var player = GameManager.Instance.Character;
