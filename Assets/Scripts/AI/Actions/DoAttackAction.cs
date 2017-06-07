@@ -13,7 +13,7 @@ namespace Assets.Scripts.AI.Actions {
             return true;
         }
 
-        public override Vector3? GetTarget() {
+        public override GameObject GetTarget() {
             return null;
         }
 

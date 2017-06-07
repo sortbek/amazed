@@ -377,12 +377,10 @@ namespace Assets.Scripts {
 
             var spawnLoc = locations[Random.Range(1, locations.Length)];
 
-            /*
             if (spawnLoc != null){
                 Instantiate(EnemyPrefab, spawnLoc.position + new Vector3(0.0f, 1.0f, 0.0f),
                     transform.rotation);
             }
-            */
         }
 
         private void InstantiateMap() {

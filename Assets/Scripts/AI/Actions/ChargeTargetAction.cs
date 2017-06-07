@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
     public class ChargeTargetAction : GoapAction {
-        public override Vector3? GetTarget() {
-            return GameManager.Instance.Character.transform.position;
+
+        public override GameObject GetTarget() {
+            return GameManager.Instance.Character.gameObject;
         }
 
         public override void Init() {
@@ -18,7 +19,7 @@ namespace Assets.Scripts.AI.Actions {
         }
 
         public override bool Completed() {
-            return Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) < 0.3f;
+            return true;
         }
     }
 }
