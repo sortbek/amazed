@@ -45,7 +45,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             Node found = null;
             while (found == null) {
                 var content = _grid.GetGrid();
-                var n = content[_random.Next(10, content.GetLength(0 )- 10), _random.Next(10, content.GetLength(1) - 10)];
+                var n = content[_random.Next(10, content.GetLength(0) - 10), _random.Next(10, content.GetLength(1) - 10)];
                 found = n.Walkable && n.WorldPosition != game.GetStartPoint() && n.WorldPosition != game.GetEndpoint() ? n : null;
             }
             _currentTarget = found.WorldPosition;

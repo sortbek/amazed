@@ -69,14 +69,21 @@ namespace Assets.Scripts.Character {
             }
         }
 
+        public void Damage(float damage) {
+            damage = damage - DEF;
+            if (damage > 0.0f) {
+                Health -= damage;
+            }
+        }
+
         private void OnNodeChanged() {
             if(NodeChanged != null)
                 NodeChanged(this, EventArgs.Empty);
         }
 
-        // Collider for the end point
         private void OnTriggerEnter(Collider collision) {
             if (collision.gameObject.name == "End") GameManager.Instance.LoadNextLevel();
+            if (collision.gameObject.tag == "EnemyWeapon") Damage(5.0f);
         }
 
         public void PlayAudio(AudioClip clip) {
