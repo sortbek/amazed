@@ -8,7 +8,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
     public class EntitySeekBehaviour : AbstractEntityBehaviour {
 
         private Vector3? _target;
-        private const float DistanceOffset = 3.5f;
+        private const float DistanceOffset = 3.3f;
 
         public EntitySeekBehaviour(LivingEntity entity) : base(entity) {}
 

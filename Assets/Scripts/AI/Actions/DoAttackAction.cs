@@ -16,7 +16,7 @@ namespace Assets.Scripts.AI.Actions {
             // if animation is finished and player is still in range redo this action.
 
             return (Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) >=
-                    4.0f);
+                    4.5f);
         }
 
         public override GameObject GetTarget() {
