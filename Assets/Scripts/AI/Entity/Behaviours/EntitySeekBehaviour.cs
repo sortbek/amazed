@@ -19,6 +19,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
         public override Vector3 Update() {
             if (_target == null)
                 return Entity.transform.position;
+            Entity.PlayAnimation(Animation.Run);
             var target = _target.Value;
             Entity.Rotate(target);
             var current = Entity.transform.position;

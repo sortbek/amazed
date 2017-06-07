@@ -15,10 +15,10 @@ namespace Assets.Scripts.AI.GOAP.States{
         }
 
         public override void Enter(){
-            Debug.Log("Action state");
-            _running = true;
-            _current = new DoAttackAction(){Agent = Agent};
-            _current.Execute();
+            Debug.Log("AI Action state");
+            //_running = true;
+            //_current = new DoAttackAction(){Agent = Agent};
+            //_current.Execute();
         }
 
         public override void Execute(){

@@ -30,12 +30,12 @@ namespace Assets.Scripts.AI.GOAP {
             AgentState = new Dictionary<GoapCondition, bool>();
             LoadDefaultState();
             Entity = GetComponent<LivingEntity>();
-            StateMachine = new GoapStateMachine(this);
-            StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
         }
 
         private void Start() {
             LoadActions();
+            StateMachine = new GoapStateMachine(this);
+            StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
         }
 
         // Updates the agent state by altering the given condition

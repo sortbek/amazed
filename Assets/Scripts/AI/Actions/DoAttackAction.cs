@@ -6,8 +6,6 @@ using Animation = Assets.Scripts.AI.Entity.Animation;
 namespace Assets.Scripts.AI.Actions {
     public class DoAttackAction : GoapAction{
         public override void Execute() {
-            Debug.Log("Attacking!");
-
             Agent.Entity.Rotate(GameManager.Instance.Character.transform.position, 1.0f);
             Agent.Entity.PlayAnimation(Animation.Attack1);
             //attack
@@ -26,8 +24,8 @@ namespace Assets.Scripts.AI.Actions {
         }
 
         public override void Init() {
-            RegisterPrecondition(GoapCondition.InAttackRange, true);
-            RegisterPrecondition(GoapCondition.IsTired, false);
+            RegisterEffect(GoapCondition.InAttackRange, true);
+            RegisterPrecondition(GoapCondition.NearTarget, true);
             RegisterPrecondition(GoapCondition.IsDamaged, false);
         }
     }
