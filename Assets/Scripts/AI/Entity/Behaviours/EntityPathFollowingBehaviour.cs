@@ -39,7 +39,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             target.y = 0.0f;
             var destination = Vector3.MoveTowards(Entity.transform.position, target,
                 Time.deltaTime * _speed);
-            Rotate(Entity, destination);
+            Entity.Rotate(destination);
             return destination;
         }
 
