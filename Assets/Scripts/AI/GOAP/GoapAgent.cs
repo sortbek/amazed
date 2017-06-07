@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.AI.Entity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Assets.Scripts.AI.GOAP {
     // Created by:
@@ -10,6 +11,7 @@ namespace Assets.Scripts.AI.GOAP {
     // S1080542
     [RequireComponent(typeof(LivingEntity))]
     public class GoapAgent : MonoBehaviour {
+
         public LivingEntity Entity { get; private set; }
         public GoapStateMachine StateMachine { get; private set; }
         public Dictionary<GoapCondition, bool> AgentState { get; private set; }

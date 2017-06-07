@@ -22,7 +22,7 @@ namespace Assets.Scripts.AI.GOAP.States {
         }
 
         private void CharacterNodeChanged(object sender, EventArgs e) {
-            if (Agent.Entity.GetCurrentBehaviour() == _seek) return;
+            if (Agent.Entity.GetCurrentBehaviour() != _pathFollowing) return;
             var target = GetTargetPosition();
             if (target == _character.gameObject)
                 _pathFollowing.UpdateRequest(target.transform.position);
