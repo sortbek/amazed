@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.AI.Entity.Behaviours;
+using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
@@ -7,34 +8,39 @@ namespace Assets.Scripts.AI.Entity {
     // Eelco Eikelboom     Hugo Kamps
     // S1080542            S1084074
     public class LivingEntity : MonoBehaviour {
-        private UnityEngine.Animation _animation;
 
+        private UnityEngine.Animation _animation;
         private AbstractEntityBehaviour _currentBehaviour;
 
-        public bool Dead;
+        public bool Dead { get; set; }
+        public LivingEntityPerspective Perspective { get; private set; }
 
         [SerializeField] public float Energy = 8f;
-
         [SerializeField] public float Health = 10f;
-
         [SerializeField] public float Speed = 5.0f;
 
         public void SetBehaviour(AbstractEntityBehaviour behaviour) {
+            if (_currentBehaviour != null && behaviour == _currentBehaviour) return;
             _currentBehaviour = behaviour;
+        }
+
+        private void Awake() {
+            Perspective = new LivingEntityPerspective(this);
+        }
+
+        private void Update() {
+            if (_currentBehaviour != null && !Dead) 
+                transform.position = _currentBehaviour.Update();
         }
 
         public AbstractEntityBehaviour GetCurrentBehaviour() {
             return _currentBehaviour;
         }
 
-        private void Update() {
-            if (_currentBehaviour != null && !Dead)
-                transform.position = _currentBehaviour.Update();
-        }
-
         public void PlayAnimation(Animation animation) {
-            if (_animation == null) _animation = GetComponentInChildren<UnityEngine.Animation>();
-            _animation.Play(Enum.GetName(typeof(Animation), animation));
+            if (_animation == null)
+                _animation = GetComponentInChildren<UnityEngine.Animation>();
+            _animation.Play(Enum.GetName(typeof(Animation), animation).ToLower());
         }
 
         private void OnCollisionEnter(Collision collision) {
@@ -43,7 +49,7 @@ namespace Assets.Scripts.AI.Entity {
             if (!(Health <= 0.0f)) return;
 
             Dead = true;
-            PlayAnimation(Animation.death);
+            PlayAnimation(Animation.Death);
             GetComponent<CapsuleCollider>().enabled = false;
             GetComponentInChildren<MeshCollider>().enabled = false;
             GetComponentInChildren<BoxCollider>().enabled = false;
@@ -59,10 +65,10 @@ namespace Assets.Scripts.AI.Entity {
     }
 
     public enum Animation {
-        attack1,
-        walk,
-        idle,
-        run,
-        death
+        Attack1,
+        Walk,
+        Idle,
+        Run,
+        Death
     }
 }

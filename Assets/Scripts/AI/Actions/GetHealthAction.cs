@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
     public class GetHealthAction : GoapAction {
-        public override Vector3? GetTarget() {
+        public override GameObject GetTarget() {
             return null;
         }
 

@@ -9,7 +9,7 @@ namespace Assets.Scripts.AI.Actions {
             Debug.Log("Attacking!");
 
             Agent.Entity.Rotate(GameManager.Instance.Character.transform.position, 1.0f);
-            Agent.Entity.PlayAnimation(Animation.attack1);
+            Agent.Entity.PlayAnimation(Animation.Attack1);
             //attack
         }
 
@@ -24,8 +24,8 @@ namespace Assets.Scripts.AI.Actions {
             //check if player is damaged
         }
 
-        public override Vector3? GetTarget() {
-            return GameManager.Instance.Character.transform.position;
+        public override GameObject GetTarget() {
+            return null;
         }
 
         public override void Init() {
