@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <unityVersion>5.6.1f1</unityVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <unityProcessId>8948</unityProcessId>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace>
+    </RootNamespace>
+    <ProjectGuid>{846C0953-6361-34F5-9E0E-110A3613C31E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_1;UNITY_5_6;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Scripts\AI\Actions\ChargeTargetAction.cs" />
+    <Compile Include="Assets\Scripts\AI\Actions\DoAttackAction.cs" />
+    <Compile Include="Assets\Scripts\AI\Actions\DoEscapeAction.cs" />
+    <Compile Include="Assets\Scripts\AI\Actions\GetHealthAction.cs" />
+    <Compile Include="Assets\Scripts\AI\Actions\GetRestAction.cs" />
+    <Compile Include="Assets\Scripts\AI\Entity\Behaviours\EntityWanderBehaviour.cs" />
+    <Compile Include="Assets\Scripts\AI\Entity\IEntityBehaviour.cs" />
+    <Compile Include="Assets\Scripts\AI\Entity\LivingEntity.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\GoapAction.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\GoapAgent.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\GoapCondition.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\GoapPlan.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\GoapPlanner.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\GoapStateMachine.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\States\AbstractState.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\States\GoapActionState.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\States\GoapIdleState.cs" />
+    <Compile Include="Assets\Scripts\AI\GOAP\States\GoapMovingState.cs" />
+    <Compile Include="Assets\Scripts\Character\Character.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterAnimationController.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterInteraction.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterPotionController.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterRotation.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterTranslation.cs" />
+    <Compile Include="Assets\Scripts\Character\CharacterWeaponController.cs" />
+    <Compile Include="Assets\Scripts\Character\ICharacterTransformation.cs" />
+    <Compile Include="Assets\Scripts\GameOver\GameOverScreen.cs" />
+    <Compile Include="Assets\Scripts\HUD\PotionSelection.cs" />
+    <Compile Include="Assets\Scripts\HUD\StatsUpdater.cs" />
+    <Compile Include="Assets\Scripts\HUD\WeaponSelection.cs" />
+    <Compile Include="Assets\Scripts\HighScores\HighScores.cs" />
+    <Compile Include="Assets\Scripts\HighScores\HighScoresController.cs" />
+    <Compile Include="Assets\Scripts\HighScores\HighScoresUpdater.cs" />
+    <Compile Include="Assets\Scripts\Interaction\InteractionBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Interaction\OpenInteraction.cs" />
+    <Compile Include="Assets\Scripts\Interaction\SearchInteraction.cs" />
+    <Compile Include="Assets\Scripts\Items\LootTableManager.cs" />
+    <Compile Include="Assets\Scripts\Items\Potions\DamagePotion.cs" />
+    <Compile Include="Assets\Scripts\Items\Potions\DefensePotion.cs" />
+    <Compile Include="Assets\Scripts\Items\Potions\GuidancePotion.cs" />
+    <Compile Include="Assets\Scripts\Items\Potions\HealthPotion.cs" />
+    <Compile Include="Assets\Scripts\Items\Potions\HealthRegenerationPotion.cs" />
+    <Compile Include="Assets\Scripts\Items\Potions\Potion.cs" />
+    <Compile Include="Assets\Scripts\Items\Potions\PotionRunnable.cs" />
+    <Compile Include="Assets\Scripts\Items\Potions\SpeedPotion.cs" />
+    <Compile Include="Assets\Scripts\LevelTransition\LevelTransition.cs" />
+    <Compile Include="Assets\Scripts\LevelTransition\TransitionAnimation.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\GameSettings.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\MenuBehaviour.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\SettingsBehaviour.cs" />
+    <Compile Include="Assets\Scripts\MainMenu\SettingsPersistence.cs" />
+    <Compile Include="Assets\Scripts\Map\DisjointSet.cs" />
+    <Compile Include="Assets\Scripts\Map\DynamicOcclusion.cs" />
+    <Compile Include="Assets\Scripts\Map\Generator.cs" />
+    <Compile Include="Assets\Scripts\Map\GridNode.cs" />
+    <Compile Include="Assets\Scripts\Map\MapManager.cs" />
+    <Compile Include="Assets\Scripts\Map\Weather\ClearSky.cs" />
+    <Compile Include="Assets\Scripts\Map\Weather\Storm.cs" />
+    <Compile Include="Assets\Scripts\Map\Weather\Weather.cs" />
+    <Compile Include="Assets\Scripts\Map\Weather\WeatherManager.cs" />
+    <Compile Include="Assets\Scripts\PathFinding\ExampleScript.cs" />
+    <Compile Include="Assets\Scripts\PathFinding\Grid.cs" />
+    <Compile Include="Assets\Scripts\PathFinding\Node.cs" />
+    <Compile Include="Assets\Scripts\PathFinding\PathRequestManager.cs" />
+    <Compile Include="Assets\Scripts\PathFinding\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\Util\AudioFader.cs" />
+    <Compile Include="Assets\Scripts\Util\DrawingUtil.cs" />
+    <Compile Include="Assets\Scripts\Util\Heap.cs" />
+    <Compile Include="Assets\Scripts\Util\Item.cs" />
+    <Compile Include="Assets\Scripts\Util\ListUtil.cs" />
+    <Compile Include="Assets\Scripts\Util\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Util\TransformDeepChildExtension.cs" />
+    <Compile Include="Assets\Scripts\Util\WeaponStat.cs" />
+    <Compile Include="Assets\Scripts\World\GameManager.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\BloomOptimized.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Blur.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\BlurOptimized.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\CameraMotionBlur.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionCurves.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionLookup.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionRamp.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ContrastEnhance.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ContrastStretch.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\CreaseShading.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\DepthOfField.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\DepthOfFieldDeprecated.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\EdgeDetection.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Fisheye.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\GlobalFog.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Grayscale.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ImageEffectBase.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ImageEffects.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\MotionBlur.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndScratches.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsHelper.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Quads.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ScreenOverlay.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\SepiaTone.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Tonemapping.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
+    <Compile Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
+    <Compile Include="Assets\ThirdParty\Particle Ribbon\Scripts\ReverseNormals.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Attributes\TrackballGroupAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\AmbientOcclusionComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\BloomComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\BuiltinDebugViewsComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\ColorGradingComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\DepthOfFieldComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\DitheringComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\EyeAdaptationComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\FogComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\FxaaComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\GrainComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\MotionBlurComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\ScreenSpaceReflectionComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\TaaComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\UserLutComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Components\VignetteComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\AmbientOcclusionModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\AntialiasingModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\BloomModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\BuiltinDebugViewsModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\ColorGradingModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\DepthOfFieldModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\DitheringModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\EyeAdaptationModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\FogModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\GrainModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\MotionBlurModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\ScreenSpaceReflectionModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\UserLutModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Models\VignetteModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\PostProcessingBehaviour.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\PostProcessingComponent.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\PostProcessingContext.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\PostProcessingModel.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\PostProcessingProfile.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Utils\ColorGradingCurve.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Utils\GraphicsUtils.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
+    <Compile Include="Assets\ThirdParty\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Demo\Scripts\AxisRotator.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Demo\Scripts\DemoScene1.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Demo\Scripts\DemoScene2.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\Camera\RainCameraController.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\Common\DropTrail.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\Common\RainBehaviourBase.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\Common\RainDrawer.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\Common\RainDrawerContainer.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\Common\RainDropTools.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\Misc\BloodRainCameraController.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\Misc\FpsDisplay.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\FlowRain\FlowRainBehaviour.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\FlowRain\FlowRainController.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\FlowRain\FlowRainVariables.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\FrictionFlowRain\FrictionFlowRainBehaviour.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\FrictionFlowRain\FrictionFlowRainController.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\FrictionFlowRain\FrictionFlowRainVariables.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\SimpleRain\SimpleRainBehaviour.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\SimpleRain\SimpleRainController.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\SimpleRain\SimpleRainVariables.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\StaticRain\StaticRainBehaviour.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\StaticRain\StaticRainController.cs" />
+    <Compile Include="Assets\ThirdParty\RainDropEffect2\Scripts\RainBehaviours\StaticRain\StaticRainVariables.cs" />
+    <Compile Include="Assets\ThirdParty\torch\scene\script\TorchSlider.cs" />
+    <Compile Include="Assets\ThirdParty\torch\scene\script\Torchslider2.cs" />
+    <Compile Include="Assets\ThirdParty\torch\scripts\Torchelight.cs" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\DepthOfField.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
+    <None Include="Assets\ThirdParty\RainDropEffect2\Shaders\Resources\RainDistortion (Forward).shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
+    <None Include="Assets\ThirdParty\RainDropEffect2\Shaders\Resources\RainDistortion (Mobile).shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ShowAlphaChannel.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\Fog.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\SunShaftsComposite.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\LutGen.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurves.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ScreenSpaceAmbientObscurance.shader" />
+    <None Include="Assets\Resources\ame_nebula\ame_nebula.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\NFAA.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Editor Resources\UI\CurveBackground.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\VignetteShader.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
+    <None Include="Assets\ThirdParty\RainDropEffect2\Shaders\Resources\RainDistortion (Deffered).shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\MotionBlur.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\ACES.cginc" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\MinMaxReduction.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\SSAA.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\RadialBlur.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldDX11.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\Tonemapping.cginc" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ContrastComposite.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset3.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\FisheyeShader.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\Uber.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Apply.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\Blit.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
+    <None Include="Assets\ThirdParty\PostProcessing\Editor Resources\Monitors\WaveformRender.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Editor Resources\Monitors\VectorscopeCompute.compute" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\FXAA3.cginc" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\MotionBlur.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\AmbientOcclusion.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Bluenoise64\LICENSE.txt" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\BuiltinDebugViews.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\SSAOShader.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ConvertDepth.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurvesSimple.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderYUV.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\Common.cginc" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Bluenoise64\COPYING.txt" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\CreaseApply.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Editor Resources\UI\Trackball.shader" />
+    <None Include="Assets\ThirdParty\RainDropEffect2\Shaders\Resources\RainNoDistortion.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ChromaticAberrationShader.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\GlobalFog.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Luminance.shader" />
+    <None Include="Assets\ThirdParty\RainDropEffect2\Shaders\Resources\RainDropGlobal.cginc" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\Bloom.cginc" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionSelective.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\TAA.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\Bokeh34.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\EyeHistogram.compute" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\TAA.cginc" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\CameraMotionBlurDX11.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
+    <None Include="Assets\ThirdParty\SimpleFX\Materials\UnlitVertexColour_Alpha.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\EyeAdaptation.cginc" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\CameraMotionBlur.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\GrainGen.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\DLAA.shader" />
+    <None Include="Assets\ThirdParty\torch\readme.txt" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\FXAA.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrainDX11.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\DiskKernels.cginc" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\DepthOfField.cginc" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter2.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\ScreenSpaceRaytrace.cginc" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableBlur.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\MotionBlurClear.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionEffect.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\GrayscaleEffect.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\SepiaToneEffect.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\TwirlEffect.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\VortexEffect.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Adaptation.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrain.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\Bloom.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\VignettingShader.shader" />
+    <None Include="Assets\ThirdParty\RainDropEffect2\ReadMe.txt" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrection3DLut.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
+    <None Include="Assets\ThirdParty\Particle Ribbon\readme_Simple_Particle_Ribbon.txt" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\EdgeDetectNormals.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Editor Resources\Monitors\VectorscopeRender.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\EyeAdaptation.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\PrepareSunShaftsBlur.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\Blend.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\ColorGrading.cginc" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\SimpleClear.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Resources\Shaders\AmbientOcclusion.cginc" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAA3Console.shader" />
+    <None Include="Assets\ThirdParty\PostProcessing\Editor Resources\Monitors\WaveformCompute.compute" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
+    <None Include="Assets\ThirdParty\L_FG_Assets_Pack_Lite\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VR">
+      <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
