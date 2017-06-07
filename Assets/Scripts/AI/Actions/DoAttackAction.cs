@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.AI.GOAP;
+using Assets.Scripts.World;
 using UnityEngine;
 using Animation = Assets.Scripts.AI.Entity.Animation;
 
@@ -12,12 +13,17 @@ namespace Assets.Scripts.AI.Actions {
         }
 
         public override bool Completed() {
+            // check if player is still in range
+            // if animation is finished and player is still in range redo this action.
+            
+            Agent.Entity.Rotate(GameManager.Instance.Character.transform.position);
+            return Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) >= 5.0f;
+
             //check if player is damaged
-            return true;
         }
 
         public override Vector3? GetTarget() {
-            return null;
+            return GameManager.Instance.Character.transform.position;
         }
 
         public override void Init() {

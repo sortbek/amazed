@@ -49,6 +49,12 @@ namespace Assets.Scripts.AI.Entity {
                 GetComponent<CapsuleCollider>().enabled = false;
             }
         }
+        
+        public void Rotate(Vector3 dir) {
+            transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
+                dir - transform.position,
+                Time.deltaTime * 10f, 0.0f));
+        }
     }
 
     public enum Animation {
