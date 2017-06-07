@@ -20,6 +20,7 @@ namespace Assets.Scripts.AI.Entity {
         [SerializeField] public float Speed = 5.0f;
 
         public void SetBehaviour(AbstractEntityBehaviour behaviour) {
+            if (_currentBehaviour != null && behaviour == _currentBehaviour) return;
             _currentBehaviour = behaviour;
         }
 
@@ -28,8 +29,6 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         private void Update() {
-            if(Perspective.Visible(GameManager.Instance.Character.gameObject))
-                Debug.Log("VISIBLE");
             if (_currentBehaviour != null && !Dead) 
                 transform.position = _currentBehaviour.Update();
         }

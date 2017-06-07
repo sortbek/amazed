@@ -24,8 +24,7 @@ namespace Assets.Scripts.AI.GOAP.States {
                 _running = true;
                 _current = Agent.ActionQueue.Dequeue();
                 _current.Execute();
-            }
-            else {
+            } else {
                 //Check whether the current action is completed
                 if (!_current.Completed()) return;
                 //Change the state based on the amount of actions left
