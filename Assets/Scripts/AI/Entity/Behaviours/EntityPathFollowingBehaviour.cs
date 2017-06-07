@@ -43,7 +43,9 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             return destination;
         }
 
+        public static int A = 0;
         public void UpdateRequest(Vector3 target) {
+            Debug.Log("Request change pathfinding -> " + (++A));
             CurrentIndex = 0;
             _reached = false;
             CurrentRequest = target;
