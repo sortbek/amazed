@@ -25,12 +25,47 @@ namespace Assets.Scripts.pathfinding {
             StartCoroutine(FindPath(startPos, targetPos));
         }
 
+        private Node GetNode(Vector3 position)
+        {
+            var node = _grid.NodeFromWorldPoint(position);
+            
+            return node.Walkable ? node : GetClosestWalkable(node);
+        }
+
+        private Node GetClosestWalkable(Node node, int depth = 1)
+        {
+            while (true)
+            {
+                var above = _grid.GetGrid()[node.GridX, node.GridY + depth];
+                var right = _grid.GetGrid()[node.GridX + depth, node.GridY];
+                var bottom = _grid.GetGrid()[node.GridX, node.GridY - depth];
+                var left = _grid.GetGrid()[node.GridX - depth, node.GridY];
+                if (above.Walkable)
+                {
+                    return above;
+                }
+                if (right.Walkable)
+                {
+                    return right;
+                }
+                if (bottom.Walkable)
+                {
+                    return bottom;
+                }
+                if (left.Walkable)
+                {
+                    return left;
+                }
+                depth = depth + 1;
+            }
+        }
+
         private IEnumerator FindPath(Vector3 startPos, Vector3 targetPos) {
             var waypoints = new Vector3[0];
             var pathSuccess = false;
 
-            var startNode = _grid.NodeFromWorldPoint(startPos);
-            var targetNode = _grid.NodeFromWorldPoint(targetPos);
+            var startNode = GetNode(startPos);
+            var targetNode = GetNode(targetPos);
 
 
             if (startNode.Walkable && targetNode.Walkable) {
