@@ -33,9 +33,6 @@ namespace Assets.Scripts.Character {
             _weaponPosition = transform.FindDeepChild("WeaponPosition");
             Load();
             Add(1);
-            Add(2);
-            Add(3);
-            Add(4);
         }
 
         private void Update() {
@@ -88,6 +85,12 @@ namespace Assets.Scripts.Character {
 
         public Dictionary<int, WeaponObject> GetEquipment() {
             return _equipment;
+        }
+
+        public void Set() {
+            _equipment.Clear();
+            Load();
+            Add(1);
         }
     }
 

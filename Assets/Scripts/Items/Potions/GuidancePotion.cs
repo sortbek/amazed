@@ -7,15 +7,12 @@ namespace Assets.Scripts.Items.Potions {
     // Jordi Wolthuis
     // S1085303
     internal class GuidancePotion : Potion {
-        public GameObject Character;
-
         public DrawingUtil DrawUtil;
-        public Vector3[] NodeList;
         public Vector3[] Path;
 
         public Vector3 Playerloc;
 
-        public GuidancePotion(Character.Character player) : base(player) {
+        public GuidancePotion(Character.Character character) : base(character) {
             Texture = (Texture) Resources.Load("Sprites/potion_guidance", typeof(Texture));
 
             Duration = 10;
