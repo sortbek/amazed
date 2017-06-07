@@ -9,7 +9,7 @@ namespace Assets.Scripts.Util {
         public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime, float MaxVolume) {
             audioSource.Play();
             audioSource.volume = 0.0001f;
-            while (audioSource.volume < 0.5) {
+            while (audioSource.volume < MaxVolume) {
                 var t = MaxVolume / (FadeTime / Time.deltaTime);
                 audioSource.volume += t;
                 yield return null;
