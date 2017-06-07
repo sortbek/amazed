@@ -1,6 +1,5 @@
 ﻿using System;
 using Assets.Scripts.AI.Entity.Behaviours;
-using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
@@ -43,12 +42,25 @@ namespace Assets.Scripts.AI.Entity {
             _animation.Play(Enum.GetName(typeof(Animation), animation).ToLower());
         }
 
-        private void OnCollisionEnter() {
-            if (!Dead) {
-                PlayAnimation(Animation.Death);
-                GetComponent<CapsuleCollider>().enabled = false;
-            }
+        private void OnCollisionEnter(Collision collision) {
+            Health -= 2.0f;
+
+            if (Health > 0.0f) return;
+
+            // TODO: Add points to players score
             Dead = true;
+            PlayAnimation(Animation.Death);
+            GetComponent<CapsuleCollider>().enabled = false;
+            GetComponentInChildren<MeshCollider>().enabled = false;
+            GetComponentInChildren<BoxCollider>().enabled = false;
+        }
+        
+        public void Rotate(Vector3 dir, float rotationSpeed = 10f) {
+            dir.y = 0;
+            
+            transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
+                dir - transform.position,
+                Time.deltaTime * rotationSpeed, 0.0f));
         }
     }
 
