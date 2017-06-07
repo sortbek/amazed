@@ -38,19 +38,23 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         private void OnCollisionEnter(Collision collision) {
-            Health -= 1.0f;
+            Health -= 5.0f;
 
             if (!(Health <= 0.0f)) return;
 
             Dead = true;
             PlayAnimation(Animation.death);
             GetComponent<CapsuleCollider>().enabled = false;
+            GetComponentInChildren<MeshCollider>().enabled = false;
+            GetComponentInChildren<BoxCollider>().enabled = false;
         }
         
-        public void Rotate(Vector3 dir) {
+        public void Rotate(Vector3 dir, float rotationSpeed = 10f) {
+            dir.y = 0;
+            
             transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
                 dir - transform.position,
-                Time.deltaTime * 10f, 0.0f));
+                Time.deltaTime * rotationSpeed, 0.0f));
         }
     }
 

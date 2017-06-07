@@ -8,7 +8,7 @@ namespace Assets.Scripts.AI.Actions {
         public override void Execute() {
             Debug.Log("Attacking!");
 
-            Agent.Entity.Rotate(GameManager.Instance.Character.transform.position);
+            Agent.Entity.Rotate(GameManager.Instance.Character.transform.position, 1.0f);
             Agent.Entity.PlayAnimation(Animation.attack1);
             //attack
         }
