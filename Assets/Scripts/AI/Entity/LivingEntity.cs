@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.AI.Entity.Behaviours;
+using Assets.Scripts.HighScores;
 using Assets.Scripts.World;
 using UnityEngine;
 
@@ -44,10 +45,11 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         private void OnCollisionEnter(Collision collision) {
-            Health -= 5.0f;
+            Health -= 2.0f;
 
             if (!(Health <= 0.0f)) return;
 
+            // TODO: Add points to players score
             Dead = true;
             PlayAnimation(Animation.Death);
             GetComponent<CapsuleCollider>().enabled = false;

@@ -17,11 +17,10 @@ namespace Assets.Scripts.AI.Actions {
             // check if player is still in range
             // if animation is finished and player is still in range redo this action.
             
-            if (Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) >= 5.0f) return true;
+            if (Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) >= 4.0f) return true;
             
             Execute();
             return false;
-            //check if player is damaged
         }
 
         public override GameObject GetTarget() {

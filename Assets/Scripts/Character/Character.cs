@@ -67,12 +67,12 @@ namespace Assets.Scripts.Character {
                 PlayAudio(AudioLanding);
                 _translation.Airborne = false;
             }
+        }
 
-            if (collision.gameObject.tag.Equals("EnemyWeapon")) {
-                var damage = 5.0f - DEF;
-                if (damage > 0.0f) {
-                    Health -= damage;
-                }
+        public void Damage(float damage) {
+            damage = damage - DEF;
+            if (damage > 0.0f) {
+                Health -= damage;
             }
         }
 
@@ -81,9 +81,9 @@ namespace Assets.Scripts.Character {
                 NodeChanged(this, EventArgs.Empty);
         }
 
-        // Collider for the end point
         private void OnTriggerEnter(Collider collision) {
             if (collision.gameObject.name == "End") GameManager.Instance.LoadNextLevel();
+            if (collision.gameObject.tag == "EnemyWeapon") Damage(5.0f);
         }
 
         public void PlayAudio(AudioClip clip) {
