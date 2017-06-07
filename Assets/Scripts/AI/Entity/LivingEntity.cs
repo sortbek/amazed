@@ -45,7 +45,7 @@ namespace Assets.Scripts.AI.Entity {
         private void OnCollisionEnter(Collision collision) {
             Health -= 2.0f;
 
-            if (!(Health <= 0.0f)) return;
+            if (Health > 0.0f) return;
 
             // TODO: Add points to players score
             Dead = true;

@@ -20,7 +20,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             if (_target == null)
                 return Entity.transform.position;
             var target = _target.Value;
-            Rotate(Entity, target);
+            Entity.Rotate(target);
             var current = Entity.transform.position;
             target.y = current.y;
             return Vector3.MoveTowards(current, target, Entity.Speed * Time.deltaTime);

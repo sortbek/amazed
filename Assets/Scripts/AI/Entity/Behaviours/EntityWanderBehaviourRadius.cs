@@ -28,7 +28,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
                 _startWanderPosition = Entity.transform.position;
             if (_target == null || Vector3.Distance(Entity.transform.position, _target.Value) < _triggerDistance)
                 UpdateTarget();
-            Rotate(Entity, _target.Value);
+            Entity.Rotate(_target.Value);
             return Vector3.MoveTowards(Entity.transform.position, _target.Value, _speed * Time.deltaTime);
         }
 
