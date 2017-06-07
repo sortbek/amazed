@@ -16,7 +16,7 @@ namespace Assets.Scripts.AI.Entity {
 
         [SerializeField] public float Energy = 8f;
         [SerializeField] public float Health = 10f;
-        [SerializeField] public float Speed = 5.0f;
+        [SerializeField] public float Speed = 1.0f;
 
         public void SetBehaviour(AbstractEntityBehaviour behaviour) {
             if (_currentBehaviour != null && behaviour == _currentBehaviour) return;
@@ -42,17 +42,18 @@ namespace Assets.Scripts.AI.Entity {
             _animation.Play(Enum.GetName(typeof(Animation), animation).ToLower());
         }
 
-        private void OnCollisionEnter(Collision collision) {
-            Health -= 2.0f;
+        private void OnTriggerEnter(Collider collision) {
+            if (collision.gameObject.tag == "weapon") {
+                Health -= 2.0f;
 
-            if (Health > 0.0f) return;
+                if (Health > 0.0f) return;
 
-            // TODO: Add points to players score
-            Dead = true;
-            PlayAnimation(Animation.Death);
-            GetComponent<CapsuleCollider>().enabled = false;
-            GetComponentInChildren<MeshCollider>().enabled = false;
-            GetComponentInChildren<BoxCollider>().enabled = false;
+                // TODO: Add points to players score
+                Dead = true;
+                PlayAnimation(Animation.Death);
+                GetComponent<CapsuleCollider>().enabled = false;
+                GetComponentInChildren<MeshCollider>().enabled = false;
+            }
         }
         
         public void Rotate(Vector3 dir, float rotationSpeed = 10f) {
