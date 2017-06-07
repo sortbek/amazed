@@ -12,6 +12,9 @@ namespace Assets.Scripts.AI.GOAP {
     [RequireComponent(typeof(LivingEntity))]
     public class GoapAgent : MonoBehaviour {
 
+        private static int _idHolder = 0;
+
+        public int ID { get; private set; }
         public LivingEntity Entity { get; private set; }
         public GoapStateMachine StateMachine { get; private set; }
         public Dictionary<GoapCondition, bool> AgentState { get; private set; }
@@ -26,6 +29,7 @@ namespace Assets.Scripts.AI.GOAP {
         }
 
         private void Awake() {
+            ID = ++_idHolder;
             ActionQueue = new Queue<GoapAction>();
             Actions = new HashSet<GoapAction>();
             Planner = new GoapPlanner(this);
@@ -54,6 +58,10 @@ namespace Assets.Scripts.AI.GOAP {
 
         private void Update() {
             if (!Entity.Dead) StateMachine.Update();
+        }
+
+        public void Debug(object obj) {
+            UnityEngine.Debug.Log("Agent "+ID+": "+obj);
         }
     }
 }

@@ -21,9 +21,9 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
                 return Entity.transform.position;
             Entity.PlayAnimation(Animation.Run);
             var target = _target.Value;
+            target.y = 0;
             Entity.Rotate(target);
             var current = Entity.transform.position;
-            target.y = current.y;
             return Vector3.MoveTowards(current, target, Entity.Speed * Time.deltaTime);
         }
 

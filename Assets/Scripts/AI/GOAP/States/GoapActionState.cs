@@ -15,7 +15,7 @@ namespace Assets.Scripts.AI.GOAP.States{
         }
 
         public override void Enter(){
-            Debug.Log("AI Action state");
+            Agent.Debug("Entering action state");
             //_running = true;
             //_current = new DoAttackAction(){Agent = Agent};
             //_current.Execute();

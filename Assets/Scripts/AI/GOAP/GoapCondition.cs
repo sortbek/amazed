@@ -6,7 +6,6 @@
 
         InAttackRange,
         NearTarget,
-        IsDamaged,
-        IsAttacking,
+        IsDamaged
     }
 }

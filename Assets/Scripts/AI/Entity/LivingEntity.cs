@@ -46,7 +46,6 @@ namespace Assets.Scripts.AI.Entity {
         private void OnTriggerEnter(Collider collision) {
             if (collision.gameObject.tag == "weapon") {
                 var weapon = collision.gameObject.GetComponent<WeaponStat>();
-                
                 Health -= weapon.Damage;
 
                 if (Health > 0.0f) return;
@@ -60,8 +59,6 @@ namespace Assets.Scripts.AI.Entity {
         }
         
         public void Rotate(Vector3 dir, float rotationSpeed = 10f) {
-            dir.y = 0;
-            
             transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
                 dir - transform.position,
                 Time.deltaTime * rotationSpeed, 0.0f));
