@@ -38,16 +38,13 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         private void OnCollisionEnter(Collision collision) {
-            if (collision.gameObject.tag.Equals("weapon")){
-                Debug.Log("WTF dude!");
-                Health -= 1.0f;
+            Health -= 1.0f;
 
-                if (!(Health <= 0.0f)) return;
+            if (!(Health <= 0.0f)) return;
 
-                Dead = true;
-                PlayAnimation(Animation.death);
-                GetComponent<CapsuleCollider>().enabled = false;
-            }
+            Dead = true;
+            PlayAnimation(Animation.death);
+            GetComponent<CapsuleCollider>().enabled = false;
         }
         
         public void Rotate(Vector3 dir) {

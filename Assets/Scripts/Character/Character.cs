@@ -57,8 +57,11 @@ namespace Assets.Scripts.Character {
                 _translation.Airborne = false;
             }
 
-            if (collision.gameObject.tag.Equals("EnemyWeapon")){
-                Health -= 5.0f;
+            if (collision.gameObject.tag.Equals("EnemyWeapon")) {
+                var damage = 5.0f - DEF;
+                if (damage > 0.0f) {
+                    Health -= damage;
+                }
             }
         }
 
