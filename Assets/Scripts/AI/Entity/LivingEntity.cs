@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.AI.Entity.Behaviours;
+using Assets.Scripts.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
@@ -44,7 +45,9 @@ namespace Assets.Scripts.AI.Entity {
 
         private void OnTriggerEnter(Collider collision) {
             if (collision.gameObject.tag == "weapon") {
-                Health -= 2.0f;
+                var weapon = collision.gameObject.GetComponent<WeaponStat>();
+                
+                Health -= weapon.Damage;
 
                 if (Health > 0.0f) return;
 

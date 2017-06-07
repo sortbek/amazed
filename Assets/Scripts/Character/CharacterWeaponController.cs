@@ -62,14 +62,12 @@ namespace Assets.Scripts.Character {
 
         public void Attack() {
             CurrentWeapon.gameObject.GetComponent<BoxCollider>().enabled = true;
-            Debug.Log(CurrentWeapon.gameObject.GetComponent<BoxCollider>().enabled);
             StartCoroutine(ResetColliders());
         }
 
         private IEnumerator ResetColliders() {
             yield return new WaitForSeconds(0.5f);
             CurrentWeapon.gameObject.GetComponent<BoxCollider>().enabled = false;
-            Debug.Log(CurrentWeapon.gameObject.GetComponent<BoxCollider>().enabled);
         }
 
         public void Add(Item item) {

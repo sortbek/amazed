@@ -8,7 +8,7 @@ namespace Assets.Scripts.AI.Actions {
         public override void Execute() {
             Debug.Log("Attacking!");
 
-            Agent.Entity.Rotate(GameManager.Instance.Character.transform.position, 1.0f);
+            Agent.Entity.Rotate(GameManager.Instance.Character.transform.position, 5.0f);
             Agent.Entity.PlayAnimation(Animation.Attack1);
             //attack
         }
@@ -18,7 +18,7 @@ namespace Assets.Scripts.AI.Actions {
             // if animation is finished and player is still in range redo this action.
 
             return (Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) >=
-                    4.0f);
+                4.0f) ;
         }
 
         public override GameObject GetTarget() {
