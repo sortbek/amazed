@@ -3,8 +3,9 @@
     // Eelco Eikelboom
     // S1080542
     public enum GoapCondition {
+
         InAttackRange,
-        IsTired,
+        NearTarget,
         IsDamaged
     }
 }
