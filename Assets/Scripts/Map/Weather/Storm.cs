@@ -54,7 +54,7 @@ namespace Assets.Scripts.Map.Weather {
         }
 
         private IEnumerator FadeInProgram() {
-            StartCoroutine(AudioFader.FadeIn(_rainAudio, FadeTime, 0.3f));
+            StartCoroutine(AudioFader.FadeIn(_rainAudio, FadeTime, 0.2f));
             var rain = 0.1f;
             var duration = 0f;
             while (duration < FadeTime) {
