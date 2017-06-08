@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.AI.Entity.Behaviours;
+using Assets.Scripts.World;
 using UnityEngine;
 using Animation = Assets.Scripts.AI.Entity.Animation;
 
@@ -8,9 +9,11 @@ namespace Assets.Scripts.AI.GOAP.States {
     // S1080542
     public class GoapIdleState : AbstractState {
         private readonly EntityWanderBehaviour _wander;
+        private readonly Character.Character _character;
 
         public GoapIdleState(GoapAgent agent) : base(agent) {
             _wander = new EntityWanderBehaviour(agent.Entity);
+            _character = GameManager.Instance.Character;
         }
 
         public override void Enter() {
@@ -18,11 +21,16 @@ namespace Assets.Scripts.AI.GOAP.States {
             Debug.Log("AI Idling state");
         }
 
+
         public override void Execute() {
-            var plan = Agent.ActionQueue;
             Agent.Entity.PlayAnimation(Animation.Walk);
             //Check whether there is a requested plan active
-            if (plan.Count > 0) Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Moving);
+            if (Agent.ActionQueue.Count > 0)
+                Agent.StateMachine.ChangeState(GoapStateMachine.StateType.Moving);
+            //Check if the character is visible, if so, activate the plan
+            else if(_character != null && Agent.Entity.Perspective.Visible(_character.gameObject))
+                Agent.Planner.Plan(new GoapPlan(GoapCondition.InAttackRange, true));
+            //No plan, just wander 
             else Agent.Entity.SetBehaviour(_wander);
         }
     }

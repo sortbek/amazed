@@ -20,8 +20,9 @@ namespace Assets.Scripts.Character {
             _playerLayer = LayerMask.NameToLayer("Player");
             var propLayerMask = 1 << _propLayer;
             var playerLayerMask = 1 << _playerLayer;
-            
-            _interactionText = GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>();
+
+            var interaction = GameObject.FindGameObjectWithTag("interaction");
+            if(interaction != null) _interactionText = interaction.GetComponent<Text>();
 
             // Combine layers Prop and Player
             _layerMask = propLayerMask | playerLayerMask;

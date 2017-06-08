@@ -10,8 +10,9 @@ namespace Assets.Scripts.AI.Actions {
         }
 
         public override void Init() {
-            RegisterEffect(GoapCondition.InAttackRange, true);
-            RegisterPrecondition(GoapCondition.IsTired, false);
+            RegisterEffect(GoapCondition.NearTarget, true);
+            RegisterPrecondition(GoapCondition.NearTarget, false);
+            RegisterPrecondition(GoapCondition.IsDamaged, false);
         }
 
         public override void Execute() {

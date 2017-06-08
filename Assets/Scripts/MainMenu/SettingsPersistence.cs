@@ -24,7 +24,7 @@ namespace Assets.Scripts.MainMenu {
                     JsonUtility.FromJson<GameSettings>(
                         File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
 
-                musicSource.volume = gameSettings.musicVolume;
+                AudioListener.volume = gameSettings.musicVolume;
                 QualitySettings.antiAliasing = gameSettings.antialiasing;
                 QualitySettings.vSyncCount = gameSettings.vSync;
                 QualitySettings.masterTextureLimit = gameSettings.textureQuality;

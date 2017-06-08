@@ -20,8 +20,10 @@ public class CharacterAnimationController : MonoBehaviour {
     private void Update() {
         _animator.SetBool("inMotion", !_body.IsSleeping());
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
             _animator.Play(_weaponController.GetWeaponAnimation());
+            _weaponController.Attack();
+        }
         else if (Input.GetKeyDown(KeyCode.Mouse1))
             _animator.Play("characterBlocking");
         else if (Input.GetKeyDown(KeyCode.Z))

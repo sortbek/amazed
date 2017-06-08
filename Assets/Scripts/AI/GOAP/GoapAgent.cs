@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.AI.Entity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Assets.Scripts.AI.GOAP {
     // Created by:
@@ -10,6 +11,10 @@ namespace Assets.Scripts.AI.GOAP {
     // S1080542
     [RequireComponent(typeof(LivingEntity))]
     public class GoapAgent : MonoBehaviour {
+
+        private static int _idHolder = 0;
+
+        public int ID { get; private set; }
         public LivingEntity Entity { get; private set; }
         public GoapStateMachine StateMachine { get; private set; }
         public Dictionary<GoapCondition, bool> AgentState { get; private set; }
@@ -24,19 +29,19 @@ namespace Assets.Scripts.AI.GOAP {
         }
 
         private void Awake() {
+            ID = ++_idHolder;
             ActionQueue = new Queue<GoapAction>();
             Actions = new HashSet<GoapAction>();
             Planner = new GoapPlanner(this);
             AgentState = new Dictionary<GoapCondition, bool>();
             LoadDefaultState();
             Entity = GetComponent<LivingEntity>();
-            StateMachine = new GoapStateMachine(this);
-            StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
         }
 
         private void Start() {
             LoadActions();
-            Planner.Plan(new GoapPlan(GoapCondition.InAttackRange, true));
+            StateMachine = new GoapStateMachine(this);
+            StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
         }
 
         // Updates the agent state by altering the given condition
@@ -53,6 +58,10 @@ namespace Assets.Scripts.AI.GOAP {
 
         private void Update() {
             if (!Entity.Dead) StateMachine.Update();
+        }
+
+        public void Debug(object obj) {
+            UnityEngine.Debug.Log("Agent "+ID+": "+obj);
         }
     }
 }
