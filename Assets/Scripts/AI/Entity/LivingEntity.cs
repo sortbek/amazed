@@ -1,6 +1,6 @@
 ﻿using System;
 using Assets.Scripts.AI.Entity.Behaviours;
-using Assets.Scripts.World;
+using Assets.Scripts.Util;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
@@ -17,9 +17,10 @@ namespace Assets.Scripts.AI.Entity {
 
         [SerializeField] public float Energy = 8f;
         [SerializeField] public float Health = 10f;
-        [SerializeField] public float Speed = 5.0f;
+        [SerializeField] public float Speed = 1.0f;
 
         public void SetBehaviour(AbstractEntityBehaviour behaviour) {
+            if (_currentBehaviour != null && behaviour == _currentBehaviour) return;
             _currentBehaviour = behaviour;
         }
 
@@ -28,8 +29,6 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         private void Update() {
-            if(Perspective.Visible(GameManager.Instance.Character.gameObject))
-                Debug.Log("VISIBLE");
             if (_currentBehaviour != null && !Dead) 
                 transform.position = _currentBehaviour.Update();
         }
@@ -44,12 +43,28 @@ namespace Assets.Scripts.AI.Entity {
             _animation.Play(Enum.GetName(typeof(Animation), animation).ToLower());
         }
 
-        private void OnCollisionEnter() {
-            if (!Dead) {
+        private void OnTriggerEnter(Collider collision) {
+            if (collision.gameObject.tag == "weapon") {
+                var weapon = collision.gameObject.GetComponent<WeaponStat>();
+                
+                Health -= weapon.Damage;
+
+                if (Health > 0.0f) return;
+
+                // TODO: Add points to players score
+                Dead = true;
                 PlayAnimation(Animation.Death);
                 GetComponent<CapsuleCollider>().enabled = false;
+                GetComponentInChildren<MeshCollider>().enabled = false;
             }
-            Dead = true;
+        }
+        
+        public void Rotate(Vector3 dir, float rotationSpeed = 10f) {
+            dir.y = 0;
+            
+            transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
+                dir - transform.position,
+                Time.deltaTime * rotationSpeed, 0.0f));
         }
     }
 

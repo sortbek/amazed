@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Util;
 using UnityEngine;
 using Util;
@@ -8,7 +9,6 @@ namespace Assets.Scripts.Character {
     // Eelco Eikelboom      Niek van den Brink
     // S1080542             S1078937
     public class CharacterWeaponController : MonoBehaviour {
-
         private readonly KeyCode[] _numKeys = {
             KeyCode.Alpha1,
             KeyCode.Alpha2,
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Character {
             KeyCode.Alpha8,
             KeyCode.Alpha9
         };
-    
+
         private Dictionary<int, WeaponObject> _equipment;
         private Transform _weaponPosition;
         public GameObject CurrentWeapon;
@@ -57,12 +57,23 @@ namespace Assets.Scripts.Character {
             }
         }
 
+        public void Attack() {
+            CurrentWeapon.gameObject.GetComponent<BoxCollider>().enabled = true;
+            StartCoroutine(ResetColliders());
+        }
+
+        private IEnumerator ResetColliders() {
+            yield return new WaitForSeconds(0.5f);
+            CurrentWeapon.gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
+
         public void Add(Item item) {
             Add((int) item);
         }
 
         public string GetWeaponAnimation() {
-            return CurrentWeapon == null ? "characterAttacking" 
+            return CurrentWeapon == null
+                ? "characterAttacking"
                 : CurrentWeapon.GetComponent<WeaponStat>().AnimationTag;
         }
 

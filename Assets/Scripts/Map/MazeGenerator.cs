@@ -5,7 +5,6 @@ using Assets.Scripts.World;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-
 #endif
 
 // Created by:
@@ -57,30 +56,13 @@ namespace Assets.Scripts {
         }
 
         private void GenerateMap() {
-            // Fill the dictionary with keys and GridNodes. The keys will represent
-            // the priority in the queue later.
             CreatePriorityList();
-//
-//            // Creating predefined rooms which will be different from the other nodes generated. These will
-//            // contain 'loot' and 'mobs' inside and the layout of the room will always be the same
             CreateRooms();
-//
-//            // Break down walls to build the actual maze
             BuildHeapMaze();
-//
-//            // Remove walls to make the maze imperfect and generate loops
             MakeMazeImperfect();
-//
-//            // Set the right configuration for each node
             ConfigurateNodes();
-//
-//            // Create start and end point
             CreateStartEndPoint();
-//
-//            // Set the prefab for each node
             SetNodesPrefabs();
-//
-//            // Instantiate the map
             InstantiateMap();
         }
 
@@ -160,6 +142,10 @@ namespace Assets.Scripts {
             nodeTopRight.IsPartOfRoom = true;
             nodeTopLeft.IsTopSide = true;
             nodeTopRight.IsTopSide = true;
+            
+            // To prevent rooms getting placed above each other, we mark the cells around the room as 'room' aswell
+            _gridMap[nodeTopLeft.X, nodeTopLeft.Y + 1].IsPartOfRoom = true;
+            _gridMap[nodeTopLeft.X + 1, nodeTopLeft.Y + 1].IsPartOfRoom = true;
 
             nodeBottomLeft.HasWallRight = false;
             nodeBottomLeft.HasWallDown = false;
@@ -208,6 +194,7 @@ namespace Assets.Scripts {
                     break;
                 case 8:
                     node.Prefab = PrefabRoomEntrance;
+                    if (node.IsTopSide) node.Scale = new Vector3(-1, 1, -1);
                     break;
                 case 9:
                     node.Prefab = PrefabRoomCorner;
@@ -390,12 +377,10 @@ namespace Assets.Scripts {
 
             var spawnLoc = locations[Random.Range(1, locations.Length)];
 
-            /*
             if (spawnLoc != null){
                 Instantiate(EnemyPrefab, spawnLoc.position + new Vector3(0.0f, 1.0f, 0.0f),
                     transform.rotation);
             }
-            */
         }
 
         private void InstantiateMap() {

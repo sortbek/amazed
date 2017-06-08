@@ -39,11 +39,13 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             target.y = 0.0f;
             var destination = Vector3.MoveTowards(Entity.transform.position, target,
                 Time.deltaTime * _speed);
-            Rotate(Entity, destination);
+            Entity.Rotate(destination);
             return destination;
         }
 
+        public static int A = 0;
         public void UpdateRequest(Vector3 target) {
+            Debug.Log("Request change pathfinding -> " + (++A));
             CurrentIndex = 0;
             _reached = false;
             CurrentRequest = target;
