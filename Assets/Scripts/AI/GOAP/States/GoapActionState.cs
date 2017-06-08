@@ -15,10 +15,10 @@ namespace Assets.Scripts.AI.GOAP.States{
         }
 
         public override void Enter(){
-            Debug.Log("Action state");
-            _running = true;
-            _current = new DoAttackAction(){Agent = Agent};
-            _current.Execute();
+            Agent.Debug("Entering action state");
+            //_running = true;
+            //_current = new DoAttackAction(){Agent = Agent};
+            //_current.Execute();
         }
 
         public override void Execute(){
@@ -30,7 +30,10 @@ namespace Assets.Scripts.AI.GOAP.States{
                 _current.Execute();
             } else {
                 //Check whether the current action is completed
-                if (!_current.Completed()) return;
+                if (!_current.Completed()) {
+                    _current.Execute();
+                    return;
+                }
                 //Change the state based on the amount of actions left
                 Agent.StateMachine.ChangeState(Agent.ActionQueue.Count > 0
                     ? GoapStateMachine.StateType.Moving

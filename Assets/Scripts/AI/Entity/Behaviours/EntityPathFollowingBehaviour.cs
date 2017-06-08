@@ -23,8 +23,10 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
         }
 
         public override Vector3 Update() {
-            if (Path == null || Path.Length <= 0)
+            if (Path == null || Path.Length <= 0) {
+                Entity.Rotate(Vector3.forward);
                 return Entity.transform.position;
+            }
             Entity.PlayAnimation(_animation);
             Vector3 target;
             if (CurrentIndex == Path.Length) {

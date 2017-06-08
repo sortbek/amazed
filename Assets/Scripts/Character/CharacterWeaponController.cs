@@ -58,6 +58,7 @@ namespace Assets.Scripts.Character {
         }
 
         public void Attack() {
+            if (CurrentWeapon == null) return;
             CurrentWeapon.gameObject.GetComponent<BoxCollider>().enabled = true;
             StartCoroutine(ResetColliders());
         }
