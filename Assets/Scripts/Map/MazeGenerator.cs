@@ -144,8 +144,10 @@ namespace Assets.Scripts {
             nodeTopRight.IsTopSide = true;
             
             // To prevent rooms getting placed above each other, we mark the cells around the room as 'room' aswell
-            _gridMap[nodeTopLeft.X, nodeTopLeft.Y + 1].IsPartOfRoom = true;
-            _gridMap[nodeTopLeft.X + 1, nodeTopLeft.Y + 1].IsPartOfRoom = true;
+            _rooms.Add(GetNodeIndex(_gridMap[nodeTopLeft.X, nodeTopLeft.Y + 1]));
+            _rooms.Add(GetNodeIndex(_gridMap[nodeTopLeft.X + 1, nodeTopLeft.Y + 1]));
+            _rooms.Add(GetNodeIndex(_gridMap[nodeBottomLeft.X, nodeBottomLeft.Y - 1]));
+            _rooms.Add(GetNodeIndex(_gridMap[nodeBottomLeft.X + 1, nodeBottomLeft.Y - 1]));
 
             nodeBottomLeft.HasWallRight = false;
             nodeBottomLeft.HasWallDown = false;
@@ -194,7 +196,7 @@ namespace Assets.Scripts {
                     break;
                 case 8:
                     node.Prefab = PrefabRoomEntrance;
-                    if (node.IsTopSide) node.Scale = new Vector3(-1, 1, -1);
+                    if (node.IsTopSide) node.Scale = new Vector3(1, 1, -1);
                     break;
                 case 9:
                     node.Prefab = PrefabRoomCorner;
