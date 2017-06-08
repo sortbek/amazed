@@ -1,5 +1,10 @@
-﻿using UnityEngine;
-using Random = UnityEngine.Random;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Assets.Scripts.PathFinding;
+using Assets.Scripts.World;
+using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
 
@@ -8,27 +13,42 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
     // S1080542
     public class EntityWanderBehaviour : AbstractEntityBehaviour {
 
-        private readonly float _speed, _triggerDistance, _radius;
-        private Vector3? _target;
+        private Grid _grid;
+        private readonly System.Random _random;
+        private readonly EntityPathFollowingBehaviour _pathFollowing;
+        private Vector3 _currentTarget;
 
         public EntityWanderBehaviour(LivingEntity entity) : base(entity) {
-            _speed = 1f;
-            _radius = 10;
-            _triggerDistance = .3f;
-            _target = null;
+            _pathFollowing = new EntityPathFollowingBehaviour(entity, .8f, Animation.Walk);
+            _random = new System.Random();
+            _grid = null;
+        }
+
+        public void Reset() {
+            _currentTarget = Entity.transform.position;
         }
 
         public override Vector3 Update() {
-            if (_target == null || Vector3.Distance(Entity.transform.position, _target.Value) < _triggerDistance)
-                UpdateTarget();
-            Rotate(Entity, _target.Value);
-            return Vector3.MoveTowards(Entity.transform.position, _target.Value, _speed* Time.deltaTime);
+            if (_pathFollowing.CurrentRequest != null && !_pathFollowing.Reached())
+                return _pathFollowing.Update();
+            UpdateLocation();
+            _pathFollowing.UpdateRequest(_currentTarget);
+            return _pathFollowing.Update();
         }
 
-        private void UpdateTarget() {
-            var loc = Random.insideUnitSphere * _radius;
-            loc.y = 1;
-            _target = loc;
+        private void UpdateLocation() {
+            var game = GameManager.Instance;
+            if (_grid == null) {
+                var pathComponent = GameObject.Find("World").transform.Find("Pathfinding");
+                _grid = pathComponent.GetComponent<Grid>();
+            }
+            Node found = null;
+            while (found == null) {
+                var content = _grid.GetGrid();
+                var n = content[_random.Next(10, content.GetLength(0) - 10), _random.Next(10, content.GetLength(1) - 10)];
+                found = n.Walkable && n.WorldPosition != game.GetStartPoint() && n.WorldPosition != game.GetEndpoint() ? n : null;
+            }
+            _currentTarget = found.WorldPosition;
         }
     }
 }

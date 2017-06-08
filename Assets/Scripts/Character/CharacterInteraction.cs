@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Character;
 using Interaction;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,9 +9,10 @@ using UnityEngine.UI;
 // S1078937
 namespace Assets.Scripts.Character {
     public class CharacterInteraction {
-        private float _interactionRadius;
         private readonly Character _character;
+        private float _interactionRadius;
         private int _layerMask, _propLayer, _playerLayer;
+        private Text _interactionText;
 
 
         public CharacterInteraction(Character character) {
@@ -20,6 +20,9 @@ namespace Assets.Scripts.Character {
             _playerLayer = LayerMask.NameToLayer("Player");
             var propLayerMask = 1 << _propLayer;
             var playerLayerMask = 1 << _playerLayer;
+
+            var interaction = GameObject.FindGameObjectWithTag("interaction");
+            if(interaction != null) _interactionText = interaction.GetComponent<Text>();
 
             // Combine layers Prop and Player
             _layerMask = propLayerMask | playerLayerMask;
@@ -40,12 +43,11 @@ namespace Assets.Scripts.Character {
             var interactables = new List<InteractionBehaviour>();
 
             foreach (var c in nearbyColliders) {
-
                 // This will only be the case with the Player GameObject
                 if (c.gameObject.layer != _propLayer) continue;
 
                 // Try to get Interaction behaviour of found prop
-                var interactable = (c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour);
+                var interactable = c.gameObject.GetComponent("InteractionBehaviour") as InteractionBehaviour;
 
                 // Filter out non interactable props
                 if (interactable == null) continue;
@@ -61,8 +63,8 @@ namespace Assets.Scripts.Character {
             }
             else {
                 // No props were found => Interaction text is cleared
-                if (SceneManager.GetActiveScene().name == "Game") {
-                    GameObject.FindGameObjectWithTag("interaction").GetComponent<Text>().text = "";
+                if (SceneManager.GetActiveScene().name == "Game" && Time.timeScale == 1) {
+                    _interactionText.text = "";
                 }
             }
         }

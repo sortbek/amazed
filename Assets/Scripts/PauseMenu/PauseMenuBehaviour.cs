@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.AccessControl;
-using System.Security.Policy;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -12,21 +7,21 @@ using UnityEngine.UI;
 // S1085303
 
 public class PauseMenuBehaviour : MonoBehaviour {
-    public Canvas uiCanvas;
-
-    public Canvas PauseMenu;
-    public Text title;
-
-    public Canvas MenuCanvas;
-    public Button Resume;
-    public Button Settings;
     public Button Exit;
 
+    public Canvas MenuCanvas;
+
+    public Canvas PauseMenu;
+
     public Canvas QuitMenu;
+    public Button Resume;
+    public Button Settings;
 
     public Canvas SettingsMenu;
+    public Text title;
+    public Canvas uiCanvas;
 
-    void Start() {
+    private void Start() {
         uiCanvas = uiCanvas.GetComponent<Canvas>();
         title = title.GetComponent<Text>();
 
@@ -45,15 +40,12 @@ public class PauseMenuBehaviour : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            Pause();
-        }
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) Pause();
     }
 
     // setting the timescale wil make the game freeze or unfreeze
     public void Pause() {
-        Debug.Log(Time.timeScale);
         if (Time.timeScale == 1) {
             MenuCanvas.gameObject.SetActive(true);
             title.enabled = true;
@@ -109,7 +101,8 @@ public class PauseMenuBehaviour : MonoBehaviour {
     }
 
     public void ExitGame() {
-        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(4);
     }
 
     public void ExitPress() {

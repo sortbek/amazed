@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.AI.GOAP;
+﻿using Assets.Scripts.AI.GOAP;
 using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
     public class ChargeTargetAction : GoapAction {
-        public override Vector3? GetTarget() {
-            return GameManager.Instance.Character.transform.position;
+
+        public override GameObject GetTarget() {
+            return GameManager.Instance.Character.gameObject;
         }
 
         public override void Init() {
-            RegisterEffect(GoapCondition.InAttackRange, true);
-            RegisterPrecondition(GoapCondition.IsTired, false);
+            RegisterEffect(GoapCondition.NearTarget, true);
+            RegisterPrecondition(GoapCondition.NearTarget, false);
+            RegisterPrecondition(GoapCondition.IsDamaged, false);
         }
 
         public override void Execute() {
@@ -22,10 +20,7 @@ namespace Assets.Scripts.AI.Actions {
         }
 
         public override bool Completed() {
-            return Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) < 0.3f;
+            return true;
         }
-
-        
-
     }
 }

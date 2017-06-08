@@ -4,8 +4,8 @@ namespace Assets.Scripts.Items.Potions {
     // Created by:
     // Hugo Kamps
     // S1084074
-    class HealthPotion : Potion {
-        public HealthPotion(Character.Character player) : base(player) {
+    internal class HealthPotion : Potion {
+        public HealthPotion(Character.Character character) : base(character) {
             Texture = (Texture) Resources.Load("Sprites/potion_health", typeof(Texture));
             Boost = 30;
             Duration = 0;
@@ -13,8 +13,8 @@ namespace Assets.Scripts.Items.Potions {
         }
 
         public override void Use() {
-            if (Player.Health > Character.Character.MAX_HEALTH - Boost) Player.Health = Character.Character.MAX_HEALTH;
-            else Player.Health += Boost;
+            if (Character.Health > Scripts.Character.Character.MAX_HEALTH - Boost) Character.Health = Scripts.Character.Character.MAX_HEALTH;
+            else Character.Health += Boost;
             base.Use();
         }
     }

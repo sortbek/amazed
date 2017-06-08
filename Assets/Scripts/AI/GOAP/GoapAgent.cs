@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Assets.Scripts.AI.Actions;
 using Assets.Scripts.AI.Entity;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Assets.Scripts.AI.GOAP {
-
     // Created by:
     // Eelco Eikelboom
     // S1080542
     [RequireComponent(typeof(LivingEntity))]
     public class GoapAgent : MonoBehaviour {
 
+        private static int _idHolder = 0;
+
+        public int ID { get; private set; }
         public LivingEntity Entity { get; private set; }
         public GoapStateMachine StateMachine { get; private set; }
         public Dictionary<GoapCondition, bool> AgentState { get; private set; }
@@ -27,21 +28,20 @@ namespace Assets.Scripts.AI.GOAP {
                 AgentState[condition] = false;
         }
 
-        void Awake() {
+        private void Awake() {
+            ID = ++_idHolder;
             ActionQueue = new Queue<GoapAction>();
             Actions = new HashSet<GoapAction>();
             Planner = new GoapPlanner(this);
             AgentState = new Dictionary<GoapCondition, bool>();
             LoadDefaultState();
             Entity = GetComponent<LivingEntity>();
-            StateMachine = new GoapStateMachine(this);
-            StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
         }
 
-        void Start() {
+        private void Start() {
             LoadActions();
-
-            Planner.Plan(new GoapPlan(GoapCondition.InAttackRange, true).Add(GoapCondition.IsDamaged, false));
+            StateMachine = new GoapStateMachine(this);
+            StateMachine.ChangeState(GoapStateMachine.StateType.Idle);
         }
 
         // Updates the agent state by altering the given condition
@@ -56,9 +56,12 @@ namespace Assets.Scripts.AI.GOAP {
                 Actions.Add(action);
         }
 
-        void Update() {
-            if(!Entity.Dead) StateMachine.Update();
+        private void Update() {
+            if (!Entity.Dead) StateMachine.Update();
         }
 
+        public void Debug(object obj) {
+            UnityEngine.Debug.Log("Agent "+ID+": "+obj);
+        }
     }
 }

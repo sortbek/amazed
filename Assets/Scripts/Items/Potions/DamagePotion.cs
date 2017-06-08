@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.Items.Potions {
-
     // Created by:
     // Hugo Kamps
     // S1084074
-    class DamagePotion : Potion {
-        public DamagePotion(Character.Character player) : base(player) {
+    internal class DamagePotion : Potion {
+        public DamagePotion(Character.Character character) : base(character) {
             Texture = (Texture) Resources.Load("Sprites/potion_damage", typeof(Texture));
             Boost = 20;
         }
 
         public override void Use() {
-            Player.ATT += Boost;
+            Character.ATT += Boost;
             base.Use();
         }
 
         public override void RemoveEffect() {
-            Player.ATT -= Boost;
+            Character.ATT -= Boost;
             base.RemoveEffect();
         }
     }
