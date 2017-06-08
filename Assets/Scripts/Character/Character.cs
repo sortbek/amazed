@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.World;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Character {
@@ -41,22 +42,19 @@ namespace Assets.Scripts.Character {
         private void Awake() {
             DontDestroyOnLoad(this);
             if (FindObjectsOfType(GetType()).Length > 1) Destroy(gameObject);
+
             _translation = new CharacterTranslation(this);
             _rotation = new CharacterRotation(this);
             _interaction = new CharacterInteraction(this);
 
-            Health = 50f;
-            Speed = 4f;
-            JumpForce = 5f;
-            Points = 0;
+            SetStats();
         }
 
         private void FixedUpdate() {
             if (_interaction == null)
                 _interaction = new CharacterInteraction(this);
 
-            if (Input.GetKeyDown("p")) SceneManager.LoadScene(3);
-            if (Input.GetKeyDown("o")) SceneManager.LoadScene("GameOver");
+            if (Health <= 0) SceneManager.LoadScene(4);
             _translation.Update();
             _rotation.Update();
             _interaction.Update();
@@ -91,6 +89,13 @@ namespace Assets.Scripts.Character {
             var src = GetComponent<AudioSource>();
             src.clip = clip;
             src.Play();
+        }
+
+        public void SetStats() {
+            Health = 100f;
+            Speed = 4f;
+            JumpForce = 5f;
+            Points = 0;
         }
     }
 }

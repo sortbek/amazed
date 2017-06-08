@@ -5,24 +5,24 @@ namespace Assets.Scripts.Items.Potions {
     // Hugo Kamps
     // S1084074
     public abstract class Potion {
-        public bool Active;
-        public int Amount;
-        public float Boost;
-        public int Duration;
-        public Character.Character Player;
-        public Texture Texture;
-        public int TimeLeft;
+        public bool Active { get; set; }
+        public int Amount { get; set; }
+        public float Boost { get; set; }
+        public int Duration { get; set; }
+        public Character.Character Character { get; set; }
+        public Texture Texture { get; set; }
+        public int TimeLeft { get; set; }
 
-        protected Potion(Character.Character player) {
+        protected Potion(Character.Character character) {
             Amount = 5;
-            Player = player;
+            Character = character;
             Duration = 20;
         }
 
         public virtual void Use() {
             TimeLeft = Duration;
 
-            var pr = new PotionRunnable(Player, this);
+            var pr = new PotionRunnable(Character, this);
             pr.Start();
 
             Amount -= 1;

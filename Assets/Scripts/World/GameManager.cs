@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Character;
 using Assets.Scripts.HighScores;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -93,6 +94,15 @@ namespace Assets.Scripts.World {
         public Vector3 GetStartPoint() {
             var offset = Size * 12 / 2 - 6;
             return new Vector3(-offset, 2, -offset);
+        }
+
+        public void ResetGame() {
+            Character.GetComponent<CharacterWeaponController>().Set();
+            Character.GetComponent<CharacterPotionController>().Set();
+
+            Character.SetStats();
+            Level = 1;
+            Size = 5;
         }
     }
 }

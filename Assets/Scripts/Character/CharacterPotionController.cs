@@ -13,12 +13,7 @@ namespace Assets.Scripts.Character {
 
         private void Awake() {
             _player = GetComponent<Character>();
-            Health = new HealthPotion(_player);
-            HealthRegeneration = new HealthRegenerationPotion(_player);
-            Speed = new SpeedPotion(_player);
-            Damage = new DamagePotion(_player);
-            Defense = new DefensePotion(_player);
-            Guidance = new GuidancePotion(_player);
+            Set();
         }
 
 // Created By:
@@ -47,6 +42,15 @@ namespace Assets.Scripts.Character {
                 default:
                     break;
             }
+        }
+
+        public void Set() {
+            Health = new HealthPotion(_player);
+            HealthRegeneration = new HealthRegenerationPotion(_player);
+            Speed = new SpeedPotion(_player);
+            Damage = new DamagePotion(_player);
+            Defense = new DefensePotion(_player);
+            Guidance = new GuidancePotion(_player);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Assets.Scripts.Items.Potions {
     // Hugo Kamps
     // S1084074
     internal class HealthRegenerationPotion : Potion {
-        public HealthRegenerationPotion(Character.Character player) : base(player) {
+        public HealthRegenerationPotion(Character.Character character) : base(character) {
             Texture = (Texture) Resources.Load("Sprites/potion_regen", typeof(Texture));
             Boost = 4;
             Duration = 10;
