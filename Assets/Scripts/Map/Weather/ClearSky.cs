@@ -7,7 +7,7 @@ using UnityEngine;
 // S1079065
 namespace Assets.Scripts.Map.Weather {
     public class ClearSky : MonoBehaviour, IWeather {
-        private const float ProgramDuration = 1f;
+        private const float ProgramDuration = 40f;
 
         public void Execute(Action callback) {
             StartCoroutine(Program(callback));

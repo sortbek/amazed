@@ -11,16 +11,15 @@ namespace Assets.Scripts.HUD {
     // S1085303
     public class PotionSelection : MonoBehaviour {
         private Text _amountLabel, _regenLeftLabel, _damageLeftLabel, _defenseLeftLabel, _speedLeftLabel;
-        private CharacterPotionController _controller;
-        private Character.Character _player;
         private RawImage _regenLeftImage, _damageLeftImage, _defenseLeftImage, _speedLeftImage;
-        private int _selectedPotionId;
+
+        private CharacterPotionController _controller;
 
         private RawImage _selectedPotionImage;
-        public Potion SelectedPotion;
+        public Potion SelectedPotion { get; set; }
+        private int _selectedPotionId;
 
         private void Awake() {
-            _player = FindObjectOfType<Character.Character>();
             _controller = FindObjectOfType<CharacterPotionController>();
         }
 
@@ -65,7 +64,6 @@ namespace Assets.Scripts.HUD {
                 }
 
             SelectedPotion = _controller.Health;
-            _player = FindObjectOfType<Character.Character>();
         }
 
         // Update is called once per frame
