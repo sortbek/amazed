@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Util;
 using UnityEngine;
 using Assets.Scripts.World;
 using UnityEngine.SceneManagement;
@@ -44,6 +45,10 @@ namespace Assets.Scripts.Character {
 
         public GameObject Breadcrumb;
         private GameObject Breadcrumbgo;
+
+        public Transform Camera{
+            get{ return transform.FindDeepChild("Camera"); }
+        }
 
         void Awake() {
             DontDestroyOnLoad(this);

@@ -3,6 +3,7 @@ using Assets.Scripts.AI.Entity.Behaviours;
 using Assets.Scripts.Util;
 using Assets.Scripts.World;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.AI.Entity {
     // Created by:
@@ -12,6 +13,7 @@ namespace Assets.Scripts.AI.Entity {
 
         private UnityEngine.Animation _animation;
         private AbstractEntityBehaviour _currentBehaviour;
+        private Slider _health;
 
         public bool Dead { get; set; }
         public LivingEntityPerspective Perspective { get; private set; }
@@ -26,10 +28,12 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         private void Awake() {
+            _health = GetComponentInChildren<Slider>();
             Perspective = new LivingEntityPerspective(this);
         }
 
-        private void Update() {
+        private void Update(){
+            _health.value = Health * 10.0f;
             if (_currentBehaviour != null && !Dead) 
                 transform.position = _currentBehaviour.Update();
         }
@@ -43,7 +47,7 @@ namespace Assets.Scripts.AI.Entity {
                 _animation = GetComponentInChildren<UnityEngine.Animation>();
             _animation.Play(Enum.GetName(typeof(Animation), animation).ToLower());
         }
-
+        
         private void OnTriggerEnter(Collider collision) {
             if (collision.gameObject.tag == "weapon") {
                 var weapon = collision.gameObject.GetComponent<WeaponStat>();
@@ -54,8 +58,9 @@ namespace Assets.Scripts.AI.Entity {
                 GameManager.Instance.Character.Points += 100;
                 Dead = true;
                 PlayAnimation(Animation.Death);
-                GetComponent<CapsuleCollider>().enabled = false;
+                GetComponentInChildren<CapsuleCollider>().enabled = false;
                 GetComponentInChildren<MeshCollider>().enabled = false;
+                GetComponentInChildren<Canvas>().enabled = false;
             }
         }
         

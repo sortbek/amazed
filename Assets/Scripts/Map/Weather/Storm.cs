@@ -119,7 +119,7 @@ namespace Assets.Scripts.Map.Weather {
         private void PlayThunder()
         {
             var i = _random.Next(0, _audioList.Length);
-            print("Playing: " + i);
+            //print("Playing: " + i);
             _audioList[i].Play();
         }
     }
