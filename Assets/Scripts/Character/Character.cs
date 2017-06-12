@@ -45,7 +45,7 @@ namespace Assets.Scripts.Character {
         public GameObject Breadcrumb;
         private GameObject Breadcrumbgo;
 
-        private bool Damageable;
+        private bool _damageable;
 
         void Awake() {
             DontDestroyOnLoad(this);
@@ -100,13 +100,13 @@ namespace Assets.Scripts.Character {
 
         public void Damage(float damage) {
             damage = damage - DEF;
-            if (damage > 0.0f && Damageable) {
+            if (damage > 0.0f && _damageable) {
                 Health -= damage;
             }
         }
 
         public void ToggleDamagable() {
-            Damageable = !Damageable;
+            _damageable = !_damageable;
         }
 
         public void PlayJumpSound() {
