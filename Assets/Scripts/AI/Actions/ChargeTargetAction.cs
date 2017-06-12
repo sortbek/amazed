@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.AI.GOAP;
 using Assets.Scripts.World;
-using Interaction;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
