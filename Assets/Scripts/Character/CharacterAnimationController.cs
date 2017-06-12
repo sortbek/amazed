@@ -5,28 +5,28 @@ using UnityEngine;
 // Eelco Eikelboom
 // S1080542
 public class CharacterAnimationController : MonoBehaviour {
-    private Animator _animator;
+    public Animator Animator;
     private Rigidbody _body;
     private CharacterWeaponController _weaponController;
 
     // Use this for initialization
     private void Start() {
-        _animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
         _body = GetComponent<Rigidbody>();
         _weaponController = FindObjectOfType<CharacterWeaponController>();
     }
 
     // Update is called once per frame
     private void Update() {
-        _animator.SetBool("inMotion", !_body.IsSleeping());
+        Animator.SetBool("inMotion", !_body.IsSleeping());
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            _animator.Play(_weaponController.GetWeaponAnimation());
+            Animator.Play(_weaponController.GetWeaponAnimation());
             _weaponController.Attack();
         }
         else if (Input.GetKeyDown(KeyCode.Mouse1))
-            _animator.Play("characterBlocking");
+            Animator.Play("characterBlocking");
         else if (Input.GetKeyDown(KeyCode.Z))
-            _animator.Play("characterMentalBreakdown");
+            Animator.Play("characterMentalBreakdown");
     }
 }
