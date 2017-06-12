@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Character;
+﻿using Assets.Scripts.AI.Entity;
+using Assets.Scripts.Character;
 using Items;
 using UnityEngine;
 using Util;
@@ -34,6 +35,9 @@ namespace Interaction {
             if (Interaction == null || HasBeenInteractedWith) return;
 
             if (ShowEventLog) return;
+
+            if (Name == "Enemy" && !GetComponent<LivingEntity>().Dead) return;
+
             Interaction.text = string.Format("[F] Search {0}", Name);
 
             if (Input.GetKeyDown(KeyCode.F)) Interact(actor);

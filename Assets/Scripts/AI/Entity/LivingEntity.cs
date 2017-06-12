@@ -2,6 +2,7 @@
 using Assets.Scripts.AI.Entity.Behaviours;
 using Assets.Scripts.Util;
 using Assets.Scripts.World;
+using Interaction;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
@@ -54,6 +55,7 @@ namespace Assets.Scripts.AI.Entity {
                 GameManager.Instance.Character.Points += 100;
                 Dead = true;
                 PlayAnimation(Animation.Death);
+
                 GetComponent<CapsuleCollider>().enabled = false;
                 GetComponentInChildren<MeshCollider>().enabled = false;
             }
