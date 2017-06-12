@@ -20,6 +20,7 @@ Controls
 * Select potions - Q/E or Scrollwheel
 * Use potion - X
 * Dance - Z
+* Mark your position - B
 
 Potions
 -----------
