@@ -60,6 +60,8 @@ namespace Assets.Scripts.Character {
             JumpForce = 5f;
             Points = 0;
 
+            _damageable = true;
+
             asource = GetComponents<AudioSource>();
             jumpland = asource[0];
             jump = asource[1];
