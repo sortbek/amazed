@@ -29,7 +29,6 @@ namespace Assets.Scripts.AI.GOAP.States {
 
         public override void Enter() {
             DetermineBehaviour(true);
-            Debug.Log("AI Moving state");
         }
 
         private void DetermineBehaviour(bool onInit) {
@@ -50,7 +49,6 @@ namespace Assets.Scripts.AI.GOAP.States {
                 return request == null ? Agent.gameObject : request;
             }
             catch (Exception e) {
-                Console.WriteLine(e);
                 return null;
             }
         }
