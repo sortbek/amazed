@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Assets.Scripts.AI.Entity.Behaviours;
 using Assets.Scripts.Util;
 using Assets.Scripts.World;
@@ -14,6 +15,7 @@ namespace Assets.Scripts.AI.Entity {
         private UnityEngine.Animation _animation;
         private AbstractEntityBehaviour _currentBehaviour;
         private Slider _health;
+        private bool _hittable;
 
         public bool Dead { get; set; }
         public LivingEntityPerspective Perspective { get; private set; }
@@ -28,6 +30,7 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         private void Awake() {
+            _hittable = true;
             _health = GetComponentInChildren<Slider>();
             Perspective = new LivingEntityPerspective(this);
         }
@@ -51,7 +54,7 @@ namespace Assets.Scripts.AI.Entity {
         private void OnTriggerEnter(Collider collision) {
             if (collision.gameObject.tag == "weapon") {
                 var weapon = collision.gameObject.GetComponent<WeaponStat>();
-                Health -= weapon.Damage;
+                TakeDamage(weapon.Damage);
 
                 if (Health > 0.0f) return;
 
@@ -62,6 +65,19 @@ namespace Assets.Scripts.AI.Entity {
                 GetComponentInChildren<MeshCollider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
             }
+        }
+
+        private void TakeDamage(float damage) {
+            if (_hittable) {
+                Health -= damage;
+                StartCoroutine(DamageCooldown());
+            }
+        }
+        
+        private IEnumerator DamageCooldown() {
+            _hittable = false;
+            yield return new WaitForSeconds(0.7f);
+            _hittable = true;
         }
         
         public void Rotate(Vector3 dir, float rotationSpeed = 10f) {
