@@ -45,7 +45,6 @@ namespace Assets.Scripts.Map {
         private void SetSettings() {
             if (IsRandom) Seed = Guid.NewGuid().ToString().Replace("-", "");
             GameManager.Instance.GameSeed = Seed;
-            GameManager.Instance.Size = Size;
         }
 
         public void Init() {

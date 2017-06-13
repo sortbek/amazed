@@ -9,14 +9,13 @@ namespace Assets.Scripts.HUD {
     // S1084074
     public class WeaponSelection : MonoBehaviour {
         private CharacterWeaponController _controller;
-        public Character.Character Character;
-        public RawImage[] WeaponImages;
+        private RawImage[] _weaponImages;
 
         // Use this for initialization
         private void Start() {
             _controller = FindObjectOfType<CharacterWeaponController>();
-            WeaponImages = GetComponentsInChildren<RawImage>();
-            foreach (var image in WeaponImages) image.color = Color.black;
+            _weaponImages = GetComponentsInChildren<RawImage>();
+            foreach (var image in _weaponImages) image.color = Color.black;
         }
 
         // Update is called once per frame
@@ -27,13 +26,13 @@ namespace Assets.Scripts.HUD {
 
         private void UpdateHUD() {
             var currentWeaponID = _controller.CurrentWeapon.GetComponent<WeaponStat>().WeaponID;
-            for (var index = 0; index < WeaponImages.Length; index++)
-                WeaponImages[index].color = index == currentWeaponID ? Color.white : Color.black;
+            for (var index = 0; index < _weaponImages.Length; index++)
+                _weaponImages[index].color = index == currentWeaponID ? Color.white : Color.black;
         }
 
         private void CheckEquipment() {
-            for (var index = 0; index < WeaponImages.Length; index++)
-                WeaponImages[index].enabled = _controller.GetEquipment()[index].Access;
+            for (var index = 0; index < _weaponImages.Length; index++)
+                _weaponImages[index].enabled = _controller.GetEquipment()[index].Access;
         }
     }
 }
