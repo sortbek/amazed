@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using Assets.Scripts.Util;
 using UnityEngine;
 using Assets.Scripts.World;
 using UnityEngine.SceneManagement;
@@ -11,22 +13,22 @@ namespace Assets.Scripts.Character {
     // s10854303
     [RequireComponent(typeof(AudioSource))]
     public class Character : MonoBehaviour {
-        public const float MAX_HEALTH = 100;
-
-        public static readonly string ColliderTag = "Ground";
-
         private CharacterInteraction _interaction;
         private CharacterRotation _rotation;
         private CharacterTranslation _translation;
+
         private GridNode _current;
 
-        private AudioSource jumpland;
-        private AudioSource jump;
-        private AudioSource walk;
-        public AudioSource[] asource;
-        
+        private AudioSource _jumpland;
+        private AudioSource _jump;
+        private AudioSource _walk;
+        private AudioSource[] _asource;
+
+        private GameObject _breadcrumb;
+        private bool _damageable;
 
         public EventHandler NodeChanged;
+
         public GridNode Node {
             get { return _current; }
             set {
@@ -35,6 +37,10 @@ namespace Assets.Scripts.Character {
             }
         }
 
+        public const float MAX_HEALTH = 100;
+
+        public static readonly string ColliderTag = "Ground";
+
         public float DEF { get; set; }
         public float ATT { get; set; }
         public float Health { get; set; }
@@ -42,10 +48,11 @@ namespace Assets.Scripts.Character {
         public float JumpForce { get; set; }
         public int Points { get; set; }
 
-        public GameObject Breadcrumb;
-        private GameObject Breadcrumbgo;
+        public GameObject BreadcrumbPrefab;
 
-        private bool _damageable;
+        public Transform Camera {
+            get { return transform.FindDeepChild("Camera"); }
+        }
 
         void Awake() {
             DontDestroyOnLoad(this);
@@ -54,21 +61,19 @@ namespace Assets.Scripts.Character {
             _translation = new CharacterTranslation(this);
             _rotation = new CharacterRotation(this);
             _interaction = new CharacterInteraction(this);
-                        
+
             Health = 50f;
             Speed = 4f;
             JumpForce = 5f;
             Points = 0;
 
+            _asource = GetComponents<AudioSource>();
+            _jumpland = _asource[0];
+            _jump = _asource[1];
+            _walk = _asource[2];
             _damageable = true;
-
-            asource = GetComponents<AudioSource>();
-            jumpland = asource[0];
-            jump = asource[1];
-            walk = asource[2];
-
+            
             SetStats();
-
         }
 
         private void FixedUpdate() {
@@ -77,15 +82,13 @@ namespace Assets.Scripts.Character {
 
             if (Health <= 0) SceneManager.LoadScene(4);
 
-            if (Input.GetKeyDown("b"))
-            {
+            if (Input.GetKeyDown("b")) {
                 var loc = GameManager.Instance.Character.transform.position;
-                Breadcrumbgo = Instantiate(Breadcrumb, loc, transform.rotation);
+                _breadcrumb = Instantiate(BreadcrumbPrefab, loc, transform.rotation);
             }
 
-            if (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d"))
-            {
-                walk.Play();
+            if (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d")) {
+                _walk.Play();
             }
 
             _translation.Update();
@@ -95,12 +98,17 @@ namespace Assets.Scripts.Character {
 
         private void OnCollisionEnter(Collision collision) {
             if (collision.gameObject.name.Equals(ColliderTag) && _translation.Airborne) {
-                jumpland.Play();
+                _jumpland.Play();
                 _translation.Airborne = false;
             }
         }
 
-        public void Damage(float damage) {
+        private void OnTriggerEnter(Collider collision) {
+            if (collision.gameObject.name == "End") GameManager.Instance.LoadNextLevel();
+            if (collision.gameObject.tag == "EnemyWeapon") TakeDamage(5.0f);
+        }
+
+        public void TakeDamage(float damage) {
             damage = damage - DEF;
             if (damage > 0.0f && _damageable) {
                 Health -= damage;
@@ -112,21 +120,16 @@ namespace Assets.Scripts.Character {
         }
 
         public void PlayJumpSound() {
-            jump.Play();
+            _jump.Play();
         }
 
         public void PlayWalkingSound() {
-            walk.Play();
+            _walk.Play();
         }
 
         private void OnNodeChanged() {
-            if(NodeChanged != null)
+            if (NodeChanged != null)
                 NodeChanged(this, EventArgs.Empty);
-        }
-
-        private void OnTriggerEnter(Collider collision) {
-            if (collision.gameObject.name == "End") GameManager.Instance.LoadNextLevel();
-            if (collision.gameObject.tag == "EnemyWeapon") Damage(5.0f);
         }
 
         public void SetStats() {

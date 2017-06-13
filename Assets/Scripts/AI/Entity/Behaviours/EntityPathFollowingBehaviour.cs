@@ -47,7 +47,6 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
 
         public static int A = 0;
         public void UpdateRequest(Vector3 target) {
-            Debug.Log("Request change pathfinding -> " + (++A));
             CurrentIndex = 0;
             _reached = false;
             CurrentRequest = target;
@@ -57,7 +56,6 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
         private void OnPathFound(Vector3[] newPath, bool pathFound) {
             if (pathFound)
                 Path = newPath;
-            else Debug.Log("couldn't find path to "+ CurrentRequest);
         }
 
         public bool Reached() {

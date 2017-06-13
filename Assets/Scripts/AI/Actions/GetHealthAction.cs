@@ -13,7 +13,6 @@ namespace Assets.Scripts.AI.Actions {
         }
 
         public override void Execute() {
-            Debug.Log("Getting health");
         }
 
         public override bool Completed() {
