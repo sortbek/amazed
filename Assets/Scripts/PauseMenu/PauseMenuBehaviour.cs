@@ -101,7 +101,8 @@ public class PauseMenuBehaviour : MonoBehaviour {
     }
 
     public void ExitGame() {
-        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(4);
     }
 
     public void ExitPress() {

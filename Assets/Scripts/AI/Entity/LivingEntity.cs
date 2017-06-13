@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.AI.Entity.Behaviours;
 using Assets.Scripts.Util;
+using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
@@ -50,7 +51,7 @@ namespace Assets.Scripts.AI.Entity {
 
                 if (Health > 0.0f) return;
 
-                // TODO: Add points to players score
+                GameManager.Instance.Character.Points += 100;
                 Dead = true;
                 PlayAnimation(Animation.Death);
                 GetComponent<CapsuleCollider>().enabled = false;

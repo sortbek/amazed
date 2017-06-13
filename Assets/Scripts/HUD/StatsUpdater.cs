@@ -9,7 +9,7 @@ namespace Assets.Scripts.HUD {
     public class StatsUpdater : MonoBehaviour {
         private Slider _health;
         private Character.Character _player;
-        public Text Points, CurrentLevel;
+        private Text _points, _currentLevel;
 
         // Use this for initialization
         private void Start() {
@@ -18,10 +18,10 @@ namespace Assets.Scripts.HUD {
             foreach (var text in GetComponentsInChildren<Text>())
                 switch (text.name) {
                     case "PointsAmount":
-                        Points = text;
+                        _points = text;
                         break;
                     case "CurrentLevel":
-                        CurrentLevel = text;
+                        _currentLevel = text;
                         break;
                 }
 
@@ -35,8 +35,8 @@ namespace Assets.Scripts.HUD {
 
         private void UpdateHudInformation() {
             _health.value = _player.Health;
-            Points.text = _player.Points.ToString();
-            CurrentLevel.text = "Level " + GameManager.Instance.Level;
+            _points.text = _player.Points.ToString();
+            _currentLevel.text = "Level " + GameManager.Instance.Level;
         }
     }
 }

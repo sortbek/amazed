@@ -5,7 +5,7 @@ namespace Assets.Scripts.Items.Potions {
     // Hugo Kamps
     // S1084074
     internal class SpeedPotion : Potion {
-        public SpeedPotion(Character.Character player) : base(player) {
+        public SpeedPotion(Character.Character character) : base(character) {
             Texture = (Texture) Resources.Load("Sprites/potion_speed", typeof(Texture));
             Boost = 1.5f;
             Duration = 10;
@@ -13,12 +13,12 @@ namespace Assets.Scripts.Items.Potions {
         }
 
         public override void Use() {
-            Player.Speed *= Boost;
+            Character.Speed *= Boost;
             base.Use();
         }
 
         public override void RemoveEffect() {
-            Player.Speed /= Boost;
+            Character.Speed /= Boost;
             base.RemoveEffect();
         }
     }

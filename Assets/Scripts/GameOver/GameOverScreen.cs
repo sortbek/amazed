@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.World;
+﻿using System;
+using Assets.Scripts.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -34,17 +35,12 @@ namespace Assets.Scripts.GameOver {
 
         public void SaveHighScoresClick() {
             var name = _nameInput.text;
-            if (_character != null && name != "") {
+            if (_character != null && !string.IsNullOrEmpty(name) && name.Trim().Length != 0) {
                 GameManager.Instance.GetHighScoresController()
                     .SaveHighScores(name, GameManager.Instance.Level, _character.Points);
                 _saveHighScoresButton.enabled = false;
                 _pointsText.text = "Highscore saved";
             }
-        }
-
-        public void TryAgainClick() {
-            Destroy(FindObjectOfType<Character.Character>());
-            SceneManager.LoadScene(1);
         }
 
         public void BackToMainMenuClick() {

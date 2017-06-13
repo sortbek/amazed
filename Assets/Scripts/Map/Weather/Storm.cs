@@ -11,7 +11,7 @@ using Random = System.Random;
 namespace Assets.Scripts.Map.Weather {
     public class Storm : MonoBehaviour, IWeather {
         // CONSTANTS settings
-        private const float ProgramDuration = 60f;
+        private const float ProgramDuration = 35f;
         private const float MaxRain = 10000f;
         private const float FadeTime = 5f;
         private const float FadeSteps = 10f;
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Map.Weather {
         }
 
         private IEnumerator FadeInProgram() {
-            StartCoroutine(AudioFader.FadeIn(_rainAudio, FadeTime, 0.3f));
+            StartCoroutine(AudioFader.FadeIn(_rainAudio, FadeTime, 0.2f));
             var rain = 0.1f;
             var duration = 0f;
             while (duration < FadeTime) {

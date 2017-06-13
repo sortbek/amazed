@@ -64,7 +64,7 @@ public class SettingsBehaviour : MonoBehaviour {
     }
 
     public void OnMusicVolumeChange() {
-        musicSource.volume = gameSettings.musicVolume = musicVolumeSlider.value;
+        AudioListener.volume = gameSettings.musicVolume = musicVolumeSlider.value;
     }
 
     // in unity at the buildsettings you can select playersettings and change the save folder.
