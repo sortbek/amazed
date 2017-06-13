@@ -71,7 +71,8 @@ namespace Assets.Scripts.Character {
             _jumpland = _asource[0];
             _jump = _asource[1];
             _walk = _asource[2];
-
+            _damageable = true;
+            
             SetStats();
         }
 
