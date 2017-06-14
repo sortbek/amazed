@@ -80,6 +80,9 @@ namespace Assets.Scripts.AI.Entity {
             _hittable = true;
         }
         
+        //Rotates the entity towards the given direction with the given rotation speed.
+        //Calculates the angle between te current position and the given direction and calculates
+        //the Quaternion based off that.
         public void Rotate(Vector3 dir, float rotationSpeed = 10f) {
             transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
                 dir - transform.position,

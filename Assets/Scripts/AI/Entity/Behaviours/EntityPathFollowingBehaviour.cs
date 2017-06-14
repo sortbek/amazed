@@ -4,6 +4,10 @@ using Assets.Scripts.World;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
+
+    // Created by:
+    // Eelco Eikelboom
+    // S1080542
     public class EntityPathFollowingBehaviour : AbstractEntityBehaviour {
 
         public Vector3[] Path { get; private set; }
@@ -22,6 +26,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             _animation = animation;
         }
 
+        //Moves through the calculated path.
         public override Vector3 Update() {
             if (Path == null || Path.Length <= 0) {
                 Entity.Rotate(Vector3.forward);
@@ -29,18 +34,22 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             }
             Entity.PlayAnimation(_animation);
             Vector3 target;
+            //Check whether we're at the end of the path
             if (CurrentIndex == Path.Length) {
                 target = CurrentRequest.Value;
                 _reached = true;
             } else {
+                //Update the target
                 target = Path[CurrentIndex];
                 Path[CurrentIndex].y = 0.0f;
+                //Check whether we've passed the target
                 if (Vector3.Distance(Entity.transform.position, target) < 0.1f)
                     CurrentIndex += 1;
             }
             target.y = 0.0f;
             var destination = Vector3.MoveTowards(Entity.transform.position, target,
                 Time.deltaTime * _speed);
+            //Rotate towards the target
             Entity.Rotate(destination);
             return destination;
         }

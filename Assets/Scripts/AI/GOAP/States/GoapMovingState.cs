@@ -20,6 +20,8 @@ namespace Assets.Scripts.AI.GOAP.States {
             _character.NodeChanged += CharacterNodeChanged;
         }
 
+        //Event to check whether the character changed between nodes
+        //This is used to update the pathplanning only when it's required (efficiency!)
         private void CharacterNodeChanged(object sender, EventArgs e) {
             if (Agent.Entity.GetCurrentBehaviour() != _pathFollowing) return;
             var target = GetTargetPosition();
@@ -31,13 +33,17 @@ namespace Assets.Scripts.AI.GOAP.States {
             DetermineBehaviour(true);
         }
 
+        // Determines the behaviour based on whether the character is visible or not
         private void DetermineBehaviour(bool onInit) {
             var request = GetTargetPosition();
+            // Check whether character is visible
             if (Agent.Entity.Perspective.Visible(request)) {
+                //Use the seek behaviour
                 Agent.Entity.SetBehaviour(_seek);
                 _seek.UpdateTarget(_character.transform.position);
             }
             else {
+                //Not visible -> Use pathplanning
                 Agent.Entity.SetBehaviour(_pathFollowing);
                 if (onInit) _pathFollowing.UpdateRequest(request.transform.position);
             }

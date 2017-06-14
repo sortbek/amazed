@@ -36,6 +36,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             return _pathFollowing.Update();
         }
 
+        //Finds a random location in the maze to wander towards.
         private void UpdateLocation() {
             var game = GameManager.Instance;
             if (_grid == null) {
