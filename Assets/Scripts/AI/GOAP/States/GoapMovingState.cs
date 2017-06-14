@@ -49,6 +49,7 @@ namespace Assets.Scripts.AI.GOAP.States {
         }
 
         private GameObject GetTargetPosition() {
+            if (Agent == null) return null;
             var request = Agent.ActionQueue.Count > 0 ? Agent.ActionQueue.Peek().GetTarget() : null;
             return request ?? Agent.gameObject;
         }
