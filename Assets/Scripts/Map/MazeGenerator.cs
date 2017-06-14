@@ -5,6 +5,7 @@ using Assets.Scripts.World;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
+
 #endif
 
 // Created by:
@@ -142,7 +143,7 @@ namespace Assets.Scripts {
             nodeTopRight.IsPartOfRoom = true;
             nodeTopLeft.IsTopSide = true;
             nodeTopRight.IsTopSide = true;
-            
+
             // To prevent rooms getting placed above each other, we mark the cells around the room as 'room' aswell
             _rooms.Add(GetNodeIndex(_gridMap[nodeTopLeft.X, nodeTopLeft.Y + 1]));
             _rooms.Add(GetNodeIndex(_gridMap[nodeTopLeft.X + 1, nodeTopLeft.Y + 1]));
@@ -379,9 +380,8 @@ namespace Assets.Scripts {
 
             var spawnLoc = locations[Random.Range(1, locations.Length)];
 
-            if (spawnLoc != null){
+            if (spawnLoc != null)
                 Instantiate(EnemyPrefab, spawnLoc.position + new Vector3(0.0f, 1.0f, 0.0f), transform.rotation);
-            }
         }
 
         private void InstantiateMap() {

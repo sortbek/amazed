@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.AI.Entity;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP {
@@ -7,15 +6,15 @@ namespace Assets.Scripts.AI.GOAP {
     // Eelco Eikelboom
     // S1080542
     public abstract class GoapAction : MonoBehaviour {
-        public Dictionary<GoapCondition, bool> Preconditions { get; private set; }
-        public Dictionary<GoapCondition, bool> Effects { get; private set; }
-
-        public GoapAgent Agent { get; set; }
-
         protected GoapAction() {
             Preconditions = new Dictionary<GoapCondition, bool>();
             Effects = new Dictionary<GoapCondition, bool>();
         }
+
+        public Dictionary<GoapCondition, bool> Preconditions { get; private set; }
+        public Dictionary<GoapCondition, bool> Effects { get; private set; }
+
+        public GoapAgent Agent { get; set; }
 
         protected void RegisterPrecondition(GoapCondition condition, bool val) {
             Preconditions[condition] = val;

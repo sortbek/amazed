@@ -1,26 +1,26 @@
-﻿using Assets.Scripts.AI.GOAP;
-using Assets.Scripts.pathfinding;
-using Assets.Scripts.World;
+﻿using Assets.Scripts.pathfinding;
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
     public class EntityPathFollowingBehaviour : AbstractEntityBehaviour {
-
-        public Vector3[] Path { get; private set; }
-        public int CurrentIndex { get; set; }
-        public Vector3? CurrentRequest { get; private set; }
+        public static int A = 0;
+        private readonly Animation _animation;
 
         private readonly float _speed;
         private bool _reached;
-        private readonly Animation _animation;
 
-        public EntityPathFollowingBehaviour(LivingEntity entity) : this(entity, entity.Speed, Animation.Run) {}
+        public EntityPathFollowingBehaviour(LivingEntity entity) : this(entity, entity.Speed, Animation.Run) { }
+
         public EntityPathFollowingBehaviour(LivingEntity entity, float speed, Animation animation) : base(entity) {
             _speed = speed;
             _reached = false;
             CurrentRequest = null;
             _animation = animation;
         }
+
+        public Vector3[] Path { get; private set; }
+        public int CurrentIndex { get; set; }
+        public Vector3? CurrentRequest { get; private set; }
 
         public override Vector3 Update() {
             if (Path == null || Path.Length <= 0) {
@@ -32,7 +32,8 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             if (CurrentIndex == Path.Length) {
                 target = CurrentRequest.Value;
                 _reached = true;
-            } else {
+            }
+            else {
                 target = Path[CurrentIndex];
                 Path[CurrentIndex].y = 0.0f;
                 if (Vector3.Distance(Entity.transform.position, target) < 0.1f)
@@ -45,7 +46,6 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             return destination;
         }
 
-        public static int A = 0;
         public void UpdateRequest(Vector3 target) {
             CurrentIndex = 0;
             _reached = false;

@@ -10,7 +10,7 @@ public class TransitionAnimation : MonoBehaviour {
     // Loads a new version of the 'Game' scene
     public void StartLevel() {
         if (GameManager.Instance.Character != null) GameManager.Instance.Character.gameObject.SetActive(true);
-        if(SceneManager.GetActiveScene().name == "GameOver") GameManager.Instance.ResetGame();
+        if (SceneManager.GetActiveScene().name == "GameOver") GameManager.Instance.ResetGame();
         SceneManager.LoadScene(1);
     }
 

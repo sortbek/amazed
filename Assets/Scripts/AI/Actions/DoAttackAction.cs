@@ -4,7 +4,7 @@ using UnityEngine;
 using Animation = Assets.Scripts.AI.Entity.Animation;
 
 namespace Assets.Scripts.AI.Actions {
-    public class DoAttackAction : GoapAction{
+    public class DoAttackAction : GoapAction {
         public override void Execute() {
             Agent.Entity.PlayAnimation(Animation.Attack1);
             Rotate();
@@ -20,7 +20,8 @@ namespace Assets.Scripts.AI.Actions {
             // check if player is still in range
             // if animation is finished and player is still in range redo this action.
             Rotate();
-            return Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) >= 4.5f;
+            return Vector3.Distance(Agent.transform.position, GameManager.Instance.Character.transform.position) >=
+                   4.5f;
         }
 
         public override GameObject GetTarget() {

@@ -4,7 +4,6 @@
 
 namespace Util {
     public enum Item {
-
         Null,
         Sword,
         BattleAxe,
@@ -15,7 +14,7 @@ namespace Util {
         DamagePot,
         DefensePot,
         SpeedPot,
-        GuidancePot,
+        GuidancePot
     }
 
     public static class ItemUtil {

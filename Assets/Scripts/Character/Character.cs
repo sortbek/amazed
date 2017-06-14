@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
 using Assets.Scripts.Util;
-using UnityEngine;
 using Assets.Scripts.World;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Character {
@@ -13,22 +12,25 @@ namespace Assets.Scripts.Character {
     // s10854303
     [RequireComponent(typeof(AudioSource))]
     public class Character : MonoBehaviour {
-        private CharacterInteraction _interaction;
-        private CharacterRotation _rotation;
-        private CharacterTranslation _translation;
+        public const float MaxHealth = 100;
+
+        public static readonly string ColliderTag = "Ground";
 
         private GridNode _current;
 
-
-        public AudioSource Jumpland;
-        public AudioSource Jump;
-        public AudioSource Walk;
+        private bool _damageable;
+        private CharacterInteraction _interaction;
+        private CharacterRotation _rotation;
+        private CharacterTranslation _translation;
         public AudioSource Attack;
 
-        private GameObject _breadcrumb;
-        private bool _damageable;
+        public GameObject BreadcrumbPrefab;
+        public AudioSource Jump;
+
+        public AudioSource Jumpland;
 
         public EventHandler NodeChanged;
+        public AudioSource Walk;
 
         public GridNode Node {
             get { return _current; }
@@ -38,26 +40,18 @@ namespace Assets.Scripts.Character {
             }
         }
 
-        public const float MAX_HEALTH = 100;
-
-        public static readonly string ColliderTag = "Ground";
-
-        public float DEF { get; set; }
-        public float ATT { get; set; }
+        public float Def { get; set; }
+        public float Att { get; set; }
         public float Health { get; set; }
         public float Speed { get; set; }
         public float JumpForce { get; set; }
         public int Points { get; set; }
 
-        public GameObject BreadcrumbPrefab;
-
         public Transform Camera {
             get { return transform.FindDeepChild("Camera"); }
         }
 
-
-
-        void Awake() {
+        private void Awake() {
             DontDestroyOnLoad(this);
             if (FindObjectsOfType(GetType()).Length > 1) Destroy(gameObject);
 
@@ -83,7 +77,7 @@ namespace Assets.Scripts.Character {
 
             if (Input.GetKeyDown("b")) {
                 var loc = GameManager.Instance.Character.transform.position;
-                _breadcrumb = Instantiate(BreadcrumbPrefab, loc, transform.rotation);
+                Instantiate(BreadcrumbPrefab, loc, transform.rotation);
             }
 
             _translation.Update();
@@ -104,10 +98,8 @@ namespace Assets.Scripts.Character {
         }
 
         public void TakeDamage(float damage) {
-            damage = damage - DEF;
-            if (damage > 0.0f && _damageable) {
-                Health -= damage;
-            }
+            damage = damage - Def;
+            if (damage > 0.0f && _damageable) Health -= damage;
         }
 
         public void ToggleDamagable() {
@@ -119,18 +111,11 @@ namespace Assets.Scripts.Character {
         }
 
         public void PlayWalkingSound() {
-            if (!Walk.isPlaying){
-                Walk.Play();
-            }
-            
+            if (!Walk.isPlaying) Walk.Play();
         }
 
-        public void PlayAttackSound()
-        {
-            if (!Attack.isPlaying){
-                Attack.Play();
-            }
-            
+        public void PlayAttackSound() {
+            if (!Attack.isPlaying) Attack.Play();
         }
 
         private void OnNodeChanged() {
@@ -144,7 +129,5 @@ namespace Assets.Scripts.Character {
             JumpForce = 5f;
             Points = 0;
         }
-
-
     }
 }

@@ -8,63 +8,63 @@ using UnityEngine.UI;
 // S1085303
 
 public class SettingsBehaviour : MonoBehaviour {
-    public Dropdown antialiasingDropdown;
+    public Dropdown AntialiasingDropdown;
     public Button ApplyButton;
 
-    public Toggle fullscreenToggle;
-    public GameSettings gameSettings;
+    public Toggle FullscreenToggle;
+    public GameSettings GameSettings;
 
-    public AudioSource musicSource;
-    public Slider musicVolumeSlider;
-    public Dropdown resolutionDropdown;
-    public Resolution[] resolutions;
-    public Dropdown textureQualityDropdown;
-    public Dropdown vSyncDropdown;
+    public AudioSource MusicSource;
+    public Slider MusicVolumeSlider;
+    public Dropdown ResolutionDropdown;
+    public Resolution[] Resolutions;
+    public Dropdown TextureQualityDropdown;
+    public Dropdown VSyncDropdown;
 
     private void OnEnable() {
-        gameSettings = new GameSettings();
+        GameSettings = new GameSettings();
 
-        musicVolumeSlider.value = 100;
+        MusicVolumeSlider.value = 100;
 
-        fullscreenToggle.onValueChanged.AddListener(delegate { OnFullscreenToggle(); });
-        resolutionDropdown.onValueChanged.AddListener(delegate { OnResolutionChange(); });
-        textureQualityDropdown.onValueChanged.AddListener(delegate { OnTextureQualityChange(); });
-        antialiasingDropdown.onValueChanged.AddListener(delegate { OnAntialiasingChange(); });
-        vSyncDropdown.onValueChanged.AddListener(delegate { OnVSyncChange(); });
-        musicVolumeSlider.onValueChanged.AddListener(delegate { OnMusicVolumeChange(); });
+        FullscreenToggle.onValueChanged.AddListener(delegate { OnFullscreenToggle(); });
+        ResolutionDropdown.onValueChanged.AddListener(delegate { OnResolutionChange(); });
+        TextureQualityDropdown.onValueChanged.AddListener(delegate { OnTextureQualityChange(); });
+        AntialiasingDropdown.onValueChanged.AddListener(delegate { OnAntialiasingChange(); });
+        VSyncDropdown.onValueChanged.AddListener(delegate { OnVSyncChange(); });
+        MusicVolumeSlider.onValueChanged.AddListener(delegate { OnMusicVolumeChange(); });
         ApplyButton.onClick.AddListener(delegate { OnApplyButtonClick(); });
 
-        resolutions = Screen.resolutions;
-        foreach (var resolution in resolutions)
-            resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
+        Resolutions = Screen.resolutions;
+        foreach (var resolution in Resolutions)
+            ResolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
 
         LoadSettings();
     }
 
     public void OnFullscreenToggle() {
-        gameSettings.fullscreen = Screen.fullScreen = fullscreenToggle.isOn;
+        GameSettings.Fullscreen = Screen.fullScreen = FullscreenToggle.isOn;
     }
 
     public void OnResolutionChange() {
-        Screen.SetResolution(resolutions[resolutionDropdown.value].width, resolutions[resolutionDropdown.value].height,
+        Screen.SetResolution(Resolutions[ResolutionDropdown.value].width, Resolutions[ResolutionDropdown.value].height,
             Screen.fullScreen);
-        gameSettings.resolutionIndex = resolutionDropdown.value;
+        GameSettings.ResolutionIndex = ResolutionDropdown.value;
     }
 
     public void OnTextureQualityChange() {
-        QualitySettings.masterTextureLimit = gameSettings.textureQuality = textureQualityDropdown.value;
+        QualitySettings.masterTextureLimit = GameSettings.TextureQuality = TextureQualityDropdown.value;
     }
 
     public void OnAntialiasingChange() {
-        QualitySettings.antiAliasing = gameSettings.antialiasing = (int) Mathf.Pow(2f, antialiasingDropdown.value);
+        QualitySettings.antiAliasing = GameSettings.Antialiasing = (int) Mathf.Pow(2f, AntialiasingDropdown.value);
     }
 
     public void OnVSyncChange() {
-        QualitySettings.vSyncCount = gameSettings.vSync = vSyncDropdown.value;
+        QualitySettings.vSyncCount = GameSettings.VSync = VSyncDropdown.value;
     }
 
     public void OnMusicVolumeChange() {
-        AudioListener.volume = gameSettings.musicVolume = musicVolumeSlider.value;
+        AudioListener.volume = GameSettings.MusicVolume = MusicVolumeSlider.value;
     }
 
     // in unity at the buildsettings you can select playersettings and change the save folder.
@@ -73,30 +73,30 @@ public class SettingsBehaviour : MonoBehaviour {
     }
 
     public void SaveSettings() {
-        var jsonData = JsonUtility.ToJson(gameSettings, true);
+        var jsonData = JsonUtility.ToJson(GameSettings, true);
         File.WriteAllText(Application.persistentDataPath + "/gamesettings.json", jsonData);
     }
 
     public void LoadSettings() {
         try {
-            gameSettings =
+            GameSettings =
                 JsonUtility.FromJson<GameSettings>(
                     File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
 
-            musicVolumeSlider.value = gameSettings.musicVolume;
-            antialiasingDropdown.value = gameSettings.antialiasing;
-            vSyncDropdown.value = gameSettings.vSync;
-            textureQualityDropdown.value = gameSettings.textureQuality;
-            resolutionDropdown.value = gameSettings.resolutionIndex;
-            fullscreenToggle.isOn = gameSettings.fullscreen;
+            MusicVolumeSlider.value = GameSettings.MusicVolume;
+            AntialiasingDropdown.value = GameSettings.Antialiasing;
+            VSyncDropdown.value = GameSettings.VSync;
+            TextureQualityDropdown.value = GameSettings.TextureQuality;
+            ResolutionDropdown.value = GameSettings.ResolutionIndex;
+            FullscreenToggle.isOn = GameSettings.Fullscreen;
         }
         catch (Exception e) {
             Console.WriteLine(e);
             throw;
         }
 
-        Screen.fullScreen = gameSettings.fullscreen;
+        Screen.fullScreen = GameSettings.Fullscreen;
 
-        resolutionDropdown.RefreshShownValue();
+        ResolutionDropdown.RefreshShownValue();
     }
 }

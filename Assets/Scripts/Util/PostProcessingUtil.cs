@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Assets.Scripts.World;
+﻿using Assets.Scripts.World;
 using UnityEngine;
 using UnityEngine.PostProcessing;
 
 namespace Assets.Scripts.Util {
-    class PostProcessingUtil : MonoBehaviour {
-        private Character.Character _character;
-        private PostProcessingBehaviour _behaviour;
-
+    internal class PostProcessingUtil : MonoBehaviour {
         private const int VignetteDiv = 140, GrainDiv = 300;
+        private PostProcessingBehaviour _behaviour;
+        private Character.Character _character;
 
-        void Start() {
+        private void Start() {
             _behaviour = GetComponent<PostProcessingBehaviour>();
         }
 
-        void Update() {
-            if (_character == null) _character = GameManager.Instance.Character;
+        private void Update() {
+            if (_character == null) {
+                _character = GameManager.Instance.Character;
+            }
             else {
-                var intensity = Character.Character.MAX_HEALTH - _character.Health;
+                var intensity = Character.Character.MaxHealth - _character.Health;
 
                 var vignette = _behaviour.profile.vignette.settings;
                 vignette.intensity = intensity / VignetteDiv;

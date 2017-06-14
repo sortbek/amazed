@@ -53,7 +53,7 @@ namespace Assets.Scripts.Character {
                 var weaponObject = Instantiate(obj, position, _weaponPosition.rotation, _weaponPosition);
                 var weapon = new WeaponObject {Access = stat.Default, Object = weaponObject};
                 weaponObject.SetActive(false);
-                _equipment[stat.WeaponID] = weapon;
+                _equipment[stat.WeaponId] = weapon;
             }
         }
 

@@ -35,8 +35,8 @@ namespace Assets.Scripts.Items.Potions {
         public void DisplayTimeEvent(object source, ElapsedEventArgs e) {
             _potion.TimeLeft -= 1;
             if (_potion.GetType() != typeof(HealthRegenerationPotion)) return;
-            if (_player.Health < Character.Character.MAX_HEALTH - _potion.Boost) _player.Health += _potion.Boost;
-            else _player.Health = Character.Character.MAX_HEALTH;
+            if (_player.Health < Character.Character.MaxHealth - _potion.Boost) _player.Health += _potion.Boost;
+            else _player.Health = Character.Character.MaxHealth;
         }
     }
 }

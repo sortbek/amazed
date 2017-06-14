@@ -8,10 +8,9 @@ namespace Assets.Scripts.AI.GOAP.States {
     // Hugo Kamps
     // S1084074
     public class GoapMovingState : AbstractState {
+        private readonly Character.Character _character;
         private readonly EntityPathFollowingBehaviour _pathFollowing;
         private readonly EntitySeekBehaviour _seek;
-
-        private readonly Character.Character _character;
 
         public GoapMovingState(GoapAgent agent) : base(agent) {
             _pathFollowing = new EntityPathFollowingBehaviour(agent.Entity);

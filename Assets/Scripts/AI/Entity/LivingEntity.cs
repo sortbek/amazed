@@ -11,18 +11,17 @@ namespace Assets.Scripts.AI.Entity {
     // Eelco Eikelboom     Hugo Kamps
     // S1080542            S1084074
     public class LivingEntity : MonoBehaviour {
-
         private UnityEngine.Animation _animation;
         private AbstractEntityBehaviour _currentBehaviour;
         private Slider _health;
         private bool _hittable;
 
-        public bool Dead { get; set; }
-        public LivingEntityPerspective Perspective { get; private set; }
-
         [SerializeField] public float Energy = 8f;
         [SerializeField] public float Health = 10f;
         [SerializeField] public float Speed = 1.0f;
+
+        public bool Dead { get; set; }
+        public LivingEntityPerspective Perspective { get; private set; }
 
         public void SetBehaviour(AbstractEntityBehaviour behaviour) {
             if (_currentBehaviour != null && behaviour == _currentBehaviour) return;
@@ -35,9 +34,9 @@ namespace Assets.Scripts.AI.Entity {
             Perspective = new LivingEntityPerspective(this);
         }
 
-        private void Update(){
+        private void Update() {
             _health.value = Health * 10.0f;
-            if (_currentBehaviour != null && !Dead) 
+            if (_currentBehaviour != null && !Dead)
                 transform.position = _currentBehaviour.Update();
         }
 
@@ -50,7 +49,7 @@ namespace Assets.Scripts.AI.Entity {
                 _animation = GetComponentInChildren<UnityEngine.Animation>();
             _animation.Play(Enum.GetName(typeof(Animation), animation).ToLower());
         }
-        
+
         private void OnTriggerEnter(Collider collision) {
             if (collision.gameObject.tag == "weapon") {
                 var weapon = collision.gameObject.GetComponent<WeaponStat>();
@@ -73,13 +72,13 @@ namespace Assets.Scripts.AI.Entity {
                 StartCoroutine(DamageCooldown());
             }
         }
-        
+
         private IEnumerator DamageCooldown() {
             _hittable = false;
             yield return new WaitForSeconds(0.7f);
             _hittable = true;
         }
-        
+
         public void Rotate(Vector3 dir, float rotationSpeed = 10f) {
             transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward,
                 dir - transform.position,
