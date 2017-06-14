@@ -63,7 +63,7 @@ namespace Assets.Scripts.Character {
             }
             else {
                 // No props were found => Interaction text is cleared
-                if (SceneManager.GetActiveScene().name == "Game" && Time.timeScale == 1) _interactionText.text = "";
+                if (SceneManager.GetActiveScene().name == "Game") _interactionText.text = "";
             }
         }
 
