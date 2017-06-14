@@ -20,10 +20,10 @@ namespace Assets.Scripts.Character {
         private GridNode _current;
 
 
-        public AudioSource _jumpland;
-        public AudioSource _jump;
-        public AudioSource _walk;
-        public AudioSource _attack;
+        public AudioSource jumpland;
+        public AudioSource jump;
+        public AudioSource walk;
+        public AudioSource attack;
 
         private GameObject _breadcrumb;
         private bool _damageable;
