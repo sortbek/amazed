@@ -61,8 +61,7 @@ public class CharacterAnimationController : MonoBehaviour {
         _character.PlayWalkingSound();
     }
 
-    private void OnCharacterAttack()
-    {
+    private void OnCharacterAttack(){
         _character.PlayAttackSound();
     }
 
