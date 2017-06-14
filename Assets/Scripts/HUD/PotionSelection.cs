@@ -11,13 +11,13 @@ namespace Assets.Scripts.HUD {
     // S1085303
     public class PotionSelection : MonoBehaviour {
         private Text _amountLabel, _regenLeftLabel, _damageLeftLabel, _defenseLeftLabel, _speedLeftLabel;
-        private RawImage _regenLeftImage, _damageLeftImage, _defenseLeftImage, _speedLeftImage;
 
         private CharacterPotionController _controller;
+        private RawImage _regenLeftImage, _damageLeftImage, _defenseLeftImage, _speedLeftImage;
+        private int _selectedPotionId;
 
         private RawImage _selectedPotionImage;
         public Potion SelectedPotion { get; set; }
-        private int _selectedPotionId;
 
         private void Awake() {
             _controller = FindObjectOfType<CharacterPotionController>();

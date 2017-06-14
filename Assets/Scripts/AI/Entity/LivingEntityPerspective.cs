@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity {
     public class LivingEntityPerspective {
-
         private readonly Camera _camera;
         private readonly LivingEntity _entity;
+
         public LivingEntityPerspective(LivingEntity entity) {
             _entity = entity;
             _camera = entity.GetComponentInChildren<Camera>();
@@ -35,6 +31,5 @@ namespace Assets.Scripts.AI.Entity {
                 return true;
             return hit.collider.name == _entity.name;
         }
-
     }
 }

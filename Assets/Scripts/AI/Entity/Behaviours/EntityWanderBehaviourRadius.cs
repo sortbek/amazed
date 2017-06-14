@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
-    
     // Created by:
     // Eelco Eikelboom
     // S1080542
     public class EntityWanderBehaviourRadius : AbstractEntityBehaviour {
-
         private readonly float _speed, _triggerDistance, _radius;
         private Vector3? _target, _startWanderPosition;
 
@@ -36,7 +34,9 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             var loc = Random.insideUnitSphere * _radius;
             loc += Entity.transform.position;
             loc.y = Entity.transform.position.y;
-            _target = Vector3.Distance(_startWanderPosition.Value, loc) > _radius*2 ? _startWanderPosition.Value : loc;
+            _target = Vector3.Distance(_startWanderPosition.Value, loc) > _radius * 2
+                ? _startWanderPosition.Value
+                : loc;
         }
     }
 }

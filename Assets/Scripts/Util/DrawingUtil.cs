@@ -6,41 +6,41 @@ using UnityEngine;
 // S1085303
 
 public class DrawingUtil : MonoBehaviour {
-    public const float speed = 5f;
-    public const float baseHeight = -1f;
-    public const float particleHeight = 4f;
+    public const float Speed = 5f;
+    public const float BaseHeight = -1f;
+    public const float ParticleHeight = 4f;
+    public int NodeIndex;
 
-    public List<Vector3> _path;
-    public int nodeIndex;
+    public GameObject Particle;
+    public List<GameObject> ParticleClone = new List<GameObject>();
+    public GameObject ParticleGo;
 
-    public GameObject particle;
-    public List<GameObject> particleClone = new List<GameObject>();
-    public GameObject particleGO;
-    public Vector3 playerloc;
+    public List<Vector3> Path;
+    public Vector3 Playerloc;
 
     private void Update() {
-        if (_path == null || _path.Count == 0 || _path.Count <= nodeIndex)
+        if (Path == null || Path.Count == 0 || Path.Count <= NodeIndex)
             return;
 
         //define next node
         var nextNode = new Vector3(
-            _path[nodeIndex].x,
-            _path[nodeIndex].y + particleHeight,
-            _path[nodeIndex].z);
+            Path[NodeIndex].x,
+            Path[NodeIndex].y + ParticleHeight,
+            Path[NodeIndex].z);
 
         // Make the gameobject move forward (own position, target, movementspeed)
-        particleGO.transform.position = Vector3.MoveTowards(
-            particleGO.transform.position, nextNode, Time.deltaTime * speed);
+        ParticleGo.transform.position = Vector3.MoveTowards(
+            ParticleGo.transform.position, nextNode, Time.deltaTime * Speed);
 
         // If reached node, go to next node
-        if (Vector3.Distance(nextNode, particleGO.transform.position) < 0.1f) nodeIndex++;
+        if (Vector3.Distance(nextNode, ParticleGo.transform.position) < 0.1f) NodeIndex++;
     }
 
     public void SpawnDust(Vector3[] path, Vector3 loc) {
-        _path = new List<Vector3>(path);
+        Path = new List<Vector3>(path);
         // inserts player location at the start of the list 
-        _path.Insert(0, loc);
+        Path.Insert(0, loc);
 
-        particleGO = Instantiate(particle, loc, transform.rotation);
+        ParticleGo = Instantiate(Particle, loc, transform.rotation);
     }
 }

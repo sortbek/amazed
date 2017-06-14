@@ -12,8 +12,7 @@ namespace Assets.Scripts.AI.Actions {
             RegisterEffect(GoapCondition.IsDamaged, false);
         }
 
-        public override void Execute() {
-        }
+        public override void Execute() { }
 
         public override bool Completed() {
             return true;

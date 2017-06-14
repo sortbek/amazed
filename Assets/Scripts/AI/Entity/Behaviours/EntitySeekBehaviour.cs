@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
 
@@ -11,13 +7,13 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
     // S1080542
     public class EntitySeekBehaviour : AbstractEntityBehaviour {
 
-        private Vector3? _target;
         private const float DistanceOffset = 3.3f;
+        private Vector3? _target;
 
-        public EntitySeekBehaviour(LivingEntity entity) : base(entity) {}
+        public EntitySeekBehaviour(LivingEntity entity) : base(entity) { }
 
         public void UpdateTarget(Vector3 target) {
-            this._target = target;
+            _target = target;
         }
 
         public override Vector3 Update() {

@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.World;
+﻿using Assets.Scripts.World;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

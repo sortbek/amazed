@@ -18,12 +18,12 @@ public class PauseMenuBehaviour : MonoBehaviour {
     public Button Settings;
 
     public Canvas SettingsMenu;
-    public Text title;
-    public Canvas uiCanvas;
+    public Text Title;
+    public Canvas UiCanvas;
 
     private void Start() {
-        uiCanvas = uiCanvas.GetComponent<Canvas>();
-        title = title.GetComponent<Text>();
+        UiCanvas = UiCanvas.GetComponent<Canvas>();
+        Title = Title.GetComponent<Text>();
 
         PauseMenu = PauseMenu.GetComponent<Canvas>();
 
@@ -36,7 +36,7 @@ public class PauseMenuBehaviour : MonoBehaviour {
 
         SettingsMenu = SettingsMenu.GetComponent<Canvas>();
         DisableAll();
-        title.enabled = false;
+        Title.enabled = false;
     }
 
     // Update is called once per frame
@@ -48,17 +48,17 @@ public class PauseMenuBehaviour : MonoBehaviour {
     public void Pause() {
         if (Time.timeScale == 1) {
             MenuCanvas.gameObject.SetActive(true);
-            title.enabled = true;
+            Title.enabled = true;
             EnablePauseMenu();
             Cursor.lockState = CursorLockMode.None;
-            uiCanvas.gameObject.SetActive(false);
+            UiCanvas.gameObject.SetActive(false);
             Time.timeScale = 0;
         }
         else {
             Cursor.lockState = CursorLockMode.Locked;
             DisableAll();
-            title.enabled = false;
-            uiCanvas.gameObject.SetActive(true);
+            Title.enabled = false;
+            UiCanvas.gameObject.SetActive(true);
             Time.timeScale = 1;
         }
     }
@@ -72,24 +72,24 @@ public class PauseMenuBehaviour : MonoBehaviour {
     public void EnablePauseMenu() {
         DisableAll();
         MenuCanvas.gameObject.SetActive(true);
-        uiCanvas.gameObject.SetActive(false);
+        UiCanvas.gameObject.SetActive(false);
     }
 
     public void EnableSettingsMenu() {
         DisableAll();
         SettingsMenu.gameObject.SetActive(true);
-        uiCanvas.gameObject.SetActive(false);
+        UiCanvas.gameObject.SetActive(false);
     }
 
     public void EnableExitMenu() {
         DisableAll();
         QuitMenu.gameObject.SetActive(true);
-        uiCanvas.gameObject.SetActive(false);
+        UiCanvas.gameObject.SetActive(false);
     }
 
     public void DisablePauseMeu() {
         MenuCanvas.gameObject.SetActive(false);
-        uiCanvas.gameObject.SetActive(true);
+        UiCanvas.gameObject.SetActive(true);
     }
 
     public void DisableSettingsMenu() {
@@ -123,7 +123,7 @@ public class PauseMenuBehaviour : MonoBehaviour {
 
             Time.timeScale = 1;
             DisableAll();
-            title.enabled = false;
+            Title.enabled = false;
         }
     }
 }

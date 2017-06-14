@@ -13,12 +13,12 @@ namespace Assets.Scripts.Items.Potions {
         }
 
         public override void Use() {
-            Character.DEF += Boost;
+            Character.Def += Boost;
             base.Use();
         }
 
         public override void RemoveEffect() {
-            Character.DEF -= Boost;
+            Character.Def -= Boost;
             base.RemoveEffect();
         }
     }

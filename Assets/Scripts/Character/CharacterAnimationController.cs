@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Runtime.InteropServices;
-using Assets.Scripts.Character;
+﻿using Assets.Scripts.Character;
 using Assets.Scripts.World;
 using UnityEngine;
 
@@ -14,13 +11,12 @@ using UnityEngine;
 public class CharacterAnimationController : MonoBehaviour {
     private Animator _animator;
     private Rigidbody _body;
-    private CharacterWeaponController _weaponController;
     private Character _character;
+    private CharacterWeaponController _weaponController;
 
-    [SerializeField]
-    public AnimationClip WalkingAnimationClip;
-    [SerializeField]
-    public AnimationClip AttackAnimationClip;
+    [SerializeField] public AnimationClip AttackAnimationClip;
+
+    [SerializeField] public AnimationClip WalkingAnimationClip;
 
     // Use this for initialization
     private void Start() {
@@ -29,8 +25,6 @@ public class CharacterAnimationController : MonoBehaviour {
         _weaponController = FindObjectOfType<CharacterWeaponController>();
         _character = GameManager.Instance.Character;
         LoadAnimationEvent();
-
-        
     }
 
     // Update is called once per frame
@@ -41,28 +35,26 @@ public class CharacterAnimationController : MonoBehaviour {
             _animator.Play(_weaponController.GetWeaponAnimation());
             _weaponController.Attack();
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        else if (Input.GetKeyDown(KeyCode.Mouse1)) {
             _animator.Play("characterBlocking");
-        else if (Input.GetKeyDown(KeyCode.Z))
+        }
+        else if (Input.GetKeyDown(KeyCode.Z)) {
             _animator.Play("characterMentalBreakdown");
-        
+        }
     }
 
     private void LoadAnimationEvent() {
-        if (WalkingAnimationClip != null) {
-            WalkingAnimationClip.AddEvent(new AnimationEvent { functionName = "OnCharacterWalk" });
-        }
-        if (AttackAnimationClip != null){
-            AttackAnimationClip.AddEvent(new AnimationEvent { functionName = "OnCharacterAttack" });
-        }
+        if (WalkingAnimationClip != null)
+            WalkingAnimationClip.AddEvent(new AnimationEvent {functionName = "OnCharacterWalk"});
+        if (AttackAnimationClip != null)
+            AttackAnimationClip.AddEvent(new AnimationEvent {functionName = "OnCharacterAttack"});
     }
 
     private void OnCharacterWalk() {
         _character.PlayWalkingSound();
     }
 
-    private void OnCharacterAttack(){
+    private void OnCharacterAttack() {
         _character.PlayAttackSound();
     }
-
 }

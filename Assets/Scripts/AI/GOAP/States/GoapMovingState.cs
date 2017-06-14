@@ -5,13 +5,12 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP.States {
     // Created by:
-    // Hugo Kamps
-    // S1084074
+    // Eelco Eikelboom    Hugo Kamps
+    // S1080542           S1084074
     public class GoapMovingState : AbstractState {
+        private readonly Character.Character _character;
         private readonly EntityPathFollowingBehaviour _pathFollowing;
         private readonly EntitySeekBehaviour _seek;
-
-        private readonly Character.Character _character;
 
         public GoapMovingState(GoapAgent agent) : base(agent) {
             _pathFollowing = new EntityPathFollowingBehaviour(agent.Entity);
@@ -36,9 +35,9 @@ namespace Assets.Scripts.AI.GOAP.States {
         // Determines the behaviour based on whether the character is visible or not
         private void DetermineBehaviour(bool onInit) {
             var request = GetTargetPosition();
-            // Check whether character is visible
+            // Check whether the character is visible
             if (Agent.Entity.Perspective.Visible(request)) {
-                //Use the seek behaviour
+                // Use the seek behaviour
                 Agent.Entity.SetBehaviour(_seek);
                 _seek.UpdateTarget(_character.transform.position);
             }
@@ -50,13 +49,8 @@ namespace Assets.Scripts.AI.GOAP.States {
         }
 
         private GameObject GetTargetPosition() {
-            try {
-                var request = Agent.ActionQueue.Count > 0 ? Agent.ActionQueue.Peek().GetTarget() : null;
-                return request == null ? Agent.gameObject : request;
-            }
-            catch (Exception e) {
-                return null;
-            }
+            var request = Agent.ActionQueue.Count > 0 ? Agent.ActionQueue.Peek().GetTarget() : null;
+            return request ?? Agent.gameObject;
         }
 
         public override void Execute() {
