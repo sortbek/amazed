@@ -19,10 +19,11 @@ namespace Assets.Scripts.Character {
 
         private GridNode _current;
 
-        private AudioSource _jumpland;
-        private AudioSource _jump;
-        private AudioSource _walk;
-        private AudioSource[] _asource;
+
+        public AudioSource Jumpland;
+        public AudioSource Jump;
+        public AudioSource Walk;
+        public AudioSource Attack;
 
         private GameObject _breadcrumb;
         private bool _damageable;
@@ -54,6 +55,8 @@ namespace Assets.Scripts.Character {
             get { return transform.FindDeepChild("Camera"); }
         }
 
+
+
         void Awake() {
             DontDestroyOnLoad(this);
             if (FindObjectsOfType(GetType()).Length > 1) Destroy(gameObject);
@@ -67,12 +70,8 @@ namespace Assets.Scripts.Character {
             JumpForce = 5f;
             Points = 0;
 
-            _asource = GetComponents<AudioSource>();
-            _jumpland = _asource[0];
-            _jump = _asource[1];
-            _walk = _asource[2];
             _damageable = true;
-            
+
             SetStats();
         }
 
@@ -87,10 +86,6 @@ namespace Assets.Scripts.Character {
                 _breadcrumb = Instantiate(BreadcrumbPrefab, loc, transform.rotation);
             }
 
-            if (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d")) {
-                _walk.Play();
-            }
-
             _translation.Update();
             _rotation.Update();
             _interaction.Update();
@@ -98,7 +93,7 @@ namespace Assets.Scripts.Character {
 
         private void OnCollisionEnter(Collision collision) {
             if (collision.gameObject.name.Equals(ColliderTag) && _translation.Airborne) {
-                _jumpland.Play();
+                Jumpland.Play();
                 _translation.Airborne = false;
             }
         }
@@ -120,11 +115,22 @@ namespace Assets.Scripts.Character {
         }
 
         public void PlayJumpSound() {
-            _jump.Play();
+            Jump.Play();
         }
 
         public void PlayWalkingSound() {
-            _walk.Play();
+            if (!Walk.isPlaying){
+                Walk.Play();
+            }
+            
+        }
+
+        public void PlayAttackSound()
+        {
+            if (!Attack.isPlaying){
+                Attack.Play();
+            }
+            
         }
 
         private void OnNodeChanged() {
@@ -138,5 +144,7 @@ namespace Assets.Scripts.Character {
             JumpForce = 5f;
             Points = 0;
         }
+
+
     }
 }
