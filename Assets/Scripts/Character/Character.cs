@@ -20,10 +20,10 @@ namespace Assets.Scripts.Character {
         private GridNode _current;
 
 
-        public AudioSource jumpland;
-        public AudioSource jump;
-        public AudioSource walk;
-        public AudioSource attack;
+        public AudioSource Jumpland;
+        public AudioSource Jump;
+        public AudioSource Walk;
+        public AudioSource Attack;
 
         private GameObject _breadcrumb;
         private bool _damageable;
@@ -93,7 +93,7 @@ namespace Assets.Scripts.Character {
 
         private void OnCollisionEnter(Collision collision) {
             if (collision.gameObject.name.Equals(ColliderTag) && _translation.Airborne) {
-                _jumpland.Play();
+                Jumpland.Play();
                 _translation.Airborne = false;
             }
         }
@@ -115,25 +115,25 @@ namespace Assets.Scripts.Character {
         }
 
         public void PlayJumpSound() {
-            _jump.Play();
+            Jump.Play();
         }
 
         public void PlayWalkingSound() {
-            if (_walk.isPlaying){
+            if (Walk.isPlaying){
 
             }
             else {
-                _walk.Play();
+                Walk.Play();
             }
         }
 
         public void PlayAttackSound()
         {
-            if (_attack.isPlaying){
+            if (Attack.isPlaying){
 
             }
             else{
-                _attack.Play();
+                Attack.Play();
             }
         }
 
