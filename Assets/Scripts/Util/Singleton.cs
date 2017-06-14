@@ -17,11 +17,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
 
     private static object _lock = new object();
 
-    private static bool applicationIsQuitting;
+    private static bool _applicationIsQuitting;
 
     public static T Instance {
         get {
-            if (applicationIsQuitting) return null;
+            if (_applicationIsQuitting) return null;
 
             lock (_lock) {
                 if (_instance == null) {
@@ -65,6 +65,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
     ///     So, this was made to be sure we're not creating that buggy ghost object.
     /// </summary>
     public void OnDestroy() {
-        applicationIsQuitting = true;
+        _applicationIsQuitting = true;
     }
 }

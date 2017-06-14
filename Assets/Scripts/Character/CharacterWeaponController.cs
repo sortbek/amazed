@@ -45,6 +45,7 @@ namespace Assets.Scripts.Character {
                     }
         }
 
+        // Load all weapon prefabs into memory so we can access them later easier.
         private void Load() {
             foreach (var obj in Weapons) {
                 var stat = obj.GetComponent<WeaponStat>();
@@ -53,7 +54,7 @@ namespace Assets.Scripts.Character {
                 var weaponObject = Instantiate(obj, position, _weaponPosition.rotation, _weaponPosition);
                 var weapon = new WeaponObject {Access = stat.Default, Object = weaponObject};
                 weaponObject.SetActive(false);
-                _equipment[stat.WeaponID] = weapon;
+                _equipment[stat.WeaponId] = weapon;
             }
         }
 

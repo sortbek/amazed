@@ -8,7 +8,6 @@ using UnityEngine;
 // S1079065
 namespace Assets.Scripts.PathFinding {
     public class Grid : MonoBehaviour {
-
         private Node[,] _grid;
         private int _gridSizeX, _gridSizeY;
         private float _nodeDiameter;

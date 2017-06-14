@@ -13,7 +13,8 @@ namespace Assets.Scripts.Items.Potions {
         }
 
         public override void Use() {
-            if (Character.Health > Scripts.Character.Character.MAX_HEALTH - Boost) Character.Health = Scripts.Character.Character.MAX_HEALTH;
+            if (Character.Health > Scripts.Character.Character.MaxHealth - Boost)
+                Character.Health = Scripts.Character.Character.MaxHealth;
             else Character.Health += Boost;
             base.Use();
         }

@@ -21,13 +21,13 @@ namespace Assets.Scripts.HUD {
         // Update is called once per frame
         private void Update() {
             CheckEquipment();
-            if (_controller.CurrentWeapon != null) UpdateHUD();
+            if (_controller.CurrentWeapon != null) UpdateHud();
         }
 
-        private void UpdateHUD() {
-            var currentWeaponID = _controller.CurrentWeapon.GetComponent<WeaponStat>().WeaponID;
+        private void UpdateHud() {
+            var currentWeaponId = _controller.CurrentWeapon.GetComponent<WeaponStat>().WeaponId;
             for (var index = 0; index < _weaponImages.Length; index++)
-                _weaponImages[index].color = index == currentWeaponID ? Color.white : Color.black;
+                _weaponImages[index].color = index == currentWeaponId ? Color.white : Color.black;
         }
 
         private void CheckEquipment() {

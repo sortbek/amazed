@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.Actions {
     public class ChargeTargetAction : GoapAction {
-
         public override GameObject GetTarget() {
             return GameManager.Instance.Character.gameObject;
         }
@@ -15,8 +14,7 @@ namespace Assets.Scripts.AI.Actions {
             RegisterPrecondition(GoapCondition.IsDamaged, false);
         }
 
-        public override void Execute() {
-        }
+        public override void Execute() { }
 
         public override bool Completed() {
             return true;

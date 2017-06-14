@@ -7,11 +7,11 @@ namespace Assets.Scripts.HighScores {
     // Hugo Kamps
     // S1084074
     public class HighScoresController {
-        public HighScores HighScores { get; set; }
-
         public HighScoresController() {
             HighScores = new HighScores();
         }
+
+        public HighScores HighScores { get; set; }
 
         public void SaveHighScores(string name, int level, int points) {
             HighScores = LoadHighScores() ?? new HighScores();

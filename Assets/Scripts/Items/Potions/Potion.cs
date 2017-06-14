@@ -5,6 +5,12 @@ namespace Assets.Scripts.Items.Potions {
     // Hugo Kamps
     // S1084074
     public abstract class Potion {
+        protected Potion(Character.Character character) {
+            Amount = 5;
+            Character = character;
+            Duration = 20;
+        }
+
         public bool Active { get; set; }
         public int Amount { get; set; }
         public float Boost { get; set; }
@@ -12,12 +18,6 @@ namespace Assets.Scripts.Items.Potions {
         public Character.Character Character { get; set; }
         public Texture Texture { get; set; }
         public int TimeLeft { get; set; }
-
-        protected Potion(Character.Character character) {
-            Amount = 5;
-            Character = character;
-            Duration = 20;
-        }
 
         public virtual void Use() {
             TimeLeft = Duration;

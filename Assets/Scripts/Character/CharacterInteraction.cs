@@ -11,8 +11,8 @@ namespace Assets.Scripts.Character {
     public class CharacterInteraction {
         private readonly Character _character;
         private float _interactionRadius;
-        private int _layerMask, _propLayer, _playerLayer;
         private Text _interactionText;
+        private int _layerMask, _propLayer, _playerLayer;
 
 
         public CharacterInteraction(Character character) {
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Character {
             var playerLayerMask = 1 << _playerLayer;
 
             var interaction = GameObject.FindGameObjectWithTag("interaction");
-            if(interaction != null) _interactionText = interaction.GetComponent<Text>();
+            if (interaction != null) _interactionText = interaction.GetComponent<Text>();
 
             // Combine layers Prop and Player
             _layerMask = propLayerMask | playerLayerMask;
@@ -63,9 +63,7 @@ namespace Assets.Scripts.Character {
             }
             else {
                 // No props were found => Interaction text is cleared
-                if (SceneManager.GetActiveScene().name == "Game" && Time.timeScale == 1) {
-                    _interactionText.text = "";
-                }
+                if (SceneManager.GetActiveScene().name == "Game" && Time.timeScale == 1) _interactionText.text = "";
             }
         }
 
