@@ -55,7 +55,6 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
         private void OnPathFound(Vector3[] newPath, bool pathFound) {
             if (pathFound)
                 Path = newPath;
-            else Debug.Log("couldn't find path to "+ CurrentRequest);
         }
 
         public bool Reached() {

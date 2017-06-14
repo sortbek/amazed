@@ -16,7 +16,6 @@ namespace Assets.Scripts.AI.Actions {
         }
 
         public override void Execute() {
-            Debug.Log("Finding target");
         }
 
         public override bool Completed() {

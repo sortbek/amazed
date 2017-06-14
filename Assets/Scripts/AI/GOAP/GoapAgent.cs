@@ -59,9 +59,5 @@ namespace Assets.Scripts.AI.GOAP {
         private void Update() {
             if (!Entity.Dead) StateMachine.Update();
         }
-
-        public void Debug(object obj) {
-            UnityEngine.Debug.Log("Agent "+ID+": "+obj);
-        }
     }
 }
