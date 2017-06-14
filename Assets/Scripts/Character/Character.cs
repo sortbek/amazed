@@ -119,22 +119,18 @@ namespace Assets.Scripts.Character {
         }
 
         public void PlayWalkingSound() {
-            if (Walk.isPlaying){
-
-            }
-            else {
+            if (!Walk.isPlaying){
                 Walk.Play();
             }
+            
         }
 
         public void PlayAttackSound()
         {
-            if (Attack.isPlaying){
-
-            }
-            else{
+            if (!Attack.isPlaying){
                 Attack.Play();
             }
+            
         }
 
         private void OnNodeChanged() {
