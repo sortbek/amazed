@@ -23,6 +23,7 @@ namespace Assets.Scripts.Character {
         private AudioSource jumpland;
         private AudioSource jump;
         private AudioSource walk;
+        private AudioSource attack;
         public AudioSource[] asource;
         
 
@@ -45,6 +46,8 @@ namespace Assets.Scripts.Character {
         public GameObject Breadcrumb;
         private GameObject Breadcrumbgo;
 
+
+
         void Awake() {
             DontDestroyOnLoad(this);
             if (FindObjectsOfType(GetType()).Length > 1) Destroy(gameObject);
@@ -62,6 +65,7 @@ namespace Assets.Scripts.Character {
             jumpland = asource[0];
             jump = asource[1];
             walk = asource[2];
+            attack = asource[3];
 
             SetStats();
 
@@ -79,10 +83,16 @@ namespace Assets.Scripts.Character {
                 Breadcrumbgo = Instantiate(Breadcrumb, loc, transform.rotation);
             }
 
-            if (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d"))
-            {
-                walk.Play();
+            //if (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d"))
+            //{
+            //    walk.Play();
+            //}
+
+            if (Input.GetKey(KeyCode.W)) {
+                PlayWalkingSound();
             }
+
+
 
             _translation.Update();
             _rotation.Update();
@@ -108,7 +118,24 @@ namespace Assets.Scripts.Character {
         }
 
         public void PlayWalkingSound() {
-            walk.Play();
+            if (walk.isPlaying){
+
+            }
+            else {
+                walk.Play();
+            }
+        }
+
+        public void PlayAttackSound()
+        {
+            if (attack.isPlaying)
+            {
+
+            }
+            else
+            {
+                attack.Play();
+            }
         }
 
         private void OnNodeChanged() {
@@ -127,5 +154,7 @@ namespace Assets.Scripts.Character {
             JumpForce = 5f;
             Points = 0;
         }
+
+
     }
 }
