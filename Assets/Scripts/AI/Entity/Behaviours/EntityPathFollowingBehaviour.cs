@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
+
     // Created by:
     // Eelco Eikelboom
     // S1080542
@@ -49,7 +50,7 @@ namespace Assets.Scripts.AI.Entity.Behaviours {
             target.y = 0.0f;
             var destination = Vector3.MoveTowards(Entity.transform.position, target,
                 Time.deltaTime * _speed);
-            // Rotate towards the target
+            //Rotate towards the target
             Entity.Rotate(destination);
             return destination;
         }

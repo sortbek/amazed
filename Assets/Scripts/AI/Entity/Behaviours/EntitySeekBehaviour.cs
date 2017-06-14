@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 
 namespace Assets.Scripts.AI.Entity.Behaviours {
+
     // Created by:
     // Eelco Eikelboom
     // S1080542
     public class EntitySeekBehaviour : AbstractEntityBehaviour {
-        private const float DistanceOffset = 3.3f;
 
+        private const float DistanceOffset = 3.3f;
         private Vector3? _target;
 
         public EntitySeekBehaviour(LivingEntity entity) : base(entity) { }

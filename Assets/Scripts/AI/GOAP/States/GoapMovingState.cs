@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.AI.GOAP.States {
     // Created by:
-    // Hugo Kamps
-    // S1084074
+    // Eelco Eikelboom    Hugo Kamps
+    // S1080542           S1084074
     public class GoapMovingState : AbstractState {
         private readonly Character.Character _character;
         private readonly EntityPathFollowingBehaviour _pathFollowing;
@@ -42,20 +42,16 @@ namespace Assets.Scripts.AI.GOAP.States {
                 _seek.UpdateTarget(_character.transform.position);
             }
             else {
-                // Not visible -> Use pathplanning
+                //Not visible -> Use pathplanning
                 Agent.Entity.SetBehaviour(_pathFollowing);
                 if (onInit) _pathFollowing.UpdateRequest(request.transform.position);
             }
         }
 
         private GameObject GetTargetPosition() {
-            try {
-                var request = Agent.ActionQueue.Count > 0 ? Agent.ActionQueue.Peek().GetTarget() : null;
-                return request ?? Agent.gameObject;
-            }
-            catch (Exception e) {
-                return null;
-            }
+            if (Agent == null) return null;
+            var request = Agent.ActionQueue.Count > 0 ? Agent.ActionQueue.Peek().GetTarget() : null;
+            return request ?? Agent.gameObject;
         }
 
         public override void Execute() {

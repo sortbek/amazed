@@ -67,10 +67,9 @@ namespace Assets.Scripts.AI.Entity {
         }
 
         private void TakeDamage(float damage) {
-            if (_hittable) {
-                Health -= damage;
-                StartCoroutine(DamageCooldown());
-            }
+            if (!_hittable) return;
+            Health -= damage;
+            StartCoroutine(DamageCooldown());
         }
 
         private IEnumerator DamageCooldown() {
