@@ -20,11 +20,10 @@ namespace Assets.Scripts.Character {
         private GridNode _current;
 
 
-        private AudioSource _jumpland;
-        private AudioSource _jump;
-        private AudioSource _walk;
-        private AudioSource _attack;
-        private AudioSource[] _asource;
+        public AudioSource _jumpland;
+        public AudioSource _jump;
+        public AudioSource _walk;
+        public AudioSource _attack;
 
         private GameObject _breadcrumb;
         private bool _damageable;
@@ -71,11 +70,6 @@ namespace Assets.Scripts.Character {
             JumpForce = 5f;
             Points = 0;
 
-            _asource = GetComponents<AudioSource>();
-            _jumpland = _asource[0];
-            _jump = _asource[1];
-            _walk = _asource[2];
-            _attack = _asource[3];
             _damageable = true;
 
             SetStats();
