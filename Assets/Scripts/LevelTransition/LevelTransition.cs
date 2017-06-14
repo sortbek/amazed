@@ -15,7 +15,6 @@ namespace Assets.Scripts.LevelTransition {
             Cursor.lockState = CursorLockMode.None;
 
             _character = FindObjectOfType<Character.Character>();
-            _character.gameObject.SetActive(false);
             var levelPoints = 1000 - (int) PlayerPrefs.GetFloat("sec");
             _character.Points += levelPoints;
 
